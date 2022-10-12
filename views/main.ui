@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>847</height>
+    <height>929</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -77,7 +77,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Dateneingabe</string>
@@ -96,7 +96,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Analysewerte</string>
@@ -115,7 +115,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>PNP Eingang</string>
@@ -134,7 +134,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>PNP AHV Output</string>
@@ -153,7 +153,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Auftragformular</string>
@@ -210,7 +210,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Neue Funktion</string>
@@ -239,7 +239,7 @@
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hilfe zur Nutzung von Quokka2.0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>? Hilfe</string>
@@ -294,7 +294,7 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(239, 239, 239);</string>
+               <string notr="true">color: rgb(0, 0, 0);</string>
               </property>
               <property name="title">
                <string>Werte einlesen</string>
@@ -343,7 +343,7 @@
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: transparent;</string>
+                    <string notr="true">color: rgb(0, 0, 0);</string>
                    </property>
                    <property name="text">
                     <string>Excel Pfad:</string>
@@ -376,7 +376,7 @@
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wähle die Excel aus oder gib einen gültigen Pfad zur Excel ein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true"/>
+                    <string notr="true">color: rgb(0, 0, 0);</string>
                    </property>
                    <property name="text">
                     <string>...</string>
@@ -413,7 +413,7 @@
                   <bool>false</bool>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true"/>
+                  <string notr="true">color: rgb(0, 0, 0);</string>
                  </property>
                  <property name="text">
                   <string>Probe auswählen</string>
@@ -484,6 +484,10 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                   </property>
                    <property name="text">
                     <string>Projekt Nr.:</string>
                    </property>
@@ -510,6 +514,10 @@
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
                    </property>
                    <property name="text">
                     <string>Bezeichnung:</string>
@@ -538,6 +546,10 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                   </property>
                    <property name="text">
                     <string>Erzeuger:</string>
                    </property>
@@ -564,6 +576,10 @@
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
                    </property>
                    <property name="text">
                     <string>Herkunft/Ort:</string>
@@ -592,6 +608,10 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                   </property>
                    <property name="text">
                     <string>AVV:</string>
                    </property>
@@ -619,6 +639,10 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                   </property>
                    <property name="text">
                     <string>Menge:</string>
                    </property>
@@ -645,6 +669,10 @@
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
                    </property>
                    <property name="text">
                     <string>Prüfumfang:</string>
@@ -680,6 +708,10 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                   </property>
                    <property name="text">
                     <string>Farbe:</string>
                    </property>
@@ -706,6 +738,10 @@
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
                    </property>
                    <property name="text">
                     <string>Konsistenz:</string>
@@ -734,6 +770,10 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                   </property>
                    <property name="text">
                     <string>Geruch:</string>
                    </property>
@@ -760,6 +800,10 @@
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
                    </property>
                    <property name="text">
                     <string>Bemerkungen:</string>
@@ -799,6 +843,9 @@
                       <bold>true</bold>
                      </font>
                     </property>
+                    <property name="styleSheet">
+                     <string>background-color: none;color: black</string>
+                    </property>
                     <property name="text">
                      <string>Prüfauftrag:</string>
                     </property>
@@ -814,6 +861,9 @@
                         <pointsize>12</pointsize>
                        </font>
                       </property>
+                      <property name="styleSheet">
+                       <string>background-color: none;color: black</string>
+                      </property>
                       <property name="text">
                        <string>ID</string>
                       </property>
@@ -826,6 +876,9 @@
                         <family>Californian FB</family>
                         <pointsize>12</pointsize>
                        </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string>background-color: none;color: black</string>
                       </property>
                       <property name="text">
                        <string>Vorprüfung</string>
@@ -872,6 +925,9 @@
                         <pointsize>12</pointsize>
                        </font>
                       </property>
+                      <property name="styleSheet">
+                       <string>background-color: none;color: black</string>
+                      </property>
                       <property name="text">
                        <string>AHV</string>
                       </property>
@@ -884,6 +940,9 @@
                         <family>Californian FB</family>
                         <pointsize>12</pointsize>
                        </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string>background-color: none;color: black</string>
                       </property>
                       <property name="text">
                        <string>Erzeuger</string>
@@ -911,6 +970,9 @@
                         <bold>true</bold>
                        </font>
                       </property>
+                      <property name="styleSheet">
+                       <string>background-color: none;color: black</string>
+                      </property>
                       <property name="text">
                        <string>Probeneingang:</string>
                       </property>
@@ -925,6 +987,9 @@
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string>background-color: none;color: black</string>
                       </property>
                       <property name="text">
                        <string>Untersuchungszeitraum:</string>
@@ -947,7 +1012,7 @@
                            </font>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(255, 255, 255);</string>
+                           <string notr="true">background-color: none;color: black</string>
                           </property>
                           <property name="dateTime">
                            <datetime>
@@ -970,7 +1035,7 @@
                            </font>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: rgb(255, 255, 255);</string>
+                           <string notr="true">background-color: none;color: black</string>
                           </property>
                           <property name="dateTime">
                            <datetime>
@@ -996,6 +1061,9 @@
                             <pointsize>10</pointsize>
                            </font>
                           </property>
+                          <property name="styleSheet">
+                           <string>background-color: none;color: black</string>
+                          </property>
                           <property name="text">
                            <string>Anfang</string>
                           </property>
@@ -1011,6 +1079,9 @@
                             <family>Californian FB</family>
                             <pointsize>10</pointsize>
                            </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string>background-color: none;color: black</string>
                           </property>
                           <property name="text">
                            <string>Ende</string>
@@ -1039,7 +1110,7 @@
                        </font>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">color: black;</string>
+                       <string notr="true">background-color: white;color: black</string>
                       </property>
                       <property name="gridVisible">
                        <bool>true</bool>
@@ -1085,6 +1156,9 @@
                           <bold>true</bold>
                          </font>
                         </property>
+                        <property name="styleSheet">
+                         <string>background-color: none;color: black</string>
+                        </property>
                         <property name="text">
                          <string>H2 [ppm]:</string>
                         </property>
@@ -1112,6 +1186,9 @@
                           <bold>true</bold>
                          </font>
                         </property>
+                        <property name="styleSheet">
+                         <string>background-color: none;color: black</string>
+                        </property>
                         <property name="text">
                          <string>NH3 [ppm]:</string>
                         </property>
@@ -1138,6 +1215,9 @@
                           <weight>75</weight>
                           <bold>true</bold>
                          </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string>background-color: none;color: black</string>
                         </property>
                         <property name="text">
                          <string>Brandtest:</string>
@@ -1203,6 +1283,9 @@
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
+                   </property>
                    <property name="text">
                     <string>Anhänge:</string>
                    </property>
@@ -1215,6 +1298,9 @@
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
                    </property>
                    <property name="text">
                     <string>RFA</string>
@@ -1232,6 +1318,9 @@
                      <pointsize>12</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
+                   </property>
                    <property name="text">
                     <string>DOC</string>
                    </property>
@@ -1247,6 +1336,9 @@
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
                    </property>
                    <property name="text">
                     <string>ICP</string>
@@ -1264,6 +1356,9 @@
                      <pointsize>12</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
+                   </property>
                    <property name="text">
                     <string>TOC/EC</string>
                    </property>
@@ -1279,6 +1374,9 @@
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
                    </property>
                    <property name="text">
                     <string>Chlorid</string>
@@ -1296,6 +1394,9 @@
                      <pointsize>12</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
+                   </property>
                    <property name="text">
                     <string>Fotos</string>
                    </property>
@@ -1311,6 +1412,9 @@
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
                    </property>
                    <property name="text">
                     <string>Fremdanalyse</string>
@@ -1328,6 +1432,9 @@
                      <pointsize>12</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
+                   </property>
                    <property name="text">
                     <string>PNP</string>
                    </property>
@@ -1343,6 +1450,9 @@
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string>background-color: none;color: black</string>
                    </property>
                    <property name="text">
                     <string>Probenbegleitprotokoll</string>
@@ -4066,7 +4176,7 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: none</string>
+             <string notr="true">background-color: none;color: black</string>
             </property>
             <property name="text">
              <string>AQS erstellen</string>
@@ -4172,7 +4282,7 @@ color: rgba(0, 54, 38, 255);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: transparent;</string>
+             <string notr="true">color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
              <string>v0.1</string>
@@ -4189,6 +4299,9 @@ color: rgba(0, 54, 38, 255);</string>
            <family>Californian FB</family>
            <pointsize>14</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 0, 0);</string>
          </property>
          <property name="text">
           <string>©</string>
