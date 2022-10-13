@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1030</width>
-    <height>928</height>
+    <width>1191</width>
+    <height>952</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,8 +44,20 @@
     </property>
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QFrame" name="verticalFrame_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(220, 220, 220); text-align:left</string>
         </property>
@@ -57,7 +69,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
-          <number>10</number>
+          <number>20</number>
          </property>
          <property name="leftMargin">
           <number>10</number>
@@ -72,99 +84,128 @@
           <number>10</number>
          </property>
          <item>
-          <widget class="QPushButton" name="nav_data_btn">
-           <property name="font">
-            <font>
-             <family>Californian FB</family>
-             <pointsize>12</pointsize>
-            </font>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <property name="spacing">
+            <number>20</number>
            </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
+           <property name="leftMargin">
+            <number>10</number>
            </property>
-           <property name="text">
-            <string>Dateneingabe</string>
+           <property name="topMargin">
+            <number>10</number>
            </property>
-           <property name="flat">
-            <bool>true</bool>
+           <property name="rightMargin">
+            <number>10</number>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="nav_analysis_btn">
-           <property name="font">
-            <font>
-             <family>Californian FB</family>
-             <pointsize>12</pointsize>
-            </font>
+           <property name="bottomMargin">
+            <number>10</number>
            </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
-           </property>
-           <property name="text">
-            <string>Analysewerte</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="nav_pnp_entry_btn">
-           <property name="font">
-            <font>
-             <family>Californian FB</family>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
-           </property>
-           <property name="text">
-            <string>PNP Eingang</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="nav_pnp_output_btn">
-           <property name="font">
-            <font>
-             <family>Californian FB</family>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
-           </property>
-           <property name="text">
-            <string>PNP AHV Output</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="nav_order_form_btn">
-           <property name="font">
-            <font>
-             <family>Californian FB</family>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
-           </property>
-           <property name="text">
-            <string>Auftragformular</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
+           <item>
+            <widget class="QPushButton" name="nav_data_btn">
+             <property name="font">
+              <font>
+               <family>Leelawadee UI</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>Dateneingabe</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="nav_analysis_btn">
+             <property name="font">
+              <font>
+               <family>Leelawadee UI</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>Analysewerte</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="nav_pnp_entry_btn">
+             <property name="font">
+              <font>
+               <family>Leelawadee UI</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>PNP Eingang</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="nav_pnp_output_btn">
+             <property name="font">
+              <font>
+               <family>Leelawadee UI</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>PNP AHV Output</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="nav_order_form_btn">
+             <property name="font">
+              <font>
+               <family>Leelawadee UI</family>
+               <pointsize>12</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>Auftragformular</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <spacer name="verticalSpacer">
@@ -190,7 +231,7 @@
           <widget class="QLabel" name="label_7">
            <property name="font">
             <font>
-             <family>Californian FB</family>
+             <family>Leelawadee UI</family>
              <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -208,8 +249,10 @@
           <widget class="QPushButton" name="pushButton_5">
            <property name="font">
             <font>
-             <family>Californian FB</family>
+             <family>Leelawadee UI</family>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -234,8 +277,10 @@
           <widget class="QPushButton" name="nav_help_btn">
            <property name="font">
             <font>
-             <family>Californian FB</family>
+             <family>Leelawadee UI</family>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="toolTip">
@@ -279,7 +324,7 @@
 color: black</string>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="data">
            <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -340,8 +385,8 @@ color: black</string>
                    </property>
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -359,6 +404,7 @@ background-color:transparent;</string>
                   <widget class="QLineEdit" name="excel_path_lineedit">
                    <property name="font">
                     <font>
+                     <family>Leelawadee UI</family>
                      <pointsize>12</pointsize>
                     </font>
                    </property>
@@ -401,7 +447,7 @@ color: rgb(36, 115, 193);</string>
                  </property>
                  <property name="font">
                   <font>
-                   <family>Californian FB</family>
+                   <family>Leelawadee UI</family>
                    <pointsize>12</pointsize>
                    <weight>50</weight>
                    <italic>false</italic>
@@ -439,13 +485,6 @@ color: rgb(36, 115, 193);</string>
              </widget>
             </item>
             <item>
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QGroupBox" name="groupBox_2">
               <property name="font">
                <font>
@@ -461,6 +500,9 @@ color: rgb(0, 0, 0);</string>
                <string>Daten erfassen</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <property name="spacing">
+                <number>10</number>
+               </property>
                <property name="leftMargin">
                 <number>10</number>
                </property>
@@ -485,8 +527,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_3">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -502,9 +544,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="0" column="1">
                   <widget class="QLineEdit" name="project_nr_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -517,8 +566,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_6">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -534,9 +583,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="1" column="1">
                   <widget class="QLineEdit" name="name_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -549,8 +605,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_9">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -566,9 +622,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="2" column="1">
                   <widget class="QLineEdit" name="person_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -581,8 +644,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_10">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -598,9 +661,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="3" column="1">
                   <widget class="QLineEdit" name="location_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -613,8 +683,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_11">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -630,9 +700,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="4" column="1">
                   <widget class="QLineEdit" name="avv_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -645,8 +722,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_12">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -662,9 +739,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="5" column="1">
                   <widget class="QLineEdit" name="amount_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -677,8 +761,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_13">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -694,9 +778,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="6" column="1">
                   <widget class="QLineEdit" name="probe_amount_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -716,8 +807,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_14">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -733,9 +824,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="8" column="1">
                   <widget class="QLineEdit" name="color_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -748,8 +846,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_15">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -765,9 +863,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="9" column="1">
                   <widget class="QLineEdit" name="consistency_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -780,8 +885,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_16">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -797,9 +902,16 @@ background-color: transparent;</string>
                  </item>
                  <item row="10" column="1">
                   <widget class="QLineEdit" name="smell_lineedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -812,8 +924,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_17">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -829,9 +941,22 @@ background-color: transparent;</string>
                  </item>
                  <item row="11" column="1">
                   <widget class="QTextEdit" name="remark_textedit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>100</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -844,6 +969,12 @@ color: rgb(0, 0, 0);</string>
                </item>
                <item>
                 <widget class="QFrame" name="frame">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
                    <widget class="QLabel" name="label_18">
@@ -855,8 +986,8 @@ color: rgb(0, 0, 0);</string>
                     </property>
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -875,8 +1006,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_10">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -891,8 +1022,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_11">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -922,8 +1053,8 @@ color: rgb(0, 0, 0);</string>
                     </property>
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -942,8 +1073,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_12">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -958,8 +1089,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_13">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -985,8 +1116,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLabel" name="label_4">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -1003,8 +1134,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLabel" name="label_19">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -1028,8 +1159,8 @@ color: rgb(0, 0, 0);</string>
                          <widget class="QDateEdit" name="dateEdit_2">
                           <property name="font">
                            <font>
-                            <family>Californian FB</family>
-                            <pointsize>12</pointsize>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
                            </font>
                           </property>
                           <property name="styleSheet">
@@ -1049,11 +1180,11 @@ color: rgb(0, 0, 0);</string>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QDateEdit" name="dateEdit_3">
+                         <widget class="QDateEdit" name="end_dateedit">
                           <property name="font">
                            <font>
-                            <family>Californian FB</family>
-                            <pointsize>12</pointsize>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
                            </font>
                           </property>
                           <property name="styleSheet">
@@ -1122,14 +1253,14 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCalendarWidget" name="calendarWidget">
                       <property name="maximumSize">
                        <size>
-                        <width>312</width>
-                        <height>200</height>
+                        <width>16777215</width>
+                        <height>16777215</height>
                        </size>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -1173,8 +1304,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLabel" name="label_23">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                           <weight>75</weight>
                           <bold>true</bold>
                          </font>
@@ -1191,7 +1322,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_2">
                         <property name="font">
                          <font>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -1204,8 +1336,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLabel" name="label_24">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                           <weight>75</weight>
                           <bold>true</bold>
                          </font>
@@ -1222,7 +1354,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_12">
                         <property name="font">
                          <font>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -1235,8 +1368,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLabel" name="label_25">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                           <weight>75</weight>
                           <bold>true</bold>
                          </font>
@@ -1253,7 +1386,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_13">
                         <property name="font">
                          <font>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -1303,8 +1437,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_44">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1321,8 +1455,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_2">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1342,8 +1476,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_3">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1361,8 +1495,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1380,8 +1514,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_4">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1399,8 +1533,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_5">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1418,8 +1552,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_6">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1437,8 +1571,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_7">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1456,8 +1590,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_8">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1475,8 +1609,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QCheckBox" name="checkBox_9">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1509,6 +1643,13 @@ color: rgb(0, 0, 0);</string>
              </widget>
             </item>
             <item>
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="Line" name="line_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1523,8 +1664,8 @@ color: rgb(0, 0, 0);</string>
              <widget class="QGroupBox" name="horizontalGroupBox_6">
               <property name="font">
                <font>
-                <family>Californian FB</family>
-                <pointsize>11</pointsize>
+                <family>Leelawadee UI</family>
+                <pointsize>10</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -1574,8 +1715,8 @@ color: black</string>
                   <widget class="QLabel" name="label_26">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1592,8 +1733,8 @@ color: black</string>
                   <widget class="QLabel" name="label_27">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1610,8 +1751,8 @@ color: black</string>
                   <widget class="QLabel" name="label_28">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1628,8 +1769,8 @@ color: black</string>
                   <widget class="QLabel" name="label_29">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1646,8 +1787,8 @@ color: black</string>
                   <widget class="QLabel" name="label_30">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1664,8 +1805,8 @@ color: black</string>
                   <widget class="QLabel" name="label_31">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1682,8 +1823,8 @@ color: black</string>
                   <widget class="QLabel" name="label_32">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1700,8 +1841,8 @@ color: black</string>
                   <widget class="QLabel" name="label_33">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1718,8 +1859,8 @@ color: black</string>
                   <widget class="QLabel" name="label_34">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1736,8 +1877,8 @@ color: black</string>
                   <widget class="QLineEdit" name="ph_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1749,8 +1890,8 @@ color: black</string>
                   <widget class="QLineEdit" name="leitfaehigkeit_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1762,8 +1903,8 @@ color: black</string>
                   <widget class="QLineEdit" name="feuchte_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1775,8 +1916,8 @@ color: black</string>
                   <widget class="QLineEdit" name="chrome_vi_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1788,8 +1929,8 @@ color: black</string>
                   <widget class="QLineEdit" name="lipos_ts_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1801,8 +1942,8 @@ color: black</string>
                   <widget class="QLineEdit" name="lipos_os_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1814,8 +1955,8 @@ color: black</string>
                   <widget class="QLineEdit" name="gluehverlus_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1827,8 +1968,8 @@ color: black</string>
                   <widget class="QLineEdit" name="doc_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1840,8 +1981,8 @@ color: black</string>
                   <widget class="QLineEdit" name="tds_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1875,8 +2016,8 @@ color: black</string>
                   <widget class="QLabel" name="label_35">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1893,8 +2034,8 @@ color: black</string>
                   <widget class="QLineEdit" name="mo_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1906,8 +2047,8 @@ color: black</string>
                   <widget class="QLabel" name="label_36">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1924,8 +2065,8 @@ color: black</string>
                   <widget class="QLineEdit" name="se_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1937,8 +2078,8 @@ color: black</string>
                   <widget class="QLabel" name="label_37">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1955,8 +2096,8 @@ color: black</string>
                   <widget class="QLineEdit" name="sb_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1968,8 +2109,8 @@ color: black</string>
                   <widget class="QLabel" name="label_38">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -1986,8 +2127,8 @@ color: black</string>
                   <widget class="QLineEdit" name="fluorid_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1999,8 +2140,8 @@ color: black</string>
                   <widget class="QLabel" name="label_39">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -2017,8 +2158,8 @@ color: black</string>
                   <widget class="QLineEdit" name="chlorid_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2026,12 +2167,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="6" column="0">
+                 <item row="5" column="0">
                   <widget class="QLabel" name="label_42">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -2044,12 +2185,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="6" column="1">
+                 <item row="5" column="1">
                   <widget class="QLineEdit" name="toc_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2057,12 +2198,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="7" column="0">
+                 <item row="6" column="0">
                   <widget class="QLabel" name="label_43">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -2075,12 +2216,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="7" column="1">
+                 <item row="6" column="1">
                   <widget class="QLineEdit" name="ec_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2088,12 +2229,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="0">
+                 <item row="7" column="0">
                   <widget class="QLabel" name="label_40">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -2106,12 +2247,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="1">
+                 <item row="7" column="1">
                   <widget class="QLineEdit" name="nh3_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2119,12 +2260,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="0">
+                 <item row="8" column="0">
                   <widget class="QLabel" name="label_41">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -2137,12 +2278,12 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="1">
+                 <item row="8" column="1">
                   <widget class="QLineEdit" name="h2_lineedit">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2150,8 +2291,16 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="10" column="0">
+                 <item row="9" column="0">
                   <widget class="QLabel" name="label_84">
+                   <property name="font">
+                    <font>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: transparent</string>
                    </property>
@@ -2160,8 +2309,14 @@ color: black</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="10" column="1">
+                 <item row="9" column="1">
                   <widget class="QLineEdit" name="lineEdit">
+                   <property name="font">
+                    <font>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
@@ -2189,14 +2344,29 @@ color: black</string>
           </widget>
           <widget class="QWidget" name="pnp_entry">
            <layout class="QVBoxLayout" name="verticalLayout_11">
+            <property name="spacing">
+             <number>10</number>
+            </property>
+            <property name="leftMargin">
+             <number>10</number>
+            </property>
+            <property name="topMargin">
+             <number>10</number>
+            </property>
+            <property name="rightMargin">
+             <number>10</number>
+            </property>
+            <property name="bottomMargin">
+             <number>10</number>
+            </property>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
                <widget class="QLabel" name="label_45">
                 <property name="font">
                  <font>
-                  <family>Californian FB</family>
-                  <pointsize>13</pointsize>
+                  <family>Leelawadee UI</family>
+                  <pointsize>12</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
@@ -2210,7 +2380,7 @@ color: black</string>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_32">
+               <widget class="QLineEdit" name="nachweisnr_lineedit">
                 <property name="font">
                  <font>
                   <family>Californian FB</family>
@@ -2226,7 +2396,7 @@ color: black</string>
                <widget class="QPushButton" name="pushButton_2">
                 <property name="font">
                  <font>
-                  <family>Californian FB</family>
+                  <family>Leelawadee UI</family>
                   <pointsize>12</pointsize>
                  </font>
                 </property>
@@ -2244,7 +2414,7 @@ color: black</string>
              <widget class="QTabWidget" name="tabWidget">
               <property name="font">
                <font>
-                <family>Californian FB</family>
+                <family>Leelawadee UI</family>
                 <pointsize>11</pointsize>
                </font>
               </property>
@@ -2260,6 +2430,21 @@ color: rgb(0, 0, 0);</string>
                 <string>Allgemeine Angaben</string>
                </attribute>
                <layout class="QVBoxLayout" name="verticalLayout_12">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <property name="leftMargin">
+                 <number>10</number>
+                </property>
+                <property name="topMargin">
+                 <number>10</number>
+                </property>
+                <property name="rightMargin">
+                 <number>10</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>10</number>
+                </property>
                 <item>
                  <layout class="QFormLayout" name="formLayout_6">
                   <property name="horizontalSpacing">
@@ -2268,12 +2453,24 @@ color: rgb(0, 0, 0);</string>
                   <property name="verticalSpacing">
                    <number>10</number>
                   </property>
+                  <property name="leftMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>10</number>
+                  </property>
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_46">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2287,8 +2484,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_47">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2302,8 +2499,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_48">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2317,8 +2514,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_49">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2332,8 +2529,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_50">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2347,8 +2544,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_51">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2362,8 +2559,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_52">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2377,8 +2574,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLineEdit" name="lineEdit_33">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -2390,12 +2587,22 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QDateEdit" name="dateEdit_4">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    </property>
+                    <property name="dateTime">
+                     <datetime>
+                      <hour>0</hour>
+                      <minute>0</minute>
+                      <second>0</second>
+                      <year>2022</year>
+                      <month>10</month>
+                      <day>13</day>
+                     </datetime>
                     </property>
                    </widget>
                   </item>
@@ -2403,8 +2610,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLineEdit" name="lineEdit_35">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -2418,12 +2625,25 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_14">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>Jahreskontrolle</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="checkBox_20">
+                      <property name="font">
+                       <font>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Deklarationsanalyse</string>
                       </property>
                      </widget>
                     </item>
@@ -2433,8 +2653,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QCheckBox" name="checkBox_15">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="text">
@@ -2446,14 +2666,27 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_34">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: rgb(255, 255, 255);</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_19">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </item>
@@ -2463,8 +2696,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLineEdit" name="lineEdit_37">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -2478,8 +2711,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLineEdit" name="lineEdit_38">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -2489,6 +2722,19 @@ color: rgb(0, 0, 0);</string>
                     </item>
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout_17">
+                      <item>
+                       <spacer name="horizontalSpacer_21">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
                       <item>
                        <widget class="QCheckBox" name="checkBox_22">
                         <property name="font">
@@ -2538,8 +2784,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_16">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -2551,8 +2797,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_18">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -2564,25 +2810,12 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_19">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>LZ</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_20">
-                      <property name="font">
-                       <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>RM</string>
                       </property>
                      </widget>
                     </item>
@@ -2592,8 +2825,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QCheckBox" name="checkBox_17">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="text">
@@ -2605,14 +2838,27 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_36">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">background-color: rgb(255, 255, 255);</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_20">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </item>
@@ -2627,14 +2873,35 @@ color: rgb(0, 0, 0);</string>
                 <string>Vor-Ort-Gelegenheiten</string>
                </attribute>
                <layout class="QVBoxLayout" name="verticalLayout_13">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <property name="leftMargin">
+                 <number>10</number>
+                </property>
+                <property name="topMargin">
+                 <number>10</number>
+                </property>
+                <property name="rightMargin">
+                 <number>10</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>10</number>
+                </property>
                 <item>
                  <layout class="QFormLayout" name="formLayout_8">
+                  <property name="horizontalSpacing">
+                   <number>10</number>
+                  </property>
+                  <property name="verticalSpacing">
+                   <number>10</number>
+                  </property>
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_63">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2661,140 +2928,13 @@ color: rgb(0, 0, 0);</string>
                     <property name="maximumSize">
                      <size>
                       <width>16777215</width>
-                      <height>16777215</height>
+                      <height>80</height>
                      </size>
                     </property>
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(255, 255, 255);</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_25">
-                  <property name="spacing">
-                   <number>10</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_60">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Farbe:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_45">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(255, 255, 255);</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_61">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Geruch:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_46">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(255, 255, 255);</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_62">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Konsistenz:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_47">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -2806,12 +2946,18 @@ color: rgb(0, 0, 0);</string>
                 </item>
                 <item>
                  <layout class="QFormLayout" name="formLayout_7">
-                  <item row="0" column="0">
+                  <property name="horizontalSpacing">
+                   <number>10</number>
+                  </property>
+                  <property name="verticalSpacing">
+                   <number>10</number>
+                  </property>
+                  <item row="3" column="0">
                    <widget class="QLabel" name="label_53">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2821,12 +2967,12 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
+                  <item row="3" column="1">
                    <widget class="QLineEdit" name="lineEdit_39">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -2834,12 +2980,12 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="0">
+                  <item row="4" column="0">
                    <widget class="QLabel" name="label_54">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2849,18 +2995,21 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1">
+                  <item row="4" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_18">
                     <item>
                      <widget class="QCheckBox" name="checkBox_24">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>keine</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -2868,8 +3017,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_34">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -2883,8 +3032,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QCheckBox" name="checkBox_25">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="text">
@@ -2896,8 +3045,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_41">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -2905,16 +3054,29 @@ color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
                       </item>
+                      <item>
+                       <spacer name="horizontalSpacer_17">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
                      </layout>
                     </item>
                    </layout>
                   </item>
-                  <item row="2" column="0">
+                  <item row="5" column="0">
                    <widget class="QLabel" name="label_55">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -2924,121 +3086,21 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="label_56">
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Entnahmetiefe:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_57">
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Art, Anzahl &amp; Volumen d. Probe:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLineEdit" name="lineEdit_40">
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(255, 255, 255);</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_58">
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Probenvorbereitung:</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="5" column="1">
-                   <widget class="QLineEdit" name="lineEdit_43">
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(255, 255, 255);</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="label_59">
-                    <property name="font">
-                     <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Vor-Ort-Untersuchung:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="1">
-                   <layout class="QHBoxLayout" name="horizontalLayout_22">
-                    <item>
-                     <widget class="QLineEdit" name="lineEdit_44">
-                      <property name="font">
-                       <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(255, 255, 255);</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item row="2" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_26">
                     <item>
                      <widget class="QCheckBox" name="checkBox_35">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>Schaufel</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -3046,12 +3108,15 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_36">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>Eimer</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -3059,8 +3124,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_38">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -3074,8 +3139,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QCheckBox" name="checkBox_37">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="text">
@@ -3087,8 +3152,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_48">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -3096,16 +3161,90 @@ color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
                       </item>
+                      <item>
+                       <spacer name="horizontalSpacer_18">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
                      </layout>
                     </item>
                    </layout>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="label_56">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Entnahmetiefe:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="label_57">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Art, Anzahl &amp; Volumen d. Probe:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QLineEdit" name="lineEdit_40">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    </property>
+                    <property name="text">
+                     <string>5 L Mischprobe</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="label_58">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Probenvorbereitung:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QLineEdit" name="lineEdit_43">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3113,12 +3252,47 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="0">
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="label_59">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Vor-Ort-Untersuchung:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <layout class="QHBoxLayout" name="horizontalLayout_22">
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_44">
+                      <property name="font">
+                       <font>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(255, 255, 255);</string>
+                      </property>
+                      <property name="text">
+                       <string>Organoleptische Kontrolle</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item row="10" column="0">
                    <widget class="QLabel" name="label_64">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3128,12 +3302,24 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1">
+                  <item row="10" column="1">
                    <widget class="QTextEdit" name="textEdit_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>100</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3141,12 +3327,12 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="0">
+                  <item row="11" column="0">
                    <widget class="QLabel" name="label_65">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3156,12 +3342,151 @@ color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="1">
+                  <item row="11" column="1">
                    <widget class="QLineEdit" name="lineEdit_42">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    </property>
+                    <property name="text">
+                     <string>44579 Castrop-Rauxel</string>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLineEdit" name="lineEdit_3">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>bis ca. 30 cm</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_62">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Konsistenz:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_61">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Geruch:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_60">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Farbe:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="lineEdit_45">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="lineEdit_46">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="lineEdit_47">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3194,8 +3519,8 @@ color: rgb(0, 0, 0);</string>
                <widget class="QPushButton" name="pushButton_7">
                 <property name="font">
                  <font>
-                  <family>Californian FB</family>
-                  <pointsize>12</pointsize>
+                  <family>Leelawadee UI</family>
+                  <pointsize>11</pointsize>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -3210,8 +3535,8 @@ color: rgb(0, 0, 0);</string>
                <widget class="QPushButton" name="pushButton_6">
                 <property name="font">
                  <font>
-                  <family>Californian FB</family>
-                  <pointsize>12</pointsize>
+                  <family>Leelawadee UI</family>
+                  <pointsize>11</pointsize>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -3232,8 +3557,8 @@ color: rgb(0, 0, 0);</string>
              <widget class="QLabel" name="label_73">
               <property name="font">
                <font>
-                <family>Californian FB</family>
-                <pointsize>13</pointsize>
+                <family>Leelawadee UI</family>
+                <pointsize>12</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -3253,6 +3578,21 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_15">
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <property name="leftMargin">
+                <number>10</number>
+               </property>
+               <property name="topMargin">
+                <number>10</number>
+               </property>
+               <property name="rightMargin">
+                <number>10</number>
+               </property>
+               <property name="bottomMargin">
+                <number>10</number>
+               </property>
                <item>
                 <widget class="QFrame" name="formFrame_4">
                  <layout class="QFormLayout" name="formLayout_9">
@@ -3263,23 +3603,23 @@ color: rgb(0, 0, 0);</string>
                    <number>10</number>
                   </property>
                   <property name="leftMargin">
-                   <number>10</number>
+                   <number>0</number>
                   </property>
                   <property name="topMargin">
-                   <number>10</number>
+                   <number>0</number>
                   </property>
                   <property name="rightMargin">
-                   <number>10</number>
+                   <number>0</number>
                   </property>
                   <property name="bottomMargin">
-                   <number>10</number>
+                   <number>0</number>
                   </property>
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_66">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3293,8 +3633,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_67">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3308,8 +3648,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_68">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3323,8 +3663,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_69">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3338,8 +3678,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_70">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3353,8 +3693,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_71">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3368,8 +3708,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLabel" name="label_72">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
@@ -3383,8 +3723,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLineEdit" name="lineEdit_49">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3397,8 +3737,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QDateEdit" name="dateEdit_5">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3411,8 +3751,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLineEdit" name="lineEdit_50">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3427,8 +3767,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_26">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -3440,8 +3780,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_27">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -3453,25 +3793,12 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_28">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>LZ</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_29">
-                      <property name="font">
-                       <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>RM</string>
                       </property>
                      </widget>
                     </item>
@@ -3481,8 +3808,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QCheckBox" name="checkBox_30">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="text">
@@ -3494,8 +3821,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_51">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -3503,6 +3830,19 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_22">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </item>
@@ -3514,8 +3854,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_31">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -3527,8 +3867,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_32">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -3540,25 +3880,12 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QCheckBox" name="checkBox_33">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="text">
                        <string>LZ</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_39">
-                      <property name="font">
-                       <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>RM</string>
                       </property>
                      </widget>
                     </item>
@@ -3568,8 +3895,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QCheckBox" name="checkBox_40">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="text">
@@ -3581,8 +3908,8 @@ color: rgb(0, 0, 0);</string>
                        <widget class="QLineEdit" name="lineEdit_52">
                         <property name="font">
                          <font>
-                          <family>Californian FB</family>
-                          <pointsize>12</pointsize>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
                         <property name="styleSheet">
@@ -3590,6 +3917,19 @@ color: rgb(0, 0, 0);</string>
 color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_23">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </item>
@@ -3599,8 +3939,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QSpinBox" name="spinBox">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3613,8 +3953,8 @@ color: rgb(0, 0, 0);</string>
                    <widget class="QLineEdit" name="lineEdit_53">
                     <property name="font">
                      <font>
-                      <family>Californian FB</family>
-                      <pointsize>12</pointsize>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
@@ -3648,8 +3988,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QPushButton" name="pushButton_10">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -3664,8 +4004,8 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QPushButton" name="pushButton_11">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -3702,8 +4042,8 @@ color: rgb(0, 0, 0);</string>
              <widget class="QLabel" name="label_77">
               <property name="font">
                <font>
-                <family>Californian FB</family>
-                <pointsize>13</pointsize>
+                <family>Leelawadee UI</family>
+                <pointsize>12</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -3719,6 +4059,21 @@ color: rgb(0, 0, 0);</string>
                <string notr="true">background-color: rgb(239, 239, 239);</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_17">
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <property name="leftMargin">
+                <number>10</number>
+               </property>
+               <property name="topMargin">
+                <number>10</number>
+               </property>
+               <property name="rightMargin">
+                <number>10</number>
+               </property>
+               <property name="bottomMargin">
+                <number>10</number>
+               </property>
                <item>
                 <layout class="QFormLayout" name="formLayout_10">
                  <property name="horizontalSpacing">
@@ -3727,11 +4082,23 @@ color: rgb(0, 0, 0);</string>
                  <property name="verticalSpacing">
                   <number>10</number>
                  </property>
+                 <property name="leftMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>10</number>
+                 </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_74">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
+                     <family>Leelawadee UI</family>
                      <pointsize>12</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
@@ -3748,7 +4115,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_41">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3761,7 +4128,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_42">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3774,7 +4141,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_43">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3784,17 +4151,30 @@ color: rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_44">
+                    <widget class="QCheckBox" name="checkBox_29">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
                      <property name="text">
-                      <string>RM</string>
+                      <string>BD</string>
                      </property>
                     </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_15">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </item>
@@ -3802,7 +4182,7 @@ color: rgb(0, 0, 0);</string>
                   <widget class="QLabel" name="label_75">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
+                     <family>Leelawadee UI</family>
                      <pointsize>12</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
@@ -3819,7 +4199,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_45">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3832,7 +4212,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_46">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3845,7 +4225,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_47">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3858,7 +4238,7 @@ color: rgb(0, 0, 0);</string>
                     <widget class="QCheckBox" name="checkBox_48">
                      <property name="font">
                       <font>
-                       <family>Californian FB</family>
+                       <family>Leelawadee UI</family>
                        <pointsize>11</pointsize>
                       </font>
                      </property>
@@ -3867,13 +4247,26 @@ color: rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <spacer name="horizontalSpacer_16">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
                   </layout>
                  </item>
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_76">
                    <property name="font">
                     <font>
-                     <family>Californian FB</family>
+                     <family>Leelawadee UI</family>
                      <pointsize>12</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
@@ -3886,6 +4279,12 @@ color: rgb(0, 0, 0);</string>
                  </item>
                  <item row="2" column="1">
                   <widget class="QLineEdit" name="lineEdit_54">
+                   <property name="font">
+                    <font>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
@@ -3902,13 +4301,31 @@ color: rgb(0, 0, 0);</string>
                   <enum>QFrame::Raised</enum>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_18">
+                  <property name="spacing">
+                   <number>10</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>10</number>
+                  </property>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_34">
+                    <property name="spacing">
+                     <number>10</number>
+                    </property>
                     <item>
                      <widget class="QLabel" name="label_80">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
+                        <family>Leelawadee UI</family>
                         <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
@@ -3942,7 +4359,7 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLabel" name="label_79">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
+                        <family>Leelawadee UI</family>
                         <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
@@ -3976,7 +4393,7 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLabel" name="label_78">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
+                        <family>Leelawadee UI</family>
                         <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
@@ -4010,7 +4427,7 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLabel" name="label_82">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
+                        <family>Leelawadee UI</family>
                         <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
@@ -4044,7 +4461,7 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QLabel" name="label_81">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
+                        <family>Leelawadee UI</family>
                         <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
@@ -4065,6 +4482,9 @@ color: rgb(0, 0, 0);</string>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_35">
+                    <property name="spacing">
+                     <number>10</number>
+                    </property>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_55">
                       <property name="sizePolicy">
@@ -4075,8 +4495,8 @@ color: rgb(0, 0, 0);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -4101,8 +4521,8 @@ color: rgb(0, 0, 0);</string>
                      <widget class="QDateEdit" name="dateEdit_6">
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -4133,8 +4553,8 @@ color: rgb(0, 0, 0);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -4171,8 +4591,8 @@ color: rgb(0, 0, 0);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -4203,8 +4623,8 @@ color: rgb(0, 0, 0);</string>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Californian FB</family>
-                        <pointsize>12</pointsize>
+                        <family>Leelawadee UI</family>
+                        <pointsize>11</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -4313,8 +4733,8 @@ color: rgb(0, 0, 0);</string>
             </property>
             <property name="font">
              <font>
-              <family>Californian FB</family>
-              <pointsize>12</pointsize>
+              <family>Leelawadee UI</family>
+              <pointsize>11</pointsize>
              </font>
             </property>
             <property name="toolTip">
@@ -4332,11 +4752,11 @@ color: rgb(0, 0, 0);</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="aqs_btn">
             <property name="font">
              <font>
-              <family>Californian FB</family>
-              <pointsize>12</pointsize>
+              <family>Leelawadee UI</family>
+              <pointsize>11</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -4366,13 +4786,13 @@ color: rgb(0, 0, 0);</string>
         <number>10</number>
        </property>
        <property name="topMargin">
-        <number>3</number>
+        <number>10</number>
        </property>
        <property name="rightMargin">
         <number>10</number>
        </property>
        <property name="bottomMargin">
-        <number>3</number>
+        <number>10</number>
        </property>
        <item>
         <widget class="QFrame" name="frame">
@@ -4414,7 +4834,7 @@ color: rgb(0, 0, 0);</string>
             </property>
             <property name="font">
              <font>
-              <family>MS Reference Sans Serif</family>
+              <family>Leelawadee UI</family>
               <pointsize>26</pointsize>
               <weight>75</weight>
               <italic>false</italic>
@@ -4441,7 +4861,7 @@ color: rgba(0, 54, 38, 255);</string>
             </property>
             <property name="font">
              <font>
-              <family>Californian FB</family>
+              <family>Leelawadee UI</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -4504,7 +4924,7 @@ color: rgba(0, 54, 38, 255);</string>
          </property>
          <property name="font">
           <font>
-           <family>Californian FB</family>
+           <family>Leelawadee UI</family>
            <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
@@ -4548,13 +4968,13 @@ color: rgb(13, 81, 240);</string>
          </property>
          <property name="minimumSize">
           <size>
-           <width>80</width>
+           <width>300</width>
            <height>80</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>80</width>
+           <width>300</width>
            <height>80</height>
           </size>
          </property>
@@ -4565,13 +4985,13 @@ color: rgb(13, 81, 240);</string>
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: qlineargradient(spread:pad, x1:0.250045, y1:0.527, x2:0.7555, y2:0.533, stop:0 rgba(157, 203, 0, 255), stop:1 rgba(0, 54, 38, 255));</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../assets/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.qrc">:/l_Logo/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.jpg</pixmap>
+          <pixmap resource="../assets/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.qrc">:/newPrefix/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß Kopie.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -4589,7 +5009,6 @@ color: rgb(13, 81, 240);</string>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
   <include location="../assets/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.qrc"/>

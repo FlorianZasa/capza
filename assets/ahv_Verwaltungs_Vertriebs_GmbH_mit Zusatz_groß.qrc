@@ -1,5 +1,6 @@
 <RCC>
-  <qresource prefix="l_Logo">
+  <qresource prefix="newPrefix">
     <file>ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.jpg</file>
+    <file>ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß Kopie.png</file>
   </qresource>
 </RCC>
