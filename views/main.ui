@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>929</height>
+    <width>1030</width>
+    <height>928</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <property name="documentMode">
    <bool>false</bool>
@@ -107,7 +110,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="nav_pnp_entry_btn">
            <property name="font">
             <font>
              <family>Californian FB</family>
@@ -126,7 +129,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="QPushButton" name="nav_pnp_output_btn">
            <property name="font">
             <font>
              <family>Californian FB</family>
@@ -145,7 +148,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="QPushButton" name="nav_order_form_btn">
            <property name="font">
             <font>
              <family>Californian FB</family>
@@ -272,7 +275,8 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">background-color: rgb(255, 255, 255);
+color: black</string>
           </property>
           <property name="currentIndex">
            <number>0</number>
@@ -343,7 +347,8 @@
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">color: rgb(0, 0, 0);</string>
+                    <string notr="true">color: rgb(0, 0, 0);
+background-color:transparent;</string>
                    </property>
                    <property name="text">
                     <string>Excel Pfad:</string>
@@ -358,7 +363,8 @@
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: white;</string>
+                    <string notr="true">background-color: white;
+color: rgb(36, 115, 193);</string>
                    </property>
                    <property name="readOnly">
                     <bool>true</bool>
@@ -448,7 +454,8 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(239, 239, 239);</string>
+               <string notr="true">background-color: rgb(239, 239, 239);
+color: rgb(0, 0, 0);</string>
               </property>
               <property name="title">
                <string>Daten erfassen</string>
@@ -501,7 +508,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -525,14 +533,15 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLineEdit" name="name_edit">
+                  <widget class="QLineEdit" name="name_lineedit">
                    <property name="font">
                     <font>
                      <pointsize>12</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(204, 204, 204);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -563,7 +572,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(204, 204, 204);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -594,7 +604,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(204, 204, 204);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -625,7 +636,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(204, 204, 204);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -656,7 +668,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(204, 204, 204);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -687,7 +700,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -725,7 +739,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -756,7 +771,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -787,7 +803,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -818,7 +835,8 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                    </property>
                   </widget>
                  </item>
@@ -909,6 +927,9 @@ background-color: transparent;</string>
                       <weight>75</weight>
                       <bold>true</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(0, 0, 0);</string>
                     </property>
                     <property name="text">
                      <string>Probenahme:</string>
@@ -1012,7 +1033,8 @@ background-color: transparent;</string>
                            </font>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: none;color: black</string>
+                           <string notr="true">background-color: white;
+color: rgb(0, 0, 0);</string>
                           </property>
                           <property name="dateTime">
                            <datetime>
@@ -1035,7 +1057,8 @@ background-color: transparent;</string>
                            </font>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">background-color: none;color: black</string>
+                           <string notr="true">background-color: white;
+color: rgb(0, 0, 0);</string>
                           </property>
                           <property name="dateTime">
                            <datetime>
@@ -1172,7 +1195,8 @@ background-color: transparent;</string>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);</string>
+                         <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
                       </item>
@@ -1202,7 +1226,8 @@ background-color: transparent;</string>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);</string>
+                         <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
                       </item>
@@ -1232,7 +1257,8 @@ background-color: transparent;</string>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);</string>
+                         <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
                       </item>
@@ -1300,7 +1326,9 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string>background-color: none;color: black</string>
+                    <string notr="true">background-color: none
+
+;color: black</string>
                    </property>
                    <property name="text">
                     <string>RFA</string>
@@ -1500,7 +1528,8 @@ background-color: transparent;</string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(239, 239, 239);</string>
+               <string notr="true">background-color: rgb(239, 239, 239);
+color: black</string>
               </property>
               <property name="title">
                <string>Analysewerte, welche aus der Laborliste übernommen werden</string>
@@ -1551,6 +1580,9 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>pH:</string>
                    </property>
@@ -1565,6 +1597,9 @@ background-color: transparent;</string>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
                    </property>
                    <property name="text">
                     <string>Leitfähigkeit:</string>
@@ -1581,6 +1616,9 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Feuchte:</string>
                    </property>
@@ -1595,6 +1633,9 @@ background-color: transparent;</string>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
                    </property>
                    <property name="text">
                     <string>Chrom VI:</string>
@@ -1611,6 +1652,9 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Lipos TS:</string>
                    </property>
@@ -1625,6 +1669,9 @@ background-color: transparent;</string>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
                    </property>
                    <property name="text">
                     <string>Lipso OS:</string>
@@ -1641,6 +1688,9 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Glühverlust:</string>
                    </property>
@@ -1655,6 +1705,9 @@ background-color: transparent;</string>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
                    </property>
                    <property name="text">
                     <string>DOC:</string>
@@ -1671,13 +1724,16 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>TDS:</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="lineEdit_14">
+                  <widget class="QLineEdit" name="ph_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1690,7 +1746,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLineEdit" name="lineEdit_15">
+                  <widget class="QLineEdit" name="leitfaehigkeit_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1703,7 +1759,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QLineEdit" name="lineEdit_16">
+                  <widget class="QLineEdit" name="feuchte_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1716,7 +1772,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="3" column="1">
-                  <widget class="QLineEdit" name="lineEdit_17">
+                  <widget class="QLineEdit" name="chrome_vi_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1729,7 +1785,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="4" column="1">
-                  <widget class="QLineEdit" name="lineEdit_18">
+                  <widget class="QLineEdit" name="lipos_ts_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1742,7 +1798,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="5" column="1">
-                  <widget class="QLineEdit" name="lineEdit_19">
+                  <widget class="QLineEdit" name="lipos_os_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1755,7 +1811,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="6" column="1">
-                  <widget class="QLineEdit" name="lineEdit_20">
+                  <widget class="QLineEdit" name="gluehverlus_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1768,7 +1824,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="7" column="1">
-                  <widget class="QLineEdit" name="lineEdit_21">
+                  <widget class="QLineEdit" name="doc_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1781,7 +1837,7 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="8" column="1">
-                  <widget class="QLineEdit" name="lineEdit_22">
+                  <widget class="QLineEdit" name="tds_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -1825,8 +1881,24 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Mo:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLineEdit" name="mo_lineedit">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
                   </widget>
                  </item>
@@ -1840,8 +1912,24 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Se:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLineEdit" name="se_lineedit">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
                   </widget>
                  </item>
@@ -1855,8 +1943,24 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Sb:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QLineEdit" name="sb_lineedit">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
                   </widget>
                  </item>
@@ -1870,8 +1974,24 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Fluorid:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QLineEdit" name="fluorid_lineedit">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
                   </widget>
                  </item>
@@ -1885,42 +2005,28 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>Chlorid:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0">
-                  <widget class="QLabel" name="label_40">
+                 <item row="4" column="1">
+                  <widget class="QLineEdit" name="chlorid_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
                     </font>
                    </property>
-                   <property name="text">
-                    <string>NH3:</string>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
                   </widget>
                  </item>
                  <item row="6" column="0">
-                  <widget class="QLabel" name="label_41">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>H2:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="0">
                   <widget class="QLabel" name="label_42">
                    <property name="font">
                     <font>
@@ -1930,12 +2036,28 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>TOC:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="0">
+                 <item row="6" column="1">
+                  <widget class="QLineEdit" name="toc_lineedit">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
                   <widget class="QLabel" name="label_43">
                    <property name="font">
                     <font>
@@ -1945,104 +2067,16 @@ background-color: transparent;</string>
                      <bold>true</bold>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
                    <property name="text">
                     <string>EC:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QLineEdit" name="lineEdit_23">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLineEdit" name="lineEdit_24">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLineEdit" name="lineEdit_25">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QLineEdit" name="lineEdit_26">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="1">
-                  <widget class="QLineEdit" name="lineEdit_27">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="1">
-                  <widget class="QLineEdit" name="lineEdit_28">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1">
-                  <widget class="QLineEdit" name="lineEdit_29">
-                   <property name="font">
-                    <font>
-                     <family>Californian FB</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="7" column="1">
-                  <widget class="QLineEdit" name="lineEdit_30">
+                  <widget class="QLineEdit" name="ec_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
@@ -2051,17 +2085,83 @@ background-color: transparent;</string>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="0">
+                  <widget class="QLabel" name="label_40">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
+                   <property name="text">
+                    <string>NH3:</string>
                    </property>
                   </widget>
                  </item>
                  <item row="8" column="1">
-                  <widget class="QLineEdit" name="lineEdit_31">
+                  <widget class="QLineEdit" name="nh3_lineedit">
                    <property name="font">
                     <font>
                      <family>Californian FB</family>
                      <pointsize>12</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="0">
+                  <widget class="QLabel" name="label_41">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
+                   <property name="text">
+                    <string>H2:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="1">
+                  <widget class="QLineEdit" name="h2_lineedit">
+                   <property name="font">
+                    <font>
+                     <family>Californian FB</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="0">
+                  <widget class="QLabel" name="label_84">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: transparent</string>
+                   </property>
+                   <property name="text">
+                    <string>Brandtest:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="1">
+                  <widget class="QLineEdit" name="lineEdit">
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);</string>
                    </property>
@@ -2101,6 +2201,9 @@ background-color: transparent;</string>
                   <bold>true</bold>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(0, 0, 0);</string>
+                </property>
                 <property name="text">
                  <string>PNP zur Nachweisnummer:</string>
                 </property>
@@ -2114,6 +2217,9 @@ background-color: transparent;</string>
                   <pointsize>12</pointsize>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: black;</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -2125,7 +2231,7 @@ background-color: transparent;</string>
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(136, 208, 20, 0.3);</string>
+                 <string notr="true">color: rgb(0, 0, 0);</string>
                 </property>
                 <property name="text">
                  <string>Projektdaten</string>
@@ -2143,7 +2249,8 @@ background-color: transparent;</string>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(239, 239, 239);</string>
+               <string notr="true">background-color: rgb(239, 239, 239);
+color: rgb(0, 0, 0);</string>
               </property>
               <property name="currentIndex">
                <number>1</number>
@@ -3091,6 +3198,9 @@ background-color: transparent;</string>
                   <pointsize>12</pointsize>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(0, 0, 0);</string>
+                </property>
                 <property name="text">
                  <string>Leeren</string>
                 </property>
@@ -3105,7 +3215,7 @@ background-color: transparent;</string>
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(136, 208, 20);</string>
+                 <string notr="true">color: rgb(0, 0, 0);</string>
                 </property>
                 <property name="text">
                  <string>Protokoll erstellen</string>
@@ -3128,6 +3238,9 @@ background-color: transparent;</string>
                 <bold>true</bold>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(0, 0, 0);</string>
+              </property>
               <property name="text">
                <string>PNP AHV Output</string>
               </property>
@@ -3136,7 +3249,8 @@ background-color: transparent;</string>
             <item>
              <widget class="QFrame" name="verticalFrame">
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(239, 239, 239);</string>
+               <string notr="true">background-color: rgb(239, 239, 239);
+color: rgb(0, 0, 0);</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_15">
                <item>
@@ -3273,6 +3387,10 @@ background-color: transparent;</string>
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+                    </property>
                    </widget>
                   </item>
                   <item row="1" column="1">
@@ -3283,6 +3401,10 @@ background-color: transparent;</string>
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+                    </property>
                    </widget>
                   </item>
                   <item row="5" column="1">
@@ -3292,6 +3414,10 @@ background-color: transparent;</string>
                       <family>Californian FB</family>
                       <pointsize>12</pointsize>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
@@ -3371,6 +3497,10 @@ background-color: transparent;</string>
                           <family>Californian FB</family>
                           <pointsize>12</pointsize>
                          </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                         </property>
                        </widget>
                       </item>
@@ -3455,6 +3585,10 @@ background-color: transparent;</string>
                           <pointsize>12</pointsize>
                          </font>
                         </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+                        </property>
                        </widget>
                       </item>
                      </layout>
@@ -3469,6 +3603,10 @@ background-color: transparent;</string>
                       <pointsize>12</pointsize>
                      </font>
                     </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+                    </property>
                    </widget>
                   </item>
                   <item row="6" column="1">
@@ -3478,6 +3616,10 @@ background-color: transparent;</string>
                       <family>Californian FB</family>
                       <pointsize>12</pointsize>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
                     </property>
                    </widget>
                   </item>
@@ -3510,6 +3652,9 @@ background-color: transparent;</string>
                      <pointsize>12</pointsize>
                     </font>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">color: black</string>
+                   </property>
                    <property name="text">
                     <string>Leeren</string>
                    </property>
@@ -3524,7 +3669,7 @@ background-color: transparent;</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(136, 208, 20);</string>
+                    <string notr="true">color: black</string>
                    </property>
                    <property name="text">
                     <string>Protokoll erstellen</string>
@@ -3740,7 +3885,11 @@ background-color: transparent;</string>
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QLineEdit" name="lineEdit_54"/>
+                  <widget class="QLineEdit" name="lineEdit_54">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -3930,6 +4079,9 @@ background-color: transparent;</string>
                         <pointsize>12</pointsize>
                        </font>
                       </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(255, 255, 255);</string>
+                      </property>
                      </widget>
                     </item>
                     <item>
@@ -3952,6 +4104,9 @@ background-color: transparent;</string>
                         <family>Californian FB</family>
                         <pointsize>12</pointsize>
                        </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(255, 255, 255);</string>
                       </property>
                      </widget>
                     </item>
@@ -3981,6 +4136,9 @@ background-color: transparent;</string>
                         <family>Californian FB</family>
                         <pointsize>12</pointsize>
                        </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(255, 255, 255);</string>
                       </property>
                      </widget>
                     </item>
@@ -4017,6 +4175,9 @@ background-color: transparent;</string>
                         <pointsize>12</pointsize>
                        </font>
                       </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(255, 255, 255);</string>
+                      </property>
                      </widget>
                     </item>
                     <item>
@@ -4045,6 +4206,9 @@ background-color: transparent;</string>
                         <family>Californian FB</family>
                         <pointsize>12</pointsize>
                        </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(255, 255, 255);</string>
                       </property>
                       <item>
                        <property name="text">
@@ -4377,7 +4541,7 @@ color: rgb(13, 81, 240);</string>
        <item>
         <widget class="QLabel" name="label_5">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -4404,13 +4568,19 @@ color: rgb(13, 81, 240);</string>
           <string notr="true">background-color: qlineargradient(spread:pad, x1:0.250045, y1:0.527, x2:0.7555, y2:0.533, stop:0 rgba(157, 203, 0, 255), stop:1 rgba(0, 54, 38, 255));</string>
          </property>
          <property name="text">
-          <string>lLogo</string>
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../assets/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.qrc">:/l_Logo/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.jpg</pixmap>
          </property>
          <property name="scaledContents">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -4421,6 +4591,8 @@ color: rgb(13, 81, 240);</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../assets/ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.qrc"/>
+ </resources>
  <connections/>
 </ui>
