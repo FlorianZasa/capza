@@ -6,11 +6,15 @@ from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen
 import sys
+import notifypy
 
 from multiprocessing import Process, Event
+import os
+dirname = os.path.dirname(__file__)
 
 # import helper modules
 from modules.word_helper import Word_Helper
+from _localconfig import config
 
 SELECTED_PROBE = 0
 SELECTED_NACHWEIS = 0
@@ -22,16 +26,16 @@ class Ui(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         global ALL_DATA_NACHWEIS
         super(Ui, self).__init__(parent)
-        uic.loadUi(r'\\mac\Home\Desktop\myBots\capza-app\capza\views\main.ui', self)
+        uic.loadUi(r'./views/main.ui', self)
 
 
 
         self.setWindowTitle("CapZa - Zasada - v 0.1")
-        self.setWindowIcon(QIcon(r'\\mac\Home\Desktop\myBots\capza-app\capza\assets\icon_logo.png'))
+        self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
 
-
+        
+        self.notification = notifypy.Notify()
         self.stackedWidget.setCurrentIndex(0)
-        self.status_msg_label.setText("")
         self.file = ""
         today_date_raw = datetime.datetime.now()
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
@@ -80,9 +84,6 @@ class Ui(QtWidgets.QMainWindow):
 
         self.migrate_btn.clicked.connect(self.create_document)
 
-
-        self.select_probe_btn.setEnabled(False)
-
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
 
@@ -97,9 +98,9 @@ class Ui(QtWidgets.QMainWindow):
     def select_excel(self):
         file = QFileDialog.getOpenFileName(self, "Öffne Excel", "C://", "Excel Files (*.xlsx *.xls)")
         self.excel_path_lineedit.setText(file[0])
-        self.select_probe_btn.setEnabled(True)
         self.file = file[0]
         return file[0]
+        
 
     def open_probe_win(self, dataset):
         try:
@@ -107,7 +108,7 @@ class Ui(QtWidgets.QMainWindow):
             self.probe.show()
             self.probe.init_data(dataset)
         except Exception as ex:
-            self.set_status(f"Die Excel konnte nicht geladen werden: [{ex}]")
+            self.set_status("Fehler!", f"Die Excel konnte nicht geladen werden: [{ex}]")
 
     def create_document(self):
         id = "x" if self.id_check.checkState() == 2 else ""
@@ -259,9 +260,10 @@ class Ui(QtWidgets.QMainWindow):
 
             wh = Word_Helper()
             file = QFileDialog.getSaveFileName(self, 'Speicherort für Prüfbericht', 'C://', filter='*.docx')
-            wh.write_to_worfd_file(data, r"\\mac\Home\Desktop\myBots\capza-app\items\vorlagen\Bericht Vorlage.docx", name=file[0])
+            wh.write_to_worfd_file(data, config["bericht_vorlage"], name=file[0])
         except Exception as ex:
-            self.set_status("Fehler: "+ str(ex))
+            print("FEHLER")
+            self.set_status("Fehler!", "Der Bericht konnte nicht erstellt werden")
 
 
     def read_excel(self):
@@ -400,18 +402,26 @@ class Ui(QtWidgets.QMainWindow):
 
     def open_specific_probe(self, checked):
         global ALL_DATA_PROBE
+        try:
 
-        if isinstance(ALL_DATA_PROBE, int):
-            data = self.read_excel()
-            self.open_probe_win(data)
-            ALL_DATA_PROBE = data
-        else:
-            self.open_probe_win(ALL_DATA_PROBE)
+            if isinstance(ALL_DATA_PROBE, int):
+                data = self.read_excel()
+                self.open_probe_win(data)
+                ALL_DATA_PROBE = data
+            else:
+                self.open_probe_win(ALL_DATA_PROBE)
+        except Exception as ex:
+            self.set_status("Fehler!", "Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex))
 
         
 
-    def set_status(self, msg):
-        self.status_msg_label.setText(msg)
+    def set_status(self, type ,msg):
+        self.notification.title = type
+        self.notification.message = msg
+        self.notification.icon = r"./assets/icon_logo.png"
+        self.notification.send()
+
+        
 
 
 
@@ -420,7 +430,7 @@ class Ui(QtWidgets.QMainWindow):
 class Probe(QtWidgets.QMainWindow): 
     def __init__(self, parent=None):
         super(Probe, self).__init__(parent)
-        uic.loadUi(r'\\mac\Home\Desktop\myBots\capza-app\capza\views\select_probe.ui', self)
+        uic.loadUi(r'./views/select_probe.ui', self)
         
         
         self.df = ""
@@ -488,7 +498,7 @@ class Probe(QtWidgets.QMainWindow):
 
 
     def check_projekt_nummer(self, wert):
-        df_projektnumern = pd.read_excel("items\Projektnummern.xls", sheet_name='Projekte 2022')
+        df_projektnumern = pd.read_excel(config["project_nr_data"], sheet_name='Projekte 2022')
 
         
 
@@ -501,16 +511,15 @@ class Probe(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
 
-    ALL_DATA_NACHWEIS = pd.read_excel(r"\\mac\Home\Desktop\myBots\capza-app\items\Übersicht Nachweis.xls")
-
     app = QtWidgets.QApplication(sys.argv)
-
     # Create and display the splash screen
-    splash_pix = QPixmap(r'\\mac\Home\Desktop\myBots\capza-app\capza\assets\icon_logo.png')
+    splash_pix = QPixmap("./assets/icon_logo.png")
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
     splash.show()
     app.processEvents()
+
+    ALL_DATA_NACHWEIS = pd.read_excel(config["overview_data"])
 
 
     win = Ui()
