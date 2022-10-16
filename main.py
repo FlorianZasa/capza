@@ -1,8 +1,6 @@
 
-import datetime, time
-from symbol import except_clause
-from glob import glob
-from threading import _profile_hook
+import datetime
+from telnetlib import NEW_ENVIRON
 import pandas as pd
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtGui import QIcon, QPixmap, QFont
@@ -10,10 +8,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QStyle
 import sys
 
-from pyqt_toast import Toast
 from win10toast import ToastNotifier
 
-from multiprocessing import Process, Event
 import os
 dirname = os.path.dirname(__file__)
 
@@ -28,8 +24,8 @@ ALL_DATA_PROBE = 0
 ALL_DATA_NACHWEIS = 0
 ALL_DATA_PROJECT_NR = 0
 
-NW_PATH = config["overview_data"]
-PNR_PATH = config["project_nr_data"]
+NW_PATH = ""
+PNR_PATH = ""
 
 
 STATUS_MSG = ""
@@ -42,12 +38,10 @@ class Ui(QtWidgets.QMainWindow):
         uic.loadUi(r'./views/main.ui', self)
 
 
-        
-        
-        self._check_for_errors()
         self.init_main()
 
     def init_main(self):
+        global STATUS_MSG
         self.nw_overview_path.setText(NW_PATH)
         self.project_nr_path.setText(PNR_PATH)
         self.disable_settings_lines()
@@ -72,12 +66,16 @@ class Ui(QtWidgets.QMainWindow):
 
         self.disable_buttons()
 
+        self.status_msg_btm.hide()
+
         self.nav_data_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(0))
         self.nav_analysis_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(1))
         self.nav_pnp_entry_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(2))
         self.nav_pnp_output_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(3))
         self.nav_order_form_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(4))
         self.nav_settings_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(5))
+
+        self.save_references_btn.clicked.connect(self.save_references)
 
         self.init_shadow(self.data_1)
         self.init_shadow(self.data_2)
@@ -126,7 +124,8 @@ class Ui(QtWidgets.QMainWindow):
 
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
             STATUS_MSG = "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen."
-            self._check_for_errors(STATUS_MSG)
+            self._check_for_errors()
+            self.feedback_message("error", "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
 
     def _no_function(self):
         global STATUS_MSG
@@ -147,7 +146,6 @@ class Ui(QtWidgets.QMainWindow):
         self.load_project_nr()    
         self._check_for_errors()
 
-    
     def load_nachweis_data(self):
         global STATUS_MSG
         global ALL_DATA_NACHWEIS
@@ -171,7 +169,6 @@ class Ui(QtWidgets.QMainWindow):
         else:
             self.error_info_btn.hide()
 
-
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
         effect.setOffset(0, 1)
@@ -181,7 +178,6 @@ class Ui(QtWidgets.QMainWindow):
     def disable_settings_lines(self):
         self.nw_overview_path.setEnabled(False)
         self.project_nr_path.setEnabled(False)
-
 
     def select_file(self, line, button, title, file_type):
         file = QFileDialog.getOpenFileName(self, title, "C://", file_type)
@@ -194,6 +190,21 @@ class Ui(QtWidgets.QMainWindow):
         self._check_for_errors()
         return file[0]
         
+    def save_references(self):
+        global STATUS_MSG
+        try:
+            nw_path = self.nw_overview_path.text()
+            project_nr_path = self.project_nr_path.text()
+
+            with open("_loc_conf.txt", 'w', encoding='utf-8') as f:
+                f.write("{'nw_path': '"+nw_path+"',")
+                f.write("'project_nr_path': '"+project_nr_path+"'}")
+            self.feedback_message("success", "Das Speichern war erfolgreich")
+            
+        except Exception as ex:
+            STATUS_MSG = "Das Speichern ist fehlgeschlagen: " + str(ex)
+            self._check_for_errors()
+            self.feedback_message("error", "Fehler beim Speichern")
 
     def open_probe_win(self, dataset):
         try:
@@ -211,7 +222,9 @@ class Ui(QtWidgets.QMainWindow):
         
 
         ahv = "x" if self.ahv_check.checkState() == 2 else ""
-        erzeuger = "x" if self.erzeuger_check.checkState() == 2 else ""
+        erzeuger = "x" if self.erzeuger_check.checkState() == 2 else "" #TODO: NAME!
+
+
 
         nh3 = str(self.nh3_lineedit.text())
         h2 = str(self.h2_lineedit.text())
@@ -314,7 +327,7 @@ class Ui(QtWidgets.QMainWindow):
             data = {
                 "projekt_nr" : str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]),
                 "bezeichnung": str(SELECTED_NACHWEIS["Material"]).split()[1],
-                "erzeuger": str(SELECTED_NACHWEIS["Erzeuger"]).split()[1],
+                "erzeuger_name": str(SELECTED_NACHWEIS["Erzeuger"]).split()[1],
                 #
                 "id": id,
                 "vorpruefung": vorpruefung,
@@ -535,6 +548,9 @@ class Ui(QtWidgets.QMainWindow):
         try:
             if isinstance(ALL_DATA_PROBE, int):
                 data = self.read_excel()
+                
+                data = data.loc[::-1].reset_index(drop=True)
+                print(data)
                 self.open_probe_win(data)
                 ALL_DATA_PROBE = data
             else:
@@ -543,6 +559,30 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG = "Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex)
             self._check_for_errors(STATUS_MSG)
+
+    def feedback_message(self, kind, msg):
+        self.status_msg_btm.setText(msg)
+        if kind == "success":
+            self.status_msg_btm.setStyleSheet(
+                "* {"
+                    "background-color: #A2E4AE;"
+                    "color: #067005;"
+                    "padding: 20px"
+                "}"
+            )
+        elif kind == "error":
+            self.status_msg_btm.setStyleSheet(
+                "*: {"
+                    "background-color: #F08A8A;"
+                    "color: #6D0808"
+                    "padding: 20px"
+                "}"
+            )
+        else: pass
+
+        self.status_msg_btm.show()
+        QTimer.singleShot(3000, lambda: self.status_msg_btm.hide())
+
 
 
 
@@ -587,7 +627,6 @@ class Probe(QtWidgets.QMainWindow):
 
         widget.setGraphicsEffect(effect)
         
-
     def load_probe(self):
         global SELECTED_PROBE
         row = self.tableWidget.currentRow()
@@ -650,8 +689,22 @@ class Error(QtWidgets.QDialog):
     def close_window(self):
         self.hide()
 
-
 if __name__ == "__main__":
+    d = {}
+    try:
+        f = open(r"./_loc_conf.txt", 'r', encoding='utf-8')
+        whole_file = f.read()
+        d = eval(whole_file)
+
+    except Exception as ex:
+        pass
+    if d:
+        NW_PATH = d["nw_path"]
+        PNR_PATH = d["project_nr_path"]
+    else:
+        NW_PATH = config["overview_data"]
+        PNR_PATH = config["project_nr_data"]
+        
 
     try:
         ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
@@ -670,6 +723,7 @@ if __name__ == "__main__":
     win = Ui()
     if STATUS_MSG != "":
         win._check_for_errors()
+        win.feedback_message("error", STATUS_MSG)
     
     splash.finish(win)
     win.show()

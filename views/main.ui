@@ -834,7 +834,7 @@ text-align:center;
            <string notr="true">color: #0C5C51;</string>
           </property>
           <property name="currentIndex">
-           <number>5</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="data">
            <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -866,16 +866,16 @@ text-align:center;
                 <number>20</number>
                </property>
                <property name="leftMargin">
-                <number>10</number>
+                <number>1</number>
                </property>
                <property name="topMargin">
-                <number>20</number>
+                <number>1</number>
                </property>
                <property name="rightMargin">
-                <number>10</number>
+                <number>1</number>
                </property>
                <property name="bottomMargin">
-                <number>10</number>
+                <number>1</number>
                </property>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0">
@@ -942,6 +942,12 @@ color: rgb(10, 134, 229);</string>
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>40</width>
+                     <height>40</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
                      <pointsize>40</pointsize>
@@ -982,13 +988,13 @@ border-radius: 10px;</string>
                    <property name="minimumSize">
                     <size>
                      <width>200</width>
-                     <height>30</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
                      <width>500</width>
-                     <height>120</height>
+                     <height>40</height>
                     </size>
                    </property>
                    <property name="font">
@@ -6222,6 +6228,49 @@ border-radius: 10px;</string>
                  </item>
                 </layout>
                </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_25">
+                 <item>
+                  <spacer name="horizontalSpacer_18">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="save_references_btn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Leelawadee UI</family>
+                     <pointsize>11</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border: 1px solid #C7C7C7;
+background: #AEDC21;
+border-radius: 10px;</string>
+                   </property>
+                   <property name="text">
+                    <string>Speichern</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
               </layout>
              </widget>
             </item>
@@ -6240,6 +6289,30 @@ border-radius: 10px;</string>
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="status_msg_btm">
+          <property name="font">
+           <font>
+            <family>Leelawadee UI</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+border-radius: 10px;
+text-align:center;</string>
+          </property>
+          <property name="text">
+           <string>Speichern war erfolgreich</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="margin">
+           <number>20</number>
+          </property>
          </widget>
         </item>
        </layout>
