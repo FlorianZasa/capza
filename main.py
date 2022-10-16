@@ -1,12 +1,17 @@
 
 import datetime, time
+from symbol import except_clause
+from glob import glob
+from threading import _profile_hook
 import pandas as pd
-from PyQt5 import QtWidgets, uic, QtGui
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtGui import QIcon, QPixmap, QFont
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen
+from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QStyle
 import sys
-import notifypy
+
+from pyqt_toast import Toast
+from win10toast import ToastNotifier
 
 from multiprocessing import Process, Event
 import os
@@ -21,27 +26,49 @@ SELECTED_NACHWEIS = 0
 
 ALL_DATA_PROBE = 0
 ALL_DATA_NACHWEIS = 0
+ALL_DATA_PROJECT_NR = 0
+
+NW_PATH = config["overview_data"]
+PNR_PATH = config["project_nr_data"]
+
+
+STATUS_MSG = ""
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         global ALL_DATA_NACHWEIS
+        global STATUS_MSG
         super(Ui, self).__init__(parent)
         uic.loadUi(r'./views/main.ui', self)
 
 
+        
+        
+        self._check_for_errors()
+        self.init_main()
+
+    def init_main(self):
+        self.nw_overview_path.setText(NW_PATH)
+        self.project_nr_path.setText(PNR_PATH)
+        self.disable_settings_lines()
 
         self.setWindowTitle("CapZa - Zasada - v 0.1")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
 
-        
-        self.notification = notifypy.Notify()
         self.stackedWidget.setCurrentIndex(0)
         self.file = ""
         today_date_raw = datetime.datetime.now()
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
 
-        # self.end_dateedit.setDate("2023","2","5")
-        # Anfangwert aus Excel
+        self.notifier = ToastNotifier()
+
+
+        self.error_info_btn.setStyleSheet("QPushButton:hover"
+                            "{"
+                            "background-color : white;"
+                            "}")
+
+        self.error_info_btn.clicked.connect(self.showError)
 
         self.disable_buttons()
 
@@ -50,22 +77,30 @@ class Ui(QtWidgets.QMainWindow):
         self.nav_pnp_entry_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(2))
         self.nav_pnp_output_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(3))
         self.nav_order_form_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(4))
+        self.nav_settings_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(5))
 
         self.init_shadow(self.data_1)
         self.init_shadow(self.data_2)
         self.init_shadow(self.data_3)
-
+        self.init_shadow(self.select_probe_btn)
+        self.init_shadow(self.find_excel_btn)
+        self.init_shadow(self.migrate_btn)
+        self.init_shadow(self.aqs_btn)
+        self.init_shadow(self.project_data_btn)
+        self.init_shadow(self.pnp_in_empty)
+        self.init_shadow(self.pnp_in_protokoll)
+        self.init_shadow(self.pnp_out_empty)
+        self.init_shadow(self.pnp_out_protokoll)
+        self.init_shadow(self.auftrag_empty)
+        self.init_shadow(self.auftrag_letsgo)
         self.init_shadow(self.analysis_f1)
         self.init_shadow(self.analysis_f2)
-
         self.init_shadow(self.pnp_tapped)
-
         self.init_shadow(self.pnp_o_frame)
-
         self.init_shadow(self.order_frame)
 
-        
-
+        d,m,y = self.today_date_string.split(".")
+        self.end_dateedit.setDate(QDate(int(y),int(m),int(d)))
         # Design Default values
 
         self.nav_btn_frame.setStyleSheet("QPushButton:checked"
@@ -79,26 +114,84 @@ class Ui(QtWidgets.QMainWindow):
                                             "color: rgb(0, 0, 0);"
                                         "}")
 
-        self.find_excel_btn.clicked.connect(self.select_excel)
+        self.find_excel_btn.clicked.connect(lambda: self.select_file(self.excel_path_lineedit, self.select_probe_btn, "Wähle eine Laborauswertung aus...", "Excel Files (*.xlsx *.xls)"))
         self.select_probe_btn.clicked.connect(self.open_specific_probe)
 
+        self.choose_nw_path_btn.clicked.connect(self.choose_nw_path)
+        self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
+
+
         self.migrate_btn.clicked.connect(self.create_document)
+        self.aqs_btn.clicked.connect(self._no_function)
+
+        if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
+            STATUS_MSG = "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen."
+            self._check_for_errors(STATUS_MSG)
+
+    def _no_function(self):
+        global STATUS_MSG
+        STATUS_MSG = "Diese Funktion steht noch nicht zu verfügung."
+        self._check_for_errors()
+
+    def choose_nw_path(self):
+        global NW_PATH
+        global STATUS_MSG
+        NW_PATH = self.select_file(self.nw_overview_path, "", "Wähle die Nachweis Liste aus...", "Excel Files (*.xlsx *.xls)")
+
+        self.load_nachweis_data()
+        self._check_for_errors()
+
+    def choose_project_nr(self):
+        global PNR_PATH
+        PNR_PATH = self.select_file(self.project_nr_path, "", "Wähle die Projektnummernliste aus...", "Excel Files (*.xlsx *.xls)")
+        self.load_project_nr()    
+        self._check_for_errors()
+
+    
+    def load_nachweis_data(self):
+        global STATUS_MSG
+        global ALL_DATA_NACHWEIS
+        ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
+        STATUS_MSG = ""
+
+    def load_project_nr(self):
+        global ALL_DATA_PROJECT_NR
+        global STATUS_MSG
+        ALL_DATA_PROJECT_NR = pd.read_excel(PNR_PATH)
+        STATUS_MSG = ""
+
+    def showError(self):
+        self.error = Error(self)
+        self.error.show()
+
+    def _check_for_errors(self):
+        global STATUS_MSG
+        if STATUS_MSG != "":
+            self.error_info_btn.show()
+        else:
+            self.error_info_btn.hide()
+
 
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
-
         effect.setOffset(0, 1)
-
         effect.setBlurRadius(8)
-
         widget.setGraphicsEffect(effect)
 
+    def disable_settings_lines(self):
+        self.nw_overview_path.setEnabled(False)
+        self.project_nr_path.setEnabled(False)
 
 
-    def select_excel(self):
-        file = QFileDialog.getOpenFileName(self, "Öffne Excel", "C://", "Excel Files (*.xlsx *.xls)")
-        self.excel_path_lineedit.setText(file[0])
+    def select_file(self, line, button, title, file_type):
+        file = QFileDialog.getOpenFileName(self, title, "C://", file_type)
+        line.setText(file[0])
         self.file = file[0]
+
+        # activate Button
+        if button:
+            button.setEnabled(True)
+        self._check_for_errors()
         return file[0]
         
 
@@ -108,9 +201,11 @@ class Ui(QtWidgets.QMainWindow):
             self.probe.show()
             self.probe.init_data(dataset)
         except Exception as ex:
-            self.set_status("Fehler!", f"Die Excel konnte nicht geladen werden: [{ex}]")
+            STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
+            self._check_for_errors(STATUS_MSG)
 
     def create_document(self):
+        global STATUS_MSG
         id = "x" if self.id_check.checkState() == 2 else ""
         vorpruefung  = "x" if self.precheck_check.checkState() == 2 else ""
         
@@ -118,13 +213,32 @@ class Ui(QtWidgets.QMainWindow):
         ahv = "x" if self.ahv_check.checkState() == 2 else ""
         erzeuger = "x" if self.erzeuger_check.checkState() == 2 else ""
 
-        nh3 = self.nh3_lineedit.text()
-        h2 = self.h2_lineedit.text()
-        brandtest= self.brandtest_lineedit.text()
-        farbe = self.color_lineedit.text()
-        konsistenz = self.consistency_lineedit.text()
-        geruch = self.smell_lineedit.text()
-        bemerkung = self.remark_textedit.toPlainText()
+        nh3 = str(self.nh3_lineedit.text())
+        h2 = str(self.h2_lineedit.text())
+        brandtest= str(self.brandtest_lineedit.text())
+        farbe = str(self.color_lineedit.text())
+        konsistenz = str(self.consistency_lineedit.text())
+        geruch = str(self.smell_lineedit.text())
+        bemerkung = str(self.remark_textedit.toPlainText())
+
+        aoc = 0
+        toc = 0
+        ec = 0
+        if not SELECTED_PROBE["TOC\n%"] == "":
+            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))
+        else:
+            toc = ""
+
+        if not SELECTED_PROBE["EC\n%"] == "":
+            ec = self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))
+        else:
+            ec = ""
+        
+        if isinstance(toc, float) and isinstance(ec, float):
+            aoc = self.round_if_psbl(toc-ec)
+        else:
+            aoc = ""
+
         #
         toc_check = "x" if self.toc_check.checkState() == 2 else ""
         if toc_check == "x":
@@ -213,21 +327,22 @@ class Ui(QtWidgets.QMainWindow):
                 #
                 "wert": str(SELECTED_PROBE["pH-Wert"]),
                 "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]),
-                "doc": str(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
-                "molybdaen": str(SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"]),
-                "selen": str(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
-                "antimon": "WAST IST DAS?",
-                "chrom": str(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
-                "tds": str(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]),
+                "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
+                "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
+                "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
+                "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
+                "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
+                "tds": self.round_if_psbl(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]),
                 "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]),
                 "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]),
                 "feuchte": str(SELECTED_PROBE["Wassergehalt %"]),
-                "lipos_ts": str(SELECTED_PROBE["Lipos TS\n%"]),
-                "lipos_os": str(SELECTED_PROBE["Lipos FS\n%"]),
-                "gluehverlust": str(SELECTED_PROBE["GV [%]"]),
-                "toc": "str(SELECTED_PROBE[TOC])",
-                "ec": "str(SELECTED_PROBE[EC])",
-                "aoc": "WAS IST DAS?",
+                "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS\n%"]),
+                "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS\n%"]),
+                "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]),
+                "toc": toc,
+                "ec": ec,
+                "aoc": aoc,
+                #
                 "nh3": nh3,
                 "h2": h2,
                 "brandtest": brandtest,
@@ -262,9 +377,14 @@ class Ui(QtWidgets.QMainWindow):
             file = QFileDialog.getSaveFileName(self, 'Speicherort für Prüfbericht', 'C://', filter='*.docx')
             wh.write_to_worfd_file(data, config["bericht_vorlage"], name=file[0])
         except Exception as ex:
-            print("FEHLER")
-            self.set_status("Fehler!", "Der Bericht konnte nicht erstellt werden")
+            STATUS_MSG = "Der Bericht konnte nicht erstellt werden: " + str(ex)
+            self._check_for_errors()
 
+    def round_if_psbl(self, value):
+        if isinstance(value, float):
+            return round(value, 3)
+        else:
+            return str(value)
 
     def read_excel(self):
         excel_raw = pd.read_excel(self.file)
@@ -297,6 +417,7 @@ class Ui(QtWidgets.QMainWindow):
     def insert_values(self):
         global SELECTED_PROBE
         global SELECTED_NACHWEIS
+        global STATUS_MSG
 
         self.empty_values()
         self.enable_buttons()
@@ -390,40 +511,38 @@ class Ui(QtWidgets.QMainWindow):
         except:
             self.ec_lineedit.setText("-")
 
-        if ("DK" or "UTV" or "S1") in str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]):
-            self.disable_buttons()
+        date = str(SELECTED_PROBE["Datum"]).split()[0]
+        date = date.split("-")
+        y = date[0]
+        m = date[1]
+        d = date[2]
+        self.probe_date.setDate(QDate(int(y), int(m), int(d)))
+
+        self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
+        STATUS_MSG = ""
 
     def disable_buttons(self):
         self.migrate_btn.setEnabled(False)
         self.aqs_btn.setEnabled(False)
+        self.select_probe_btn.setEnabled(False)
     def enable_buttons(self):
         self.migrate_btn.setEnabled(True)
         self.aqs_btn.setEnabled(True)
 
-    def open_specific_probe(self, checked):
+    def open_specific_probe(self):
         global ALL_DATA_PROBE
+        global STATUS_MSG
         try:
-
             if isinstance(ALL_DATA_PROBE, int):
                 data = self.read_excel()
                 self.open_probe_win(data)
                 ALL_DATA_PROBE = data
             else:
                 self.open_probe_win(ALL_DATA_PROBE)
+            STATUS_MSG = ""
         except Exception as ex:
-            self.set_status("Fehler!", "Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex))
-
-        
-
-    def set_status(self, type ,msg):
-        self.notification.title = type
-        self.notification.message = msg
-        self.notification.icon = r"./assets/icon_logo.png"
-        self.notification.send()
-
-        
-
-
+            STATUS_MSG = "Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex)
+            self._check_for_errors(STATUS_MSG)
 
 
 
@@ -431,13 +550,15 @@ class Probe(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(Probe, self).__init__(parent)
         uic.loadUi(r'./views/select_probe.ui', self)
+
+        self.setWindowTitle("CapZa - Zasada - v 0.1 - Wähle Probe")
         
         
-        self.df = ""
         self.df = ""
 
         self.load_probe_btn.clicked.connect(self.load_probe)
-        
+        self.init_shadow(self.load_probe_btn)
+        self.init_shadow(self.cancel_btn)  
 
     def init_data(self, dataset):
         self.df = dataset
@@ -455,7 +576,16 @@ class Probe(QtWidgets.QMainWindow):
                     value = '{0:0,.0f}'.format(value)
                 tableItem = QTableWidgetItem(str(value))
                 self.tableWidget.setItem(row[0], col_index, tableItem)
-        self.tableWidget.setColumnWidth(2, 300)
+        self.tableWidget.setColumnWidth(2, 400)
+
+    def init_shadow(self, widget):
+        effect = QGraphicsDropShadowEffect()
+
+        effect.setOffset(0, 1)
+
+        effect.setBlurRadius(8)
+
+        widget.setGraphicsEffect(effect)
         
 
     def load_probe(self):
@@ -464,18 +594,17 @@ class Probe(QtWidgets.QMainWindow):
         selected_data_serie = self.df.iloc[row]
         selected_data_dict = selected_data_serie.to_dict()
 
-
         SELECTED_PROBE = selected_data_dict
         self.differentiate_probe(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
         self.parent().insert_values()
         self.close_window()
 
     def differentiate_probe(self, wert):
-        global ALL_DATA_NACHWEIS
+        global ALL_DATA_NACHWEIS, STATUS_MSG
         try:
             letters, numbers = wert.split()
         except Exception as ex:
-            print(ex)
+            STATUS_MSG = ex
             return
 
         for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
@@ -494,22 +623,41 @@ class Probe(QtWidgets.QMainWindow):
         nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['Nachweisnr. Werk 1'] == str(projektnummer)]
         SELECTED_NACHWEIS = nachweis_data
 
-        
-
-
     def check_projekt_nummer(self, wert):
-        df_projektnumern = pd.read_excel(config["project_nr_data"], sheet_name='Projekte 2022')
-
-        
-
-            
+        df_projektnumern = pd.read_excel(PNR_PATH, sheet_name='Projekte 2022')
 
     def close_window(self):
         self.hide()
 
 
+class Error(QtWidgets.QDialog): 
+    def __init__(self, parent=None):
+        super(Error, self).__init__(parent)
+        uic.loadUi(r'./views/error.ui', self)
+        global STATUS_MSG
+        self.setWindowTitle("CapZa - Zasada - v 0.1 - Fehlerbeschreibung")
+        self.error_lbl.setText(STATUS_MSG)
+        self.init_shadow(self.close_error_info_btn)
+        self.init_shadow(self.error_msg_frame)
+        self.close_error_info_btn.clicked.connect(self.close_window)
+
+    def init_shadow(self, widget):
+        effect = QGraphicsDropShadowEffect()
+        effect.setOffset(0, 1)
+        effect.setBlurRadius(8)
+        widget.setGraphicsEffect(effect)
+
+    def close_window(self):
+        self.hide()
+
 
 if __name__ == "__main__":
+
+    try:
+        ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
+    except Exception as ex:
+        STATUS_MSG = "Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. " + str(ex)
+
 
     app = QtWidgets.QApplication(sys.argv)
     # Create and display the splash screen
@@ -519,11 +667,11 @@ if __name__ == "__main__":
     splash.show()
     app.processEvents()
 
-    ALL_DATA_NACHWEIS = pd.read_excel(config["overview_data"])
-
-
     win = Ui()
-    win.show()
+    if STATUS_MSG != "":
+        win._check_for_errors()
+    
     splash.finish(win)
+    win.show()
     sys.exit(app.exec_())
 

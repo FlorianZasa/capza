@@ -23,8 +23,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.setContentsMargins(10, 10, 10, 10)
         self.verticalLayout.setObjectName("verticalLayout")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);")
+        self.tableWidget.setStyleSheet("background: #FCFCFC;\\nborder-radius: 10px\n"
+"")
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
@@ -32,14 +32,29 @@ class Ui_MainWindow(object):
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
         self.verticalLayout.addWidget(self.tableWidget)
+        spacerItem = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout.addItem(spacerItem)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setMinimumSize(QtCore.QSize(0, 40))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(12)
+        self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);")
         self.pushButton_2.setObjectName("pushButton_2")
         self.verticalLayout.addWidget(self.pushButton_2)
         self.load_probe_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.load_probe_btn.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);")
+        self.load_probe_btn.setMinimumSize(QtCore.QSize(0, 40))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.load_probe_btn.setFont(font)
+        self.load_probe_btn.setStyleSheet("background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;")
         self.load_probe_btn.setObjectName("load_probe_btn")
         self.verticalLayout.addWidget(self.load_probe_btn)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
