@@ -97,6 +97,17 @@ class Ui_Dialog(object):
         self.verticalLayout_2.addWidget(self.close_error_info_btn, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
+        self.pushButton = QtWidgets.QPushButton(self.verticalFrame_2)
+        self.pushButton.setMinimumSize(QtCore.QSize(100, 40))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.pushButton.setFont(font)
+        self.pushButton.setStyleSheet("background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;")
+        self.pushButton.setObjectName("pushButton")
+        self.verticalLayout_2.addWidget(self.pushButton)
         self.horizontalLayout.addWidget(self.verticalFrame_2)
 
         self.retranslateUi(Dialog)
@@ -107,3 +118,4 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.error_lbl.setText(_translate("Dialog", "TextLabel"))
         self.close_error_info_btn.setText(_translate("Dialog", "Ok"))
+        self.pushButton.setText(_translate("Dialog", "Ausblenden"))

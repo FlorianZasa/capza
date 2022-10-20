@@ -1,12 +1,17 @@
 
 import datetime
-from telnetlib import NEW_ENVIRON
+from multiprocessing import Process
+from docx2pdf import convert
+from time import time
 import pandas as pd
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtGui import QIcon, QPixmap, QFont
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QStyle
-import sys
+import sys, asyncio
+import time
+import subprocess, os, platform
+
 
 from win10toast import ToastNotifier
 
@@ -37,7 +42,7 @@ class Ui(QtWidgets.QMainWindow):
         super(Ui, self).__init__(parent)
         uic.loadUi(r'./views/main.ui', self)
 
-
+        self.showMaximized()
         self.init_main()
 
     def init_main(self):
@@ -51,29 +56,35 @@ class Ui(QtWidgets.QMainWindow):
 
         self.stackedWidget.setCurrentIndex(0)
         self.file = ""
+        self.second_info_lbl.hide()
         today_date_raw = datetime.datetime.now()
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
 
         self.notifier = ToastNotifier()
 
-
-        self.error_info_btn.setStyleSheet("QPushButton:hover"
-                            "{"
-                            "background-color : white;"
-                            "}")
+        self.error_info_btn.setStyleSheet(
+            "QPushButton {"
+            "background-color: transparent; "
+            "border: 1px solid black;"
+            "}"
+            "QPushButton:hover"
+            "{"
+                "font-weight: bold"
+            "}")
 
         self.error_info_btn.clicked.connect(self.showError)
 
         self.disable_buttons()
+        self._check_for_errors()
 
         self.status_msg_btm.hide()
 
-        self.nav_data_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(0))
-        self.nav_analysis_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(1))
-        self.nav_pnp_entry_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(2))
-        self.nav_pnp_output_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(3))
-        self.nav_order_form_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(4))
-        self.nav_settings_btn.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(5))
+        self.nav_data_btn.clicked.connect(lambda : self.display(0))
+        self.nav_analysis_btn.clicked.connect(lambda : self.display(1))
+        self.nav_pnp_entry_btn.clicked.connect(lambda : self.display(2))
+        self.nav_pnp_output_btn.clicked.connect(lambda : self.display(3))
+        self.nav_order_form_btn.clicked.connect(lambda : self.display(4))
+        self.nav_settings_btn.clicked.connect(lambda : self.display(5))
 
         self.save_references_btn.clicked.connect(self.save_references)
 
@@ -85,19 +96,19 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.migrate_btn)
         self.init_shadow(self.aqs_btn)
         self.init_shadow(self.project_data_btn)
-        self.init_shadow(self.pnp_in_empty)
-        self.init_shadow(self.pnp_in_protokoll)
         self.init_shadow(self.pnp_out_empty)
         self.init_shadow(self.pnp_out_protokoll)
         self.init_shadow(self.auftrag_empty)
         self.init_shadow(self.auftrag_letsgo)
         self.init_shadow(self.analysis_f1)
         self.init_shadow(self.analysis_f2)
-        self.init_shadow(self.pnp_tapped)
         self.init_shadow(self.pnp_o_frame)
         self.init_shadow(self.order_frame)
+        self.init_shadow(self.pnp_in_allg_frame)
+
 
         d,m,y = self.today_date_string.split(".")
+
         self.end_dateedit.setDate(QDate(int(y),int(m),int(d)))
         # Design Default values
 
@@ -119,7 +130,7 @@ class Ui(QtWidgets.QMainWindow):
         self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
 
 
-        self.migrate_btn.clicked.connect(self.create_document)
+        self.migrate_btn.clicked.connect(self.create_bericht_document)
         self.aqs_btn.clicked.connect(self._no_function)
 
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
@@ -130,6 +141,7 @@ class Ui(QtWidgets.QMainWindow):
     def _no_function(self):
         global STATUS_MSG
         STATUS_MSG = "Diese Funktion steht noch nicht zu verfügung."
+        self.feedback_message("info", "Diese Funktion steht noch nicht zu verfügung.")
         self._check_for_errors()
 
     def choose_nw_path(self):
@@ -199,12 +211,12 @@ class Ui(QtWidgets.QMainWindow):
             with open("_loc_conf.txt", 'w', encoding='utf-8') as f:
                 f.write("{'nw_path': '"+nw_path+"',")
                 f.write("'project_nr_path': '"+project_nr_path+"'}")
-            self.feedback_message("success", "Das Speichern war erfolgreich")
+            self.feedback_message("success", "Neue Referenzen erfolgreich gespeichert.")
             
         except Exception as ex:
             STATUS_MSG = "Das Speichern ist fehlgeschlagen: " + str(ex)
             self._check_for_errors()
-            self.feedback_message("error", "Fehler beim Speichern")
+            self.feedback_message("error", f"Fehler beim Speichern: [{ex}]")
 
     def open_probe_win(self, dataset):
         try:
@@ -215,15 +227,216 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
             self._check_for_errors(STATUS_MSG)
 
-    def create_document(self):
+    def display(self,i):
+      self.stackedWidget.setCurrentIndex(i)
+      if i == 1:
+        self.hide_second_info()
+
+    def create_bericht_document(self):
         global STATUS_MSG
+        id = "x" if self.id_check_2.isChecked() else ""
+        vorpruefung  = "x" if self.precheck_check_2.isChecked() else ""
+        
+        ahv = "x" if self.ahv_check_2.isChecked() else ""
+        erzeuger = "x" if self.erzeuger_check_2.isChecked() else ""
+
+        nh3 = str(self.nh3_lineedit.text())
+        h2 = str(self.h2_lineedit.text())
+        brandtest= str(self.brandtest_lineedit.text())
+        farbe = str(self.color_lineedit.text())
+        konsistenz = str(self.consistency_lineedit.text())
+        geruch = str(self.smell_lineedit.text())
+        bemerkung = str(self.remark_textedit.toPlainText())
+
+        aoc = 0
+        toc = 0
+        ec = 0
+        if not SELECTED_PROBE["TOC\n%"] == "":
+            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))
+        else:
+            toc = ""
+
+        if not SELECTED_PROBE["EC\n%"] == "":
+            ec = self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))
+        else:
+            ec = ""
+        
+        if isinstance(toc, float) and isinstance(ec, float):
+            aoc = self.round_if_psbl(toc-ec)
+        else:
+            aoc = ""
+
+        #
+        toc_check = "x" if self.toc_check.checkState() == 2 else ""
+        if toc_check == "x":
+            toc_check_yes = "x"
+            toc_check_no = ""
+        else:
+            toc_check_yes = ""
+            toc_check_no = "x"
+        icp_check = "x" if self.icp_check.checkState() == 2 else ""
+        if icp_check == "x":
+            icp_check_yes = "x"
+            icp_check_no = ""
+        else:
+            icp_check_yes = ""
+            icp_check_no = "x"
+
+        rfa_check = "x" if self.rfa_check.checkState() == 2 else ""
+        if rfa_check == "x":
+            rfa_check_yes = "x"
+            rfa_check_no = ""
+        else:
+            rfa_check_yes = ""
+            rfa_check_no = "x"
+
+        fremd_analysis_check = "x" if self.fremdanalysis_check.checkState() == 2 else ""
+        if fremd_analysis_check == "x":
+            fremd_analysis_check_yes = "x"
+            fremd_analysis_check_no = ""
+        else:
+            fremd_analysis_check_yes = ""
+            fremd_analysis_check_no = "x"
+
+        pic_check = "x" if self.pic_check.checkState() == 2 else ""
+        if pic_check == "x":
+            pic_check_yes = "x"
+            pic_check_no = ""
+        else:
+            pic_check_yes = ""
+            pic_check_no = "x"
+
+        doc_check = "x" if self.doc_check.checkState() == 2 else ""
+        if doc_check == "x":
+            doc_check_yes = "x"
+            doc_check_no = ""
+        else:
+            doc_check_yes = ""
+            doc_check_no = "x"
+
+        chlorid_check = "x" if self.chlorid_check.checkState() == 2 else ""
+        if chlorid_check == "x":
+            chlorid_check_yes = "x"
+            chlorid_check_no = ""
+        else:
+            chlorid_check_yes = ""
+            chlorid_check_no = "x"
+
+        pbp_check = "x" if self.pbp_check.checkState() == 2 else ""
+        if pbp_check == "x":
+            pbp_check_yes = "x"
+            pbp_check_no = ""
+        else:
+            pbp_check_yes = ""
+            pbp_check_no = "x"
+
+        pnp_check = "x" if self.pnp_check.checkState() == 2 else ""
+        if pnp_check == "x":
+            pnp_check_yes = "x"
+            pnp_check_no = ""
+        else:
+            pnp_check_yes = ""
+            pnp_check_no = "x"
+    
+        data = {
+            "projekt_nr" : str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]),
+            "bezeichnung": str(SELECTED_NACHWEIS["Material"]).split()[1],
+            "erzeuger_name": str(SELECTED_NACHWEIS["Erzeuger"]).split()[1],
+            #
+            "id": id,
+            "vorpruefung": vorpruefung,
+            "ahv": ahv,
+            "erzeuger": erzeuger,
+            "avv": str(SELECTED_NACHWEIS["AVV"]).split()[1],
+            "menge": str(SELECTED_NACHWEIS["t"]).split()[1],
+            "heute": str(self.today_date_string),
+            "datum": str(SELECTED_PROBE["Datum"]),
+            #
+            "wert": str(SELECTED_PROBE["pH-Wert"]),
+            "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]),
+            "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
+            "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
+            "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
+            "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
+            "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
+            "tds": self.round_if_psbl(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]),
+            "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]),
+            "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]),
+            "feuchte": str(SELECTED_PROBE["Wassergehalt %"]),
+            "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS\n%"]),
+            "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS\n%"]),
+            "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]),
+            "toc": toc,
+            "ec": ec,
+            "aoc": aoc,
+            #
+            "nh3": nh3,
+            "h2": h2,
+            "brandtest": brandtest,
+            #
+            "farbe": farbe,
+            "konsistenz": konsistenz,
+            "geruch": geruch,
+            "bemerkung": bemerkung,
+            #
+            "rfa_yes": rfa_check_yes,
+            "rfa_no": rfa_check_no,
+            "doc_yes": doc_check_yes,
+            "doc_no": doc_check_no,
+            "icp_yes": icp_check_yes,
+            "icp_no": icp_check_no,
+            "toc_yes": toc_check_yes,
+            "toc_no": toc_check_no,
+            "cl_yes": chlorid_check_yes,
+            "cl_no": chlorid_check_no,
+            "pic_yes": pic_check_yes,
+            "pic_no": pic_check_no,
+            "fremd_yes": fremd_analysis_check_yes,
+            "fremd_no": fremd_analysis_check_no,
+            "pnp_yes": pnp_check_yes,
+            "pnp_no": pnp_check_no,
+            "pbd_yes": pbp_check_yes,
+            "pbd_no": pbp_check_no
+        }
+
+        word_file = self.create_word_bericht(data)
+        try:
+            self.create_pdf_bericht(word_file)
+        except Exception as ex:
+            self.feedback_message("attention", f"Es konnte keine PDF erstellt werden. [{ex}]")
+            STATUS_MSG = ex
+            self._check_for_errors()
+            
+
+
+    def create_pdf_bericht(self, wordfile):
+        print(wordfile)
+        file = wordfile.replace(".docx", ".pdf")
+        convert(wordfile, file)
+            
+    
+    def create_word_bericht(self, data):
+        global STATUS_MSG
+        try:
+            wh = Word_Helper()
+            file = QFileDialog.getSaveFileName(self, 'Speicherort für Prüfbericht', 'C://', filter='*.docx')
+            if file[0]:
+                wh.write_to_word_file(data, config["bericht_vorlage"], name=file[0])
+                self.feedback_message("success", "Der Bericht wurde erfolgreich erstellt.")
+                return file[0]
+        except Exception as ex:
+            self.feedback_message("error", f"Der Bericht konnte nicht erstellt werden. [{ex}]")
+            STATUS_MSG = "Der Bericht konnte nicht erstellt werden: " + str(ex)
+            self._check_for_errors()
+
+
+    def create_aqs_document(self):
+        global STATUS_MSG
+
         id = "x" if self.id_check.checkState() == 2 else ""
         vorpruefung  = "x" if self.precheck_check.checkState() == 2 else ""
-        
-
         ahv = "x" if self.ahv_check.checkState() == 2 else ""
-        erzeuger = "x" if self.erzeuger_check.checkState() == 2 else "" #TODO: NAME!
-
+        erzeuger = "x" if self.erzeuger_check.checkState() == 2 else ""
 
 
         nh3 = str(self.nh3_lineedit.text())
@@ -385,14 +598,30 @@ class Ui(QtWidgets.QMainWindow):
                 "pbd_no": pbp_check_no
             }
 
-
             wh = Word_Helper()
             file = QFileDialog.getSaveFileName(self, 'Speicherort für Prüfbericht', 'C://', filter='*.docx')
-            wh.write_to_worfd_file(data, config["bericht_vorlage"], name=file[0])
+            wh.write_to_word_file(data, config["bericht_vorlage"], name=file[0])
+            self.feedback_message("success", "Der Bericht wurde erfolgreich erstellt.")
+
+            try:
+                self.open_file(file[0])
+            except Exception as ex:
+                self.feedback_message("attention", f"Der Bericht wurde erstellt, konnte aber nicht geöffnet werden. [{ex}]")
         except Exception as ex:
+            self.feedback_message("error", "Der Bericht konnte nicht erstellt werden. [{ex}]")
             STATUS_MSG = "Der Bericht konnte nicht erstellt werden: " + str(ex)
             self._check_for_errors()
 
+    def file_exists_loop(self, path, limit=30):
+        exists = False
+        lim = 0
+        while not exists or lim <= limit :
+            if exists:
+                return True
+            else:
+                os.path.exists(path)
+                time.sleep(1)
+            
     def round_if_psbl(self, value):
         if isinstance(value, float):
             return round(value, 3)
@@ -530,9 +759,12 @@ class Ui(QtWidgets.QMainWindow):
         m = date[1]
         d = date[2]
         self.probe_date.setDate(QDate(int(y), int(m), int(d)))
+        self.check_start_date.setDate(QDate(int(y),int(m),int(d)))
 
         self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
         STATUS_MSG = ""
+        self.feedback_message("success", "Probe erfolgreich geladen.")
+        self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
 
     def disable_buttons(self):
         self.migrate_btn.setEnabled(False)
@@ -542,15 +774,23 @@ class Ui(QtWidgets.QMainWindow):
         self.migrate_btn.setEnabled(True)
         self.aqs_btn.setEnabled(True)
 
+    def show_second_info(self, msg):
+        self.second_info_lbl.setText(msg)
+        self.second_info_lbl.show()
+    def hide_second_info(self):
+        self.second_info_lbl.setText("")
+        self.second_info_lbl.hide()
+
     def open_specific_probe(self):
         global ALL_DATA_PROBE
         global STATUS_MSG
+        self.feedback_message("info", "Lade Proben...")
+
         try:
             if isinstance(ALL_DATA_PROBE, int):
                 data = self.read_excel()
                 
                 data = data.loc[::-1].reset_index(drop=True)
-                print(data)
                 self.open_probe_win(data)
                 ALL_DATA_PROBE = data
             else:
@@ -567,22 +807,44 @@ class Ui(QtWidgets.QMainWindow):
                 "* {"
                     "background-color: #A2E4AE;"
                     "color: #067005;"
-                    "padding: 20px"
+                    "border-radius: 10px;"
                 "}"
             )
-        elif kind == "error":
+        if kind == "error":
             self.status_msg_btm.setStyleSheet(
-                "*: {"
-                    "background-color: #F08A8A;"
-                    "color: #6D0808"
-                    "padding: 20px"
+                "* {"
+                    "background-color: #ffcccc;"
+                    "color: #6D0808;"
+                    "border-radius: 10px;"
                 "}"
             )
-        else: pass
+        if kind == "info":
+            self.status_msg_btm.setStyleSheet(
+                "* {"
+                    "background-color: #cce0ff;"
+                    "color: #003380;"
+                    "border-radius: 10px;"
+                "}"
+            )
+        if kind == "attention":
+            self.status_msg_btm.setStyleSheet(
+                "* {"
+                    "background-color: #F5DA9D;"
+                    "color: #b08b35;"
+                    "border-radius: 10px;"
+                "}"
+            )
 
         self.status_msg_btm.show()
         QTimer.singleShot(3000, lambda: self.status_msg_btm.hide())
 
+    def open_file(self, path):
+        if platform.system() == "Darwin":
+            subprocess.call(('open', path))
+        elif platform.system() == "Windows":
+            os.startfile(path)
+        else:
+            subprocess.call(("xdg-open", path))
 
 
 
@@ -689,6 +951,9 @@ class Error(QtWidgets.QDialog):
     def close_window(self):
         self.hide()
 
+
+
+
 if __name__ == "__main__":
     d = {}
     try:
@@ -728,4 +993,5 @@ if __name__ == "__main__":
     splash.finish(win)
     win.show()
     sys.exit(app.exec_())
+    
 

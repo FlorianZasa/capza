@@ -1,1 +1,1 @@
-{'nw_path': '//mac/Home/Desktop/Übersicht Nachweis.xls','project_nr_path': './vorlagen/Projektnummern.xls'}
+{'nw_path': '//mac/Home/Desktop/myBots/capza-app/capza/vorlagen/Übersicht Nachweis.xls','project_nr_path': './vorlagen/Projektnummern.xls'}
