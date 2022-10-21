@@ -56,6 +56,7 @@ class Ui(QtWidgets.QMainWindow):
 
         self.stackedWidget.setCurrentIndex(0)
         self.file = ""
+        self.logo_right_lbl.setPixmap(QPixmap("./assets/l_logo.png"))
         self.second_info_lbl.hide()
         today_date_raw = datetime.datetime.now()
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
@@ -79,6 +80,14 @@ class Ui(QtWidgets.QMainWindow):
 
         self.status_msg_btm.hide()
 
+        self.brandtest_combo.currentTextChanged.connect(lambda: self.analysis_brandtest_lineedit.setText(self.brandtest_combo.currentText()))
+        self.nh3_lineedit_2.textChanged.connect(lambda: self.nh3_lineedit.setText(self.nh3_lineedit_2.text()))
+        self.h2_lineedit_2.textChanged.connect(lambda: self.h2_lineedit.setText(self.h2_lineedit_2.text()))
+
+        self.pnp_output_probenahmedatum.setDate(self.get_today_qdate())
+        self.pnp_out_protokoll_btn.clicked.connect(self.create_pnp_out_protokoll)
+
+
         self.nav_data_btn.clicked.connect(lambda : self.display(0))
         self.nav_analysis_btn.clicked.connect(lambda : self.display(1))
         self.nav_pnp_entry_btn.clicked.connect(lambda : self.display(2))
@@ -97,7 +106,7 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.aqs_btn)
         self.init_shadow(self.project_data_btn)
         self.init_shadow(self.pnp_out_empty)
-        self.init_shadow(self.pnp_out_protokoll)
+        self.init_shadow(self.pnp_out_protokoll_btn)
         self.init_shadow(self.auftrag_empty)
         self.init_shadow(self.auftrag_letsgo)
         self.init_shadow(self.analysis_f1)
@@ -109,7 +118,7 @@ class Ui(QtWidgets.QMainWindow):
 
         d,m,y = self.today_date_string.split(".")
 
-        self.end_dateedit.setDate(QDate(int(y),int(m),int(d)))
+        self.end_dateedit.setDate(self.get_today_qdate())
         # Design Default values
 
         self.nav_btn_frame.setStyleSheet("QPushButton:checked"
@@ -137,6 +146,10 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG = "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen."
             self._check_for_errors()
             self.feedback_message("error", "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
+
+    def get_today_qdate(self):
+        d,m,y = self.today_date_string.split(".")
+        return QDate(int(y),int(m),int(d))
 
     def _no_function(self):
         global STATUS_MSG
@@ -226,11 +239,16 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
             self._check_for_errors(STATUS_MSG)
+            self.feedback_message("error", f"Die Excel konnte nicht geladen werden: [{ex}]")
 
     def display(self,i):
-      self.stackedWidget.setCurrentIndex(i)
-      if i == 1:
         self.hide_second_info()
+        self.stackedWidget.setCurrentIndex(i)
+        if i == 1:
+            self.hide_second_info()
+    
+        if i == 5:
+            self.show_second_info("Der Pfad zur 'Nachweis Übersicht' Excel ist nur temporär und wird in Zukunft durch Echtdaten aus RAMSES ersetzt.")
 
     def create_bericht_document(self):
         global STATUS_MSG
@@ -242,7 +260,7 @@ class Ui(QtWidgets.QMainWindow):
 
         nh3 = str(self.nh3_lineedit.text())
         h2 = str(self.h2_lineedit.text())
-        brandtest= str(self.brandtest_lineedit.text())
+        brandtest= str(self.brandtest_combo.currentText())
         farbe = str(self.color_lineedit.text())
         konsistenz = str(self.consistency_lineedit.text())
         geruch = str(self.smell_lineedit.text())
@@ -340,15 +358,15 @@ class Ui(QtWidgets.QMainWindow):
     
         data = {
             "projekt_nr" : str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]),
-            "bezeichnung": str(SELECTED_NACHWEIS["Material"]).split()[1],
-            "erzeuger_name": str(SELECTED_NACHWEIS["Erzeuger"]).split()[1],
+            "bezeichnung": str(list(SELECTED_NACHWEIS["Material"])[0]),
+            "erzeuger_name": str(list(SELECTED_NACHWEIS["Erzeuger"])[0]),
             #
             "id": id,
             "vorpruefung": vorpruefung,
             "ahv": ahv,
             "erzeuger": erzeuger,
-            "avv": str(SELECTED_NACHWEIS["AVV"]).split()[1],
-            "menge": str(SELECTED_NACHWEIS["t"]).split()[1],
+            "avv": str(list(SELECTED_NACHWEIS["AVV"])[0]),
+            "menge": str(list(SELECTED_NACHWEIS["t"])[0]),
             "heute": str(self.today_date_string),
             "datum": str(SELECTED_PROBE["Datum"]),
             #
@@ -399,36 +417,74 @@ class Ui(QtWidgets.QMainWindow):
             "pbd_no": pbp_check_no
         }
 
-        word_file = self.create_word_bericht(data)
+        word_file = self.create_word(config["bericht_vorlage"], data, "Bericht")
         try:
             self.create_pdf_bericht(word_file)
         except Exception as ex:
-            self.feedback_message("attention", f"Es konnte keine PDF erstellt werden. [{ex}]")
-            STATUS_MSG = ex
+            self.feedback_message("attention", f"Die Word Datei wurde erfolgreich erstellt. Es konnte aber keine PDF erstellt werden. [{ex}]")
+            STATUS_MSG = str(ex)
             self._check_for_errors()
             
-
-
     def create_pdf_bericht(self, wordfile):
         print(wordfile)
         file = wordfile.replace(".docx", ".pdf")
         convert(wordfile, file)
-            
     
-    def create_word_bericht(self, data):
+    def create_pnp_out_protokoll(self):
+        anzahl = self.amount_analysis.currentText()
+        vorlage_document = self._specific_vorlage(anzahl)
+        ### get all data 
+
+        ### get Probenehmer
+        if self.probenehmer_ms_pnp_out.isChecked():
+            probenehmer = "M. Segieth"
+        elif self.probenehmer_sg_pnp_out.isChecked():
+            probenehmer = "S. Goritz"
+        elif self.probenehmer_lz_pnp_out.isChecked():
+            probenehmer = "L. Zasada"
+        elif self.sonstige_probenehmer.isChecked():
+            probenehmer = self.sonstige_probenehmer_lineedit.text()
+        else:
+            probenehmer = "-"
+        # get anwesende Person
+        ### get Probenehmer
+        if self.anw_person_ms_pnp_out.isChecked():
+            anwesende_personen = "M. Segieth"
+        elif self.anw_person_sg_pnp_out.isChecked():
+            anwesende_personen = "S. Goritz"
+        elif self.anw_person_lz_pnp_out.isChecked():
+            anwesende_personen = "L. Zasada"
+        elif self.sonstige_anwesende_person.isChecked():
+            anwesende_personen = self.sonstige_anwesende_person_lineedit.text()
+        else:
+            anwesende_personen = "-"
+
+
+        data = {
+            "datum": self.today_date_string,
+            "probenehmer": probenehmer,
+            "anwesende_personen": anwesende_personen,
+            "output_nr": self.output_nr_lineedit.text(),
+            "output_nr_1": str(int(self.output_nr_lineedit.text())+1),
+            "output_nr_2": str(int(self.output_nr_lineedit.text())+2),
+            "output_nr_3": str(int(self.output_nr_lineedit.text())+3),
+            "output_nr_4": str(int(self.output_nr_lineedit.text())+4)
+        }
+        self.create_word(vorlage_document, data, "PNP Output Protokoll")
+
+    def create_word(self, vorlage, data, dialog_file):
         global STATUS_MSG
         try:
             wh = Word_Helper()
-            file = QFileDialog.getSaveFileName(self, 'Speicherort für Prüfbericht', 'C://', filter='*.docx')
+            file = QFileDialog.getSaveFileName(self, f'Speicherort für {dialog_file}', 'C://', filter='*.docx')
             if file[0]:
-                wh.write_to_word_file(data, config["bericht_vorlage"], name=file[0])
-                self.feedback_message("success", "Der Bericht wurde erfolgreich erstellt.")
+                wh.write_to_word_file(data, vorlage, name=file[0])
+                self.feedback_message("success", "Das Protokoll wurde erfolgreich erstellt.")
                 return file[0]
         except Exception as ex:
-            self.feedback_message("error", f"Der Bericht konnte nicht erstellt werden. [{ex}]")
-            STATUS_MSG = "Der Bericht konnte nicht erstellt werden: " + str(ex)
+            self.feedback_message("error", f"{dialog_file} konnte nicht erstellt werden. [{ex}]")
+            STATUS_MSG = f"{dialog_file} konnte nicht erstellt werden: " + str(ex)
             self._check_for_errors()
-
 
     def create_aqs_document(self):
         global STATUS_MSG
@@ -441,7 +497,7 @@ class Ui(QtWidgets.QMainWindow):
 
         nh3 = str(self.nh3_lineedit.text())
         h2 = str(self.h2_lineedit.text())
-        brandtest= str(self.brandtest_lineedit.text())
+        brandtest= str(self.brandtest_combo.currentText())
         farbe = str(self.color_lineedit.text())
         konsistenz = str(self.consistency_lineedit.text())
         geruch = str(self.smell_lineedit.text())
@@ -536,8 +592,7 @@ class Ui(QtWidgets.QMainWindow):
         else:
             pnp_check_yes = ""
             pnp_check_no = "x"
-        try:
-            data = {
+        data = {
                 "projekt_nr" : str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]),
                 "bezeichnung": str(SELECTED_NACHWEIS["Material"]).split()[1],
                 "erzeuger_name": str(SELECTED_NACHWEIS["Erzeuger"]).split()[1],
@@ -597,20 +652,7 @@ class Ui(QtWidgets.QMainWindow):
                 "pbd_yes": pbp_check_yes,
                 "pbd_no": pbp_check_no
             }
-
-            wh = Word_Helper()
-            file = QFileDialog.getSaveFileName(self, 'Speicherort für Prüfbericht', 'C://', filter='*.docx')
-            wh.write_to_word_file(data, config["bericht_vorlage"], name=file[0])
-            self.feedback_message("success", "Der Bericht wurde erfolgreich erstellt.")
-
-            try:
-                self.open_file(file[0])
-            except Exception as ex:
-                self.feedback_message("attention", f"Der Bericht wurde erstellt, konnte aber nicht geöffnet werden. [{ex}]")
-        except Exception as ex:
-            self.feedback_message("error", "Der Bericht konnte nicht erstellt werden. [{ex}]")
-            STATUS_MSG = "Der Bericht konnte nicht erstellt werden: " + str(ex)
-            self._check_for_errors()
+        self.create_word("", data, "AQS")
 
     def file_exists_loop(self, path, limit=30):
         exists = False
@@ -667,23 +709,24 @@ class Ui(QtWidgets.QMainWindow):
         ### in Dateneingabe
         self.project_nr_lineedit.setText(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
         try:
-            self.name_lineedit.setText(str(SELECTED_NACHWEIS["Material"]).split()[1])
+            self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0]))
         except:
             self.name_lineedit.setText("-")
+
         try:
-            self.person_lineedit.setText(str(SELECTED_NACHWEIS["Erzeuger"]).split()[1])
+            self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
         except:
             self.person_lineedit.setText("-")
         try: 
-            self.location_lineedit.setText(str(SELECTED_NACHWEIS["PLZ"]).split()[1] + " " + str(SELECTED_NACHWEIS["ORT"]).split()[1])
+            self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
         except:
             self.location_lineedit.setText("-")
         try:
-            self.avv_lineedit.setText(str(SELECTED_NACHWEIS["AVV"]).split()[1])
+            self.avv_lineedit.setText(str(list(SELECTED_NACHWEIS["AVV"])[0]))
         except:
             self.avv_lineedit.setText("-")
         try:
-            self.amount_lineedit.setText(str(SELECTED_NACHWEIS["t"]).split()[1])
+            self.amount_lineedit.setText(str(list(SELECTED_NACHWEIS["t"])[0]))
         except:
             self.amount_lineedit.setText("-")
 
@@ -846,6 +889,22 @@ class Ui(QtWidgets.QMainWindow):
         else:
             subprocess.call(("xdg-open", path))
 
+    def _specific_vorlage(self, anzahl):
+        if anzahl == "1":
+            return config["pnp_out_1"]
+        elif anzahl == "2":
+            return config["pnp_out_2"]
+        elif anzahl == "3":
+            return config["pnp_out_3"]
+        elif anzahl == "4":
+            return config["pnp_out_4"]
+        elif anzahl == "5":
+            return config["pnp_out_5"]
+        else:
+            return "Ungültige Angabe"
+
+        
+      
 
 
 class Probe(QtWidgets.QMainWindow): 
@@ -887,8 +946,8 @@ class Probe(QtWidgets.QMainWindow):
 
         effect.setBlurRadius(8)
 
-        widget.setGraphicsEffect(effect)
-        
+        widget.setGraphicsEffect(effect)  
+
     def load_probe(self):
         global SELECTED_PROBE
         row = self.tableWidget.currentRow()
@@ -993,5 +1052,3 @@ if __name__ == "__main__":
     splash.finish(win)
     win.show()
     sys.exit(app.exec_())
-    
-

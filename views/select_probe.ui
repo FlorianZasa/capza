@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1356</width>
-    <height>1043</height>
+    <width>793</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,23 +36,29 @@
        <number>10</number>
       </property>
       <property name="leftMargin">
-       <number>10</number>
+       <number>0</number>
       </property>
       <property name="topMargin">
-       <number>10</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>10</number>
+       <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>10</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QFrame" name="horizontalFrame">
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>100</height>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>60</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -110,8 +116,8 @@ background-color: #0C5C51;</string>
           <widget class="QLabel" name="label_2">
            <property name="maximumSize">
             <size>
-             <width>300</width>
-             <height>70</height>
+             <width>40</width>
+             <height>50</height>
             </size>
            </property>
            <property name="text">
@@ -184,7 +190,7 @@ background-color: #0C5C51;</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>60</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">
@@ -210,7 +216,7 @@ text-align:center;</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>60</height>
+          <height>40</height>
          </size>
         </property>
         <property name="font">

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1356, 1043)
+        MainWindow.resize(793, 543)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
         spacerItem1 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.verticalLayout.addItem(spacerItem1)
         self.cancel_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.cancel_btn.setMinimumSize(QtCore.QSize(0, 60))
+        self.cancel_btn.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(12)
@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
         self.cancel_btn.setObjectName("cancel_btn")
         self.verticalLayout.addWidget(self.cancel_btn)
         self.load_probe_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.load_probe_btn.setMinimumSize(QtCore.QSize(0, 60))
+        self.load_probe_btn.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(12)
