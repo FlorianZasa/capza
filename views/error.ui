@@ -159,7 +159,7 @@ border-radius: 10px</string>
        <number>20</number>
       </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>10</number>
       </property>
       <property name="topMargin">
        <number>10</number>
@@ -216,7 +216,7 @@ text-align:center;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="delete_error_btn">
         <property name="minimumSize">
          <size>
           <width>100</width>

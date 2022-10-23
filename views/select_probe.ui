@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>793</width>
-    <height>543</height>
+    <width>1286</width>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -156,10 +156,16 @@ background-color: #0C5C51;</string>
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <property name="sortingEnabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>40</number>
+         <number>300</number>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>400</number>
+        </attribute>
+        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+         <bool>true</bool>
         </attribute>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
@@ -167,6 +173,45 @@ background-color: #0C5C51;</string>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
         </attribute>
+        <column>
+         <property name="text">
+          <string>Datum</string>
+         </property>
+         <property name="font">
+          <font>
+           <family>Leelawadee UI</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Kennung</string>
+         </property>
+         <property name="font">
+          <font>
+           <family>Leelawadee UI</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Materialbezeichnung</string>
+         </property>
+         <property name="font">
+          <font>
+           <family>Leelawadee UI</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+        </column>
        </widget>
       </item>
       <item>

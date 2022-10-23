@@ -765,7 +765,7 @@ padding-left: 20px;</string>
            <string notr="true">color: #0C5C51;</string>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="data">
            <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -2481,7 +2481,7 @@ border-radius: 10px</string>
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-44</y>
+                 <y>-50</y>
                  <width>915</width>
                  <height>780</height>
                 </rect>
@@ -3157,7 +3157,7 @@ border-radius: 10px;</string>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);
+                         <string notr="true">background-color: rgb(226, 226, 226);
 color: rgb(0, 0, 0);
 
 border: 1px solid #C7C7C7;
@@ -3192,7 +3192,7 @@ border-radius: 10px;</string>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);
+                         <string notr="true">background-color: rgb(226, 226, 226);
 color: rgb(0, 0, 0);
 
 border: 1px solid #C7C7C7;
@@ -3227,7 +3227,7 @@ border-radius: 10px;</string>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">background-color: rgb(255, 255, 255);
+                         <string notr="true">background-color: rgb(226, 226, 226);
 color: rgb(0, 0, 0);
 
 border: 1px solid #C7C7C7;
@@ -3408,8 +3408,8 @@ text-align:center;
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-338</y>
-                 <width>933</width>
+                 <y>0</y>
+                 <width>710</width>
                  <height>1184</height>
                 </rect>
                </property>
@@ -6603,8 +6603,8 @@ border: 2px solid rgb(0, 127, 8);</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

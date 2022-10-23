@@ -9,5 +9,6 @@ config = {
     "pnp_out_3": r"./vorlagen/PnP Output 3000 t.docx",
     "pnp_out_4": r"./vorlagen/PnP Output 4000 t.docx",
     "pnp_out_5": r"./vorlagen/PnP Output 5000 t.docx",
+    "db_file": r"./laborauswertung.db", 
     "version": "v0.1.1"
 }

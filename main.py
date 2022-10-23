@@ -2,9 +2,8 @@
 import datetime
 import threading
 from docx2pdf import convert
-from time import time
 import pandas as pd
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QDate, QTimer
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QProgressDialog
@@ -54,6 +53,10 @@ class Ui(QtWidgets.QMainWindow):
     def init_main(self):
         global STATUS_MSG
 
+
+        ### Init DB
+        self.db = DatabaseHelper(config["db_file"])
+
         self.nw_overview_path.setText(NW_PATH)
         self.project_nr_path.setText(PNR_PATH)
         self.disable_settings_lines()
@@ -86,7 +89,7 @@ class Ui(QtWidgets.QMainWindow):
 
         self.error_info_btn.clicked.connect(self.showError)
 
-        self.disable_buttons()
+        # self.disable_buttons()
         self._check_for_errors()
 
         self.status_msg_btm.hide()
@@ -246,6 +249,8 @@ class Ui(QtWidgets.QMainWindow):
                 f.write("'project_nr_path': '"+project_nr_path+"',")
                 f.write("'save_path': '"+save_path+"',")
             self.feedback_message("success", "Neue Referenzen erfolgreich gespeichert.")
+            STATUS_MSG = ""
+            self._check_for_errors()
             
         except Exception as ex:
             STATUS_MSG = "Das Speichern ist fehlgeschlagen: " + str(ex)
@@ -261,7 +266,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
             self._check_for_errors()
-            self.feedback_message("error", f"Die Excel konnte nicht geladen werden: [{ex}]")
+            self.feedback_message("error", STATUS_MSG)
 
     def display(self,i):
         self.hide_second_info()
@@ -291,12 +296,13 @@ class Ui(QtWidgets.QMainWindow):
         aoc = 0
         toc = 0
         ec = 0
-        if not SELECTED_PROBE["TOC\n%"] == "":
+        print(SELECTED_PROBE)
+        if not SELECTED_PROBE["TOC\n%"] == None:
             toc = self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))
         else:
             toc = ""
 
-        if not SELECTED_PROBE["EC\n%"] == "":
+        if not SELECTED_PROBE["EC\n%"] == None:
             ec = self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))
         else:
             ec = ""
@@ -377,9 +383,14 @@ class Ui(QtWidgets.QMainWindow):
         else:
             pnp_check_yes = ""
             pnp_check_no = "x"
+
+        date_str = str(SELECTED_PROBE["Datum"])
+        format = r"%Y-%m-%d %H:%M:%S"
+        date_dt = datetime.datetime.strptime(date_str, format)
+        date = datetime.datetime.strftime(date_dt, r"%d.%m.%Y")
     
         data = {
-            "projekt_nr" : str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]),
+            "projekt_nr" : str(SELECTED_PROBE["Kennung"]),
             "bezeichnung": str(list(SELECTED_NACHWEIS["Material"])[0]),
             "erzeuger_name": str(list(SELECTED_NACHWEIS["Erzeuger"])[0]),
             #
@@ -390,22 +401,22 @@ class Ui(QtWidgets.QMainWindow):
             "avv": str(list(SELECTED_NACHWEIS["AVV"])[0]),
             "menge": str(list(SELECTED_NACHWEIS["t"])[0]),
             "heute": str(self.today_date_string),
-            "datum": str(SELECTED_PROBE["Datum"]),
+            "datum": date,
             #
-            "wert": str(SELECTED_PROBE["pH-Wert"]),
-            "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]),
-            "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
-            "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
-            "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
-            "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
-            "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
-            "tds": self.round_if_psbl(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]),
-            "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]),
-            "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]),
-            "feuchte": str(SELECTED_PROBE["Wassergehalt %"]),
-            "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS\n%"]),
-            "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS\n%"]),
-            "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]),
+            "wert": str(SELECTED_PROBE["pH-Wert"]) if SELECTED_PROBE["pH-Wert"] != None else "",
+            "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"])  if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "",
+            "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "])  if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "",
+            "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "",
+            "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "",
+            "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "",
+            "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "",
+            "tds": self.round_if_psbl(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]) if SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"] != None else "",
+            "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]) if SELECTED_PROBE["Chlorid mg/L"] != None else "",
+            "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]) if SELECTED_PROBE["Fluorid mg/L"] != None else "",
+            "feuchte": str(SELECTED_PROBE["Wassergehalt %"]) if SELECTED_PROBE["Wassergehalt %"] != None else "",
+            "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS\n%"]) if SELECTED_PROBE["Lipos TS\n%"] != None else "",
+            "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS\n%"]) if SELECTED_PROBE["Lipos FS\n%"] != None else "",
+            "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]) if SELECTED_PROBE["GV [%]"] != None else "",
             "toc": toc,
             "ec": ec,
             "aoc": aoc,
@@ -448,7 +459,6 @@ class Ui(QtWidgets.QMainWindow):
             self._check_for_errors()
             
     def create_pdf_bericht(self, wordfile):
-        print(wordfile)
         file = wordfile.replace(".docx", ".pdf")
         convert(wordfile, file)
     
@@ -615,7 +625,7 @@ class Ui(QtWidgets.QMainWindow):
             pnp_check_yes = ""
             pnp_check_no = "x"
         data = {
-                "projekt_nr" : str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]),
+                "projekt_nr" : str(SELECTED_PROBE["Kennung"]),
                 "bezeichnung": str(SELECTED_NACHWEIS["Material"]).split()[1],
                 "erzeuger_name": str(SELECTED_NACHWEIS["Erzeuger"]).split()[1],
                 #
@@ -746,94 +756,31 @@ class Ui(QtWidgets.QMainWindow):
         self.enable_buttons()
 
         ### in Dateneingabe
-        self.project_nr_lineedit.setText(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
-        try:
-            self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0]))
-        except:
-            self.name_lineedit.setText("-")
-
-        try:
-            self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
-        except:
-            self.person_lineedit.setText("-")
-        try: 
-            self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
-        except:
-            self.location_lineedit.setText("-")
-        try:
-            self.avv_lineedit.setText(str(list(SELECTED_NACHWEIS["AVV"])[0]))
-        except:
-            self.avv_lineedit.setText("-")
-        try:
-            self.amount_lineedit.setText(str(list(SELECTED_NACHWEIS["t"])[0]))
-        except:
-            self.amount_lineedit.setText("-")
+        self.project_nr_lineedit.setText(str(SELECTED_PROBE["Kennung"]) if SELECTED_PROBE["Kennung"] != None else "-")
+        self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
+        self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
+        self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
+        self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
+        self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
 
         ### in Analysewerte
-        try:
-            self.ph_lineedit.setText(str(SELECTED_PROBE["pH-Wert"]))
-        except:
-            self.ph_lineedit.setText("-")
-        try:
-            self.leitfaehigkeit_lineedit.setText(str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))
-        except:
-            self.leitfaehigkeit_lineedit.setText("-")
-        try:
-            self.feuchte_lineedit.setText(str(SELECTED_PROBE["Wassergehalt %"]))
-        except:
-            self.feuchte_lineedit.setText("-")
-        try:
-            self.chrome_vi_lineedit.setText(str(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))
-        except:
-            self.chrome_vi_lineedit.setText("-")
-        try:
-            self.lipos_ts_lineedit.setText(str(SELECTED_PROBE["Lipos TS\n%"]))
-        except:
-            self.lipos_ts_lineedit.setText("-")
-        try:
-            self.lipos_os_lineedit.setText(str(SELECTED_PROBE["Lipos FS\n%"]))
-        except:
-            self.lipos_os_lineedit.setText("-")
-        try:
-            self.gluehverlus_lineedit.setText(str(SELECTED_PROBE["GV [%]"]))
-        except:
-            self.gluehverlus_lineedit.setText("-")
-        try:
-            self.doc_lineedit.setText(str(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]))
-        except:
-            self.doc_lineedit.setText("-")
-        try:
-            self.tds_lineedit.setText(str(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]))
-        except:
-            self.tds_lineedit.setText("-")
-        try:
-            self.mo_lineedit.setText(str(SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"]))
-        except:
-            self.mo_lineedit.setText("-")
-        try:
-            self.se_lineedit.setText(str(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))
-        except:
-            self.se_lineedit.setText("-")
-        try:
-            self.sb_lineedit.setText(str(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))
-        except:
-            self.sb_lineedit.setText("-")
-        try:
-            self.fluorid_lineedit.setText(str(SELECTED_PROBE["Fluorid mg/L"]))
-        except:
-            self.fluorid_lineedit.setText("-")
-        try:
-            self.chlorid_lineedit.setText(str(SELECTED_PROBE["Chlorid mg/L"]))
-        except:
-            self.chlorid_lineedit.setText("-")
-        try:
-            self.toc_lineedit.setText(str(SELECTED_PROBE["TOC\n%"]))
-        except:
-            self.toc_lineedit.setText("-")
-        try:
-            self.ec_lineedit.setText(str(SELECTED_PROBE["EC\n%"]))
-        except:
-            self.ec_lineedit.setText("-")
+        self.ph_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["pH-Wert"]))) if SELECTED_PROBE["pH-Wert"] != None else "-")
+        self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
+        self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
+        self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
+        self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS\n%"]))) if SELECTED_PROBE["Lipos TS\n%"] != None else "-")
+        self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS\n%"]))) if SELECTED_PROBE["Lipos FS\n%"] != None else "-")
+        self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
+        self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "-")
+        self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"] != None else "-")
+        self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"]))) if SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"] != None else "-")
+        self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
+        self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
+        self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
+        self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
+        self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))) if SELECTED_PROBE["TOC\n%"] != None else "-")
+        self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))) if SELECTED_PROBE["EC\n%"] != None else "-")
+
 
         date = str(SELECTED_PROBE["Datum"]).split()[0]
         date = date.split("-")
@@ -843,7 +790,7 @@ class Ui(QtWidgets.QMainWindow):
         self.probe_date.setDate(QDate(int(y), int(m), int(d)))
         self.check_start_date.setDate(QDate(int(y),int(m),int(d)))
 
-        self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
+        self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung"]))
         STATUS_MSG = ""
         self.feedback_message("success", "Probe erfolgreich geladen.")
         self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
@@ -863,32 +810,26 @@ class Ui(QtWidgets.QMainWindow):
         self.second_info_lbl.setText("")
         self.second_info_lbl.hide()
 
-    def _get_all_probes_handler(self):
-        global STATUS_MSG
-
-        thread1 = threading.Thread(target = self.read_all_probes)
-        thread1.start()
-        thread2 = threading.Thread(target = self.start_progress)
-        thread2.start()
-
     def read_all_probes(self):
         global ALL_DATA_PROBE
         try:
-            if isinstance(ALL_DATA_PROBE, int):
-                data = self.read_excel()
-                
-                data = data.loc[::-1].reset_index(drop=True)
+            if ALL_DATA_PROBE == 0:
+                data = self.db.get_all_probes()
                 self.open_probe_win(data)
                 ALL_DATA_PROBE = data
+                STATUS_MSG = ""
             else:
                 self.open_probe_win(ALL_DATA_PROBE)
-            ### beende QProgressWindow
-            self.end_progress()
-            STATUS_MSG = ""
         except Exception as ex:
-            STATUS_MSG = "Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex)
+            STATUS_MSG = f"Es konnten keine Daten ermittelt werden: [{str(ex)}]"
             self._check_for_errors()
             self.feedback_message("error", STATUS_MSG)
+
+    def format_avv_space_after_every_second(self, avv_raw):
+        if len(avv_raw) > 2:
+            return ' '.join(avv_raw[i:i + 2] for i in range(0, len(avv_raw), 2))
+        else:
+            return "/"
 
     def feedback_message(self, kind, msg):
         self.status_msg_btm.setText(msg)
@@ -974,30 +915,24 @@ class Probe(QtWidgets.QMainWindow):
         self.setWindowTitle(f"CapZa - Zasada - { config['version'] } - Wähle Probe")
         
         
-        self.df = ""
+        self.db = DatabaseHelper(config["db_file"])
+        self.selected_probe_dict = {
+
+        }
 
         self.load_probe_btn.clicked.connect(self.load_probe)
+        self.cancel_btn.clicked.connect(self.close_window)
         self.init_shadow(self.load_probe_btn)
-        self.init_shadow(self.cancel_btn)  
+        self.init_shadow(self.cancel_btn)
 
     def init_data(self, dataset):
-        self.df = dataset
-        dataset.fillna('', inplace=True)
-        show_data = dataset[['Datum', 'Material beliebige Bezeichnung', 'Kennung \nDiese Zeile wird zum Sortieren benötigt']]
-        self.tableWidget.setRowCount(show_data.shape[0])
-        self.tableWidget.setColumnCount(show_data.shape[1])
-        self.tableWidget.setHorizontalHeaderLabels(show_data.columns)
-        self.tableWidget.setColumnWidth(0, 200)
 
-        # returns pandas array object
-        for row in dataset.iterrows():
-            values = row[1]
-            for col_index, value in enumerate(values):
-                if isinstance(value, (float, int)):
-                    value = '{0:0,.0f}'.format(value)
-                tableItem = QTableWidgetItem(str(value))
-                self.tableWidget.setItem(row[0], col_index, tableItem)
-        self.tableWidget.setColumnWidth(2, 400)
+        for row in dataset:
+            rowPosition = self.tableWidget.rowCount()
+            self.tableWidget.insertRow(rowPosition)
+            self.tableWidget.setItem(rowPosition , 0, QTableWidgetItem(str(row["Datum"])))
+            self.tableWidget.setItem(rowPosition , 1, QTableWidgetItem(str(row["Kennung"])))
+            self.tableWidget.setItem(rowPosition , 2, QTableWidgetItem(str(row["Material beliebige Bezeichnung"])))
 
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
@@ -1011,13 +946,14 @@ class Probe(QtWidgets.QMainWindow):
     def load_probe(self):
         global SELECTED_PROBE
         row = self.tableWidget.currentRow()
-        selected_data_serie = self.df.iloc[row]
-        selected_data_dict = selected_data_serie.to_dict()
+        kennung = self.tableWidget.item(row,1).text()
 
-        SELECTED_PROBE = selected_data_dict
-        self.differentiate_probe(str(SELECTED_PROBE["Kennung \nDiese Zeile wird zum Sortieren benötigt"]))
+        selected_data= self.db.get_specific_probe(kennung)
+        SELECTED_PROBE = selected_data
+        self.differentiate_probe(self.db.get_specific_probe(kennung)["Kennung"])
         self.parent().insert_values()
         self.close_window()
+        return
 
     def differentiate_probe(self, wert):
         global ALL_DATA_NACHWEIS, STATUS_MSG
@@ -1026,17 +962,22 @@ class Probe(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG = ex
             return
-
-        for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
-            if isinstance(letters, str):
-                if isinstance(numbers, str):
-                    if isinstance(nummer, str):
-                        if letters and numbers in nummer:
-                            self.check_in_uebersicht_nachweis(nummer)
-                            return
-
-        else:
-            return
+        
+        try:
+            for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
+                if isinstance(letters, str):
+                    if isinstance(numbers, str):
+                        if isinstance(nummer, str):
+                            if letters and numbers in nummer:
+                                # nummer = letters + " " + nummer
+                                self.check_in_uebersicht_nachweis(nummer)
+                                return
+            else:
+                return
+        except Exception as ex:
+            STATUS_MSG = f"Daten konnten nicht geladen werden: [{str(ex)}]"
+            self.parent().feedback_message("error", STATUS_MSG)
+            
 
     def check_in_uebersicht_nachweis(self, projektnummer):
         global SELECTED_NACHWEIS
@@ -1060,6 +1001,7 @@ class Error(QtWidgets.QDialog):
         self.init_shadow(self.close_error_info_btn)
         self.init_shadow(self.error_msg_frame)
         self.close_error_info_btn.clicked.connect(self.close_window)
+        self.delete_error_btn.clicked.connect(self.delete_error)
 
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
@@ -1070,64 +1012,12 @@ class Error(QtWidgets.QDialog):
     def close_window(self):
         self.hide()
 
-class Worker(QThread):
-    finished = pyqtSignal()
-    progress = pyqtSignal(int)
-
-
-    def read_all_probes(self):
+    def delete_error(self):
         global STATUS_MSG
-        global ALL_DATA_PROBE
-        """Long-running task."""
-        print("START TEST")
-        try:
-            if isinstance(ALL_DATA_PROBE, int):
-                print("LESE EXCEL")
-                data = self.read_excel()
-                data = data.loc[::-1].reset_index(drop=True)
-                print("ÖFFNE PROBEWIN")
-                self.open_probe_win(data)
-                ALL_DATA_PROBE = data
-            else:
-                self.open_probe_win(ALL_DATA_PROBE)
-            ### beende QProgressWindow
-            STATUS_MSG = ""
-            ALIVE = False
-            PROGRESS = 100
-
-        except Exception as ex:
-            STATUS_MSG = "WORKER: Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex)
-            # self._check_for_errors()
-            print(STATUS_MSG)
-        
-
-    def open_probe_win(self, dataset):
-        try:
-            self.probe = Probe()
-            self.probe.show()
-            self.probe.init_data(dataset)
-        except Exception as ex:
-            STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
-            print(STATUS_MSG)
-            # self._check_for_errors(STATUS_MSG)
-            # self.feedback_message("error", f"Die Excel konnte nicht geladen werden: [{ex}]")
-
-    def read_excel(self):
-        global BERICHT_FILE
-        # excel_raw = pd.read_excel(BERICHT_FILE)
-        try:
-            excel_raw = pd.read_csv(BERICHT_FILE, on_bad_lines='skip')
-        except Exception as ex:
-            print(ex)
-
-            try:
-                excel_raw = pd.read_excel(BERICHT_FILE)
-            except Exception as ex:
-                print(f"Konnte nicht gelesen werden: {ex}")
-        # nan_value = float("NaN")
-        # excel_raw.replace("", nan_value, inplace=True)
-        # excel_raw.dropna(how='all', axis=0, inplace=True)
-        return excel_raw
+        STATUS_MSG = ""
+        self.error_lbl.setText("")
+        self.close()
+        self.parent()._check_for_errors()
 
 if __name__ == "__main__":
     d = {}
@@ -1149,7 +1039,7 @@ if __name__ == "__main__":
     try:
         ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
     except Exception as ex:
-        STATUS_MSG = "Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. " + str(ex)
+        STATUS_MSG = f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]"
 
 
     app = QtWidgets.QApplication(sys.argv)
