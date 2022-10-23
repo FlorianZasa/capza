@@ -1,16 +1,16 @@
 
 import datetime
-from multiprocessing import Process
+import threading
 from docx2pdf import convert
 from time import time
 import pandas as pd
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtGui import QIcon, QPixmap, QFont
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QStyle
-import sys, asyncio
+from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtCore import QThread, pyqtSignal, Qt, QDate, QTimer
+from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QProgressDialog
+import numpy as np
 import time
-import subprocess, os, platform
+import subprocess, os, platform, sys
 
 
 from win10toast import ToastNotifier
@@ -21,6 +21,7 @@ dirname = os.path.dirname(__file__)
 # import helper modules
 from modules.word_helper import Word_Helper
 from _localconfig import config
+from modules.db_helper import DatabaseHelper
 
 SELECTED_PROBE = 0
 SELECTED_NACHWEIS = 0
@@ -35,6 +36,11 @@ PNR_PATH = ""
 
 STATUS_MSG = ""
 
+BERICHT_FILE = ""
+
+ALIVE, PROGRESS = True, 0
+
+
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         global ALL_DATA_NACHWEIS
@@ -47,15 +53,20 @@ class Ui(QtWidgets.QMainWindow):
 
     def init_main(self):
         global STATUS_MSG
+
         self.nw_overview_path.setText(NW_PATH)
         self.project_nr_path.setText(PNR_PATH)
         self.disable_settings_lines()
 
-        self.setWindowTitle("CapZa - Zasada - v 0.1")
+        self.setWindowTitle(f"CapZa - Zasada - { config['version'] } ")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
 
         self.stackedWidget.setCurrentIndex(0)
-        self.file = ""
+
+        self.save_dir = ""
+
+        self.choose_save_bericht_path.clicked.connect(lambda: self.select_folder(self.save_bericht_path, "Wähle den Standardpfad zum Speichern aus."))
+
         self.logo_right_lbl.setPixmap(QPixmap("./assets/l_logo.png"))
         self.second_info_lbl.hide()
         today_date_raw = datetime.datetime.now()
@@ -114,9 +125,7 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.pnp_o_frame)
         self.init_shadow(self.order_frame)
         self.init_shadow(self.pnp_in_allg_frame)
-
-
-        d,m,y = self.today_date_string.split(".")
+        
 
         self.end_dateedit.setDate(self.get_today_qdate())
         # Design Default values
@@ -132,8 +141,8 @@ class Ui(QtWidgets.QMainWindow):
                                             "color: rgb(0, 0, 0);"
                                         "}")
 
-        self.find_excel_btn.clicked.connect(lambda: self.select_file(self.excel_path_lineedit, self.select_probe_btn, "Wähle eine Laborauswertung aus...", "Excel Files (*.xlsx *.xls)"))
-        self.select_probe_btn.clicked.connect(self.open_specific_probe)
+        self.find_excel_btn.clicked.connect(lambda: self.select_file(self.excel_path_lineedit, self.select_probe_btn, "Wähle eine Laborauswertung aus...", "Excel Files (*.xlsx *.xls *.csv)"))
+        self.select_probe_btn.clicked.connect(self.read_all_probes)
 
         self.choose_nw_path_btn.clicked.connect(self.choose_nw_path)
         self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
@@ -161,9 +170,7 @@ class Ui(QtWidgets.QMainWindow):
         global NW_PATH
         global STATUS_MSG
         NW_PATH = self.select_file(self.nw_overview_path, "", "Wähle die Nachweis Liste aus...", "Excel Files (*.xlsx *.xls)")
-
-        self.load_nachweis_data()
-        self._check_for_errors()
+        self.load_nachweis_data()   
 
     def choose_project_nr(self):
         global PNR_PATH
@@ -174,8 +181,14 @@ class Ui(QtWidgets.QMainWindow):
     def load_nachweis_data(self):
         global STATUS_MSG
         global ALL_DATA_NACHWEIS
-        ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
-        STATUS_MSG = ""
+        try:
+            ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
+            STATUS_MSG = ""
+        except Exception as ex:
+            print(ex)
+            self.feedback_message("error", f"Es wurde eine falsche Liste ausgewählt. Bitte wähle eine gültige 'Nachweisliste' aus. [{ex}]")
+            STATUS_MSG = str(ex)
+            self._check_for_errors()
 
     def load_project_nr(self):
         global ALL_DATA_PROJECT_NR
@@ -204,10 +217,16 @@ class Ui(QtWidgets.QMainWindow):
         self.nw_overview_path.setEnabled(False)
         self.project_nr_path.setEnabled(False)
 
+    def select_folder(self, line, title):
+        dir = QFileDialog.getExistingDirectory(self, title, "C://")
+        line.setText(dir)
+        self.save_folder = dir
+
     def select_file(self, line, button, title, file_type):
+        global BERICHT_FILE
         file = QFileDialog.getOpenFileName(self, title, "C://", file_type)
         line.setText(file[0])
-        self.file = file[0]
+        BERICHT_FILE = file[0]
 
         # activate Button
         if button:
@@ -220,10 +239,12 @@ class Ui(QtWidgets.QMainWindow):
         try:
             nw_path = self.nw_overview_path.text()
             project_nr_path = self.project_nr_path.text()
+            save_path = self.save_bericht_path.text()
 
             with open("_loc_conf.txt", 'w', encoding='utf-8') as f:
                 f.write("{'nw_path': '"+nw_path+"',")
-                f.write("'project_nr_path': '"+project_nr_path+"'}")
+                f.write("'project_nr_path': '"+project_nr_path+"',")
+                f.write("'save_path': '"+save_path+"',")
             self.feedback_message("success", "Neue Referenzen erfolgreich gespeichert.")
             
         except Exception as ex:
@@ -232,13 +253,14 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", f"Fehler beim Speichern: [{ex}]")
 
     def open_probe_win(self, dataset):
+        global STATUS_MSG
         try:
             self.probe = Probe(self)
             self.probe.show()
             self.probe.init_data(dataset)
         except Exception as ex:
             STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
-            self._check_for_errors(STATUS_MSG)
+            self._check_for_errors()
             self.feedback_message("error", f"Die Excel konnte nicht geladen werden: [{ex}]")
 
     def display(self,i):
@@ -476,7 +498,7 @@ class Ui(QtWidgets.QMainWindow):
         global STATUS_MSG
         try:
             wh = Word_Helper()
-            file = QFileDialog.getSaveFileName(self, f'Speicherort für {dialog_file}', 'C://', filter='*.docx')
+            file = QFileDialog.getSaveFileName(self, f'Speicherort für {dialog_file}', self.save_dir, filter='*.docx')
             if file[0]:
                 wh.write_to_word_file(data, vorlage, name=file[0])
                 self.feedback_message("success", "Das Protokoll wurde erfolgreich erstellt.")
@@ -671,7 +693,24 @@ class Ui(QtWidgets.QMainWindow):
             return str(value)
 
     def read_excel(self):
-        excel_raw = pd.read_excel(self.file)
+        global BERICHT_FILE
+        self.feedback_message("info", "Lade Probedaten...")
+        try:
+            excel_raw = pd.read_csv(BERICHT_FILE, on_bad_lines='skip')
+        except Exception as ex:
+            try:
+                excel_raw = pd.read_excel(BERICHT_FILE)
+            except Exception as ex:
+                STATUS_MSG =f"Konnte nicht gelesen werden: {ex}"
+                self.feedback_message("error", STATUS_MSG)
+                self._check_for_errors()
+
+                return
+
+        nan_value = float("NaN")
+        excel_raw.replace("", nan_value, inplace=True)
+        excel_raw.dropna(how='all', axis=0, inplace=True)
+
         return excel_raw
 
     def empty_values(self):
@@ -824,11 +863,16 @@ class Ui(QtWidgets.QMainWindow):
         self.second_info_lbl.setText("")
         self.second_info_lbl.hide()
 
-    def open_specific_probe(self):
-        global ALL_DATA_PROBE
+    def _get_all_probes_handler(self):
         global STATUS_MSG
-        self.feedback_message("info", "Lade Proben...")
 
+        thread1 = threading.Thread(target = self.read_all_probes)
+        thread1.start()
+        thread2 = threading.Thread(target = self.start_progress)
+        thread2.start()
+
+    def read_all_probes(self):
+        global ALL_DATA_PROBE
         try:
             if isinstance(ALL_DATA_PROBE, int):
                 data = self.read_excel()
@@ -838,10 +882,13 @@ class Ui(QtWidgets.QMainWindow):
                 ALL_DATA_PROBE = data
             else:
                 self.open_probe_win(ALL_DATA_PROBE)
+            ### beende QProgressWindow
+            self.end_progress()
             STATUS_MSG = ""
         except Exception as ex:
             STATUS_MSG = "Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex)
-            self._check_for_errors(STATUS_MSG)
+            self._check_for_errors()
+            self.feedback_message("error", STATUS_MSG)
 
     def feedback_message(self, kind, msg):
         self.status_msg_btm.setText(msg)
@@ -902,9 +949,21 @@ class Ui(QtWidgets.QMainWindow):
             return config["pnp_out_5"]
         else:
             return "Ungültige Angabe"
+  
+    def start_progress(self):
+        global PROGRESS
+        self.progress = QProgressDialog('Lade alle Proben. Das kann einen Moment dauern...', 'Abbrechen', 0, 20, self)
+        self.progress.setWindowTitle("Lade Proben...")
+        self.progress.setWindowModality(Qt.WindowModal)
+        self.progress.setFixedSize(600, 200)
+        self.progress.show()
+        self.progress.setValue(PROGRESS)
 
-        
-      
+    def end_progress(self):
+        global PROGRESS
+        self.progress.setValue(PROGRESS)
+        self.progress.hide()
+
 
 
 class Probe(QtWidgets.QMainWindow): 
@@ -912,7 +971,7 @@ class Probe(QtWidgets.QMainWindow):
         super(Probe, self).__init__(parent)
         uic.loadUi(r'./views/select_probe.ui', self)
 
-        self.setWindowTitle("CapZa - Zasada - v 0.1 - Wähle Probe")
+        self.setWindowTitle(f"CapZa - Zasada - { config['version'] } - Wähle Probe")
         
         
         self.df = ""
@@ -928,6 +987,7 @@ class Probe(QtWidgets.QMainWindow):
         self.tableWidget.setRowCount(show_data.shape[0])
         self.tableWidget.setColumnCount(show_data.shape[1])
         self.tableWidget.setHorizontalHeaderLabels(show_data.columns)
+        self.tableWidget.setColumnWidth(0, 200)
 
         # returns pandas array object
         for row in dataset.iterrows():
@@ -1010,8 +1070,64 @@ class Error(QtWidgets.QDialog):
     def close_window(self):
         self.hide()
 
+class Worker(QThread):
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
 
 
+    def read_all_probes(self):
+        global STATUS_MSG
+        global ALL_DATA_PROBE
+        """Long-running task."""
+        print("START TEST")
+        try:
+            if isinstance(ALL_DATA_PROBE, int):
+                print("LESE EXCEL")
+                data = self.read_excel()
+                data = data.loc[::-1].reset_index(drop=True)
+                print("ÖFFNE PROBEWIN")
+                self.open_probe_win(data)
+                ALL_DATA_PROBE = data
+            else:
+                self.open_probe_win(ALL_DATA_PROBE)
+            ### beende QProgressWindow
+            STATUS_MSG = ""
+            ALIVE = False
+            PROGRESS = 100
+
+        except Exception as ex:
+            STATUS_MSG = "WORKER: Es wurde entweder kein Pfad zur Excel angegeben oder ist er ist fehlerhaft. Bitte wähle zunächst die Laborauswertung aus : "+ str(ex)
+            # self._check_for_errors()
+            print(STATUS_MSG)
+        
+
+    def open_probe_win(self, dataset):
+        try:
+            self.probe = Probe()
+            self.probe.show()
+            self.probe.init_data(dataset)
+        except Exception as ex:
+            STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
+            print(STATUS_MSG)
+            # self._check_for_errors(STATUS_MSG)
+            # self.feedback_message("error", f"Die Excel konnte nicht geladen werden: [{ex}]")
+
+    def read_excel(self):
+        global BERICHT_FILE
+        # excel_raw = pd.read_excel(BERICHT_FILE)
+        try:
+            excel_raw = pd.read_csv(BERICHT_FILE, on_bad_lines='skip')
+        except Exception as ex:
+            print(ex)
+
+            try:
+                excel_raw = pd.read_excel(BERICHT_FILE)
+            except Exception as ex:
+                print(f"Konnte nicht gelesen werden: {ex}")
+        # nan_value = float("NaN")
+        # excel_raw.replace("", nan_value, inplace=True)
+        # excel_raw.dropna(how='all', axis=0, inplace=True)
+        return excel_raw
 
 if __name__ == "__main__":
     d = {}

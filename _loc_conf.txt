@@ -1,0 +1,1 @@
+{'nw_path': '//mac/Home/Desktop/Übersicht Nachweis.xls','project_nr_path': './vorlagen/Projektnummern.xls','save_path': '',

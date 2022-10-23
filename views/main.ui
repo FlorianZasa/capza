@@ -149,7 +149,7 @@ color: #AEDC21;</string>
              <string notr="true">color: #AEDC21;</string>
             </property>
             <property name="text">
-             <string>v0.1.0</string>
+             <string>v0.1.1</string>
             </property>
            </widget>
           </item>
@@ -765,7 +765,7 @@ padding-left: 20px;</string>
            <string notr="true">color: #0C5C51;</string>
           </property>
           <property name="currentIndex">
-           <number>5</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="data">
            <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1003,7 +1003,7 @@ text-align:center;</string>
                  <x>0</x>
                  <y>0</y>
                  <width>932</width>
-                 <height>732</height>
+                 <height>712</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_30">
@@ -2481,7 +2481,7 @@ border-radius: 10px</string>
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-44</y>
                  <width>915</width>
                  <height>780</height>
                 </rect>
@@ -3408,9 +3408,9 @@ text-align:center;
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-338</y>
                  <width>933</width>
-                 <height>1178</height>
+                 <height>1184</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_27">
@@ -4698,74 +4698,93 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_7">
-                     <item>
-                      <widget class="QPushButton" name="pushButton_2">
-                       <property name="minimumSize">
-                        <size>
-                         <width>200</width>
-                         <height>30</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Leelawadee UI</family>
-                         <pointsize>11</pointsize>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #AEDC21;
-border-radius: 10px;</string>
-                       </property>
-                       <property name="text">
-                        <string>PushButton</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="horizontalSpacer_19">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="pushButton">
-                       <property name="minimumSize">
-                        <size>
-                         <width>200</width>
-                         <height>30</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Leelawadee UI</family>
-                         <pointsize>11</pointsize>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #AEDC21;
-border-radius: 10px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Protokoll erstellen</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
+                    <spacer name="verticalSpacer_4">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeType">
+                      <enum>QSizePolicy::Preferred</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>10</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                   </layout>
                  </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <property name="spacing">
+                   <number>20</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>Leeren</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_19">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee UI</family>
+                      <pointsize>11</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background: #AEDC21;
+border-radius: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>Protokoll erstellen</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </widget>
@@ -6400,7 +6419,7 @@ border-radius: 10px;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="save_beriht_path">
+                  <widget class="QLineEdit" name="save_bericht_path">
                    <property name="font">
                     <font>
                      <family>Leelawadee UI</family>
@@ -6584,8 +6603,8 @@ border: 2px solid rgb(0, 127, 8);</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>
