@@ -1,4 +1,6 @@
 from docxtpl import DocxTemplate
+import win32com.client as win32
+
 
 
 class Word_Helper():
@@ -10,6 +12,12 @@ class Word_Helper():
         self.doc.render(context)
         self.doc.save(name)
         return True
+
+    def open_word(self, path: str):
+        print(path)
+        word = win32.gencache.EnsureDispatch('Word.Application')
+        word.Visible = True
+        doc = word.Documents.Open(path)
 
 if __name__ == "__main__":
     w = Word_Helper()

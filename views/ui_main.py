@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_CapZa(object):
     def setupUi(self, CapZa):
         CapZa.setObjectName("CapZa")
-        CapZa.resize(1224, 1136)
+        CapZa.resize(1338, 1302)
         CapZa.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -32,6 +32,12 @@ class Ui_CapZa(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.horizontalFrame_14 = QtWidgets.QFrame(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.horizontalFrame_14.sizePolicy().hasHeightForWidth())
+        self.horizontalFrame_14.setSizePolicy(sizePolicy)
+        self.horizontalFrame_14.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.horizontalFrame_14.setStyleSheet("background-color: #0C5C51;")
         self.horizontalFrame_14.setObjectName("horizontalFrame_14")
         self.horizontalLayout_36 = QtWidgets.QHBoxLayout(self.horizontalFrame_14)
@@ -39,7 +45,7 @@ class Ui_CapZa(object):
         self.horizontalLayout_36.setSpacing(0)
         self.horizontalLayout_36.setObjectName("horizontalLayout_36")
         self.frame = QtWidgets.QFrame(self.horizontalFrame_14)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
@@ -100,24 +106,28 @@ class Ui_CapZa(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_36.addItem(spacerItem)
         self.error_info_btn = QtWidgets.QPushButton(self.horizontalFrame_14)
-        self.error_info_btn.setMinimumSize(QtCore.QSize(90, 90))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.error_info_btn.sizePolicy().hasHeightForWidth())
+        self.error_info_btn.setSizePolicy(sizePolicy)
+        self.error_info_btn.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setUnderline(False)
         font.setWeight(75)
         self.error_info_btn.setFont(font)
-        self.error_info_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.error_info_btn.setCursor(QtGui.QCursor(QtCore.Qt.WhatsThisCursor))
         self.error_info_btn.setToolTip("")
         self.error_info_btn.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.error_info_btn.setAutoFillBackground(False)
-        self.error_info_btn.setStyleSheet("color: rgb(230, 52, 7);\n"
-"background-color: transparent;")
+        self.error_info_btn.setStyleSheet("QPushButton {border: none;  color: rgb(242, 78, 30); background: none}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("\\\\mac\\Home\\Desktop\\myBots\\capza-app\\capza\\views\\../assets/error_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.error_info_btn.setIcon(icon)
-        self.error_info_btn.setIconSize(QtCore.QSize(80, 85))
+        self.error_info_btn.setIconSize(QtCore.QSize(30, 30))
         self.error_info_btn.setAutoRepeat(False)
         self.error_info_btn.setAutoExclusive(False)
         self.error_info_btn.setAutoDefault(False)
@@ -132,8 +142,8 @@ class Ui_CapZa(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.logo_right_lbl.sizePolicy().hasHeightForWidth())
         self.logo_right_lbl.setSizePolicy(sizePolicy)
-        self.logo_right_lbl.setMinimumSize(QtCore.QSize(300, 70))
-        self.logo_right_lbl.setMaximumSize(QtCore.QSize(460, 100))
+        self.logo_right_lbl.setMinimumSize(QtCore.QSize(0, 0))
+        self.logo_right_lbl.setMaximumSize(QtCore.QSize(300, 70))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.logo_right_lbl.setFont(font)
@@ -162,50 +172,143 @@ class Ui_CapZa(object):
         self.nav_frame.setMinimumSize(QtCore.QSize(250, 0))
         self.nav_frame.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.nav_frame.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.nav_frame.setStyleSheet("background-color: #27B086; text-align:left")
+        self.nav_frame.setStyleSheet("QFrame {\n"
+"    background-color: #27B086; \n"
+"    text-align:left;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: #AEDC21;\n"
+"    border-left: 3px solid rgb(7, 113, 78);\n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(68, 248, 18, 255), stop:1 rgba(255, 255, 255, 0));\n"
+"    color: rgb(12, 92, 81);\n"
+"border-radius: 5px;\n"
+"border-left: 5px solid rgb(7, 113, 78);\n"
+"font-size: 28px;\n"
+"text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background: rgb(42, 188, 142);\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    color: rgb(255, 255, 255);\n"
+"    text-align: left;\n"
+"    padding-left: 20px;\n"
+"    height: 50px\n"
+"}\n"
+"")
         self.nav_frame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.nav_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.nav_frame.setObjectName("nav_frame")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.nav_frame)
-        self.verticalLayout_3.setContentsMargins(20, 40, 10, 20)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3.setSpacing(20)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.verticalFrame_3 = QtWidgets.QFrame(self.nav_frame)
-        self.verticalFrame_3.setStyleSheet("background-color: rgb(255, 224, 130); border-radius:10px;")
-        self.verticalFrame_3.setObjectName("verticalFrame_3")
-        self.verticalLayout_24 = QtWidgets.QVBoxLayout(self.verticalFrame_3)
-        self.verticalLayout_24.setContentsMargins(10, 20, 10, 20)
-        self.verticalLayout_24.setSpacing(20)
+        self.verticalFrame = QtWidgets.QFrame(self.nav_frame)
+        self.verticalFrame.setObjectName("verticalFrame")
+        self.verticalLayout_31 = QtWidgets.QVBoxLayout(self.verticalFrame)
+        self.verticalLayout_31.setContentsMargins(2, 2, 2, 20)
+        self.verticalLayout_31.setSpacing(20)
+        self.verticalLayout_31.setObjectName("verticalLayout_31")
+        self.nav_btn_frame = QtWidgets.QFrame(self.verticalFrame)
+        self.nav_btn_frame.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.nav_btn_frame.setStyleSheet("")
+        self.nav_btn_frame.setObjectName("nav_btn_frame")
+        self.nav_btn_container = QtWidgets.QVBoxLayout(self.nav_btn_frame)
+        self.nav_btn_container.setContentsMargins(0, 20, 0, 20)
+        self.nav_btn_container.setSpacing(20)
+        self.nav_btn_container.setObjectName("nav_btn_container")
+        self.admin_msg_frame = QtWidgets.QFrame(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.admin_msg_frame.sizePolicy().hasHeightForWidth())
+        self.admin_msg_frame.setSizePolicy(sizePolicy)
+        self.admin_msg_frame.setStyleSheet("background-color: rgba(255, 224, 130, 0.4); border-radius:10px;")
+        self.admin_msg_frame.setObjectName("admin_msg_frame")
+        self.horizontalLayout_41 = QtWidgets.QHBoxLayout(self.admin_msg_frame)
+        self.horizontalLayout_41.setContentsMargins(10, 10, 10, 20)
+        self.horizontalLayout_41.setSpacing(5)
+        self.horizontalLayout_41.setObjectName("horizontalLayout_41")
+        self.verticalLayout_24 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_24.setContentsMargins(-1, 10, -1, -1)
         self.verticalLayout_24.setObjectName("verticalLayout_24")
-        self.label_73 = QtWidgets.QLabel(self.verticalFrame_3)
+        self.label_73 = QtWidgets.QLabel(self.admin_msg_frame)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.label_73.setFont(font)
-        self.label_73.setStyleSheet("color: #0C5C51;")
+        self.label_73.setStyleSheet("color: white;\n"
+"background: transparent;")
         self.label_73.setObjectName("label_73")
         self.verticalLayout_24.addWidget(self.label_73)
-        self.label_7 = QtWidgets.QLabel(self.verticalFrame_3)
+        self.label_7 = QtWidgets.QLabel(self.admin_msg_frame)
         self.label_7.setMinimumSize(QtCore.QSize(0, 90))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(10)
         self.label_7.setFont(font)
-        self.label_7.setStyleSheet("color: #0C5C51;")
-        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_7.setStyleSheet("color: white;background: transparent;")
+        self.label_7.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_7.setWordWrap(True)
         self.label_7.setObjectName("label_7")
         self.verticalLayout_24.addWidget(self.label_7)
-        self.verticalLayout_3.addWidget(self.verticalFrame_3)
-        self.nav_btn_frame = QtWidgets.QFrame(self.nav_frame)
-        self.nav_btn_frame.setObjectName("nav_btn_frame")
-        self.nav_btn_container = QtWidgets.QVBoxLayout(self.nav_btn_frame)
-        self.nav_btn_container.setContentsMargins(0, 20, 0, 20)
-        self.nav_btn_container.setSpacing(20)
-        self.nav_btn_container.setObjectName("nav_btn_container")
+        self.horizontalLayout_41.addLayout(self.verticalLayout_24)
+        self.verticalLayout_32 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_32.setObjectName("verticalLayout_32")
+        self.hide_admin_msg_btn = QtWidgets.QPushButton(self.admin_msg_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.hide_admin_msg_btn.sizePolicy().hasHeightForWidth())
+        self.hide_admin_msg_btn.setSizePolicy(sizePolicy)
+        self.hide_admin_msg_btn.setMinimumSize(QtCore.QSize(30, 30))
+        self.hide_admin_msg_btn.setMaximumSize(QtCore.QSize(20, 20))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.hide_admin_msg_btn.setFont(font)
+        self.hide_admin_msg_btn.setStyleSheet("QPushButton:hover {\n"
+"    border:1px solid red;\n"
+"background-color: rgb(255, 103, 103);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    \n"
+"    background-color: rgb(255, 103, 103);\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    background: rgb(216, 79, 79);\n"
+"    text-align: center;\n"
+"    padding: 0px;\n"
+"    height: 100%;\n"
+"    color: white;\n"
+"border-radius: 15px;\n"
+"}\n"
+"")
+        self.hide_admin_msg_btn.setFlat(True)
+        self.hide_admin_msg_btn.setObjectName("hide_admin_msg_btn")
+        self.verticalLayout_32.addWidget(self.hide_admin_msg_btn)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_32.addItem(spacerItem2)
+        self.horizontalLayout_41.addLayout(self.verticalLayout_32)
+        self.nav_btn_container.addWidget(self.admin_msg_frame)
         self.nav_data_btn = QtWidgets.QPushButton(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_data_btn.sizePolicy().hasHeightForWidth())
+        self.nav_data_btn.setSizePolicy(sizePolicy)
         self.nav_data_btn.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -213,8 +316,7 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.nav_data_btn.setFont(font)
-        self.nav_data_btn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"padding-left: 20px;")
+        self.nav_data_btn.setStyleSheet("")
         self.nav_data_btn.setCheckable(True)
         self.nav_data_btn.setChecked(True)
         self.nav_data_btn.setFlat(True)
@@ -224,6 +326,11 @@ class Ui_CapZa(object):
         self.buttonGroup.addButton(self.nav_data_btn)
         self.nav_btn_container.addWidget(self.nav_data_btn)
         self.nav_analysis_btn = QtWidgets.QPushButton(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_analysis_btn.sizePolicy().hasHeightForWidth())
+        self.nav_analysis_btn.setSizePolicy(sizePolicy)
         self.nav_analysis_btn.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -231,8 +338,8 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.nav_analysis_btn.setFont(font)
-        self.nav_analysis_btn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"padding-left: 20px;")
+        self.nav_analysis_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.nav_analysis_btn.setStyleSheet("")
         self.nav_analysis_btn.setCheckable(True)
         self.nav_analysis_btn.setFlat(True)
         self.nav_analysis_btn.setObjectName("nav_analysis_btn")
@@ -245,6 +352,11 @@ class Ui_CapZa(object):
         self.line_9.setObjectName("line_9")
         self.nav_btn_container.addWidget(self.line_9)
         self.nav_pnp_entry_btn = QtWidgets.QPushButton(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_pnp_entry_btn.sizePolicy().hasHeightForWidth())
+        self.nav_pnp_entry_btn.setSizePolicy(sizePolicy)
         self.nav_pnp_entry_btn.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -252,14 +364,18 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.nav_pnp_entry_btn.setFont(font)
-        self.nav_pnp_entry_btn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"padding-left: 20px;")
+        self.nav_pnp_entry_btn.setStyleSheet("")
         self.nav_pnp_entry_btn.setCheckable(True)
         self.nav_pnp_entry_btn.setFlat(True)
         self.nav_pnp_entry_btn.setObjectName("nav_pnp_entry_btn")
         self.buttonGroup.addButton(self.nav_pnp_entry_btn)
         self.nav_btn_container.addWidget(self.nav_pnp_entry_btn)
         self.nav_pnp_output_btn = QtWidgets.QPushButton(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_pnp_output_btn.sizePolicy().hasHeightForWidth())
+        self.nav_pnp_output_btn.setSizePolicy(sizePolicy)
         self.nav_pnp_output_btn.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -267,8 +383,7 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.nav_pnp_output_btn.setFont(font)
-        self.nav_pnp_output_btn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"padding-left: 20px;")
+        self.nav_pnp_output_btn.setStyleSheet("")
         self.nav_pnp_output_btn.setCheckable(True)
         self.nav_pnp_output_btn.setFlat(True)
         self.nav_pnp_output_btn.setObjectName("nav_pnp_output_btn")
@@ -281,6 +396,11 @@ class Ui_CapZa(object):
         self.line_4.setObjectName("line_4")
         self.nav_btn_container.addWidget(self.line_4)
         self.nav_order_form_btn = QtWidgets.QPushButton(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_order_form_btn.sizePolicy().hasHeightForWidth())
+        self.nav_order_form_btn.setSizePolicy(sizePolicy)
         self.nav_order_form_btn.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -288,17 +408,46 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.nav_order_form_btn.setFont(font)
-        self.nav_order_form_btn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"padding-left: 20px;")
+        self.nav_order_form_btn.setStyleSheet("")
         self.nav_order_form_btn.setCheckable(True)
         self.nav_order_form_btn.setFlat(True)
         self.nav_order_form_btn.setObjectName("nav_order_form_btn")
         self.buttonGroup.addButton(self.nav_order_form_btn)
         self.nav_btn_container.addWidget(self.nav_order_form_btn)
-        self.verticalLayout_3.addWidget(self.nav_btn_frame)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem2)
-        self.nav_settings_btn = QtWidgets.QPushButton(self.nav_frame)
+        self.line_3 = QtWidgets.QFrame(self.nav_btn_frame)
+        self.line_3.setLineWidth(2)
+        self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_3.setObjectName("line_3")
+        self.nav_btn_container.addWidget(self.line_3)
+        self.nav_laborauswertung_btn = QtWidgets.QPushButton(self.nav_btn_frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_laborauswertung_btn.sizePolicy().hasHeightForWidth())
+        self.nav_laborauswertung_btn.setSizePolicy(sizePolicy)
+        self.nav_laborauswertung_btn.setMinimumSize(QtCore.QSize(0, 50))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.nav_laborauswertung_btn.setFont(font)
+        self.nav_laborauswertung_btn.setStyleSheet("")
+        self.nav_laborauswertung_btn.setCheckable(True)
+        self.nav_laborauswertung_btn.setFlat(True)
+        self.nav_laborauswertung_btn.setObjectName("nav_laborauswertung_btn")
+        self.buttonGroup.addButton(self.nav_laborauswertung_btn)
+        self.nav_btn_container.addWidget(self.nav_laborauswertung_btn)
+        self.verticalLayout_31.addWidget(self.nav_btn_frame)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_31.addItem(spacerItem3)
+        self.nav_settings_btn = QtWidgets.QPushButton(self.verticalFrame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.nav_settings_btn.sizePolicy().hasHeightForWidth())
+        self.nav_settings_btn.setSizePolicy(sizePolicy)
         self.nav_settings_btn.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -306,8 +455,7 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.nav_settings_btn.setFont(font)
-        self.nav_settings_btn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"padding-left: 20px;")
+        self.nav_settings_btn.setStyleSheet("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("\\\\mac\\Home\\Desktop\\myBots\\capza-app\\capza\\views\\../assets/settings.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.nav_settings_btn.setIcon(icon1)
@@ -316,7 +464,8 @@ class Ui_CapZa(object):
         self.nav_settings_btn.setFlat(True)
         self.nav_settings_btn.setObjectName("nav_settings_btn")
         self.buttonGroup.addButton(self.nav_settings_btn)
-        self.verticalLayout_3.addWidget(self.nav_settings_btn)
+        self.verticalLayout_31.addWidget(self.nav_settings_btn)
+        self.verticalLayout_3.addWidget(self.verticalFrame)
         self.horizontalLayout_5.addWidget(self.nav_frame)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setContentsMargins(10, 10, 10, 10)
@@ -330,6 +479,7 @@ class Ui_CapZa(object):
         self.stackedWidget.setStyleSheet("color: #0C5C51;")
         self.stackedWidget.setObjectName("stackedWidget")
         self.data = QtWidgets.QWidget()
+        self.data.setStyleSheet("QPushButton, QToolButton {background: #AEDC21;border-radius: 10px;text-align:center;} QPushButton:hover , QToolButton:hover {background: #AEDC21;border: 2px solid rgb(7, 113, 78);border-radius: 10px;text-align:center;}QPushButton:pressed, QToolButton:pressed {background-color: rgb(56, 167, 0);color: white}")
         self.data.setObjectName("data")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.data)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
@@ -347,61 +497,18 @@ class Ui_CapZa(object):
         self.groupBox.setFlat(False)
         self.groupBox.setObjectName("groupBox")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.groupBox)
-        self.verticalLayout.setContentsMargins(20, 10, 10, 10)
-        self.verticalLayout.setSpacing(20)
+        self.verticalLayout.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout.setSpacing(10)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.data_header = QtWidgets.QFrame(self.groupBox)
+        self.data_header.setStyleSheet("")
+        self.data_header.setObjectName("data_header")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.data_header)
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        self.horizontalLayout_2.setSpacing(20)
+        self.horizontalLayout_2.setContentsMargins(10, 0, 10, 0)
+        self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.label_8 = QtWidgets.QLabel(self.groupBox)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
-        self.label_8.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_8.setFont(font)
-        self.label_8.setStyleSheet("color: rgb(0, 0, 0);\n"
-"background-color:transparent;")
-        self.label_8.setObjectName("label_8")
-        self.horizontalLayout_2.addWidget(self.label_8)
-        self.excel_path_lineedit = QtWidgets.QLineEdit(self.groupBox)
-        self.excel_path_lineedit.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(12)
-        self.excel_path_lineedit.setFont(font)
-        self.excel_path_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.excel_path_lineedit.setReadOnly(True)
-        self.excel_path_lineedit.setObjectName("excel_path_lineedit")
-        self.horizontalLayout_2.addWidget(self.excel_path_lineedit)
-        self.find_excel_btn = QtWidgets.QToolButton(self.groupBox)
-        self.find_excel_btn.setMinimumSize(QtCore.QSize(30, 30))
-        self.find_excel_btn.setMaximumSize(QtCore.QSize(40, 40))
-        font = QtGui.QFont()
-        font.setPointSize(40)
-        font.setBold(True)
-        font.setWeight(75)
-        self.find_excel_btn.setFont(font)
-        self.find_excel_btn.setStyleSheet("background: #AEDC21;\n"
-"border-radius: 10px;")
-        self.find_excel_btn.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("\\\\mac\\Home\\Desktop\\myBots\\capza-app\\capza\\views\\../assets/upload_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.find_excel_btn.setIcon(icon2)
-        self.find_excel_btn.setIconSize(QtCore.QSize(60, 60))
-        self.find_excel_btn.setObjectName("find_excel_btn")
-        self.horizontalLayout_2.addWidget(self.find_excel_btn)
-        self.select_probe_btn = QtWidgets.QPushButton(self.groupBox)
+        self.select_probe_btn = QtWidgets.QPushButton(self.data_header)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -419,24 +526,24 @@ class Ui_CapZa(object):
         self.select_probe_btn.setFont(font)
         self.select_probe_btn.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.select_probe_btn.setAutoFillBackground(False)
-        self.select_probe_btn.setStyleSheet("background-color: #AEDC21;\n"
-"border-radius: 10px;\n"
-"text-align:center;")
-        self.select_probe_btn.setAutoDefault(False)
+        self.select_probe_btn.setStyleSheet("")
+        self.select_probe_btn.setAutoDefault(True)
         self.select_probe_btn.setDefault(True)
         self.select_probe_btn.setFlat(False)
         self.select_probe_btn.setObjectName("select_probe_btn")
         self.horizontalLayout_2.addWidget(self.select_probe_btn)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem4)
+        self.verticalLayout.addWidget(self.data_header)
         self.verticalLayout_6.addWidget(self.groupBox)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_6.addItem(spacerItem3)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_6.addItem(spacerItem5)
         self.scrollArea_2 = QtWidgets.QScrollArea(self.data)
         self.scrollArea_2.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 907, 669))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 1027, 924))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_30 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_30.setObjectName("verticalLayout_30")
@@ -445,16 +552,19 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.groupBox_2.setFont(font)
-        self.groupBox_2.setStyleSheet("background-color: transparent\n"
-"color: rgb(0, 0, 0);")
+        self.groupBox_2.setStyleSheet("")
         self.groupBox_2.setObjectName("groupBox_2")
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.groupBox_2)
         self.horizontalLayout_6.setContentsMargins(20, 10, 10, 10)
         self.horizontalLayout_6.setSpacing(10)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.data_1 = QtWidgets.QFrame(self.groupBox_2)
-        self.data_1.setStyleSheet("background: #FCFCFC;\n"
-"border-radius: 10px")
+        self.data_1.setStyleSheet("QFrame {\n"
+"    background: #FCFCFC;\n"
+"    border-radius: 10px\n"
+"}\n"
+"\n"
+"")
         self.data_1.setObjectName("data_1")
         self.formLayout = QtWidgets.QFormLayout(self.data_1)
         self.formLayout.setContentsMargins(10, 10, 10, 10)
@@ -477,11 +587,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.project_nr_lineedit.setFont(font)
-        self.project_nr_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.project_nr_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.project_nr_lineedit.setObjectName("project_nr_lineedit")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.project_nr_lineedit)
         self.label_6 = QtWidgets.QLabel(self.data_1)
@@ -501,11 +620,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.name_lineedit.setFont(font)
-        self.name_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
-"color: rgb(0, 0, 0);\n"
+        self.name_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(229, 229, 229);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(201, 203, 168);\n"
+"    border: 1px solid black\n"
+"}")
         self.name_lineedit.setObjectName("name_lineedit")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.name_lineedit)
         self.label_9 = QtWidgets.QLabel(self.data_1)
@@ -525,11 +653,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.person_lineedit.setFont(font)
-        self.person_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
-"color: rgb(0, 0, 0);\n"
+        self.person_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(229, 229, 229);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(201, 203, 168);\n"
+"    border: 1px solid black\n"
+"}")
         self.person_lineedit.setObjectName("person_lineedit")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.person_lineedit)
         self.label_10 = QtWidgets.QLabel(self.data_1)
@@ -549,11 +686,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.location_lineedit.setFont(font)
-        self.location_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
-"color: rgb(0, 0, 0);\n"
+        self.location_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(229, 229, 229);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(201, 203, 168);\n"
+"    border: 1px solid black\n"
+"}")
         self.location_lineedit.setObjectName("location_lineedit")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.location_lineedit)
         self.label_11 = QtWidgets.QLabel(self.data_1)
@@ -573,11 +719,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.avv_lineedit.setFont(font)
-        self.avv_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
-"color: rgb(0, 0, 0);\n"
+        self.avv_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(229, 229, 229);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(201, 203, 168);\n"
+"    border: 1px solid black\n"
+"}")
         self.avv_lineedit.setObjectName("avv_lineedit")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.avv_lineedit)
         self.label_12 = QtWidgets.QLabel(self.data_1)
@@ -597,11 +752,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.amount_lineedit.setFont(font)
-        self.amount_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
-"color: rgb(0, 0, 0);\n"
+        self.amount_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(229, 229, 229);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(201, 203, 168);\n"
+"    border: 1px solid black\n"
+"}")
         self.amount_lineedit.setObjectName("amount_lineedit")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.amount_lineedit)
         self.label_13 = QtWidgets.QLabel(self.data_1)
@@ -621,11 +785,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.probe_amount_lineedit.setFont(font)
-        self.probe_amount_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.probe_amount_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.probe_amount_lineedit.setObjectName("probe_amount_lineedit")
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.probe_amount_lineedit)
         self.line_5 = QtWidgets.QFrame(self.data_1)
@@ -666,11 +839,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.consistency_lineedit.setFont(font)
-        self.consistency_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.consistency_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.consistency_lineedit.setObjectName("consistency_lineedit")
         self.formLayout.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.consistency_lineedit)
         self.label_16 = QtWidgets.QLabel(self.data_1)
@@ -690,11 +872,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.smell_lineedit.setFont(font)
-        self.smell_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.smell_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.smell_lineedit.setObjectName("smell_lineedit")
         self.formLayout.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.smell_lineedit)
         self.label_17 = QtWidgets.QLabel(self.data_1)
@@ -715,11 +906,7 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.remark_textedit.setFont(font)
-        self.remark_textedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+        self.remark_textedit.setStyleSheet("QTextEdit {\\n    background-color: rgb(255, 255, 255);\\n    color: rgb(0, 0, 0);\\n\\n    border: 1px solid #C7C7C7;\\n    border-radius: 10px;\\n}\\n\\n\\nQTextEdit:focus {\\n    \\n    background-color: rgb(255, 253, 219);\\n    border: 1px solid black\\n}")
         self.remark_textedit.setObjectName("remark_textedit")
         self.formLayout.setWidget(11, QtWidgets.QFormLayout.FieldRole, self.remark_textedit)
         self.color_lineedit = QtWidgets.QLineEdit(self.data_1)
@@ -728,16 +915,25 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.color_lineedit.setFont(font)
-        self.color_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.color_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.color_lineedit.setObjectName("color_lineedit")
         self.formLayout.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.color_lineedit)
         self.horizontalLayout_6.addWidget(self.data_1)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem4)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem6)
         self.data_2 = QtWidgets.QFrame(self.groupBox_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -874,11 +1070,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.probe_date.setFont(font)
-        self.probe_date.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.probe_date.setStyleSheet("QDateEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QDateEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.probe_date.setObjectName("probe_date")
         self.horizontalLayout.addWidget(self.probe_date)
         self.verticalLayout_8.addLayout(self.horizontalLayout)
@@ -922,11 +1127,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.check_start_date.setFont(font)
-        self.check_start_date.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.check_start_date.setStyleSheet("QDateEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QDateEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.check_start_date.setDateTime(QtCore.QDateTime(QtCore.QDate(2022, 1, 1), QtCore.QTime(0, 0, 0)))
         self.check_start_date.setObjectName("check_start_date")
         self.horizontalLayout_9.addWidget(self.check_start_date)
@@ -942,11 +1156,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.end_dateedit.setFont(font)
-        self.end_dateedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.end_dateedit.setStyleSheet("QDateEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QDateEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.end_dateedit.setDateTime(QtCore.QDateTime(QtCore.QDate(2022, 10, 11), QtCore.QTime(0, 0, 0)))
         self.end_dateedit.setObjectName("end_dateedit")
         self.horizontalLayout_9.addWidget(self.end_dateedit)
@@ -955,7 +1178,7 @@ class Ui_CapZa(object):
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
         self.label_22 = QtWidgets.QLabel(self.data_2)
         font = QtGui.QFont()
-        font.setFamily("Californian FB")
+        font.setFamily("Leelawadee")
         font.setPointSize(10)
         self.label_22.setFont(font)
         self.label_22.setAlignment(QtCore.Qt.AlignCenter)
@@ -963,23 +1186,23 @@ class Ui_CapZa(object):
         self.horizontalLayout_10.addWidget(self.label_22)
         self.label_21 = QtWidgets.QLabel(self.data_2)
         font = QtGui.QFont()
-        font.setFamily("Californian FB")
+        font.setFamily("Leelawadee")
         font.setPointSize(10)
         self.label_21.setFont(font)
         self.label_21.setAlignment(QtCore.Qt.AlignCenter)
         self.label_21.setObjectName("label_21")
         self.horizontalLayout_10.addWidget(self.label_21)
         self.verticalLayout_23.addLayout(self.horizontalLayout_10)
-        spacerItem5 = QtWidgets.QSpacerItem(0, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_23.addItem(spacerItem5)
+        spacerItem7 = QtWidgets.QSpacerItem(0, 1, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_23.addItem(spacerItem7)
         self.verticalLayout_7.addLayout(self.verticalLayout_23)
         self.line_8 = QtWidgets.QFrame(self.data_2)
         self.line_8.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_8.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_8.setObjectName("line_8")
         self.verticalLayout_7.addWidget(self.line_8)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_7.addItem(spacerItem6)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_7.addItem(spacerItem8)
         self.verticalLayout_9 = QtWidgets.QVBoxLayout()
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.formLayout_3 = QtWidgets.QFormLayout()
@@ -1000,11 +1223,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.h2_lineedit_2.setFont(font)
-        self.h2_lineedit_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.h2_lineedit_2.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.h2_lineedit_2.setObjectName("h2_lineedit_2")
         self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.h2_lineedit_2)
         self.label_24 = QtWidgets.QLabel(self.data_2)
@@ -1021,11 +1253,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.nh3_lineedit_2.setFont(font)
-        self.nh3_lineedit_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.nh3_lineedit_2.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.nh3_lineedit_2.setObjectName("nh3_lineedit_2")
         self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.nh3_lineedit_2)
         self.label_25 = QtWidgets.QLabel(self.data_2)
@@ -1042,11 +1283,20 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.brandtest_combo.setFont(font)
-        self.brandtest_combo.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
+        self.brandtest_combo.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
 "\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
         self.brandtest_combo.setObjectName("brandtest_combo")
         self.brandtest_combo.addItem("")
         self.brandtest_combo.addItem("")
@@ -1055,8 +1305,8 @@ class Ui_CapZa(object):
         self.verticalLayout_9.addLayout(self.formLayout_3)
         self.verticalLayout_7.addLayout(self.verticalLayout_9)
         self.horizontalLayout_6.addWidget(self.data_2)
-        spacerItem7 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem7)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem9)
         self.data_3 = QtWidgets.QFrame(self.groupBox_2)
         self.data_3.setMinimumSize(QtCore.QSize(200, 0))
         self.data_3.setStyleSheet("background: #FCFCFC;\n"
@@ -1159,24 +1409,42 @@ class Ui_CapZa(object):
         self.fremdanalysis_check.setObjectName("fremdanalysis_check")
         self.verticalLayout_19.addWidget(self.fremdanalysis_check)
         self.verticalLayout_5.addWidget(self.frame3)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_5.addItem(spacerItem8)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_5.addItem(spacerItem10)
         self.horizontalLayout_6.addWidget(self.data_3)
         self.verticalLayout_30.addWidget(self.groupBox_2)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.addWidget(self.scrollArea_2)
         self.stackedWidget.addWidget(self.data)
         self.analysis = QtWidgets.QWidget()
+        self.analysis.setStyleSheet("QPushButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: #AEDC21;\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.analysis.setObjectName("analysis")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.analysis)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
-        spacerItem9 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_10.addItem(spacerItem9)
+        spacerItem11 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_10.addItem(spacerItem11)
         self.scrollArea_3 = QtWidgets.QScrollArea(self.analysis)
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 446, 780))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 1027, 940))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
@@ -1577,7 +1845,7 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.nh3_lineedit.setFont(font)
-        self.nh3_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.nh3_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
 "color: rgb(0, 0, 0);\n"
 "\n"
 "border: 1px solid #C7C7C7;\n"
@@ -1599,7 +1867,7 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.h2_lineedit.setFont(font)
-        self.h2_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.h2_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
 "color: rgb(0, 0, 0);\n"
 "\n"
 "border: 1px solid #C7C7C7;\n"
@@ -1621,7 +1889,7 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.analysis_brandtest_lineedit.setFont(font)
-        self.analysis_brandtest_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.analysis_brandtest_lineedit.setStyleSheet("background-color: rgb(226, 226, 226);\n"
 "color: rgb(0, 0, 0);\n"
 "\n"
 "border: 1px solid #C7C7C7;\n"
@@ -1636,8 +1904,8 @@ class Ui_CapZa(object):
         self.horizontalLayout_3.setContentsMargins(10, 10, 10, 10)
         self.horizontalLayout_3.setSpacing(20)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem10)
+        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem12)
         self.migrate_btn = QtWidgets.QPushButton(self.analysis)
         self.migrate_btn.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
@@ -1674,10 +1942,28 @@ class Ui_CapZa(object):
         self.aqs_btn.setObjectName("aqs_btn")
         self.horizontalLayout_3.addWidget(self.aqs_btn)
         self.verticalLayout_10.addLayout(self.horizontalLayout_3)
-        spacerItem11 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_10.addItem(spacerItem11)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_10.addItem(spacerItem13)
         self.stackedWidget.addWidget(self.analysis)
         self.pnp_entry = QtWidgets.QWidget()
+        self.pnp_entry.setStyleSheet("QPushButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: #AEDC21;\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.pnp_entry.setObjectName("pnp_entry")
         self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.pnp_entry)
         self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
@@ -1689,11 +1975,14 @@ class Ui_CapZa(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
         self.scrollArea.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee")
+        self.scrollArea.setFont(font)
         self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 710, 1178))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1028, 1184))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_27 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_27.setObjectName("verticalLayout_27")
@@ -1712,7 +2001,7 @@ class Ui_CapZa(object):
         self.horizontalLayout_8.addWidget(self.label_45)
         self.nachweisnr_lineedit = QtWidgets.QLineEdit(self.scrollAreaWidgetContents)
         font = QtGui.QFont()
-        font.setFamily("Californian FB")
+        font.setFamily("Leelawadee")
         font.setPointSize(12)
         self.nachweisnr_lineedit.setFont(font)
         self.nachweisnr_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -1735,8 +2024,8 @@ class Ui_CapZa(object):
         self.project_data_btn.setObjectName("project_data_btn")
         self.horizontalLayout_8.addWidget(self.project_data_btn)
         self.verticalLayout_27.addLayout(self.horizontalLayout_8)
-        spacerItem12 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_27.addItem(spacerItem12)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_27.addItem(spacerItem14)
         self.groupBox_5 = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -1815,19 +2104,19 @@ class Ui_CapZa(object):
         self.label_51.setFont(font)
         self.label_51.setObjectName("label_51")
         self.formLayout_6.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_51)
-        self.lineEdit_37 = QtWidgets.QLineEdit(self.pnp_in_allg_frame)
+        self.pnp_in_erzeuger_lineedit = QtWidgets.QLineEdit(self.pnp_in_allg_frame)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
-        self.lineEdit_37.setFont(font)
-        self.lineEdit_37.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pnp_in_erzeuger_lineedit.setFont(font)
+        self.pnp_in_erzeuger_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);\n"
 "\n"
 "border: 1px solid #C7C7C7;\n"
 "border-radius: 10px;")
-        self.lineEdit_37.setReadOnly(True)
-        self.lineEdit_37.setObjectName("lineEdit_37")
-        self.formLayout_6.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEdit_37)
+        self.pnp_in_erzeuger_lineedit.setReadOnly(True)
+        self.pnp_in_erzeuger_lineedit.setObjectName("pnp_in_erzeuger_lineedit")
+        self.formLayout_6.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.pnp_in_erzeuger_lineedit)
         self.label_52 = QtWidgets.QLabel(self.pnp_in_allg_frame)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -1851,8 +2140,8 @@ class Ui_CapZa(object):
 "border-radius: 10px;")
         self.lineEdit_38.setObjectName("lineEdit_38")
         self.horizontalLayout_16.addWidget(self.lineEdit_38)
-        spacerItem13 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_16.addItem(spacerItem13)
+        spacerItem15 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_16.addItem(spacerItem15)
         self.frame4 = QtWidgets.QFrame(self.pnp_in_allg_frame)
         self.frame4.setStyleSheet("QCheckBox::indicator::checked {\n"
 "    background: #AEDC21;\n"
@@ -2055,8 +2344,8 @@ class Ui_CapZa(object):
         self.formLayout_6.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.frame_3)
         self.verticalLayout_12.addWidget(self.pnp_in_allg_frame)
         self.verticalLayout_27.addWidget(self.groupBox_5)
-        spacerItem14 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_27.addItem(spacerItem14)
+        spacerItem16 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_27.addItem(spacerItem16)
         self.groupBox_6 = QtWidgets.QGroupBox(self.scrollAreaWidgetContents)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -2081,25 +2370,25 @@ class Ui_CapZa(object):
         self.label_63.setFont(font)
         self.label_63.setObjectName("label_63")
         self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_63)
-        self.textEdit_2 = QtWidgets.QTextEdit(self.groupBox_6)
+        self.pnp_in_abfallart_textedit = QtWidgets.QTextEdit(self.groupBox_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.textEdit_2.sizePolicy().hasHeightForWidth())
-        self.textEdit_2.setSizePolicy(sizePolicy)
-        self.textEdit_2.setMinimumSize(QtCore.QSize(1, 60))
-        self.textEdit_2.setMaximumSize(QtCore.QSize(16777215, 30))
+        sizePolicy.setHeightForWidth(self.pnp_in_abfallart_textedit.sizePolicy().hasHeightForWidth())
+        self.pnp_in_abfallart_textedit.setSizePolicy(sizePolicy)
+        self.pnp_in_abfallart_textedit.setMinimumSize(QtCore.QSize(1, 60))
+        self.pnp_in_abfallart_textedit.setMaximumSize(QtCore.QSize(16777215, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
-        self.textEdit_2.setFont(font)
-        self.textEdit_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pnp_in_abfallart_textedit.setFont(font)
+        self.pnp_in_abfallart_textedit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);\n"
 "\n"
 "border: 1px solid #C7C7C7;\n"
 "border-radius: 10px;")
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.textEdit_2)
+        self.pnp_in_abfallart_textedit.setObjectName("pnp_in_abfallart_textedit")
+        self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.pnp_in_abfallart_textedit)
         self.verticalLayout_13.addLayout(self.formLayout_8)
         self.p = QtWidgets.QFrame(self.groupBox_6)
         self.p.setStyleSheet("background: #FCFCFC;\n"
@@ -2392,9 +2681,13 @@ class Ui_CapZa(object):
         self.horizontalLayout_26.addLayout(self.horizontalLayout_27)
         self.formLayout_7.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.frame7)
         self.verticalLayout_13.addWidget(self.p)
+        spacerItem17 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_13.addItem(spacerItem17)
+        self.verticalLayout_27.addWidget(self.groupBox_6)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_7.setSpacing(20)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
-        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox_6)
+        self.pushButton_2 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_2.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -2402,13 +2695,13 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_2.setFont(font)
-        self.pushButton_2.setStyleSheet("background: #AEDC21;\n"
+        self.pushButton_2.setStyleSheet("border: 1px solid #C7C7C7;\n"
 "border-radius: 10px;")
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout_7.addWidget(self.pushButton_2)
-        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem15)
-        self.pushButton = QtWidgets.QPushButton(self.groupBox_6)
+        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem18)
+        self.pushButton = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -2420,12 +2713,28 @@ class Ui_CapZa(object):
 "border-radius: 10px;")
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_7.addWidget(self.pushButton)
-        self.verticalLayout_13.addLayout(self.horizontalLayout_7)
-        self.verticalLayout_27.addWidget(self.groupBox_6)
+        self.verticalLayout_27.addLayout(self.horizontalLayout_7)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_11.addWidget(self.scrollArea)
         self.stackedWidget.addWidget(self.pnp_entry)
         self.pnp_output = QtWidgets.QWidget()
+        self.pnp_output.setStyleSheet("QPushButton {\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: #AEDC21;\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.pnp_output.setObjectName("pnp_output")
         self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.pnp_output)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
@@ -2656,8 +2965,8 @@ class Ui_CapZa(object):
         self.amount_analysis.addItem("")
         self.formLayout_9.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.amount_analysis)
         self.verticalLayout_15.addWidget(self.formFrame_4)
-        spacerItem16 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_15.addItem(spacerItem16)
+        spacerItem19 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_15.addItem(spacerItem19)
         self.frame10 = QtWidgets.QFrame(self.pnp_o_frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -2677,12 +2986,27 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.pnp_out_empty.setFont(font)
-        self.pnp_out_empty.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+        self.pnp_out_empty.setStyleSheet("QPushButton {\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: rgb(255, 220, 221);\n"
+"border: 2px solid rgb(255, 116, 118);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 197, 198);\n"
+"color: black;\n"
+"}")
         self.pnp_out_empty.setObjectName("pnp_out_empty")
         self.horizontalLayout_30.addWidget(self.pnp_out_empty)
-        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_30.addItem(spacerItem17)
+        spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_30.addItem(spacerItem20)
         self.pnp_out_protokoll_btn = QtWidgets.QPushButton(self.frame10)
         self.pnp_out_protokoll_btn.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
@@ -2700,6 +3024,7 @@ class Ui_CapZa(object):
         self.verticalLayout_14.addWidget(self.groupBox_3)
         self.stackedWidget.addWidget(self.pnp_output)
         self.auftrag_formular = QtWidgets.QWidget()
+        self.auftrag_formular.setStyleSheet("")
         self.auftrag_formular.setObjectName("auftrag_formular")
         self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.auftrag_formular)
         self.verticalLayout_16.setObjectName("verticalLayout_16")
@@ -2725,7 +3050,24 @@ class Ui_CapZa(object):
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         self.groupBox_4.setFont(font)
-        self.groupBox_4.setStyleSheet("background-color: transparent; color: black;")
+        self.groupBox_4.setStyleSheet("QPushButton, QToolButton {\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"color: black\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.groupBox_4.setObjectName("groupBox_4")
         self.verticalLayout_22 = QtWidgets.QVBoxLayout(self.groupBox_4)
         self.verticalLayout_22.setContentsMargins(20, 20, 10, 10)
@@ -2819,8 +3161,8 @@ class Ui_CapZa(object):
         self.checkBox_29.setFont(font)
         self.checkBox_29.setObjectName("checkBox_29")
         self.horizontalLayout_31.addWidget(self.checkBox_29)
-        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_31.addItem(spacerItem18)
+        spacerItem21 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_31.addItem(spacerItem21)
         self.formLayout_10.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.frame11)
         self.frame12 = QtWidgets.QFrame(self.order_frame)
         self.frame12.setStyleSheet("QCheckBox::indicator::checked {\n"
@@ -2858,10 +3200,15 @@ class Ui_CapZa(object):
         self.checkBox_48.setFont(font)
         self.checkBox_48.setObjectName("checkBox_48")
         self.horizontalLayout_32.addWidget(self.checkBox_48)
-        spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_32.addItem(spacerItem19)
+        spacerItem22 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_32.addItem(spacerItem22)
         self.formLayout_10.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.frame12)
         self.verticalLayout_17.addLayout(self.formLayout_10)
+        self.line_11 = QtWidgets.QFrame(self.order_frame)
+        self.line_11.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_11.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_11.setObjectName("line_11")
+        self.verticalLayout_17.addWidget(self.line_11)
         self.frame_2 = QtWidgets.QFrame(self.order_frame)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -2870,158 +3217,49 @@ class Ui_CapZa(object):
         self.verticalLayout_18.setContentsMargins(10, 10, 10, 10)
         self.verticalLayout_18.setSpacing(10)
         self.verticalLayout_18.setObjectName("verticalLayout_18")
+        self.line_10 = QtWidgets.QFrame(self.frame_2)
+        self.line_10.setStyleSheet("color: rgb(77, 77, 77);")
+        self.line_10.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_10.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_10.setObjectName("line_10")
+        self.verticalLayout_18.addWidget(self.line_10)
+        spacerItem23 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_18.addItem(spacerItem23)
         self.horizontalLayout_34 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_34.setSpacing(10)
         self.horizontalLayout_34.setObjectName("horizontalLayout_34")
-        self.label_80 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_80.setFont(font)
-        self.label_80.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_80.setWordWrap(True)
-        self.label_80.setObjectName("label_80")
-        self.horizontalLayout_34.addWidget(self.label_80)
-        spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_34.addItem(spacerItem20)
-        self.label_79 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_79.setFont(font)
-        self.label_79.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_79.setWordWrap(True)
-        self.label_79.setObjectName("label_79")
-        self.horizontalLayout_34.addWidget(self.label_79)
-        spacerItem21 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_34.addItem(spacerItem21)
-        self.label_78 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_78.setFont(font)
-        self.label_78.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_78.setWordWrap(True)
-        self.label_78.setObjectName("label_78")
-        self.horizontalLayout_34.addWidget(self.label_78)
-        spacerItem22 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_34.addItem(spacerItem22)
-        self.label_82 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_82.setFont(font)
-        self.label_82.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_82.setWordWrap(True)
-        self.label_82.setObjectName("label_82")
-        self.horizontalLayout_34.addWidget(self.label_82)
-        spacerItem23 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_34.addItem(spacerItem23)
-        self.label_81 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_81.setFont(font)
-        self.label_81.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_81.setWordWrap(True)
-        self.label_81.setObjectName("label_81")
-        self.horizontalLayout_34.addWidget(self.label_81)
-        self.verticalLayout_18.addLayout(self.horizontalLayout_34)
-        self.horizontalLayout_35 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_35.setSpacing(10)
-        self.horizontalLayout_35.setObjectName("horizontalLayout_35")
-        self.lineEdit_55 = QtWidgets.QLineEdit(self.frame_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_55.sizePolicy().hasHeightForWidth())
-        self.lineEdit_55.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.lineEdit_55.setFont(font)
-        self.lineEdit_55.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.lineEdit_55.setObjectName("lineEdit_55")
-        self.horizontalLayout_35.addWidget(self.lineEdit_55)
         spacerItem24 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_35.addItem(spacerItem24)
-        self.dateEdit_6 = QtWidgets.QDateEdit(self.frame_2)
+        self.horizontalLayout_34.addItem(spacerItem24)
+        self.auftrag_add_auftrag_btn = QtWidgets.QPushButton(self.frame_2)
+        self.auftrag_add_auftrag_btn.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
         font.setPointSize(11)
-        self.dateEdit_6.setFont(font)
-        self.dateEdit_6.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.dateEdit_6.setObjectName("dateEdit_6")
-        self.horizontalLayout_35.addWidget(self.dateEdit_6)
-        spacerItem25 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_35.addItem(spacerItem25)
-        self.comboBox = QtWidgets.QComboBox(self.frame_2)
-        self.comboBox.setMinimumSize(QtCore.QSize(100, 0))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.comboBox.setFont(font)
-        self.comboBox.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.comboBox.setObjectName("comboBox")
-        self.horizontalLayout_35.addWidget(self.comboBox)
-        spacerItem26 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_35.addItem(spacerItem26)
-        self.textEdit_4 = QtWidgets.QTextEdit(self.frame_2)
-        self.textEdit_4.setMinimumSize(QtCore.QSize(100, 0))
-        self.textEdit_4.setMaximumSize(QtCore.QSize(16777215, 80))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.textEdit_4.setFont(font)
-        self.textEdit_4.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.textEdit_4.setObjectName("textEdit_4")
-        self.horizontalLayout_35.addWidget(self.textEdit_4)
-        spacerItem27 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_35.addItem(spacerItem27)
-        self.comboBox_2 = QtWidgets.QComboBox(self.frame_2)
-        self.comboBox_2.setMaximumSize(QtCore.QSize(90, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.comboBox_2.setFont(font)
-        self.comboBox_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.comboBox_2.addItem("")
-        self.horizontalLayout_35.addWidget(self.comboBox_2)
-        self.verticalLayout_18.addLayout(self.horizontalLayout_35)
+        font.setBold(True)
+        font.setWeight(75)
+        self.auftrag_add_auftrag_btn.setFont(font)
+        self.auftrag_add_auftrag_btn.setStyleSheet("background: #AEDC21;")
+        self.auftrag_add_auftrag_btn.setObjectName("auftrag_add_auftrag_btn")
+        self.horizontalLayout_34.addWidget(self.auftrag_add_auftrag_btn)
+        self.verticalLayout_18.addLayout(self.horizontalLayout_34)
+        self.scrollArea_5 = QtWidgets.QScrollArea(self.frame_2)
+        self.scrollArea_5.setWidgetResizable(True)
+        self.scrollArea_5.setObjectName("scrollArea_5")
+        self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 957, 534))
+        self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
+        self.verticalLayout_36 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_5)
+        self.verticalLayout_36.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_36.setSpacing(0)
+        self.verticalLayout_36.setObjectName("verticalLayout_36")
+        self.auftrag_table_view = QtWidgets.QTableView(self.scrollAreaWidgetContents_5)
+        self.auftrag_table_view.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-radius: 20px;")
+        self.auftrag_table_view.setObjectName("auftrag_table_view")
+        self.verticalLayout_36.addWidget(self.auftrag_table_view)
+        spacerItem25 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_36.addItem(spacerItem25)
+        self.scrollArea_5.setWidget(self.scrollAreaWidgetContents_5)
+        self.verticalLayout_18.addWidget(self.scrollArea_5)
         self.verticalLayout_17.addWidget(self.frame_2)
-        spacerItem28 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_17.addItem(spacerItem28)
         self.horizontalLayout_33 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_33.setContentsMargins(10, 10, 10, 10)
         self.horizontalLayout_33.setSpacing(10)
@@ -3034,12 +3272,27 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.auftrag_empty.setFont(font)
-        self.auftrag_empty.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+        self.auftrag_empty.setStyleSheet("QPushButton {\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: rgb(255, 220, 221);\n"
+"border: 2px solid rgb(255, 116, 118);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 197, 198);\n"
+"color: black;\n"
+"}")
         self.auftrag_empty.setObjectName("auftrag_empty")
         self.horizontalLayout_33.addWidget(self.auftrag_empty)
-        spacerItem29 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_33.addItem(spacerItem29)
+        spacerItem26 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_33.addItem(spacerItem26)
         self.auftrag_letsgo = QtWidgets.QPushButton(self.order_frame)
         self.auftrag_letsgo.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
@@ -3048,9 +3301,7 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.auftrag_letsgo.setFont(font)
-        self.auftrag_letsgo.setStyleSheet("background: #AEDC21;\n"
-"color: rgb(0, 0, 0);\n"
-"border-radius: 10px;")
+        self.auftrag_letsgo.setStyleSheet("background: #AEDC21;")
         self.auftrag_letsgo.setObjectName("auftrag_letsgo")
         self.horizontalLayout_33.addWidget(self.auftrag_letsgo)
         self.verticalLayout_17.addLayout(self.horizontalLayout_33)
@@ -3058,6 +3309,24 @@ class Ui_CapZa(object):
         self.verticalLayout_16.addWidget(self.groupBox_4)
         self.stackedWidget.addWidget(self.auftrag_formular)
         self.settings_frame = QtWidgets.QWidget()
+        self.settings_frame.setStyleSheet("QPushButton, QToolButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.settings_frame.setObjectName("settings_frame")
         self.verticalLayout_25 = QtWidgets.QVBoxLayout(self.settings_frame)
         self.verticalLayout_25.setObjectName("verticalLayout_25")
@@ -3078,19 +3347,19 @@ class Ui_CapZa(object):
         self.info_label_3.setStyleSheet("background-color: rgba(255, 155, 14, 50);border-radius:10px")
         self.info_label_3.setObjectName("info_label_3")
         self.verticalLayout_25.addWidget(self.info_label_3)
-        spacerItem30 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_25.addItem(spacerItem30)
-        self.verticalFrame = QtWidgets.QFrame(self.settings_frame)
-        self.verticalFrame.setStyleSheet("background: #FCFCFC;\n"
+        spacerItem27 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_25.addItem(spacerItem27)
+        self.verticalFrame1 = QtWidgets.QFrame(self.settings_frame)
+        self.verticalFrame1.setStyleSheet("background: #FCFCFC;\n"
 "border-radius: 10px")
-        self.verticalFrame.setObjectName("verticalFrame")
-        self.verticalLayout_26 = QtWidgets.QVBoxLayout(self.verticalFrame)
+        self.verticalFrame1.setObjectName("verticalFrame1")
+        self.verticalLayout_26 = QtWidgets.QVBoxLayout(self.verticalFrame1)
         self.verticalLayout_26.setContentsMargins(10, 10, 10, 10)
         self.verticalLayout_26.setSpacing(50)
         self.verticalLayout_26.setObjectName("verticalLayout_26")
         self.horizontalLayout_39 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_39.setObjectName("horizontalLayout_39")
-        self.label_87 = QtWidgets.QLabel(self.verticalFrame)
+        self.label_87 = QtWidgets.QLabel(self.verticalFrame1)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(12)
@@ -3100,13 +3369,46 @@ class Ui_CapZa(object):
         self.label_87.setStyleSheet("color: rgb(0, 0, 0);")
         self.label_87.setObjectName("label_87")
         self.horizontalLayout_39.addWidget(self.label_87)
-        spacerItem31 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_39.addItem(spacerItem31)
+        spacerItem28 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_39.addItem(spacerItem28)
         self.verticalLayout_26.addLayout(self.horizontalLayout_39)
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.clear_cache_btn = QtWidgets.QPushButton(self.verticalFrame1)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.clear_cache_btn.sizePolicy().hasHeightForWidth())
+        self.clear_cache_btn.setSizePolicy(sizePolicy)
+        self.clear_cache_btn.setMinimumSize(QtCore.QSize(0, 30))
+        self.clear_cache_btn.setMaximumSize(QtCore.QSize(200, 30))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.clear_cache_btn.setFont(font)
+        self.clear_cache_btn.setStyleSheet("QPushButton {\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: rgb(255, 220, 221);\n"
+"border: 2px solid rgb(255, 116, 118);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 197, 198);\n"
+"color: black;\n"
+"}")
+        self.clear_cache_btn.setObjectName("clear_cache_btn")
+        self.verticalLayout_26.addWidget(self.clear_cache_btn)
+        self.frame13 = QtWidgets.QFrame(self.verticalFrame1)
+        self.frame13.setObjectName("frame13")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.frame13)
         self.horizontalLayout_4.setSpacing(20)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.label_77 = QtWidgets.QLabel(self.verticalFrame)
+        self.label_77 = QtWidgets.QLabel(self.frame13)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3122,7 +3424,7 @@ class Ui_CapZa(object):
 "")
         self.label_77.setObjectName("label_77")
         self.horizontalLayout_4.addWidget(self.label_77)
-        self.nw_overview_path = QtWidgets.QLineEdit(self.verticalFrame)
+        self.nw_overview_path = QtWidgets.QLineEdit(self.frame13)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -3133,7 +3435,7 @@ class Ui_CapZa(object):
 "border-radius: 10px;")
         self.nw_overview_path.setObjectName("nw_overview_path")
         self.horizontalLayout_4.addWidget(self.nw_overview_path)
-        self.choose_nw_path_btn = QtWidgets.QToolButton(self.verticalFrame)
+        self.choose_nw_path_btn = QtWidgets.QToolButton(self.frame13)
         self.choose_nw_path_btn.setMinimumSize(QtCore.QSize(50, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -3141,16 +3443,33 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.choose_nw_path_btn.setFont(font)
-        self.choose_nw_path_btn.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"background: #AEDC21;\n"
-"border-radius: 10px;")
+        self.choose_nw_path_btn.setStyleSheet("QPushButton, QToolButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.choose_nw_path_btn.setObjectName("choose_nw_path_btn")
         self.horizontalLayout_4.addWidget(self.choose_nw_path_btn)
-        self.verticalLayout_26.addLayout(self.horizontalLayout_4)
-        self.horizontalLayout_24 = QtWidgets.QHBoxLayout()
+        self.verticalLayout_26.addWidget(self.frame13)
+        self.frame14 = QtWidgets.QFrame(self.verticalFrame1)
+        self.frame14.setObjectName("frame14")
+        self.horizontalLayout_24 = QtWidgets.QHBoxLayout(self.frame14)
         self.horizontalLayout_24.setSpacing(20)
         self.horizontalLayout_24.setObjectName("horizontalLayout_24")
-        self.label_85 = QtWidgets.QLabel(self.verticalFrame)
+        self.label_85 = QtWidgets.QLabel(self.frame14)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3166,7 +3485,7 @@ class Ui_CapZa(object):
 "")
         self.label_85.setObjectName("label_85")
         self.horizontalLayout_24.addWidget(self.label_85)
-        self.project_nr_path = QtWidgets.QLineEdit(self.verticalFrame)
+        self.project_nr_path = QtWidgets.QLineEdit(self.frame14)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -3177,7 +3496,7 @@ class Ui_CapZa(object):
 "border-radius: 10px;")
         self.project_nr_path.setObjectName("project_nr_path")
         self.horizontalLayout_24.addWidget(self.project_nr_path)
-        self.choose_project_nr_btn = QtWidgets.QToolButton(self.verticalFrame)
+        self.choose_project_nr_btn = QtWidgets.QToolButton(self.frame14)
         self.choose_project_nr_btn.setMinimumSize(QtCore.QSize(50, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -3185,16 +3504,33 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.choose_project_nr_btn.setFont(font)
-        self.choose_project_nr_btn.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"background: #AEDC21;\n"
-"border-radius: 10px;")
+        self.choose_project_nr_btn.setStyleSheet("QPushButton, QToolButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.choose_project_nr_btn.setObjectName("choose_project_nr_btn")
         self.horizontalLayout_24.addWidget(self.choose_project_nr_btn)
-        self.verticalLayout_26.addLayout(self.horizontalLayout_24)
-        self.horizontalLayout_20 = QtWidgets.QHBoxLayout()
+        self.verticalLayout_26.addWidget(self.frame14)
+        self.frame15 = QtWidgets.QFrame(self.verticalFrame1)
+        self.frame15.setObjectName("frame15")
+        self.horizontalLayout_20 = QtWidgets.QHBoxLayout(self.frame15)
         self.horizontalLayout_20.setSpacing(20)
         self.horizontalLayout_20.setObjectName("horizontalLayout_20")
-        self.label_5 = QtWidgets.QLabel(self.verticalFrame)
+        self.label_5 = QtWidgets.QLabel(self.frame15)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -3205,7 +3541,7 @@ class Ui_CapZa(object):
 "")
         self.label_5.setObjectName("label_5")
         self.horizontalLayout_20.addWidget(self.label_5)
-        self.save_bericht_path = QtWidgets.QLineEdit(self.verticalFrame)
+        self.save_bericht_path = QtWidgets.QLineEdit(self.frame15)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -3216,7 +3552,7 @@ class Ui_CapZa(object):
 "border-radius: 10px;")
         self.save_bericht_path.setObjectName("save_bericht_path")
         self.horizontalLayout_20.addWidget(self.save_bericht_path)
-        self.choose_save_bericht_path = QtWidgets.QToolButton(self.verticalFrame)
+        self.choose_save_bericht_path = QtWidgets.QToolButton(self.frame15)
         self.choose_save_bericht_path.setMinimumSize(QtCore.QSize(50, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -3224,17 +3560,115 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.choose_save_bericht_path.setFont(font)
-        self.choose_save_bericht_path.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"background: #AEDC21;\n"
-"border-radius: 10px;")
+        self.choose_save_bericht_path.setStyleSheet("QPushButton, QToolButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
         self.choose_save_bericht_path.setObjectName("choose_save_bericht_path")
         self.horizontalLayout_20.addWidget(self.choose_save_bericht_path)
-        self.verticalLayout_26.addLayout(self.horizontalLayout_20)
-        self.horizontalLayout_25 = QtWidgets.QHBoxLayout()
+        self.verticalLayout_26.addWidget(self.frame15)
+        self.label_65 = QtWidgets.QLabel(self.verticalFrame1)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.label_65.setFont(font)
+        self.label_65.setObjectName("label_65")
+        self.verticalLayout_26.addWidget(self.label_65)
+        self.frame_6 = QtWidgets.QFrame(self.verticalFrame1)
+        self.frame_6.setObjectName("frame_6")
+        self.horizontalLayout_43 = QtWidgets.QHBoxLayout(self.frame_6)
+        self.horizontalLayout_43.setSpacing(20)
+        self.horizontalLayout_43.setObjectName("horizontalLayout_43")
+        self.label_71 = QtWidgets.QLabel(self.frame_6)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_71.setFont(font)
+        self.label_71.setStyleSheet("color: rgb(0, 0, 0);\n"
+"")
+        self.label_71.setObjectName("label_71")
+        self.horizontalLayout_43.addWidget(self.label_71)
+        self.laborauswertung_path = QtWidgets.QLineEdit(self.frame_6)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.laborauswertung_path.setFont(font)
+        self.laborauswertung_path.setStyleSheet("background-color: rgb(217, 217, 217);\n"
+"\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;")
+        self.laborauswertung_path.setObjectName("laborauswertung_path")
+        self.horizontalLayout_43.addWidget(self.laborauswertung_path)
+        self.choose_laborauswertung_path_btn = QtWidgets.QToolButton(self.frame_6)
+        self.choose_laborauswertung_path_btn.setMinimumSize(QtCore.QSize(50, 30))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.choose_laborauswertung_path_btn.setFont(font)
+        self.choose_laborauswertung_path_btn.setStyleSheet("QPushButton, QToolButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
+        self.choose_laborauswertung_path_btn.setObjectName("choose_laborauswertung_path_btn")
+        self.horizontalLayout_43.addWidget(self.choose_laborauswertung_path_btn)
+        self.verticalLayout_26.addWidget(self.frame_6)
+        self.frame16 = QtWidgets.QFrame(self.verticalFrame1)
+        self.frame16.setStyleSheet("QPushButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: #AEDC21;\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
+        self.frame16.setObjectName("frame16")
+        self.horizontalLayout_25 = QtWidgets.QHBoxLayout(self.frame16)
         self.horizontalLayout_25.setObjectName("horizontalLayout_25")
-        spacerItem32 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_25.addItem(spacerItem32)
-        self.save_references_btn = QtWidgets.QPushButton(self.verticalFrame)
+        spacerItem29 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_25.addItem(spacerItem29)
+        self.save_references_btn = QtWidgets.QPushButton(self.frame16)
         self.save_references_btn.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -3242,24 +3676,244 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.save_references_btn.setFont(font)
-        self.save_references_btn.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"background: #AEDC21;\n"
-"border-radius: 10px;")
+        self.save_references_btn.setStyleSheet("")
         self.save_references_btn.setObjectName("save_references_btn")
         self.horizontalLayout_25.addWidget(self.save_references_btn)
-        self.verticalLayout_26.addLayout(self.horizontalLayout_25)
-        self.verticalLayout_25.addWidget(self.verticalFrame)
-        spacerItem33 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_25.addItem(spacerItem33)
+        self.verticalLayout_26.addWidget(self.frame16)
+        self.verticalLayout_25.addWidget(self.verticalFrame1)
+        spacerItem30 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_25.addItem(spacerItem30)
         self.stackedWidget.addWidget(self.settings_frame)
+        self.laborauswertung = QtWidgets.QWidget()
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.laborauswertung.setFont(font)
+        self.laborauswertung.setStyleSheet("QPushButton {\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: #AEDC21;\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
+        self.laborauswertung.setObjectName("laborauswertung")
+        self.verticalLayout_33 = QtWidgets.QVBoxLayout(self.laborauswertung)
+        self.verticalLayout_33.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_33.setSpacing(20)
+        self.verticalLayout_33.setObjectName("verticalLayout_33")
+        self.scrollArea_4 = QtWidgets.QScrollArea(self.laborauswertung)
+        self.scrollArea_4.setWidgetResizable(True)
+        self.scrollArea_4.setObjectName("scrollArea_4")
+        self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 1045, 1056))
+        self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
+        self.verticalLayout_34 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_4)
+        self.verticalLayout_34.setObjectName("verticalLayout_34")
+        self.add_laborauswertung_btn = QtWidgets.QPushButton(self.scrollAreaWidgetContents_4)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.add_laborauswertung_btn.sizePolicy().hasHeightForWidth())
+        self.add_laborauswertung_btn.setSizePolicy(sizePolicy)
+        self.add_laborauswertung_btn.setMinimumSize(QtCore.QSize(200, 30))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.add_laborauswertung_btn.setFont(font)
+        self.add_laborauswertung_btn.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.add_laborauswertung_btn.setStyleSheet("background: #AEDC21;")
+        self.add_laborauswertung_btn.setObjectName("add_laborauswertung_btn")
+        self.verticalLayout_34.addWidget(self.add_laborauswertung_btn)
+        self.frame_4 = QtWidgets.QFrame(self.scrollAreaWidgetContents_4)
+        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_4.setObjectName("frame_4")
+        self.verticalLayout_35 = QtWidgets.QVBoxLayout(self.frame_4)
+        self.verticalLayout_35.setObjectName("verticalLayout_35")
+        self.splitter = QtWidgets.QSplitter(self.frame_4)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.splitter.sizePolicy().hasHeightForWidth())
+        self.splitter.setSizePolicy(sizePolicy)
+        self.splitter.setOrientation(QtCore.Qt.Vertical)
+        self.splitter.setObjectName("splitter")
+        self.la_edit_frame_2 = QtWidgets.QFrame(self.splitter)
+        self.la_edit_frame_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.la_edit_frame_2.setObjectName("la_edit_frame_2")
+        self.la_edit_frame = QtWidgets.QVBoxLayout(self.la_edit_frame_2)
+        self.la_edit_frame.setObjectName("la_edit_frame")
+        self.la_edit_title_lbl = QtWidgets.QLabel(self.la_edit_frame_2)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.la_edit_title_lbl.setFont(font)
+        self.la_edit_title_lbl.setObjectName("la_edit_title_lbl")
+        self.la_edit_frame.addWidget(self.la_edit_title_lbl)
+        self.laborauswertung_edit_table = QtWidgets.QTableWidget(self.la_edit_frame_2)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.laborauswertung_edit_table.setFont(font)
+        self.laborauswertung_edit_table.setStyleSheet("background: white")
+        self.laborauswertung_edit_table.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)
+        self.laborauswertung_edit_table.setAlternatingRowColors(True)
+        self.laborauswertung_edit_table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.laborauswertung_edit_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
+        self.laborauswertung_edit_table.setObjectName("laborauswertung_edit_table")
+        self.laborauswertung_edit_table.setColumnCount(2)
+        self.laborauswertung_edit_table.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(True)
+        item.setFont(font)
+        item.setBackground(QtGui.QColor(0, 85, 0, 20))
+        self.laborauswertung_edit_table.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        item.setFont(font)
+        self.laborauswertung_edit_table.setHorizontalHeaderItem(1, item)
+        self.laborauswertung_edit_table.horizontalHeader().setDefaultSectionSize(400)
+        self.laborauswertung_edit_table.horizontalHeader().setStretchLastSection(True)
+        self.la_edit_frame.addWidget(self.laborauswertung_edit_table)
+        self.horizontalLayout_40 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_40.setObjectName("horizontalLayout_40")
+        self.laborauswertung_close_edit_frame_btn = QtWidgets.QPushButton(self.la_edit_frame_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.laborauswertung_close_edit_frame_btn.sizePolicy().hasHeightForWidth())
+        self.laborauswertung_close_edit_frame_btn.setSizePolicy(sizePolicy)
+        self.laborauswertung_close_edit_frame_btn.setMinimumSize(QtCore.QSize(200, 30))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.laborauswertung_close_edit_frame_btn.setFont(font)
+        self.laborauswertung_close_edit_frame_btn.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.laborauswertung_close_edit_frame_btn.setStyleSheet("QPushButton {\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: rgb(255, 220, 221);\n"
+"border: 2px solid rgb(255, 116, 118);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 197, 198);\n"
+"color: black;\n"
+"}")
+        self.laborauswertung_close_edit_frame_btn.setObjectName("laborauswertung_close_edit_frame_btn")
+        self.horizontalLayout_40.addWidget(self.laborauswertung_close_edit_frame_btn)
+        spacerItem31 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_40.addItem(spacerItem31)
+        self.laborauswertung_save_edit_frame_btn = QtWidgets.QPushButton(self.la_edit_frame_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.laborauswertung_save_edit_frame_btn.sizePolicy().hasHeightForWidth())
+        self.laborauswertung_save_edit_frame_btn.setSizePolicy(sizePolicy)
+        self.laborauswertung_save_edit_frame_btn.setMinimumSize(QtCore.QSize(200, 30))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.laborauswertung_save_edit_frame_btn.setFont(font)
+        self.laborauswertung_save_edit_frame_btn.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.laborauswertung_save_edit_frame_btn.setStyleSheet("background: #AEDC21;")
+        self.laborauswertung_save_edit_frame_btn.setObjectName("laborauswertung_save_edit_frame_btn")
+        self.horizontalLayout_40.addWidget(self.laborauswertung_save_edit_frame_btn)
+        self.la_edit_frame.addLayout(self.horizontalLayout_40)
+        self.la_edit_frame_1 = QtWidgets.QFrame(self.splitter)
+        self.la_edit_frame_1.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.la_edit_frame_1.setObjectName("la_edit_frame_1")
+        self.verticalLayout_38 = QtWidgets.QVBoxLayout(self.la_edit_frame_1)
+        self.verticalLayout_38.setObjectName("verticalLayout_38")
+        self.la_1_filter_frame = QtWidgets.QFrame(self.la_edit_frame_1)
+        self.la_1_filter_frame.setObjectName("la_1_filter_frame")
+        self.horizontalLayout_42 = QtWidgets.QHBoxLayout(self.la_1_filter_frame)
+        self.horizontalLayout_42.setObjectName("horizontalLayout_42")
+        self.label_54 = QtWidgets.QLabel(self.la_1_filter_frame)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_54.setFont(font)
+        self.label_54.setObjectName("label_54")
+        self.horizontalLayout_42.addWidget(self.label_54)
+        self.laborauswertung_lineedit = QtWidgets.QLineEdit(self.la_1_filter_frame)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.laborauswertung_lineedit.setFont(font)
+        self.laborauswertung_lineedit.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.laborauswertung_lineedit.setObjectName("laborauswertung_lineedit")
+        self.horizontalLayout_42.addWidget(self.laborauswertung_lineedit)
+        self.la_search_found_lbl = QtWidgets.QLabel(self.la_1_filter_frame)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.la_search_found_lbl.setFont(font)
+        self.la_search_found_lbl.setObjectName("la_search_found_lbl")
+        self.horizontalLayout_42.addWidget(self.la_search_found_lbl)
+        self.verticalLayout_38.addWidget(self.la_1_filter_frame)
+        self.laborauswertung_table = QtWidgets.QTableWidget(self.la_edit_frame_1)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.laborauswertung_table.setFont(font)
+        self.laborauswertung_table.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.laborauswertung_table.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.laborauswertung_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.laborauswertung_table.setAlternatingRowColors(True)
+        self.laborauswertung_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.laborauswertung_table.setObjectName("laborauswertung_table")
+        self.laborauswertung_table.setColumnCount(0)
+        self.laborauswertung_table.setRowCount(0)
+        self.verticalLayout_38.addWidget(self.laborauswertung_table)
+        self.verticalLayout_35.addWidget(self.splitter)
+        self.verticalLayout_34.addWidget(self.frame_4)
+        self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
+        self.verticalLayout_33.addWidget(self.scrollArea_4)
+        self.stackedWidget.addWidget(self.laborauswertung)
         self.verticalLayout_2.addWidget(self.stackedWidget)
         self.status_msg_btm = QtWidgets.QLabel(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.status_msg_btm.sizePolicy().hasHeightForWidth())
         self.status_msg_btm.setSizePolicy(sizePolicy)
-        self.status_msg_btm.setMinimumSize(QtCore.QSize(0, 80))
+        self.status_msg_btm.setMinimumSize(QtCore.QSize(0, 50))
         self.status_msg_btm.setMaximumSize(QtCore.QSize(16777215, 90))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -3295,20 +3949,20 @@ class Ui_CapZa(object):
         _translate = QtCore.QCoreApplication.translate
         CapZa.setWindowTitle(_translate("CapZa", "MainWindow"))
         self.label.setText(_translate("CapZa", "CapZa"))
-        self.label_2.setText(_translate("CapZa", "v0.1.0"))
+        self.label_2.setText(_translate("CapZa", "v0.1.1"))
         self.label_83.setText(_translate("CapZa", "©"))
         self.error_info_btn.setText(_translate("CapZa", "  Fehlerbeschreibung"))
         self.label_73.setText(_translate("CapZa", "Admin Info:"))
         self.label_7.setText(_translate("CapZa", "Diese Anwendung befindet sich im Entwicklungsstadium, da sie kontinuierlich weiterentwickelt wird."))
+        self.hide_admin_msg_btn.setText(_translate("CapZa", "X"))
         self.nav_data_btn.setText(_translate("CapZa", "Dateneingabe"))
         self.nav_analysis_btn.setText(_translate("CapZa", "Analysewerte"))
         self.nav_pnp_entry_btn.setText(_translate("CapZa", "PNP Eingang"))
         self.nav_pnp_output_btn.setText(_translate("CapZa", "PNP AHV Output"))
         self.nav_order_form_btn.setText(_translate("CapZa", "Auftragformular"))
-        self.nav_settings_btn.setText(_translate("CapZa", "Referenzeinstellungen"))
+        self.nav_laborauswertung_btn.setText(_translate("CapZa", "Laborauswertung"))
+        self.nav_settings_btn.setText(_translate("CapZa", "  Referenzeinstellungen"))
         self.groupBox.setTitle(_translate("CapZa", "Werte einlesen"))
-        self.label_8.setText(_translate("CapZa", "Excel Pfad:"))
-        self.find_excel_btn.setToolTip(_translate("CapZa", "<html><head/><body><p>Wähle die Excel aus oder gib einen gültigen Pfad zur Excel ein.</p></body></html>"))
         self.select_probe_btn.setToolTip(_translate("CapZa", "<html><head/><body><p>Wähle die exakte Probe aus</p></body></html>"))
         self.select_probe_btn.setText(_translate("CapZa", "Probe auswählen"))
         self.groupBox_2.setTitle(_translate("CapZa", "Daten erfassen"))
@@ -3398,7 +4052,7 @@ class Ui_CapZa(object):
         self.label_49.setText(_translate("CapZa", "Probenehmer:"))
         self.label_50.setText(_translate("CapZa", "Anwesende Person:"))
         self.label_51.setText(_translate("CapZa", "Erzeuger:"))
-        self.lineEdit_37.setText(_translate("CapZa", "selbst ausgefüllt"))
+        self.pnp_in_erzeuger_lineedit.setText(_translate("CapZa", "selbst ausgefüllt"))
         self.label_52.setText(_translate("CapZa", "Menge / Tonnage:"))
         self.checkBox_22.setText(_translate("CapZa", "Haufwerk"))
         self.checkBox_21.setText(_translate("CapZa", "Big Bags"))
@@ -3418,7 +4072,7 @@ class Ui_CapZa(object):
         self.checkBox_39.setText(_translate("CapZa", "sonstige"))
         self.groupBox_6.setTitle(_translate("CapZa", "Vor-Ort-Gegebenheiten"))
         self.label_63.setText(_translate("CapZa", "Abfallart / Allg. Beschreibung:"))
-        self.textEdit_2.setHtml(_translate("CapZa", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.pnp_in_abfallart_textedit.setHtml(_translate("CapZa", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Leelawadee UI\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
@@ -3448,7 +4102,7 @@ class Ui_CapZa(object):
         self.checkBox_36.setText(_translate("CapZa", "Eimer"))
         self.checkBox_38.setText(_translate("CapZa", "Bagger"))
         self.checkBox_37.setText(_translate("CapZa", "sonstige"))
-        self.pushButton_2.setText(_translate("CapZa", "PushButton"))
+        self.pushButton_2.setText(_translate("CapZa", "Leeren"))
         self.pushButton.setText(_translate("CapZa", "Protokoll erstellen"))
         self.groupBox_3.setTitle(_translate("CapZa", "PNP Output AHV"))
         self.label_66.setText(_translate("CapZa", "Protokoll startet mit AHV Output Nr.:"))
@@ -3484,23 +4138,34 @@ class Ui_CapZa(object):
         self.checkBox_46.setText(_translate("CapZa", "CLU"))
         self.checkBox_47.setText(_translate("CapZa", "SEWA"))
         self.checkBox_48.setText(_translate("CapZa", "UCL"))
-        self.label_80.setText(_translate("CapZa", "Projekt- / Nachweisnummer(n)"))
-        self.label_79.setText(_translate("CapZa", "Probenahmedatum"))
-        self.label_78.setText(_translate("CapZa", "Analysenauswahl"))
-        self.label_82.setText(_translate("CapZa", "ggf. spez. Probenbezeichnung"))
-        self.label_81.setText(_translate("CapZa", "Info 2"))
-        self.comboBox_2.setItemText(0, _translate("CapZa", "Abfall"))
+        self.auftrag_add_auftrag_btn.setText(_translate("CapZa", "+ Auftrag hinzufügen"))
         self.auftrag_empty.setText(_translate("CapZa", "Leeren"))
         self.auftrag_letsgo.setText(_translate("CapZa", "Übernehemen"))
         self.info_label_3.setText(_translate("CapZa", "Diese Seite befindet sich in Bearbeitung."))
         self.label_87.setText(_translate("CapZa", "Referenzeinstellungen:"))
+        self.clear_cache_btn.setText(_translate("CapZa", "Cache leeren"))
         self.label_77.setText(_translate("CapZa", "Pfad zur Excel Nachweisübersicht:"))
         self.choose_nw_path_btn.setText(_translate("CapZa", "..."))
         self.label_85.setText(_translate("CapZa", "Pfad zu Excel Projektnummern:"))
         self.choose_project_nr_btn.setText(_translate("CapZa", "..."))
         self.label_5.setText(_translate("CapZa", "Standardpfad zur Speicherung des Berichts:"))
         self.choose_save_bericht_path.setText(_translate("CapZa", "..."))
+        self.label_65.setText(_translate("CapZa", "Sollte die Laborauswertung Excel auf einem neueren Stand sein, kann sie hier in das Tool importiert werden:"))
+        self.label_71.setText(_translate("CapZa", "Pfad zur Excel Laborauswertung:"))
+        self.choose_laborauswertung_path_btn.setText(_translate("CapZa", "..."))
         self.save_references_btn.setText(_translate("CapZa", "Speichern"))
+        self.add_laborauswertung_btn.setText(_translate("CapZa", "+ Zeile hinzufügen"))
+        self.la_edit_title_lbl.setText(_translate("CapZa", "Probe bearbeiten:"))
+        self.laborauswertung_edit_table.setSortingEnabled(False)
+        item = self.laborauswertung_edit_table.horizontalHeaderItem(0)
+        item.setText(_translate("CapZa", "Titel"))
+        item = self.laborauswertung_edit_table.horizontalHeaderItem(1)
+        item.setText(_translate("CapZa", "Wert"))
+        self.laborauswertung_close_edit_frame_btn.setText(_translate("CapZa", "Abbrechen"))
+        self.laborauswertung_save_edit_frame_btn.setText(_translate("CapZa", "Speichern"))
+        self.label_54.setText(_translate("CapZa", "Suche nach:"))
+        self.la_search_found_lbl.setText(_translate("CapZa", "XXXX Treffer gefunden"))
+        self.laborauswertung_table.setSortingEnabled(True)
         self.status_msg_btm.setText(_translate("CapZa", "Speichern war erfolgreich"))
         self.second_info_lbl.setText(_translate("CapZa", "TextLabel"))
 import ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß_rc
