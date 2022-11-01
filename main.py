@@ -1,15 +1,18 @@
 
 import datetime
-import threading
+from xmlrpc.server import SimpleXMLRPCRequestHandler
 from docx2pdf import convert
 import pandas as pd
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap, QFont, QStandardItemModel, QStandardItem, QIntValidator
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QDate, QTimer
-from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QProgressDialog
-import numpy as np
+from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QProgressDialog, QDateEdit, QHeaderView, QComboBox, QPushButton, QCommandLinkButton
 import time
 import subprocess, os, platform, sys
+import re
+import json
+
+from threading import Thread
 
 
 from win10toast import ToastNotifier
@@ -31,9 +34,13 @@ ALL_DATA_PROJECT_NR = 0
 
 NW_PATH = ""
 PNR_PATH = ""
+LA_PATH = ""
+STANDARD_SAVE_PATH = ""
+
+LA_FILTER_COUNT = 0
 
 
-STATUS_MSG = ""
+STATUS_MSG = []
 
 BERICHT_FILE = ""
 
@@ -47,6 +54,8 @@ class Ui(QtWidgets.QMainWindow):
         super(Ui, self).__init__(parent)
         uic.loadUi(r'./views/main.ui', self)
 
+        self.la_changed_item_lst = {}
+
         self.showMaximized()
         self.init_main()
 
@@ -59,14 +68,14 @@ class Ui(QtWidgets.QMainWindow):
 
         self.nw_overview_path.setText(NW_PATH)
         self.project_nr_path.setText(PNR_PATH)
+        self.save_bericht_path.setText(STANDARD_SAVE_PATH)
+        self.laborauswertung_path.setText(LA_PATH)
         self.disable_settings_lines()
 
         self.setWindowTitle(f"CapZa - Zasada - { config['version'] } ")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
 
         self.stackedWidget.setCurrentIndex(0)
-
-        self.save_dir = ""
 
         self.choose_save_bericht_path.clicked.connect(lambda: self.select_folder(self.save_bericht_path, "Wähle den Standardpfad zum Speichern aus."))
 
@@ -77,26 +86,17 @@ class Ui(QtWidgets.QMainWindow):
 
         self.notifier = ToastNotifier()
 
-        self.error_info_btn.setStyleSheet(
-            "QPushButton {"
-            "background-color: transparent; "
-            "border: 1px solid black;"
-            "}"
-            "QPushButton:hover"
-            "{"
-                "font-weight: bold"
-            "}")
 
         self.error_info_btn.clicked.connect(self.showError)
 
         # self.disable_buttons()
-        self._check_for_errors()
 
         self.status_msg_btm.hide()
 
         self.brandtest_combo.currentTextChanged.connect(lambda: self.analysis_brandtest_lineedit.setText(self.brandtest_combo.currentText()))
         self.nh3_lineedit_2.textChanged.connect(lambda: self.nh3_lineedit.setText(self.nh3_lineedit_2.text()))
         self.h2_lineedit_2.textChanged.connect(lambda: self.h2_lineedit.setText(self.h2_lineedit_2.text()))
+        self.laborauswertung_lineedit.textChanged.connect(self.filter_laborauswertung)
 
         self.pnp_output_probenahmedatum.setDate(self.get_today_qdate())
         self.pnp_out_protokoll_btn.clicked.connect(self.create_pnp_out_protokoll)
@@ -108,14 +108,19 @@ class Ui(QtWidgets.QMainWindow):
         self.nav_pnp_output_btn.clicked.connect(lambda : self.display(3))
         self.nav_order_form_btn.clicked.connect(lambda : self.display(4))
         self.nav_settings_btn.clicked.connect(lambda : self.display(5))
+        self.nav_laborauswertung_btn.clicked.connect(lambda : self.display(6))
+
+        self.hide_admin_msg_btn.clicked.connect(self.hide_admin_msg)
+        self.clear_cache_btn.clicked.connect(self.clear_cache)
 
         self.save_references_btn.clicked.connect(self.save_references)
+
+        self.word_helper = Word_Helper()
 
         self.init_shadow(self.data_1)
         self.init_shadow(self.data_2)
         self.init_shadow(self.data_3)
         self.init_shadow(self.select_probe_btn)
-        self.init_shadow(self.find_excel_btn)
         self.init_shadow(self.migrate_btn)
         self.init_shadow(self.aqs_btn)
         self.init_shadow(self.project_data_btn)
@@ -128,26 +133,34 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.pnp_o_frame)
         self.init_shadow(self.order_frame)
         self.init_shadow(self.pnp_in_allg_frame)
-        
+        self.init_shadow(self.clear_cache_btn)        
 
         self.end_dateedit.setDate(self.get_today_qdate())
-        # Design Default values
+        self.load_project_nr()
 
-        self.nav_btn_frame.setStyleSheet("QPushButton:checked"
-            	                        "{"
-                                            "background-color: rgb(231, 201, 0)"
-                                            "color: rgb(0, 0, 0);"
-                                        "}"
-                                        "QPushButton:hover"
-            	                        "{"
-                                            "background-color: rgb(231, 201, 0)"
-                                            "color: rgb(0, 0, 0);"
-                                        "}")
-
-        self.find_excel_btn.clicked.connect(lambda: self.select_file(self.excel_path_lineedit, self.select_probe_btn, "Wähle eine Laborauswertung aus...", "Excel Files (*.xlsx *.xls *.csv)"))
         self.select_probe_btn.clicked.connect(self.read_all_probes)
 
         self.choose_nw_path_btn.clicked.connect(self.choose_nw_path)
+        self.choose_laborauswertung_path_btn.clicked.connect(self.choose_la)
+
+
+        ### PNP Output
+        int_validator = QIntValidator(0, 999999999, self)
+        self.output_nr_lineedit.setValidator(int_validator)
+
+        ### AUFTRAGSFORMULAR:
+        self.autrag_load_column_view()
+        self.auftrag_add_auftrag_btn.clicked.connect(self.auftrag_add_auftrag)
+
+        ### LABORAUSWERTUNG:
+        self.laborauswertung_table.doubleClicked.connect(self.edit_laborauswertung)
+        self.la_edit_frame_2.hide()
+        self.laborauswertung_close_edit_frame_btn.clicked.connect(self.la_cancel_edit)
+        self.add_laborauswertung_btn.clicked.connect(self.add_laborauswertung)
+        self.init_shadow(self.laborauswertung_table)
+        self.init_shadow(self.la_edit_frame_2)
+
+        
         self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
 
 
@@ -155,9 +168,28 @@ class Ui(QtWidgets.QMainWindow):
         self.aqs_btn.clicked.connect(self._no_function)
 
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
-            STATUS_MSG = "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen."
-            self._check_for_errors()
-            self.feedback_message("error", "Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
+            STATUS_MSG.append("Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
+            self.feedback_message("error", STATUS_MSG)
+
+    def hide_admin_msg(self):
+        self.admin_msg_frame.hide()
+
+    def clear_cache(self):
+        global SELECTED_PROBE,SELECTED_NACHWEIS,ALL_DATA_PROBE,ALL_DATA_NACHWEIS,ALL_DATA_PROJECT_NR,NW_PATH,PNR_PATH,STATUS_MSG,BERICHT_FILE,ALIVE, PROGRESS
+
+        SELECTED_PROBE = 0
+        SELECTED_NACHWEIS = 0
+
+        NW_PATH = ""
+        PNR_PATH = ""
+
+
+        STATUS_MSG = []
+
+        BERICHT_FILE = ""
+
+        ALIVE, PROGRESS = True, 0
+
 
     def get_today_qdate(self):
         d,m,y = self.today_date_string.split(".")
@@ -165,39 +197,42 @@ class Ui(QtWidgets.QMainWindow):
 
     def _no_function(self):
         global STATUS_MSG
-        STATUS_MSG = "Diese Funktion steht noch nicht zu verfügung."
-        self.feedback_message("info", "Diese Funktion steht noch nicht zu verfügung.")
-        self._check_for_errors()
+        STATUS_MSG.append("Diese Funktion steht noch nicht zu verfügung.")
+        self.feedback_message("info", STATUS_MSG)
 
     def choose_nw_path(self):
         global NW_PATH
-        global STATUS_MSG
         NW_PATH = self.select_file(self.nw_overview_path, "", "Wähle die Nachweis Liste aus...", "Excel Files (*.xlsx *.xls)")
-        self.load_nachweis_data()   
+        self.load_nachweis_data()
+
+    def choose_la(self):
+        self.select_file(self.laborauswertung_path, "", "Wähle die Laborauswertung aus...", "Excel Files (*.xlsx *.xls)")
 
     def choose_project_nr(self):
         global PNR_PATH
-        PNR_PATH = self.select_file(self.project_nr_path, "", "Wähle die Projektnummernliste aus...", "Excel Files (*.xlsx *.xls)")
-        self.load_project_nr()    
-        self._check_for_errors()
+        PNR_PATH = self.select_file(self.project_nr_path, "", "Wähle die Projektnummernliste aus...", "Excel Files (*.xlsx *.xls)") 
 
     def load_nachweis_data(self):
         global STATUS_MSG
         global ALL_DATA_NACHWEIS
         try:
             ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
-            STATUS_MSG = ""
+            STATUS_MSG = []
         except Exception as ex:
             print(ex)
-            self.feedback_message("error", f"Es wurde eine falsche Liste ausgewählt. Bitte wähle eine gültige 'Nachweisliste' aus. [{ex}]")
-            STATUS_MSG = str(ex)
-            self._check_for_errors()
+            self.feedback_message("error", [f"Es wurde eine falsche Liste ausgewählt. Bitte wähle eine gültige 'Nachweisliste' aus. [{ex}]"])
+            STATUS_MSG.append(str(ex))
 
     def load_project_nr(self):
         global ALL_DATA_PROJECT_NR
         global STATUS_MSG
-        ALL_DATA_PROJECT_NR = pd.read_excel(PNR_PATH)
-        STATUS_MSG = ""
+        try:
+            ALL_DATA_PROJECT_NR = pd.read_excel(PNR_PATH, sheet_name="Projekte 2022")
+            STATUS_MSG = []
+        except Exception as ex:
+            STATUS_MSG.append(f"Projektnummern konnten nicht geladen werden: [{ex}]")
+            self.feedback_message("error", STATUS_MSG)
+
 
     def showError(self):
         self.error = Error(self)
@@ -205,7 +240,7 @@ class Ui(QtWidgets.QMainWindow):
 
     def _check_for_errors(self):
         global STATUS_MSG
-        if STATUS_MSG != "":
+        if len(STATUS_MSG)>0:
             self.error_info_btn.show()
         else:
             self.error_info_btn.hide()
@@ -234,27 +269,40 @@ class Ui(QtWidgets.QMainWindow):
         # activate Button
         if button:
             button.setEnabled(True)
-        self._check_for_errors()
         return file[0]
-        
-    def save_references(self):
-        global STATUS_MSG
-        try:
-            nw_path = self.nw_overview_path.text()
-            project_nr_path = self.project_nr_path.text()
-            save_path = self.save_bericht_path.text()
 
-            with open("_loc_conf.txt", 'w', encoding='utf-8') as f:
-                f.write("{'nw_path': '"+nw_path+"',")
-                f.write("'project_nr_path': '"+project_nr_path+"',")
-                f.write("'save_path': '"+save_path+"',")
-            self.feedback_message("success", "Neue Referenzen erfolgreich gespeichert.")
-            STATUS_MSG = ""
-            self._check_for_errors()
+    def save_references(self):
+        global STATUS_MSG, ALL_DATA_PROBE
+        save_path = ""
+        nw_path = ""
+        project_nr_path = ""
+        la_path = ""
+
+        try:
+            if self.nw_overview_path.text(): 
+                nw_path = self.nw_overview_path.text()
+            if self.project_nr_path.text():
+                project_nr_path = self.project_nr_path.text()
+            if self.save_bericht_path.text():
+                save_path = self.save_bericht_path.text()
+            if self.laborauswertung_path.text():
+                la_path = self.laborauswertung_path.text()
+                ALL_DATA_PROBE = self.db.excel_to_sql(la_path)
+
+            references = {
+                "nw_path": nw_path,
+                "project_nr_path": project_nr_path,
+                "save_path": save_path,
+                "la_path": la_path,
+            }
+
+            with open(r"_loc_conf.json", 'w', encoding='utf-8') as f:
+                f.write(json.dumps(references))
+            self.feedback_message("success", ["Neue Referenzen erfolgreich gespeichert."])
+            STATUS_MSG = []
             
         except Exception as ex:
-            STATUS_MSG = "Das Speichern ist fehlgeschlagen: " + str(ex)
-            self._check_for_errors()
+            STATUS_MSG.append("Das Speichern ist fehlgeschlagen: " + str(ex))
             self.feedback_message("error", f"Fehler beim Speichern: [{ex}]")
 
     def open_probe_win(self, dataset):
@@ -264,8 +312,7 @@ class Ui(QtWidgets.QMainWindow):
             self.probe.show()
             self.probe.init_data(dataset)
         except Exception as ex:
-            STATUS_MSG = f"Die Excel konnte nicht geladen werden: [{ex}]"
-            self._check_for_errors()
+            STATUS_MSG.append(f"Es  konnten keine Daten gefunden werden. Importiere ggf. eine Laborauswertungsexcel: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
 
     def display(self,i):
@@ -276,6 +323,13 @@ class Ui(QtWidgets.QMainWindow):
     
         if i == 5:
             self.show_second_info("Der Pfad zur 'Nachweis Übersicht' Excel ist nur temporär und wird in Zukunft durch Echtdaten aus RAMSES ersetzt.")
+
+        if i == 6:
+            thread2 = Thread(target=self.load_laborauswertung)
+            thread1 = Thread(target=self.feedback_message, args=("info", ["Laborauswertung wird geladen..."]))
+            thread2.start()
+            thread1.start()
+            
 
     def create_bericht_document(self):
         global STATUS_MSG
@@ -296,7 +350,6 @@ class Ui(QtWidgets.QMainWindow):
         aoc = 0
         toc = 0
         ec = 0
-        print(SELECTED_PROBE)
         if not SELECTED_PROBE["TOC\n%"] == None:
             toc = self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))
         else:
@@ -398,7 +451,7 @@ class Ui(QtWidgets.QMainWindow):
             "vorpruefung": vorpruefung,
             "ahv": ahv,
             "erzeuger": erzeuger,
-            "avv": str(list(SELECTED_NACHWEIS["AVV"])[0]),
+            "avv": self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])),
             "menge": str(list(SELECTED_NACHWEIS["t"])[0]),
             "heute": str(self.today_date_string),
             "datum": date,
@@ -450,18 +503,64 @@ class Ui(QtWidgets.QMainWindow):
             "pbd_no": pbp_check_no
         }
 
-        word_file = self.create_word(config["bericht_vorlage"], data, "Bericht")
+        word_file = self.create_word(config["bericht_vorlage"], data, "Bericht")        
         try:
-            self.create_pdf_bericht(word_file)
+            print(word_file, type(word_file))
+            thread1 = Thread(target=self.word_helper.open_word, args=(word_file,))
+            thread2 = Thread(target=self.feedback_message, args=("info", ["Word wird geöffnet..."]))
+            thread1.start() 
+            thread2.start()
+
+            thread1.join()
+            thread2.join()
+            
+            self.create_pdf_bericht(word_file)  # connect it to your update function
+
         except Exception as ex:
             self.feedback_message("attention", f"Die Word Datei wurde erfolgreich erstellt. Es konnte aber keine PDF erstellt werden. [{ex}]")
-            STATUS_MSG = str(ex)
-            self._check_for_errors()
+            STATUS_MSG.append(str(ex))
             
     def create_pdf_bericht(self, wordfile):
         file = wordfile.replace(".docx", ".pdf")
-        convert(wordfile, file)
+        new_file = convert(wordfile, file)
+        try:
+            os.startfile(new_file)
+        except:
+            raise Exception("Konnte die PDF nicht öffnen")
     
+    def autrag_load_column_view(self):
+        self.model = QStandardItemModel()
+        self.model.setHorizontalHeaderLabels(['Projekt-/Nachweisnummer(n)', 'Probenahmedatum', 'Analyseauswahl', 'ggf. spezifische Probenbezeichnung', 'Info 2', '#'])
+        self.auftrag_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.auftrag_table_view.setModel(self.model)
+
+    def auftrag_delete_auftrag(self, row):
+        self.model.removeRow(row)
+
+    def auftrag_add_auftrag(self):
+        row = self.model.rowCount()
+        self.model.appendRow(QStandardItem())
+        # Add widgets
+        _date_edit = QDateEdit(self.auftrag_table_view)
+        _date_edit.setFont(QFont('Leelawadee UI', 11))
+        _combo1 = QComboBox(self.auftrag_table_view)
+        _combo1.addItems(["Java", "C#", "Python"])
+        _combo1.setFont(QFont('Leelawadee UI', 11))
+        _combo2 = QComboBox(self.auftrag_table_view)
+        _combo2.addItems(["Abfall"])
+        _combo2.setFont(QFont('Leelawadee UI', 11))
+        _delete_btn = QPushButton("X")
+        _delete_btn.clicked.connect(lambda: self.auftrag_delete_auftrag(row))
+        _delete_btn.setFont(QFont('Leelawadee UI', 11))
+        _delete_btn.setStyleSheet("""
+            color: red;
+        """)
+
+        self.auftrag_table_view.setIndexWidget(self.model.index(row, 1), _date_edit)
+        self.auftrag_table_view.setIndexWidget(self.model.index(row, 2), _combo1)
+        self.auftrag_table_view.setIndexWidget(self.model.index(row, 4), _combo2)
+        self.auftrag_table_view.setIndexWidget(self.model.index(row, 5), _delete_btn)
+
     def create_pnp_out_protokoll(self):
         anzahl = self.amount_analysis.currentText()
         vorlage_document = self._specific_vorlage(anzahl)
@@ -507,16 +606,15 @@ class Ui(QtWidgets.QMainWindow):
     def create_word(self, vorlage, data, dialog_file):
         global STATUS_MSG
         try:
-            wh = Word_Helper()
-            file = QFileDialog.getSaveFileName(self, f'Speicherort für {dialog_file}', self.save_dir, filter='*.docx')
+            file = QFileDialog.getSaveFileName(self, f'Speicherort für {dialog_file}', STANDARD_SAVE_PATH, filter='*.docx')
             if file[0]:
-                wh.write_to_word_file(data, vorlage, name=file[0])
+                self.word_helper.write_to_word_file(data, vorlage, name=file[0])
                 self.feedback_message("success", "Das Protokoll wurde erfolgreich erstellt.")
                 return file[0]
         except Exception as ex:
-            self.feedback_message("error", f"{dialog_file} konnte nicht erstellt werden. [{ex}]")
-            STATUS_MSG = f"{dialog_file} konnte nicht erstellt werden: " + str(ex)
-            self._check_for_errors()
+            STATUS_MSG.append(f"{dialog_file} konnte nicht erstellt werden: " + str(ex))
+            self.feedback_message("error", STATUS_MSG)
+
 
     def create_aqs_document(self):
         global STATUS_MSG
@@ -711,9 +809,8 @@ class Ui(QtWidgets.QMainWindow):
             try:
                 excel_raw = pd.read_excel(BERICHT_FILE)
             except Exception as ex:
-                STATUS_MSG =f"Konnte nicht gelesen werden: {ex}"
+                STATUS_MSG.append(f"Konnte nicht gelesen werden: {ex}")
                 self.feedback_message("error", STATUS_MSG)
-                self._check_for_errors()
 
                 return
 
@@ -754,46 +851,55 @@ class Ui(QtWidgets.QMainWindow):
 
         self.empty_values()
         self.enable_buttons()
+        try:
 
-        ### in Dateneingabe
-        self.project_nr_lineedit.setText(str(SELECTED_PROBE["Kennung"]) if SELECTED_PROBE["Kennung"] != None else "-")
-        self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
-        self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
-        self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
-        self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
-        self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
+            ### in Dateneingabe
+            self.project_nr_lineedit.setText(str(SELECTED_PROBE["Kennung"]) if SELECTED_PROBE["Kennung"] != None else "-")
+            self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
+            self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
+            self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
+            self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
+            self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
 
-        ### in Analysewerte
-        self.ph_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["pH-Wert"]))) if SELECTED_PROBE["pH-Wert"] != None else "-")
-        self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
-        self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
-        self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
-        self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS\n%"]))) if SELECTED_PROBE["Lipos TS\n%"] != None else "-")
-        self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS\n%"]))) if SELECTED_PROBE["Lipos FS\n%"] != None else "-")
-        self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
-        self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "-")
-        self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"] != None else "-")
-        self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"]))) if SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"] != None else "-")
-        self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
-        self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
-        self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
-        self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
-        self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))) if SELECTED_PROBE["TOC\n%"] != None else "-")
-        self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))) if SELECTED_PROBE["EC\n%"] != None else "-")
+            ### in Analysewerte
+            self.ph_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["pH-Wert"]))) if SELECTED_PROBE["pH-Wert"] != None else "-")
+            self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
+            self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
+            self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
+            self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS\n%"]))) if SELECTED_PROBE["Lipos TS\n%"] != None else "-")
+            self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS\n%"]))) if SELECTED_PROBE["Lipos FS\n%"] != None else "-")
+            self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
+            self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "-")
+            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"] != None else "-")
+            self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"]))) if SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"] != None else "-")
+            self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
+            self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
+            self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
+            self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
+            self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))) if SELECTED_PROBE["TOC\n%"] != None else "-")
+            self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))) if SELECTED_PROBE["EC\n%"] != None else "-")
 
 
-        date = str(SELECTED_PROBE["Datum"]).split()[0]
-        date = date.split("-")
-        y = date[0]
-        m = date[1]
-        d = date[2]
-        self.probe_date.setDate(QDate(int(y), int(m), int(d)))
-        self.check_start_date.setDate(QDate(int(y),int(m),int(d)))
+            date = str(SELECTED_PROBE["Datum"]).split()[0]
+            date = date.split("-")
+            y = date[0]
+            m = date[1]
+            d = date[2]
+            self.probe_date.setDate(QDate(int(y), int(m), int(d)))
+            self.check_start_date.setDate(QDate(int(y),int(m),int(d)))
 
-        self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung"]))
-        STATUS_MSG = ""
-        self.feedback_message("success", "Probe erfolgreich geladen.")
-        self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
+            self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung"]))
+
+            ### in PNP Input
+            self.pnp_in_erzeuger_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
+            self.pnp_in_abfallart_textedit.setPlainText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])) + ", " + str(list(SELECTED_NACHWEIS["Material"])[0]) )
+
+
+            self.feedback_message("success", ["Probe erfolgreich geladen."])
+            self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
+        except Exception as ex:
+            STATUS_MSG.append(f"Es konnten keine Daten ermittelt werden: [{ex}]")
+            self.feedback_message("error", STATUS_MSG)
 
     def disable_buttons(self):
         self.migrate_btn.setEnabled(False)
@@ -817,12 +923,11 @@ class Ui(QtWidgets.QMainWindow):
                 data = self.db.get_all_probes()
                 self.open_probe_win(data)
                 ALL_DATA_PROBE = data
-                STATUS_MSG = ""
+                STATUS_MSG = []
             else:
                 self.open_probe_win(ALL_DATA_PROBE)
         except Exception as ex:
-            STATUS_MSG = f"Es konnten keine Daten ermittelt werden: [{str(ex)}]"
-            self._check_for_errors()
+            STATUS_MSG.append(f"Es konnten keine Daten ermittelt werden: [{str(ex)}]")
             self.feedback_message("error", STATUS_MSG)
 
     def format_avv_space_after_every_second(self, avv_raw):
@@ -832,7 +937,13 @@ class Ui(QtWidgets.QMainWindow):
             return "/"
 
     def feedback_message(self, kind, msg):
-        self.status_msg_btm.setText(msg)
+        if len(msg) > 1:
+            msg = "Es bestehen mehrere Fehler. Bitte überprüfe in der Fehlerbeschreibung."
+        elif len(msg) == 1:
+            msg = msg[0]
+        else:
+            msg ="/"
+        self.status_msg_btm.setText(str(msg))
         if kind == "success":
             self.status_msg_btm.setStyleSheet(
                 "* {"
@@ -866,16 +977,21 @@ class Ui(QtWidgets.QMainWindow):
                 "}"
             )
 
+        self._check_for_errors()
         self.status_msg_btm.show()
-        QTimer.singleShot(3000, lambda: self.status_msg_btm.hide())
+        QTimer.singleShot(5000, lambda: self.status_msg_btm.hide())
 
     def open_file(self, path):
-        if platform.system() == "Darwin":
-            subprocess.call(('open', path))
-        elif platform.system() == "Windows":
-            os.startfile(path)
-        else:
-            subprocess.call(("xdg-open", path))
+        try:
+            if platform.system() == "Darwin":
+                subprocess.call(('open', path))
+            elif platform.system() == "Windows":
+                os.startfile(path)
+            else:
+                subprocess.call(("xdg-open", path))
+        except Exception as ex:
+            STATUS_MSG.append(f"Das Dokument konnte nicht geöffnet werden: [{ex}]")
+            self.feedback_message("attention", STATUS_MSG)
 
     def _specific_vorlage(self, anzahl):
         if anzahl == "1":
@@ -905,6 +1021,281 @@ class Ui(QtWidgets.QMainWindow):
         self.progress.setValue(PROGRESS)
         self.progress.hide()
 
+    def load_laborauswertung(self):
+        global ALL_DATA_PROBE
+
+        try:
+            if ALL_DATA_PROBE == 0 or ALL_DATA_PROBE==None:
+                try:
+                    ALL_DATA_PROBE = self.db.get_all_probes()
+                except Exception as ex:
+                    raise ex
+
+
+            df = pd.DataFrame(ALL_DATA_PROBE)
+            if df.size == 0:
+                return
+            df.fillna('', inplace=True)
+
+            self.la_search_found_lbl.setText(f"{len(df.index)} Treffer gefunden.")
+
+            self.laborauswertung_table.setRowCount(df.shape[0])
+            self.laborauswertung_table.setColumnCount(df.shape[1])
+            self.laborauswertung_table.setHorizontalHeaderLabels(df.columns)
+
+            for row in df.iterrows():
+                values = row[1]
+                for col_index, value in enumerate(values):
+                    tableItem = QTableWidgetItem(str(value))
+                    self.laborauswertung_table.setItem(row[0], col_index, tableItem)
+        except Exception as ex:
+            STATUS_MSG.append(f"Fehler beim Laden der Probedaten: [{str(ex)}]")
+            self.feedback_message("error", STATUS_MSG)
+
+    def edit_laborauswertung(self):
+        """
+            Lädt die ausgewählte Probe in die Laborauswertungtabelle rein.
+        """
+        self.la_changed_item_lst = {}
+        try:
+            self.laborauswertung_edit_table.itemChanged.disconnect(self.la_handle_item_changed)
+            self.laborauswertung_save_edit_frame_btn.clicked.disconnect(self.la_add_save)
+        except:
+            pass
+        self.la_edit_title_lbl.setText("Probe bearbeiten:")
+
+        self.laborauswertung_edit_table.setRowCount(0)
+        headers = []
+        row = self.laborauswertung_table.currentRow()
+
+        for col in range(self.laborauswertung_table.columnCount()):
+            headers.append(self.laborauswertung_table.horizontalHeaderItem(col).text())
+
+        for index, title in enumerate(headers):
+            try:
+                self.laborauswertung_edit_table.insertRow(index)
+                data = self.laborauswertung_table.item(row, index).text()
+                titleItem = QTableWidgetItem(str(title))
+                dataItem = QTableWidgetItem(str(data))
+
+                flags = Qt.ItemFlags()
+                flags != Qt.ItemIsEnabled
+                titleItem.setFlags(flags)
+                
+                self.laborauswertung_edit_table.setItem(index, 0, titleItem)
+                self.laborauswertung_edit_table.setItem(index, 1, dataItem)
+            except Exception as ex:
+                STATUS_MSG = f"Es konnten nicht alle Daten geladen werden: [{ex}]"
+                self.feedback_message("error", STATUS_MSG)
+
+        try:
+            kennung = self.laborauswertung_edit_table.item(3, 1).text()
+            datum = self.laborauswertung_edit_table.item(1, 1).text()
+        except Exception as ex:
+            STATUS_MSG =f"Es konnte keine editierbare Probe ermittelt werden."
+            self.feedback_message("error", STATUS_MSG)
+
+
+        self.laborauswertung_save_edit_frame_btn.clicked.connect(lambda: self.la_edit_save(kennung, datum))
+        self.show_element(self.la_edit_frame_2)
+        self.feedback_message("info", ["Das Editieren befindet sich zur Zeit noch in Entwicklung."])
+        self.laborauswertung_edit_table.itemChanged.connect(self.la_handle_item_changed) 
+
+    def add_laborauswertung(self):
+        """
+            Fügt eine neue Zeile in die Laborauswertung hinzu.
+        """
+        try:
+            self.laborauswertung_edit_table.itemChanged.disconnect(self.la_handle_item_changed)
+            self.laborauswertung_save_edit_frame_btn.clicked.disconnect(self.la_edit_save)
+        except:
+            pass
+ 
+        self.la_changed_item_lst = {}
+
+        self.la_edit_title_lbl.setText("Probe hinzufügen:")
+        self.laborauswertung_edit_table.setRowCount(0)
+        headers = []
+
+        for col in range(self.laborauswertung_table.columnCount()):
+            headers.append(self.laborauswertung_table.horizontalHeaderItem(col).text())
+
+        for index, title in enumerate(headers):
+            rowPosition = self.laborauswertung_edit_table.rowCount()
+            if title == "index":
+                pass
+            else:
+                self.laborauswertung_edit_table.insertRow(rowPosition)
+                titleItem = QTableWidgetItem(str(title))
+                flags = Qt.ItemFlags()
+                flags != Qt.ItemIsEnabled
+                titleItem.setFlags(flags)
+                self.laborauswertung_edit_table.setItem(rowPosition, 0, titleItem)
+
+                # Datumselect
+                date_edit = QDateEdit(self.laborauswertung_edit_table)
+                date_edit.setFont(QFont('Leelawadee UI', 11))
+                date_edit.setDate(self.get_today_qdate())
+                date_edit.dateChanged.connect(self.la_handle_item_changed)
+                # self.laborauswertung_edit_table.setItem(0, 1, QTableWidgetItem(date_edit))
+                self.laborauswertung_edit_table.setCellWidget(0, 1, date_edit)
+
+        # Das Datum muss von Anfang an gesetzt werden
+        #self.la_changed_item_lst[self.laborauswertung_edit_table.item(0, 0).text()] = self.laborauswertung_edit_table.item(0, 1).text()
+        
+        self.laborauswertung_save_edit_frame_btn.clicked.connect(self.la_add_save)
+        self.show_element(self.la_edit_frame_2)
+        self.feedback_message("info", ["Das Laden befindet sich zur Zeit noch in Entwicklung."])
+        self.laborauswertung_edit_table.itemChanged.connect(self.la_handle_item_changed)
+
+    def show_element(self, element):
+        element.show()
+
+    def filter_laborauswertung(self, filter_text):
+        anzahl = self.laborauswertung_table.rowCount()
+        difference = 0
+        for i in range(self.laborauswertung_table.rowCount()):
+            item = self.laborauswertung_table.item(i, 2)
+            if not item:
+                continue
+            match = filter_text.lower() not in item.text().lower()
+            if not match:
+                difference += 1
+                break
+            self.laborauswertung_table.setRowHidden(i, match)
+
+  
+        self.la_search_found_lbl.setText(f"{str(anzahl-difference)} Treffer gefunden.")
+
+    def la_handle_item_changed(self, item):
+
+        ### Datum abfangen:
+        ### TEST
+        if isinstance(item, QDate):
+            datum = '{0}-{1}-{2} 00:00:00'.format(item.year(), item.month(), item.day())
+            self.la_changed_item_lst[self.laborauswertung_edit_table.item(0, 0).text()] = datum
+            return
+        else:
+            try:
+                ### Berechnung % TS:
+                if item.row() == 4 or item.row() == 5:
+                    if self.laborauswertung_edit_table.item(4, 1) and self.laborauswertung_edit_table.item(5, 1):
+                        tds = float(self.laborauswertung_edit_table.item(5, 1).text()) / (float(self.laborauswertung_edit_table.item(4, 1).text())/100)
+                        self.la_changed_item_lst["% TS"] = str(tds)
+                        self.laborauswertung_edit_table.setItem(7, 1, QTableWidgetItem(str(tds)))
+                        # Wasserfaktor
+                        wasserfaktor = float(self.laborauswertung_edit_table.item(4, 1).text()) / float(self.laborauswertung_edit_table.item(5, 1).text())
+                        self.la_changed_item_lst["Wasser- faktor"] = str(wasserfaktor)
+                        self.laborauswertung_edit_table.setItem(8, 1, QTableWidgetItem(str(wasserfaktor)))
+
+                ### Berechnung Wasserfaktor_getrocknet:
+                if item.row() == 6:
+                    if self.laborauswertung_edit_table.item(6, 1):
+                        wf_getrocknet = 100 / float(self.laborauswertung_edit_table.item(6, 1).text())
+                        self.la_changed_item_lst["Wasserfaktor getrocknetes Material"] = str(wf_getrocknet)
+                        self.laborauswertung_edit_table.setItem(9, 1, QTableWidgetItem(str(wf_getrocknet)))
+
+                ### Berechnung Lipos TS %:
+                if item.row() == 12 or item.row() == 10:
+                    if self.laborauswertung_edit_table.item(12, 1) and  self.laborauswertung_edit_table.item(10, 1):
+                        lipos_ts = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(10, 1).text()) / 100)
+                        self.la_changed_item_lst[r"Lipos TS\n%"] = str(lipos_ts)
+                        self.laborauswertung_edit_table.setItem(13, 1, QTableWidgetItem(str(lipos_ts)))
+
+                ### Berechnung Lipos FS %:
+                if item.row() == 13 or item.row() == 9:
+                    if self.laborauswertung_edit_table.item(13, 1) and  self.laborauswertung_edit_table.item(9, 1):
+                        lipos_fs = float(self.laborauswertung_edit_table.item(13, 1).text()) / (float(self.laborauswertung_edit_table.item(9, 1).text()) / 100)
+                        self.la_changed_item_lst[r"Lipos FS\n%"] = str(lipos_fs)
+                        self.laborauswertung_edit_table.setItem(14, 1, QTableWidgetItem(str(lipos_fs)))
+
+                ### Berechnung Lipos aus Frischsubstanz:
+                if item.row() == 12 or item.row() == 11:
+                    if self.laborauswertung_edit_table.item(12, 1) and  self.laborauswertung_edit_table.item(11, 1):
+                        lipos_frisch = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(11, 1).text()) / 100)
+                        self.la_changed_item_lst[r"% Lipos  ermittelts aus Frischsubstanz"] = str(lipos_frisch)
+                        self.laborauswertung_edit_table.setItem(15, 1, QTableWidgetItem(str(lipos_frisch)))
+                    
+                ### Berechnung Lipos aus TS:
+                if item.row() == 15 or item.row() == 8:
+                    if self.laborauswertung_edit_table.item(15, 1) and  self.laborauswertung_edit_table.item(8, 1):
+                        lipos_fs_ts = float(self.laborauswertung_edit_table.item(15, 1).text()) * float(self.laborauswertung_edit_table.item(8, 1).text())
+                        self.la_changed_item_lst[r"% Lipos aus FS, Umrechnung auf TS"] = str(lipos_fs_ts)
+                        self.laborauswertung_edit_table.setItem(16, 1, QTableWidgetItem(str(lipos_fs_ts)))
+
+                ### Berechnung GV %:
+                if item.row() == 19 or item.row() == 17 or item.row() == 18:
+                    if self.laborauswertung_edit_table.item(19, 1) and self.laborauswertung_edit_table.item(17, 1) and self.laborauswertung_edit_table.item(18, 1):
+                        gv = (100 - float(self.laborauswertung_edit_table.item(19, 1).text()) - float(self.laborauswertung_edit_table.item(17, 1).text())) / (float(self.laborauswertung_edit_table.item(18, 1).text()) * 100)
+                        self.la_changed_item_lst[r"GV [%]"] = str(gv)
+                        self.laborauswertung_edit_table.setItem(20, 1, QTableWidgetItem(str(gv)))
+
+                ### Berechnung TDS:
+                if item.row() == 30 or item.row() == 28 or item.row() == 29:
+                    if self.laborauswertung_edit_table.item(30, 1) and self.laborauswertung_edit_table.item(28, 1) and self.laborauswertung_edit_table.item(29, 1):
+                        gv = (float(self.laborauswertung_edit_table.item(30, 1).text()) - float(self.laborauswertung_edit_table.item(28, 1).text())) * (1000 / float(self.laborauswertung_edit_table.item(29, 1).text()) * 1000)
+                        self.la_changed_item_lst[r"\nTDS\nGesamt gelöste Stoffe (mg/L)"] = str(gv)
+                        self.laborauswertung_edit_table.setItem(27, 1, QTableWidgetItem(str(gv)))
+
+
+                ### Berechnung Einwaage TS
+                if item.row() == 32 or item.row() == 7:
+                    if self.laborauswertung_edit_table.item(32, 1) and  self.laborauswertung_edit_table.item(7, 1):
+                        einwaage_ts = float(self.laborauswertung_edit_table.item(32, 1).text()) * (float(self.laborauswertung_edit_table.item(7, 1).text()) / 100)
+                        self.la_changed_item_lst[r"Einwaage TS"] = str(einwaage_ts)
+                        self.laborauswertung_edit_table.setItem(33, 1, QTableWidgetItem(str(einwaage_ts)))
+
+
+                ### Berechnug Faktor
+                if item.row() == 33 or item.row() == 32:
+                    if self.laborauswertung_edit_table.item(33, 1) and  self.laborauswertung_edit_table.item(32, 1):
+                        faktor = float(self.laborauswertung_edit_table.item(33, 1).text()) / float(self.laborauswertung_edit_table.item(32, 1).text())
+                        self.la_changed_item_lst[r"Faktor"] = str(faktor)
+                        self.laborauswertung_edit_table.setItem(34, 1, QTableWidgetItem(str(faktor)))
+                
+
+            
+            except Exception as ex:
+                STATUS_MSG.append(f"Eine Berechnung konnte nicht durchgeführt werden: [{ex}]")
+                self.feedback_message("error", STATUS_MSG)
+
+
+            self.la_changed_item_lst[self.laborauswertung_edit_table.item(item.row(), 0).text()] = item.text()
+
+    def la_add_save(self):
+        global STATUS_MSG, ALL_DATA_PROBE
+        try:
+            self.db.add_laborauswertung(self.la_changed_item_lst)
+            STATUS_MSG = []
+            self.feedback_message("success", ["Erfolgreich gespeichert"])
+            # TODO: Aktualisiere die Tabelle, und ALL DATA PROBE
+            ALL_DATA_PROBE = win.db.get_all_probes()
+            
+            self.la_cancel_edit()
+        except Exception as ex:
+            STATUS_MSG.append(f"Fehler beim Speichern: [{ex}]")
+            self.feedback_message("error", STATUS_MSG)
+
+    def la_edit_save(self, kennung, datum):
+        global STATUS_MSG, ALL_DATA_PROBE   
+
+        try:
+            self.db.edit_laborauswertung(self.la_changed_item_lst, kennung, datum)
+            STATUS_MSG = []
+            self.feedback_message("success", ["Erfolgreich gespeichert"])
+            # TODO: Aktualisiere die Tabelle, und ALL DATA PROBE
+            ALL_DATA_PROBE = win.db.get_all_probes()
+            # TODO: Schließe die Edit Frame
+            self.la_cancel_edit()
+        except Exception as ex:
+            STATUS_MSG.append(f"Fehler beim Speichern: [{ex}]")
+            self.feedback_message("error", STATUS_MSG)
+
+    def la_cancel_edit(self):
+        global STATUS_MSG
+        self.la_edit_frame_2.hide()
+        STATUS_MSG = []
+
 
 
 class Probe(QtWidgets.QMainWindow): 
@@ -916,23 +1307,30 @@ class Probe(QtWidgets.QMainWindow):
         
         
         self.db = DatabaseHelper(config["db_file"])
-        self.selected_probe_dict = {
 
-        }
 
         self.load_probe_btn.clicked.connect(self.load_probe)
         self.cancel_btn.clicked.connect(self.close_window)
         self.init_shadow(self.load_probe_btn)
         self.init_shadow(self.cancel_btn)
 
-    def init_data(self, dataset):
+        self.probe_filter_lineedit.textChanged.connect(self.filter_probe)
 
+    def filter_probe(self, filter_text):
+        for i in range(self.tableWidget.rowCount()):
+            item = self.tableWidget.item(i, 1)
+            match = filter_text.lower() not in item.text().lower()
+            self.tableWidget.setRowHidden(i, match)
+            if not match:
+                break
+
+    def init_data(self, dataset):
         for row in dataset:
             rowPosition = self.tableWidget.rowCount()
             self.tableWidget.insertRow(rowPosition)
             self.tableWidget.setItem(rowPosition , 0, QTableWidgetItem(str(row["Datum"])))
             self.tableWidget.setItem(rowPosition , 1, QTableWidgetItem(str(row["Kennung"])))
-            self.tableWidget.setItem(rowPosition , 2, QTableWidgetItem(str(row["Material beliebige Bezeichnung"])))
+            self.tableWidget.setItem(rowPosition , 2, QTableWidgetItem(str(row["Materialbezeichnung"])))
 
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
@@ -950,46 +1348,57 @@ class Probe(QtWidgets.QMainWindow):
 
         selected_data= self.db.get_specific_probe(kennung)
         SELECTED_PROBE = selected_data
-        self.differentiate_probe(self.db.get_specific_probe(kennung)["Kennung"])
+
+        self.differentiate_probe(SELECTED_PROBE["Kennung"])
         self.parent().insert_values()
         self.close_window()
         return
 
     def differentiate_probe(self, wert):
-        global ALL_DATA_NACHWEIS, STATUS_MSG
+        global ALL_DATA_NACHWEIS, STATUS_MSG, SELECTED_NACHWEIS
         try:
-            letters, numbers = wert.split()
-        except Exception as ex:
-            STATUS_MSG = ex
-            return
-        
-        try:
-            for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
-                if isinstance(letters, str):
-                    if isinstance(numbers, str):
-                        if isinstance(nummer, str):
-                            if letters and numbers in nummer:
-                                # nummer = letters + " " + nummer
-                                self.check_in_uebersicht_nachweis(nummer)
-                                return
+            if re.match("[0-9]+-[0-9]+", wert):
+                ### es ist eine Projektnummer
+                self.check_in_projekt_nummer(wert)
+            elif re.match("[a-zA-Z]+\s[0-9]+", wert):
+                ### es ist eine XXX 000 Kennung
+                self.check_in_uebersicht_nachweis(self.get_full_project_ene_number(wert))
+            elif re.match("[a-zA-Z]+\s['I']+", wert):
+                SELECTED_NACHWEIS = 0
+                raise Exception("DK Proben wurden noch nicht implementiert.")
             else:
-                return
+                SELECTED_NACHWEIS = 0
+                raise Exception("Andere Proben wurden noch nicht implementiert.")
         except Exception as ex:
-            STATUS_MSG = f"Daten konnten nicht geladen werden: [{str(ex)}]"
+            STATUS_MSG.append(f"Daten konnten nicht geladen werden: [{str(ex)}]")
             self.parent().feedback_message("error", STATUS_MSG)
-            
 
+    def get_full_project_ene_number(self, nummer) -> str:
+        letters, numbers = nummer.split()
+        for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
+            if isinstance(letters, str):
+                if isinstance(numbers, str):
+                    if isinstance(nummer, str):
+                        if letters and numbers in nummer:
+                            return nummer
+        else:
+            return "/"
+            
     def check_in_uebersicht_nachweis(self, projektnummer):
         global SELECTED_NACHWEIS
         nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['Nachweisnr. Werk 1'] == str(projektnummer)]
         SELECTED_NACHWEIS = nachweis_data
 
-    def check_projekt_nummer(self, wert):
-        df_projektnumern = pd.read_excel(PNR_PATH, sheet_name='Projekte 2022')
+    def check_in_projekt_nummer(self, projektnummer):
+        global SELECTED_NACHWEIS
+        projekt_data = ALL_DATA_PROJECT_NR[ALL_DATA_PROJECT_NR['Projekt-Nr.'] == str(projektnummer)]
+        projekt_data["ORT"] = projekt_data["Ort"]
+        projekt_data["PLZ"] = ""
+        projekt_data["t"] = projekt_data["Menge [t/a]"]
+        SELECTED_NACHWEIS = projekt_data
 
     def close_window(self):
         self.hide()
-
 
 class Error(QtWidgets.QDialog): 
     def __init__(self, parent=None):
@@ -997,7 +1406,16 @@ class Error(QtWidgets.QDialog):
         uic.loadUi(r'./views/error.ui', self)
         global STATUS_MSG
         self.setWindowTitle("CapZa - Zasada - v 0.1 - Fehlerbeschreibung")
-        self.error_lbl.setText(STATUS_MSG)
+        error_long_msg = "Es wurden mehrere Fehler gefunden: \n"
+        if len(STATUS_MSG) > 1:
+            for error in STATUS_MSG:
+                error_long_msg+=f"- {error}\n"
+        elif len(STATUS_MSG) == 1:
+            error_long_msg = STATUS_MSG[0]
+        else: 
+            error_long_msg = "/"
+
+        self.error_lbl.setText(error_long_msg)
         self.init_shadow(self.close_error_info_btn)
         self.init_shadow(self.error_msg_frame)
         self.close_error_info_btn.clicked.connect(self.close_window)
@@ -1014,7 +1432,7 @@ class Error(QtWidgets.QDialog):
 
     def delete_error(self):
         global STATUS_MSG
-        STATUS_MSG = ""
+        STATUS_MSG = []
         self.error_lbl.setText("")
         self.close()
         self.parent()._check_for_errors()
@@ -1022,24 +1440,24 @@ class Error(QtWidgets.QDialog):
 if __name__ == "__main__":
     d = {}
     try:
-        f = open(r"./_loc_conf.txt", 'r', encoding='utf-8')
+        f = open(r"./_loc_conf.json", 'r', encoding='utf-8')
         whole_file = f.read()
         d = eval(whole_file)
 
     except Exception as ex:
-        pass
+        print(ex)
     if d:
         NW_PATH = d["nw_path"]
         PNR_PATH = d["project_nr_path"]
+        STANDARD_SAVE_PATH =d["save_path"]
     else:
         NW_PATH = config["overview_data"]
         PNR_PATH = config["project_nr_data"]
         
-
     try:
         ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
     except Exception as ex:
-        STATUS_MSG = f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]"
+        STATUS_MSG.append(f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]")
 
 
     app = QtWidgets.QApplication(sys.argv)
@@ -1051,9 +1469,17 @@ if __name__ == "__main__":
     app.processEvents()
 
     win = Ui()
-    if STATUS_MSG != "":
-        win._check_for_errors()
+
+    try:
+        ALL_DATA_PROBE = win.db.get_all_probes()
+    except Exception as ex:
+        STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
+
+
+    if STATUS_MSG != []:
         win.feedback_message("error", STATUS_MSG)
+    
+    win._check_for_errors()
     
     splash.finish(win)
     win.show()
