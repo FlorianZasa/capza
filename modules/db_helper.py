@@ -10,6 +10,7 @@ class DatabaseHelper():
         self.database = db_file
         # create a database connection
         self.conn = self.create_connection(self.database)
+        print("INIT CONN: ", self.conn)
 
 
     def delete_empty_rows(self):
@@ -44,19 +45,19 @@ class DatabaseHelper():
                 result = [dict(row) for row in cur.fetchall()]
                 return result
         except Exception as ex:
-            raise Exception("Datenbank nicht gefunden")
+            raise Exception(f"Datenbank nicht gefunden: [{ex}]")
 
     def get_specific_probe(self, id):
         try:
-            with self.conn:
-                self.conn.row_factory = sqlite3.Row
-                sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
-                cur = self.conn.cursor()
-                cur.execute(sql)
-                result = dict(cur.fetchone())
-                return result
+            # self.conn.row_factory = sqlite3.Row
+            sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
+            cur = self.conn.cursor()
+            cur.execute(sql)
+            result = dict(cur.fetchone())
+            self.conn.close()
+            return result
         except Exception as ex:
-            raise Exception("Probe nicht gefunden")
+            raise Exception(f"Probe nicht gefunden: [{ex}]")
 
     def add_laborauswertung(self, data: dict):
         values = []

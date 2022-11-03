@@ -13,7 +13,6 @@ class ConfigHelper():
         
     def read_config(self):
         config = configparser.ConfigParser()
-        print(self.path)
         with open(self.path, 'r', encoding='utf-8') as f:
             config.read_file(f)
         return config

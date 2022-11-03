@@ -14,7 +14,6 @@ class Word_Helper():
         return True
 
     def open_word(self, path: str):
-        print(path)
         word = win32.gencache.EnsureDispatch('Word.Application')
         word.Visible = True
         doc = word.Documents.Open(path)

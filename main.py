@@ -27,6 +27,7 @@ from modules.db_helper import DatabaseHelper
 
 
 CONFIG_HELPER = ConfigHelper(r"./config.ini")
+DATABASE_HELPER = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_path"))
 
 
 __version__ = CONFIG_HELPER.get_specific_config_value("version")
@@ -71,7 +72,6 @@ class Ui(QtWidgets.QMainWindow):
 
 
         ### Init DB
-        self.db = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_path"))
 
         self.nw_overview_path.setText(NW_PATH)
         self.project_nr_path.setText(PNR_PATH)
@@ -304,7 +304,7 @@ class Ui(QtWidgets.QMainWindow):
                 save_path = self.save_bericht_path.text()
             if self.laborauswertung_path.text():
                 la_path = self.laborauswertung_path.text()
-                ALL_DATA_PROBE = self.db.excel_to_sql(la_path)
+                ALL_DATA_PROBE = DATABASE_HELPER.excel_to_sql(la_path)
 
             references = {
                 "nw_path": nw_path,
@@ -937,11 +937,11 @@ class Ui(QtWidgets.QMainWindow):
     def read_all_probes(self):
         global ALL_DATA_PROBE
         try:
+            STATUS_MSG = []
             if ALL_DATA_PROBE == 0:
-                data = self.db.get_all_probes()
+                data = DATABASE_HELPER.get_all_probes()
                 self.open_probe_win(data)
                 ALL_DATA_PROBE = data
-                STATUS_MSG = []
             else:
                 self.open_probe_win(ALL_DATA_PROBE)
         except Exception as ex:
@@ -1045,7 +1045,7 @@ class Ui(QtWidgets.QMainWindow):
         try:
             if ALL_DATA_PROBE == 0 or ALL_DATA_PROBE==None:
                 try:
-                    ALL_DATA_PROBE = self.db.get_all_probes()
+                    ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
                 except Exception as ex:
                     raise ex
 
@@ -1283,11 +1283,11 @@ class Ui(QtWidgets.QMainWindow):
     def la_add_save(self):
         global STATUS_MSG, ALL_DATA_PROBE
         try:
-            self.db.add_laborauswertung(self.la_changed_item_lst)
+            DATABASE_HELPER.add_laborauswertung(self.la_changed_item_lst)
             STATUS_MSG = []
             self.feedback_message("success", ["Erfolgreich gespeichert"])
             # TODO: Aktualisiere die Tabelle, und ALL DATA PROBE
-            ALL_DATA_PROBE = win.db.get_all_probes()
+            ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
             
             self.la_cancel_edit()
         except Exception as ex:
@@ -1298,11 +1298,11 @@ class Ui(QtWidgets.QMainWindow):
         global STATUS_MSG, ALL_DATA_PROBE   
 
         try:
-            self.db.edit_laborauswertung(self.la_changed_item_lst, kennung, datum)
+            DATABASE_HELPER.edit_laborauswertung(self.la_changed_item_lst, kennung, datum)
             STATUS_MSG = []
             self.feedback_message("success", ["Erfolgreich gespeichert"])
             # TODO: Aktualisiere die Tabelle, und ALL DATA PROBE
-            ALL_DATA_PROBE = win.db.get_all_probes()
+            ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
             # TODO: Schließe die Edit Frame
             self.la_cancel_edit()
         except Exception as ex:
@@ -1322,10 +1322,6 @@ class Probe(QtWidgets.QMainWindow):
         uic.loadUi(r'./views/select_probe.ui', self)
 
         self.setWindowTitle(f"CapZa - Zasada - { __version__ } - Wähle Probe")
-        
-        
-        self.db = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_file"))
-
 
         self.load_probe_btn.clicked.connect(self.load_probe)
         self.cancel_btn.clicked.connect(self.close_window)
@@ -1352,11 +1348,8 @@ class Probe(QtWidgets.QMainWindow):
 
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
-
         effect.setOffset(0, 1)
-
         effect.setBlurRadius(8)
-
         widget.setGraphicsEffect(effect)  
 
     def load_probe(self):
@@ -1364,7 +1357,7 @@ class Probe(QtWidgets.QMainWindow):
         row = self.tableWidget.currentRow()
         kennung = self.tableWidget.item(row,1).text()
 
-        selected_data= self.db.get_specific_probe(kennung)
+        selected_data= DATABASE_HELPER.get_specific_probe(kennung)
         SELECTED_PROBE = selected_data
 
         self.differentiate_probe(SELECTED_PROBE["Kennung"])
@@ -1497,7 +1490,7 @@ if __name__ == "__main__":
     win = Ui()
 
     try:
-        ALL_DATA_PROBE = win.db.get_all_probes()
+        ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
     except Exception as ex:
         STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
 
