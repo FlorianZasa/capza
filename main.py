@@ -523,7 +523,6 @@ class Ui(QtWidgets.QMainWindow):
 
         word_file = self.create_word(CONFIG_HELPER.get_specific_config_value("bericht_vorlage"), data, "Bericht")        
         try:
-            print(word_file, type(word_file))
             thread1 = Thread(target=self.word_helper.open_word, args=(word_file,))
             thread2 = Thread(target=self.feedback_message, args=("info", ["Word wird geöffnet..."]))
             thread1.start() 

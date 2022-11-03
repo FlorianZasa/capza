@@ -10,7 +10,6 @@ class DatabaseHelper():
         self.database = db_file
         # create a database connection
         self.conn = self.create_connection(self.database)
-        print("INIT CONN: ", self.conn)
 
 
     def delete_empty_rows(self):
@@ -19,7 +18,6 @@ class DatabaseHelper():
             cur = self.conn.cursor()
             cur.execute(sql)
             self.conn.commit()
-            print("Deleted empty rows")
 
     def create_connection(self, db_file):
         """ create a database connection to the SQLite database
