@@ -22,8 +22,14 @@ dirname = os.path.dirname(__file__)
 
 # import helper modules
 from modules.word_helper import Word_Helper
-from _localconfig import config
+from modules.config_helper import ConfigHelper
 from modules.db_helper import DatabaseHelper
+
+
+CONFIG_HELPER = ConfigHelper(r"./config.ini")
+
+
+__version__ = CONFIG_HELPER.get_specific_config_value("version")
 
 SELECTED_PROBE = 0
 SELECTED_NACHWEIS = 0
@@ -64,7 +70,7 @@ class Ui(QtWidgets.QMainWindow):
 
 
         ### Init DB
-        self.db = DatabaseHelper(config["db_file"])
+        self.db = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_path"))
 
         self.nw_overview_path.setText(NW_PATH)
         self.project_nr_path.setText(PNR_PATH)
@@ -72,7 +78,7 @@ class Ui(QtWidgets.QMainWindow):
         self.laborauswertung_path.setText(LA_PATH)
         self.disable_settings_lines()
 
-        self.setWindowTitle(f"CapZa - Zasada - { config['version'] } ")
+        self.setWindowTitle(f"CapZa - Zasada - { __version__ } ")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
 
         self.stackedWidget.setCurrentIndex(0)
@@ -170,6 +176,20 @@ class Ui(QtWidgets.QMainWindow):
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
             STATUS_MSG.append("Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
             self.feedback_message("error", STATUS_MSG)
+
+    def _check_version(self):
+        curr_verion = "0"
+        if os.path.isfile(r"./version"):
+            with open("./version", 'r') as f:
+                curr_verion = f.read().strip()
+            if float(curr_verion) > float(__version__):
+                print("Update")
+            else:
+                print("Alt")
+
+
+        else: 
+            print("Versionsfile fehlt")
 
     def hide_admin_msg(self):
         self.admin_msg_frame.hide()
@@ -503,7 +523,7 @@ class Ui(QtWidgets.QMainWindow):
             "pbd_no": pbp_check_no
         }
 
-        word_file = self.create_word(config["bericht_vorlage"], data, "Bericht")        
+        word_file = self.create_word(CONFIG_HELPER.get_specific_config_value("bericht_vorlage"), data, "Bericht")        
         try:
             print(word_file, type(word_file))
             thread1 = Thread(target=self.word_helper.open_word, args=(word_file,))
@@ -995,15 +1015,15 @@ class Ui(QtWidgets.QMainWindow):
 
     def _specific_vorlage(self, anzahl):
         if anzahl == "1":
-            return config["pnp_out_1"]
+            return CONFIG_HELPER.get_specific_config_value("pnp_out_1")
         elif anzahl == "2":
-            return config["pnp_out_2"]
+            return CONFIG_HELPER.get_specific_config_value("pnp_out_2")
         elif anzahl == "3":
-            return config["pnp_out_3"]
+            return CONFIG_HELPER.get_specific_config_value("pnp_out_3")
         elif anzahl == "4":
-            return config["pnp_out_4"]
+            return CONFIG_HELPER.get_specific_config_value("pnp_out_4")
         elif anzahl == "5":
-            return config["pnp_out_5"]
+            return CONFIG_HELPER.get_specific_config_value("pnp_out_5")
         else:
             return "Ungültige Angabe"
   
@@ -1303,10 +1323,10 @@ class Probe(QtWidgets.QMainWindow):
         super(Probe, self).__init__(parent)
         uic.loadUi(r'./views/select_probe.ui', self)
 
-        self.setWindowTitle(f"CapZa - Zasada - { config['version'] } - Wähle Probe")
+        self.setWindowTitle(f"CapZa - Zasada - { __version__ } - Wähle Probe")
         
         
-        self.db = DatabaseHelper(config["db_file"])
+        self.db = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_file"))
 
 
         self.load_probe_btn.clicked.connect(self.load_probe)
@@ -1440,19 +1460,13 @@ class Error(QtWidgets.QDialog):
 if __name__ == "__main__":
     d = {}
     try:
-        f = open(r"./_loc_conf.json", 'r', encoding='utf-8')
-        whole_file = f.read()
-        d = eval(whole_file)
-
+        d = CONFIG_HELPER.get_all_config()
     except Exception as ex:
         print(ex)
     if d:
         NW_PATH = d["nw_path"]
         PNR_PATH = d["project_nr_path"]
         STANDARD_SAVE_PATH =d["save_path"]
-    else:
-        NW_PATH = config["overview_data"]
-        PNR_PATH = config["project_nr_data"]
         
     try:
         ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
