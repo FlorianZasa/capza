@@ -144,7 +144,7 @@ color: #AEDC21;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="main_version_lbl">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1188,8 +1188,8 @@ border-radius: 15px;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1027</width>
-                 <height>924</height>
+                 <width>907</width>
+                 <height>669</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_30">
@@ -2831,8 +2831,8 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1027</width>
-                 <height>940</height>
+                 <width>446</width>
+                 <height>780</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -3783,7 +3783,7 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1028</width>
+                 <width>710</width>
                  <height>1184</height>
                 </rect>
                </property>
@@ -6193,8 +6193,8 @@ border-radius: 10px;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>957</width>
-                          <height>534</height>
+                          <width>83</width>
+                          <height>69</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -7029,8 +7029,8 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1045</width>
-                 <height>1056</height>
+                 <width>470</width>
+                 <height>372</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -7447,8 +7447,8 @@ border: 2px solid rgb(0, 127, 8);</string>
  </resources>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

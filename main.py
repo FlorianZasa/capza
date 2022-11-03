@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEf
 import time
 import subprocess, os, platform, sys
 import re
-import json
 
 from threading import Thread
 
@@ -26,10 +25,12 @@ from modules.config_helper import ConfigHelper
 from modules.db_helper import DatabaseHelper
 
 
+
 CONFIG_HELPER = ConfigHelper(r"./config.ini")
 
 
 __version__ = CONFIG_HELPER.get_specific_config_value("version")
+__update__ = False
 
 SELECTED_PROBE = 0
 SELECTED_NACHWEIS = 0
@@ -91,6 +92,8 @@ class Ui(QtWidgets.QMainWindow):
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
 
         self.notifier = ToastNotifier()
+
+        self.main_version_lbl.setText(__version__)
 
 
         self.error_info_btn.clicked.connect(self.showError)
@@ -173,23 +176,18 @@ class Ui(QtWidgets.QMainWindow):
         self.migrate_btn.clicked.connect(self.create_bericht_document)
         self.aqs_btn.clicked.connect(self._no_function)
 
+        if self._check_version():
+            up_win = Update(self, self._check_version())
+            up_win.show()
+
+
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
             STATUS_MSG.append("Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
             self.feedback_message("error", STATUS_MSG)
 
     def _check_version(self):
-        curr_verion = "0"
-        if os.path.isfile(r"./version"):
-            with open("./version", 'r') as f:
-                curr_verion = f.read().strip()
-            if float(curr_verion) > float(__version__):
-                print("Update")
-            else:
-                print("Alt")
-
-
-        else: 
-            print("Versionsfile fehlt")
+        if CONFIG_HELPER._get_new_version(__version__) != 0:
+            return CONFIG_HELPER._get_new_version(__version__)
 
     def hide_admin_msg(self):
         self.admin_msg_frame.hide()
@@ -209,7 +207,6 @@ class Ui(QtWidgets.QMainWindow):
         BERICHT_FILE = ""
 
         ALIVE, PROGRESS = True, 0
-
 
     def get_today_qdate(self):
         d,m,y = self.today_date_string.split(".")
@@ -316,8 +313,9 @@ class Ui(QtWidgets.QMainWindow):
                 "la_path": la_path,
             }
 
-            with open(r"_loc_conf.json", 'w', encoding='utf-8') as f:
-                f.write(json.dumps(references))
+            for key, value in references.items():
+                CONFIG_HELPER.update_specific_value(key, value)
+
             self.feedback_message("success", ["Neue Referenzen erfolgreich gespeichert."])
             STATUS_MSG = []
             
@@ -1420,12 +1418,26 @@ class Probe(QtWidgets.QMainWindow):
     def close_window(self):
         self.hide()
 
+
+class Update(QtWidgets.QDialog): 
+    def __init__(self, parent=None, version=None):
+        super(Update, self).__init__(parent)
+        uic.loadUi(r'./views/update.ui', self)
+        global STATUS_MSG
+        self.setWindowTitle(f"CapZa - Zasada - {__version__} - Update verfügbar")
+        update_msg = f"Neue Version verfügbar! Aktualisiere jetzt auf Version {str(version)}"
+
+        self.update_msg_lbl.setText(update_msg)
+
+    def close_window(self):
+        self.hide()
+
 class Error(QtWidgets.QDialog): 
     def __init__(self, parent=None):
         super(Error, self).__init__(parent)
         uic.loadUi(r'./views/error.ui', self)
         global STATUS_MSG
-        self.setWindowTitle("CapZa - Zasada - v 0.1 - Fehlerbeschreibung")
+        self.setWindowTitle(f"CapZa - Zasada - {__version__} - Fehlerbeschreibung")
         error_long_msg = "Es wurden mehrere Fehler gefunden: \n"
         if len(STATUS_MSG) > 1:
             for error in STATUS_MSG:

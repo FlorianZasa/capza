@@ -47,13 +47,16 @@ class DatabaseHelper():
             raise Exception("Datenbank nicht gefunden")
 
     def get_specific_probe(self, id):
-        with self.conn:
-            self.conn.row_factory = sqlite3.Row
-            sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
-            cur = self.conn.cursor()
-            cur.execute(sql)
-            result = dict(cur.fetchone())
-            return result
+        try:
+            with self.conn:
+                self.conn.row_factory = sqlite3.Row
+                sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
+                cur = self.conn.cursor()
+                cur.execute(sql)
+                result = dict(cur.fetchone())
+                return result
+        except Exception as ex:
+            raise Exception("Probe nicht gefunden")
 
     def add_laborauswertung(self, data: dict):
         values = []

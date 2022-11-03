@@ -1,4 +1,8 @@
 import configparser
+from packaging import version
+import os
+
+from modules.drive_helper import DriveHelper
 
 INI_FILE = ""
 
@@ -39,6 +43,33 @@ class ConfigHelper():
         # SAVE THE SETTINGS TO THE FILE
         with open(self.path,"w", encoding='utf-8') as file_object:
             self.config.write(file_object)
+
+    def _check_update_need(self, curr, new):
+        if version.parse(curr) > version.parse(new):
+            return True
+        else:
+            return False
+
+    def _get_new_version(self, old_version):
+        d_h = DriveHelper()
+        try:
+            new_version = d_h.get_version()
+            if self._check_update_need(new_version, old_version):
+                return new_version
+            else:
+                return 0
+        except Exception as ex:
+            raise Exception(f"Keine Verbindung zum Applikationsserver: {ex}")
+
+
+    def _write_new_version(self, new_version):
+        if os.path.isfile(r"./remote_version"):
+            with open("./remote_version", 'w') as f:
+                f.write(new_version)
+        else: 
+            print("Versionsfile fehlt")
+            return False 
+        
 
 if __name__ == "__main__":
     cf = ConfigHelper("./config.ini")
