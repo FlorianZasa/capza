@@ -2,7 +2,7 @@ import configparser
 from packaging import version
 import os
 
-from modules.drive_helper import DriveHelper
+from modules.version_helper import VersionHelper
 
 INI_FILE = ""
 
