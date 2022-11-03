@@ -50,9 +50,8 @@ class ConfigHelper():
             return False
 
     def _get_new_version(self, old_version):
-        d_h = DriveHelper()
         try:
-            new_version = d_h.get_version()
+            new_version = "0.1.2" # TODO
             if self._check_update_need(new_version, old_version):
                 return new_version
             else:
