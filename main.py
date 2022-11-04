@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEf
 import time
 import subprocess, os, platform, sys
 import re
+import ctypes
 
 from threading import Thread
 
@@ -23,11 +24,13 @@ dirname = os.path.dirname(__file__)
 from modules.word_helper import Word_Helper
 from modules.config_helper import ConfigHelper
 from modules.db_helper import DatabaseHelper
+from modules.version_helper import VersionHelper
 
 
 
 CONFIG_HELPER = ConfigHelper(r"./config.ini")
 DATABASE_HELPER = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_path"))
+VERSION_HELPER = VersionHelper()
 
 
 __version__ = CONFIG_HELPER.get_specific_config_value("version")
@@ -176,9 +179,7 @@ class Ui(QtWidgets.QMainWindow):
         self.migrate_btn.clicked.connect(self.create_bericht_document)
         self.aqs_btn.clicked.connect(self._no_function)
 
-        if self._check_version():
-            up_win = Update(self, self._check_version())
-            up_win.show()
+        self._check_version()
 
 
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
@@ -186,8 +187,11 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", STATUS_MSG)
 
     def _check_version(self):
-        if CONFIG_HELPER._get_new_version(__version__) != 0:
-            return CONFIG_HELPER._get_new_version(__version__)
+        print(VERSION_HELPER.run(__version__))
+        if VERSION_HELPER.run(__version__):
+            ctypes.windll.user32.MessageBoxW(0, f"Neue Version {VERSION_HELPER.get_new_version_from_remote()} verfügar. Jetzt herunterladen", "Update verfügbar", 0x40000)
+
+
 
     def hide_admin_msg(self):
         self.admin_msg_frame.hide()
@@ -1406,20 +1410,6 @@ class Probe(QtWidgets.QMainWindow):
         projekt_data["PLZ"] = ""
         projekt_data["t"] = projekt_data["Menge [t/a]"]
         SELECTED_NACHWEIS = projekt_data
-
-    def close_window(self):
-        self.hide()
-
-
-class Update(QtWidgets.QDialog): 
-    def __init__(self, parent=None, version=None):
-        super(Update, self).__init__(parent)
-        uic.loadUi(r'./views/update.ui', self)
-        global STATUS_MSG
-        self.setWindowTitle(f"CapZa - Zasada - {__version__} - Update verfügbar")
-        update_msg = f"Neue Version verfügbar! Aktualisiere jetzt auf Version {str(version)}"
-
-        self.update_msg_lbl.setText(update_msg)
 
     def close_window(self):
         self.hide()
