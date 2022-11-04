@@ -25,8 +25,8 @@ class VersionHelper():
             return False
 
     def get_new_version_from_remote(self):
-        remote_version = subprocess.check_output(["git", "tag"]).strip().decode('utf-8').replace("v.", "").split()[0]
-        return remote_version
+        remote_version = requests.get("https://raw.githubusercontent.com/FlorianZasa/capza/main/remote_version.txt")
+        return remote_version.content.decode('utf-8')
         
 
         
