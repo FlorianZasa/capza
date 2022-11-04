@@ -52,7 +52,6 @@ class DatabaseHelper():
             cur = self.conn.cursor()
             cur.execute(sql)
             result = dict(cur.fetchone())
-            self.conn.close()
             return result
         except Exception as ex:
             raise Exception(f"Probe nicht gefunden: [{ex}]")
@@ -90,7 +89,6 @@ class DatabaseHelper():
             query= f'UPDATE main SET {sql_str} WHERE "Kennung" = "{[kennung]}" AND "Datum" = "{[datum]}";'
             cur.execute(query)
             self.conn.commit()
-            
 
     def excel_to_sql(self, excel_path):
         try:

@@ -73,7 +73,6 @@ class Ui(QtWidgets.QMainWindow):
     def init_main(self):
         global STATUS_MSG
 
-
         ### Init DB
 
         self.nw_overview_path.setText(NW_PATH)

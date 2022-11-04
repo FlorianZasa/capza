@@ -16,17 +16,17 @@ import subprocess
 
 class VersionHelper():
     def __init__(self) -> None:
-        pass
+        self.remote_version = requests.get("https://raw.githubusercontent.com/FlorianZasa/capza/main/remote_version.txt").content.decode('utf-8')
 
     def run(self, curr_version):
+        print(curr_version, self.get_new_version_from_remote(),version.parse(curr_version) < version.parse(self.get_new_version_from_remote()))
         if version.parse(curr_version) < version.parse(self.get_new_version_from_remote()):
             return True
         else:
             return False
 
     def get_new_version_from_remote(self):
-        remote_version = requests.get("https://raw.githubusercontent.com/FlorianZasa/capza/main/remote_version.txt")
-        return remote_version.content.decode('utf-8')
+        return self.remote_version
         
 
         
