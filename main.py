@@ -24,13 +24,11 @@ dirname = os.path.dirname(__file__)
 from modules.word_helper import Word_Helper
 from modules.config_helper import ConfigHelper
 from modules.db_helper import DatabaseHelper
-from modules.version_helper import VersionHelper
 
 
 
-CONFIG_HELPER = ConfigHelper(r"./config.ini")
+CONFIG_HELPER = ConfigHelper()
 DATABASE_HELPER = DatabaseHelper(CONFIG_HELPER.get_specific_config_value("db_path"))
-VERSION_HELPER = VersionHelper()
 
 
 __version__ = CONFIG_HELPER.get_specific_config_value("version")
@@ -47,6 +45,7 @@ NW_PATH = ""
 PNR_PATH = ""
 LA_PATH = ""
 STANDARD_SAVE_PATH = ""
+DB_PATH = ""
 
 LA_FILTER_COUNT = 0
 
@@ -79,6 +78,7 @@ class Ui(QtWidgets.QMainWindow):
         self.project_nr_path.setText(PNR_PATH)
         self.save_bericht_path.setText(STANDARD_SAVE_PATH)
         self.laborauswertung_path.setText(LA_PATH)
+        self.db_path.setText(DB_PATH)
         self.disable_settings_lines()
 
         self.setWindowTitle(f"CapZa - Zasada - { __version__ } ")
@@ -87,6 +87,7 @@ class Ui(QtWidgets.QMainWindow):
         self.stackedWidget.setCurrentIndex(0)
 
         self.choose_save_bericht_path.clicked.connect(lambda: self.select_folder(self.save_bericht_path, "Wähle den Standardpfad zum Speichern aus."))
+
 
         self.logo_right_lbl.setPixmap(QPixmap("./assets/l_logo.png"))
         self.second_info_lbl.hide()
@@ -153,6 +154,7 @@ class Ui(QtWidgets.QMainWindow):
 
         self.choose_nw_path_btn.clicked.connect(self.choose_nw_path)
         self.choose_laborauswertung_path_btn.clicked.connect(self.choose_la)
+        self.choose_db_path_btn.clicked.connect(self.choose_db)
 
 
         ### PNP Output
@@ -174,22 +176,13 @@ class Ui(QtWidgets.QMainWindow):
         
         self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
 
-
         self.migrate_btn.clicked.connect(self.create_bericht_document)
         self.aqs_btn.clicked.connect(self._no_function)
-
-        self._check_version()
 
 
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
             STATUS_MSG.append("Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
             self.feedback_message("error", STATUS_MSG)
-
-    def _check_version(self):
-        print(VERSION_HELPER.run(__version__))
-        if VERSION_HELPER.run(__version__):
-            ctypes.windll.user32.MessageBoxW(0, f"Neue Version {VERSION_HELPER.get_new_version_from_remote()} verfügar. Jetzt herunterladen", "Update verfügbar", 0x40000)
-
 
 
     def hide_admin_msg(self):
@@ -227,6 +220,11 @@ class Ui(QtWidgets.QMainWindow):
 
     def choose_la(self):
         self.select_file(self.laborauswertung_path, "", "Wähle die Laborauswertung aus...", "Excel Files (*.xlsx *.xls)")
+
+    def choose_db(self):
+        global DB_PATH
+        DB_PATH = self.select_file(self.db_path, "", "Wähle die Datenbank aus...", "Databse Files (*.db)")
+
 
     def choose_project_nr(self):
         global PNR_PATH
@@ -297,6 +295,7 @@ class Ui(QtWidgets.QMainWindow):
         nw_path = ""
         project_nr_path = ""
         la_path = ""
+        db_path = ""
 
         try:
             if self.nw_overview_path.text(): 
@@ -308,12 +307,15 @@ class Ui(QtWidgets.QMainWindow):
             if self.laborauswertung_path.text():
                 la_path = self.laborauswertung_path.text()
                 ALL_DATA_PROBE = DATABASE_HELPER.excel_to_sql(la_path)
+            if self.db_path.text():
+                db_path = self.db_path.text()
 
             references = {
                 "nw_path": nw_path,
                 "project_nr_path": project_nr_path,
                 "save_path": save_path,
                 "la_path": la_path,
+                "db_path": db_path
             }
 
             for key, value in references.items():
@@ -1457,9 +1459,11 @@ if __name__ == "__main__":
     except Exception as ex:
         print(ex)
     if d:
+        print(d)
         NW_PATH = d["nw_path"]
         PNR_PATH = d["project_nr_path"]
         STANDARD_SAVE_PATH =d["save_path"]
+        DB_PATH = d["db_path"]
         
     try:
         ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
