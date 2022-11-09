@@ -13,10 +13,6 @@ import re
 import ctypes
 
 from threading import Thread
-
-
-from win10toast import ToastNotifier
-
 import os
 dirname = os.path.dirname(__file__)
 
@@ -94,11 +90,8 @@ class Ui(QtWidgets.QMainWindow):
         today_date_raw = datetime.datetime.now()
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
 
-        self.notifier = ToastNotifier()
 
         self.main_version_lbl.setText(__version__)
-
-
         self.error_info_btn.clicked.connect(self.showError)
 
         # self.disable_buttons()
@@ -350,8 +343,8 @@ class Ui(QtWidgets.QMainWindow):
         if i == 6:
             thread2 = Thread(target=self.load_laborauswertung)
             thread1 = Thread(target=self.feedback_message, args=("info", ["Laborauswertung wird geladen..."]))
-            thread2.start()
             thread1.start()
+            thread2.start()
             
 
     def create_bericht_document(self):
@@ -532,12 +525,6 @@ class Ui(QtWidgets.QMainWindow):
             thread2 = Thread(target=self.feedback_message, args=("info", ["Word wird geöffnet..."]))
             thread1.start() 
             thread2.start()
-
-            thread1.join()
-            thread2.join()
-            
-            self.create_pdf_bericht(word_file)  # connect it to your update function
-
         except Exception as ex:
             self.feedback_message("attention", f"Die Word Datei wurde erfolgreich erstellt. Es konnte aber keine PDF erstellt werden. [{ex}]")
             STATUS_MSG.append(str(ex))
@@ -1043,7 +1030,7 @@ class Ui(QtWidgets.QMainWindow):
         self.progress.setValue(PROGRESS)
         self.progress.hide()
 
-    def load_laborauswertung(self):
+    def load_laborauswertung(self) -> bool:
         global ALL_DATA_PROBE
 
         try:
@@ -1052,7 +1039,6 @@ class Ui(QtWidgets.QMainWindow):
                     ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
                 except Exception as ex:
                     raise ex
-
 
             df = pd.DataFrame(ALL_DATA_PROBE)
             if df.size == 0:
@@ -1070,9 +1056,11 @@ class Ui(QtWidgets.QMainWindow):
                 for col_index, value in enumerate(values):
                     tableItem = QTableWidgetItem(str(value))
                     self.laborauswertung_table.setItem(row[0], col_index, tableItem)
+            return True
         except Exception as ex:
             STATUS_MSG.append(f"Fehler beim Laden der Probedaten: [{str(ex)}]")
             self.feedback_message("error", STATUS_MSG)
+            return False
 
     def edit_laborauswertung(self):
         """
