@@ -77,6 +77,8 @@ class Ui_Dialog(object):
         self.verticalLayout_2.setContentsMargins(10, 10, 10, 10)
         self.verticalLayout_2.setSpacing(20)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem)
         self.close_error_info_btn = QtWidgets.QPushButton(self.verticalFrame_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -94,20 +96,7 @@ class Ui_Dialog(object):
 "border-radius: 10px;\n"
 "text-align:center;")
         self.close_error_info_btn.setObjectName("close_error_info_btn")
-        self.verticalLayout_2.addWidget(self.close_error_info_btn, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem)
-        self.pushButton = QtWidgets.QPushButton(self.verticalFrame_2)
-        self.pushButton.setMinimumSize(QtCore.QSize(100, 40))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("background-color: #AEDC21;\n"
-"border-radius: 10px;\n"
-"text-align:center;")
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_2.addWidget(self.pushButton)
+        self.verticalLayout_2.addWidget(self.close_error_info_btn)
         self.horizontalLayout.addWidget(self.verticalFrame_2)
 
         self.retranslateUi(Dialog)
@@ -118,4 +107,3 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.error_lbl.setText(_translate("Dialog", "TextLabel"))
         self.close_error_info_btn.setText(_translate("Dialog", "Ok"))
-        self.pushButton.setText(_translate("Dialog", "Ausblenden"))

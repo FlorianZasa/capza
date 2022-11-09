@@ -1,16 +1,14 @@
 
 import datetime
-from xmlrpc.server import SimpleXMLRPCRequestHandler
 from docx2pdf import convert
 import pandas as pd
-from PyQt5 import QtWidgets, uic, QtGui, QtCore
+from PyQt5 import QtWidgets, uic
 from PyQt5.QtGui import QIcon, QPixmap, QFont, QStandardItemModel, QStandardItem, QIntValidator
-from PyQt5.QtCore import QThread, pyqtSignal, Qt, QDate, QTimer
+from PyQt5.QtCore import Qt, QDate, QTimer
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QProgressDialog, QDateEdit, QHeaderView, QComboBox, QPushButton, QCommandLinkButton
 import time
 import subprocess, os, platform, sys
 import re
-import ctypes
 
 from threading import Thread
 import os
@@ -68,45 +66,23 @@ class Ui(QtWidgets.QMainWindow):
     def init_main(self):
         global STATUS_MSG
 
-        ### Init DB
-
-        self.nw_overview_path.setText(NW_PATH)
-        self.project_nr_path.setText(PNR_PATH)
-        self.save_bericht_path.setText(STANDARD_SAVE_PATH)
-        self.laborauswertung_path.setText(LA_PATH)
-        self.db_path.setText(DB_PATH)
-        self.disable_settings_lines()
-
+        ###STANDARDEINSTELLUNGEN:
+        self.word_helper = Word_Helper()
         self.setWindowTitle(f"CapZa - Zasada - { __version__ } ")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
-
         self.stackedWidget.setCurrentIndex(0)
-
-        self.choose_save_bericht_path.clicked.connect(lambda: self.select_folder(self.save_bericht_path, "Wähle den Standardpfad zum Speichern aus."))
-
-
         self.logo_right_lbl.setPixmap(QPixmap("./assets/l_logo.png"))
         self.second_info_lbl.hide()
         today_date_raw = datetime.datetime.now()
         self.today_date_string = today_date_raw.strftime(r"%d.%m.%Y")
-
-
         self.main_version_lbl.setText(__version__)
         self.error_info_btn.clicked.connect(self.showError)
-
-        # self.disable_buttons()
-
         self.status_msg_btm.hide()
+        self.hide_admin_msg_btn.clicked.connect(self.hide_admin_msg)
+        
 
-        self.brandtest_combo.currentTextChanged.connect(lambda: self.analysis_brandtest_lineedit.setText(self.brandtest_combo.currentText()))
-        self.nh3_lineedit_2.textChanged.connect(lambda: self.nh3_lineedit.setText(self.nh3_lineedit_2.text()))
-        self.h2_lineedit_2.textChanged.connect(lambda: self.h2_lineedit.setText(self.h2_lineedit_2.text()))
-        self.laborauswertung_lineedit.textChanged.connect(self.filter_laborauswertung)
-
-        self.pnp_output_probenahmedatum.setDate(self.get_today_qdate())
-        self.pnp_out_protokoll_btn.clicked.connect(self.create_pnp_out_protokoll)
-
-
+    
+        # NAVIGATION:
         self.nav_data_btn.clicked.connect(lambda : self.display(0))
         self.nav_analysis_btn.clicked.connect(lambda : self.display(1))
         self.nav_pnp_entry_btn.clicked.connect(lambda : self.display(2))
@@ -114,13 +90,6 @@ class Ui(QtWidgets.QMainWindow):
         self.nav_order_form_btn.clicked.connect(lambda : self.display(4))
         self.nav_settings_btn.clicked.connect(lambda : self.display(5))
         self.nav_laborauswertung_btn.clicked.connect(lambda : self.display(6))
-
-        self.hide_admin_msg_btn.clicked.connect(self.hide_admin_msg)
-        self.clear_cache_btn.clicked.connect(self.clear_cache)
-
-        self.save_references_btn.clicked.connect(self.save_references)
-
-        self.word_helper = Word_Helper()
 
         self.init_shadow(self.data_1)
         self.init_shadow(self.data_2)
@@ -140,19 +109,29 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.pnp_in_allg_frame)
         self.init_shadow(self.clear_cache_btn)        
 
+        
+
+        ### DATENEINGABE:
         self.end_dateedit.setDate(self.get_today_qdate())
         self.load_project_nr()
-
         self.select_probe_btn.clicked.connect(self.read_all_probes)
 
-        self.choose_nw_path_btn.clicked.connect(self.choose_nw_path)
-        self.choose_laborauswertung_path_btn.clicked.connect(self.choose_la)
-        self.choose_db_path_btn.clicked.connect(self.choose_db)
+        self.brandtest_combo.currentTextChanged.connect(lambda: self.analysis_brandtest_lineedit.setText(self.brandtest_combo.currentText()))
+        self.nh3_lineedit_2.textChanged.connect(lambda: self.nh3_lineedit.setText(self.nh3_lineedit_2.text()))
+        self.h2_lineedit_2.textChanged.connect(lambda: self.h2_lineedit.setText(self.h2_lineedit_2.text()))
+        self.laborauswertung_lineedit.textChanged.connect(self.filter_laborauswertung)
+
+        ### ANALYSEWERTE:
+        self.migrate_btn.clicked.connect(self.create_bericht_document)
+        self.aqs_btn.clicked.connect(self._no_function)
 
 
         ### PNP Output
         int_validator = QIntValidator(0, 999999999, self)
         self.output_nr_lineedit.setValidator(int_validator)
+
+        self.pnp_output_probenahmedatum.setDate(self.get_today_qdate())
+        self.pnp_out_protokoll_btn.clicked.connect(self.create_pnp_out_protokoll)
 
         ### AUFTRAGSFORMULAR:
         self.autrag_load_column_view()
@@ -166,15 +145,28 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.laborauswertung_table)
         self.init_shadow(self.la_edit_frame_2)
 
-        
-        self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
 
-        self.migrate_btn.clicked.connect(self.create_bericht_document)
-        self.aqs_btn.clicked.connect(self._no_function)
+        ### REFERENZEINSTELLUNGEN:
+        self.nw_overview_path.setText(NW_PATH)
+        self.project_nr_path.setText(PNR_PATH)
+        self.save_bericht_path.setText(STANDARD_SAVE_PATH)
+        self.laborauswertung_path.setText(LA_PATH)
+        self.db_path.setText(DB_PATH)
+        self.disable_settings_lines()
+
+        self.choose_project_nr_btn.clicked.connect(self.choose_project_nr)
+        self.choose_nw_path_btn.clicked.connect(self.choose_nw_path)
+        self.choose_laborauswertung_path_btn.clicked.connect(self.choose_la)
+        self.choose_db_path_btn.clicked.connect(self.choose_db)
+        self.choose_save_bericht_path.clicked.connect(lambda: self.select_folder(self.save_bericht_path, "Wähle den Standardpfad zum Speichern aus."))
+
+        self.clear_cache_btn.clicked.connect(self.clear_cache)
+        self.save_references_btn.clicked.connect(self.save_references)
+        
 
 
         if self.nw_overview_path.text() == "" or self.project_nr_path.text()=="":
-            STATUS_MSG.append("Es ist keine Nachweis Excel hinterlegt. Prüfe in den Referenzeinstellungen.")
+            STATUS_MSG.append("Es sind keine Nachweise hinterlegt. Prüfe in den Referenzeinstellungen.")
             self.feedback_message("error", STATUS_MSG)
 
 
@@ -1421,8 +1413,7 @@ class Error(QtWidgets.QDialog):
         self.error_lbl.setText(error_long_msg)
         self.init_shadow(self.close_error_info_btn)
         self.init_shadow(self.error_msg_frame)
-        self.close_error_info_btn.clicked.connect(self.close_window)
-        self.delete_error_btn.clicked.connect(self.delete_error)
+        self.close_error_info_btn.clicked.connect(self.delete_error)
 
     def init_shadow(self, widget):
         effect = QGraphicsDropShadowEffect()
@@ -1447,7 +1438,6 @@ if __name__ == "__main__":
     except Exception as ex:
         print(ex)
     if d:
-        print(d)
         NW_PATH = d["nw_path"]
         PNR_PATH = d["project_nr_path"]
         STANDARD_SAVE_PATH =d["save_path"]

@@ -170,7 +170,20 @@ border-radius: 10px</string>
       <property name="bottomMargin">
        <number>10</number>
       </property>
-      <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QPushButton" name="close_error_info_btn">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -199,43 +212,6 @@ text-align:center;</string>
         </property>
         <property name="text">
          <string>Ok</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="delete_error_btn">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Leelawadee UI</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #AEDC21;
-border-radius: 10px;
-text-align:center;</string>
-        </property>
-        <property name="text">
-         <string>Ausblenden</string>
         </property>
        </widget>
       </item>
