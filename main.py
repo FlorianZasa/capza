@@ -2,12 +2,11 @@
 import datetime
 from docx2pdf import convert
 import pandas as pd
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtGui import QIcon, QPixmap, QFont, QStandardItemModel, QStandardItem, QIntValidator
 from PyQt5.QtCore import Qt, QDate, QTimer
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QGraphicsDropShadowEffect, QSplashScreen, QProgressDialog, QDateEdit, QHeaderView, QComboBox, QPushButton, QCommandLinkButton
-import time
-import subprocess, os, platform, sys
+import os, sys
 import re
 
 from threading import Thread
@@ -19,6 +18,9 @@ from modules.word_helper import Word_Helper
 from modules.config_helper import ConfigHelper
 from modules.db_helper import DatabaseHelper
 
+
+LOCKFILE_PROBE = QtCore.QLockFile(QtCore.QDir.tempPath() + 'capza_probe.lock')
+LOCKFILE_ERROR = QtCore.QLockFile(QtCore.QDir.tempPath() + 'capza_error.lock')
 
 
 CONFIG_HELPER = ConfigHelper()
@@ -71,6 +73,7 @@ class Ui(QtWidgets.QMainWindow):
         self.setWindowTitle(f"CapZa - Zasada - { __version__ } ")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
         self.stackedWidget.setCurrentIndex(0)
+
         self.logo_right_lbl.setPixmap(QPixmap("./assets/l_logo.png"))
         self.second_info_lbl.hide()
         today_date_raw = datetime.datetime.now()
@@ -92,6 +95,7 @@ class Ui(QtWidgets.QMainWindow):
         self.nav_laborauswertung_btn.clicked.connect(lambda : self.display(6))
 
         self.init_shadow(self.data_1)
+        self.init_shadow(self.data_1_2)  
         self.init_shadow(self.data_2)
         self.init_shadow(self.data_3)
         self.init_shadow(self.select_probe_btn)
@@ -121,6 +125,16 @@ class Ui(QtWidgets.QMainWindow):
         self.nh3_lineedit_2.textChanged.connect(lambda: self.nh3_lineedit.setText(self.nh3_lineedit_2.text()))
         self.h2_lineedit_2.textChanged.connect(lambda: self.h2_lineedit.setText(self.h2_lineedit_2.text()))
         self.laborauswertung_lineedit.textChanged.connect(self.filter_laborauswertung)
+
+        self.kennung_rb.clicked.connect(lambda: self.empty_manual_search(self.pnr_combo, self.project_nr_lineedit))
+        self.pnr_rb.clicked.connect(lambda: self.empty_manual_search(self.kennung_combo, self.kennung_lineedit))
+
+        rx = QtCore.QRegExp("\d+")
+        self.kennung_lineedit.setMaxLength(4)
+        self.kennung_lineedit.setValidator(QtGui.QRegExpValidator(rx))
+        self.project_nr_lineedit.setMaxLength(4)
+        self.project_nr_lineedit.setValidator(QtGui.QRegExpValidator(rx))
+        self.search_manually_btn.clicked.connect(self.search_manual)
 
         ### ANALYSEWERTE:
         self.migrate_btn.clicked.connect(self.create_bericht_document)
@@ -171,52 +185,179 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", STATUS_MSG)
 
 
-    def hide_admin_msg(self):
+    def hide_admin_msg(self) -> None:
+        """ Hides the Admin Message Frame in the Navigation Bar
+        """
         self.admin_msg_frame.hide()
 
-    def clear_cache(self):
+    def clear_cache(self) -> None:
+        """ Resets all standard variables to its default
+        """
         global SELECTED_PROBE,SELECTED_NACHWEIS,ALL_DATA_PROBE,ALL_DATA_NACHWEIS,ALL_DATA_PROJECT_NR,NW_PATH,PNR_PATH,STATUS_MSG,BERICHT_FILE,ALIVE, PROGRESS
-
         SELECTED_PROBE = 0
         SELECTED_NACHWEIS = 0
-
         NW_PATH = ""
         PNR_PATH = ""
-
-
         STATUS_MSG = []
-
         BERICHT_FILE = ""
 
-        ALIVE, PROGRESS = True, 0
 
-    def get_today_qdate(self):
+    def get_today_qdate(self) -> QDate:
+        """ Get QDate object from current date string
+
+        Returns:
+            QDate: Contains the current Date
+        """
+
         d,m,y = self.today_date_string.split(".")
         return QDate(int(y),int(m),int(d))
 
-    def _no_function(self):
+    def _set_default_style(self, widget: QtWidgets, widget_art: str) -> None:
+        widget.setStyleSheet("""
+            %s {
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+
+            border: 1px solid #C7C7C7;
+            border-radius: 10px;
+        }
+
+
+        %s:focus {
+            
+            background-color: rgb(255, 253, 219);
+            border: 1px solid black
+        }
+        """ %(widget_art, widget_art))
+
+    def _mark_error_line(self, widget: QtWidgets, widget_art: str) -> None:
+        widget.setStyleSheet("""
+            border: 2px solid red;
+        """)
+
+        QTimer.singleShot(3000, lambda: self._set_default_style(widget, widget_art))
+
+    def search_manual(self) -> None:
+        global SELECTED_PROBE, SELECTED_NACHWEIS
+        kennung_letters = self.kennung_combo.currentText()
+        project_year = self.pnr_combo.currentText()
+        kennung_nr = self.kennung_lineedit.text()
+        project_nr = self.project_nr_lineedit.text()
+
+        kennung = f"{kennung_letters} {kennung_nr}"
+        projectnr = f"{project_year}-{project_nr}"
+
+        try:
+            if self.kennung_rb.isChecked():
+                if kennung_letters != "-":
+                    print("kennung_letters", kennung)
+                    SELECTED_PROBE = DATABASE_HELPER.get_specific_probe(kennung)
+                    nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['Nachweisnr. Werk 1'] == self.get_full_project_ene_number(kennung)[2]]
+                    SELECTED_PROBE['Kennung_letters'] = kennung_letters
+                    SELECTED_PROBE['Kennung_nr'] = kennung_nr
+                    SELECTED_PROBE['Project_yr'] = "-"
+                    SELECTED_PROBE['Project_nr'] = "-"
+                    SELECTED_NACHWEIS = nachweis_data
+                    self.insert_values()
+                else:
+                    self._mark_error_line(self.kennung_combo, "QComboBox")
+                    raise Exception("Wählen Sie die Kennungsart aus")
+            elif self.pnr_rb.isChecked():
+                if project_year != "-":
+                    print("1", kennung)
+                    SELECTED_PROBE = DATABASE_HELPER.get_specific_probe(projectnr)
+                    print("2", ALL_DATA_PROJECT_NR)
+                    nachweis_data = ALL_DATA_PROJECT_NR[ALL_DATA_PROJECT_NR['Projekt-Nr.'] == projectnr]
+                    nachweis_data["ORT"] = nachweis_data["Ort"]
+                    nachweis_data["PLZ"] = ""
+                    nachweis_data["t"] = nachweis_data["Menge [t/a]"]
+                    SELECTED_PROBE['Kennung_letters'] = "-"
+                    SELECTED_PROBE['Kennung_nr'] = "-"
+                    SELECTED_PROBE['Project_yr'] = project_year
+                    SELECTED_PROBE['Project_nr'] = project_nr
+                    SELECTED_NACHWEIS = nachweis_data
+                    self.insert_values()
+                else:
+                    self._mark_error_line(self.pnr_combo, "QComboBox")
+                    raise Exception("Wählen Sie das Projektjahr aus")
+            else:
+                raise Exception("Es wurde keine Suchart ausgewählt. Wählen Sie eine Suchart aus.")
+        except Exception as ex:
+            STATUS_MSG.append(ex)
+            self.feedback_message("error", STATUS_MSG)
+            self.empty_values()
+
+    def empty_manual_search(self, widget_combo, widget_line):
+        # empty values
+        widget_combo.setCurrentText("-")
+        widget_line.setText("")
+
+
+    def get_full_project_ene_number(self, nummer: str) -> str:
+        """ Gets the whole , VNE, ... Projectnr. from the shortform
+
+        Args:
+            nummer (str): Shortform of the ENE Nr.
+                e.g.: ENE1234
+
+        Returns:
+            str: Entire ENE Nr.
+                e.g.: ENE382981234
+        """
+
+        letters, numbers = nummer.split()
+        for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
+            if isinstance(letters, str):
+                if isinstance(numbers, str):
+                    if isinstance(nummer, str):
+                        if letters and numbers in nummer:
+                            return letters, numbers, nummer
+        else:
+            return "/", "/", "/"
+
+        
+
+    def _no_function(self) -> None:
+        """ Mock function for features, that are not yet implemented
+        """
+
         global STATUS_MSG
         STATUS_MSG.append("Diese Funktion steht noch nicht zu verfügung.")
-        self.feedback_message("info", STATUS_MSG)
+        self.feedback_message("attention", STATUS_MSG)
 
-    def choose_nw_path(self):
+    def choose_nw_path(self) -> None:
+        """ Choose NW_PATH from Referenzeinstellungen
+        """
+
         global NW_PATH
         NW_PATH = self.select_file(self.nw_overview_path, "", "Wähle die Nachweis Liste aus...", "Excel Files (*.xlsx *.xls)")
         self.load_nachweis_data()
 
-    def choose_la(self):
+    def choose_la(self) -> None:
+        """ Choose LA_PATH from Referenzeinstellungen
+        """
+
         self.select_file(self.laborauswertung_path, "", "Wähle die Laborauswertung aus...", "Excel Files (*.xlsx *.xls)")
 
-    def choose_db(self):
+    def choose_db(self) -> None:
+        """ Choose DB_PATH from Referenzeinstellungen
+        """
+
         global DB_PATH
         DB_PATH = self.select_file(self.db_path, "", "Wähle die Datenbank aus...", "Databse Files (*.db)")
 
 
-    def choose_project_nr(self):
+    def choose_project_nr(self) -> None:
+        """ Choose PNR_PATH from Referenzeinstellungen
+        """
+
         global PNR_PATH
         PNR_PATH = self.select_file(self.project_nr_path, "", "Wähle die Projektnummernliste aus...", "Excel Files (*.xlsx *.xls)") 
 
-    def load_nachweis_data(self):
+    def load_nachweis_data(self) -> None:
+        """ Loads the data from Nachweis Übersicht.xlsx to CapZa
+        """
+
         global STATUS_MSG
         global ALL_DATA_NACHWEIS
         try:
@@ -227,7 +368,10 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", [f"Es wurde eine falsche Liste ausgewählt. Bitte wähle eine gültige 'Nachweisliste' aus. [{ex}]"])
             STATUS_MSG.append(str(ex))
 
-    def load_project_nr(self):
+    def load_project_nr(self) -> None:
+        """ Loads data from Projekt.xlsx to CapZa
+        """
+
         global ALL_DATA_PROJECT_NR
         global STATUS_MSG
         try:
@@ -238,33 +382,69 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", STATUS_MSG)
 
 
-    def showError(self):
-        self.error = Error(self)
-        self.error.show()
+    def showError(self) -> None:
+        """ Shows the error frame
+        """
+        if LOCKFILE_ERROR.tryLock(100):
+            self.error = Error(self)
+            self.error.show()
+        else:
+            pass
 
-    def _check_for_errors(self):
+    def _check_for_errors(self) -> None:
+        """ Checks for possible errors and schows them in case there are any
+        """
+
         global STATUS_MSG
         if len(STATUS_MSG)>0:
             self.error_info_btn.show()
         else:
             self.error_info_btn.hide()
 
-    def init_shadow(self, widget):
+    def init_shadow(self, widget) -> None:
+        """Sets shadow to the given widget
+
+        Args:
+            widget (QWidget): QFrame, QButton, ....
+        """
+
         effect = QGraphicsDropShadowEffect()
         effect.setOffset(0, 1)
         effect.setBlurRadius(8)
         widget.setGraphicsEffect(effect)
 
-    def disable_settings_lines(self):
+    def disable_settings_lines(self) -> None:
+        """ Disables Line edits from Settings 
+        """
+
         self.nw_overview_path.setEnabled(False)
         self.project_nr_path.setEnabled(False)
 
-    def select_folder(self, line, title):
+    def select_folder(self, line, title:str ) -> None:
+        """ Select a folder
+
+        Args:
+            line (QLineEdit): Lineedit
+            title (str): Text, that will be set into the lineedit
+        """
+
         dir = QFileDialog.getExistingDirectory(self, title, "C://")
         line.setText(dir)
         self.save_folder = dir
 
-    def select_file(self, line, button, title, file_type):
+    def select_file(self, line: QtWidgets.QLineEdit, button: QPushButton, title: str, file_type: str) -> str:
+        """ Selects a file from the file browser
+
+        Args:
+            line (QtWidgets.QLineEdit): Qline Edit that will be filled
+            button (QPushButton): Button, that belongs to the Lineedit
+            title (str): Title of the File
+            file_type (str): Type of the file, that will be searched
+
+        Returns:
+            str: Path of the selected file
+        """
+
         global BERICHT_FILE
         file = QFileDialog.getOpenFileName(self, title, "C://", file_type)
         line.setText(file[0])
@@ -275,7 +455,10 @@ class Ui(QtWidgets.QMainWindow):
             button.setEnabled(True)
         return file[0]
 
-    def save_references(self):
+    def save_references(self) -> None:
+        """ Takes all the text from the Referenzsettings and saves it to the capza_config.ini
+        """
+
         global STATUS_MSG, ALL_DATA_PROBE
         save_path = ""
         nw_path = ""
@@ -319,18 +502,38 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append("Das Speichern ist fehlgeschlagen: " + str(ex))
             self.feedback_message("error", f"Fehler beim Speichern: [{ex}]")
 
-    def open_probe_win(self, dataset):
+    def open_probe_win(self, dataset: list[dict]) -> None:
+        """ Opens the Probe window with the entire dataset
+
+        Args:
+            dataset (dict): Dataset from the database
+        """
+
         global STATUS_MSG
+        
         try:
-            self.probe = Probe(self)
-            self.probe.show()
-            self.probe.init_data(dataset)
+            if LOCKFILE_PROBE.tryLock(100):
+                self.probe = Probe(self)
+                self.probe.show()
+                self.probe.init_data(dataset)
+            else:
+                print("probe already running")
+                pass
         except Exception as ex:
             STATUS_MSG.append(f"Es  konnten keine Daten gefunden werden. Importiere ggf. eine Laborauswertungsexcel: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
+        
 
-    def display(self,i):
+    def display(self, i: int) -> None:
+        """ Displays the frame that is being selected in the navigation
+
+        Args:
+            i (int): Index of the Button selected in the navigation bar (connected to the Stacked frame)
+        """
+
         self.hide_second_info()
+        self.status_msg_btm.hide()
+
         self.stackedWidget.setCurrentIndex(i)
         if i == 1:
             self.hide_second_info()
@@ -339,13 +542,16 @@ class Ui(QtWidgets.QMainWindow):
             self.show_second_info("Der Pfad zur 'Nachweis Übersicht' Excel ist nur temporär und wird in Zukunft durch Echtdaten aus RAMSES ersetzt.")
 
         if i == 6:
-            thread2 = Thread(target=self.load_laborauswertung)
-            thread1 = Thread(target=self.feedback_message, args=("info", ["Laborauswertung wird geladen..."]))
-            thread1.start()
+            thread1 = Thread(target=self.load_laborauswertung)
+            thread2 = Thread(target=self.feedback_message, args=("info", ["Laborauswertung wird geladen..."]))
             thread2.start()
+            thread1.start()
             
 
-    def create_bericht_document(self):
+    def create_bericht_document(self) -> None:
+        """ Builds and creates the Bericht file. Therefore it gathers all data from the FE.
+        """
+
         global STATUS_MSG
         id = "x" if self.id_check_2.isChecked() else ""
         vorpruefung  = "x" if self.precheck_check_2.isChecked() else ""
@@ -524,27 +730,30 @@ class Ui(QtWidgets.QMainWindow):
             thread1.start() 
             thread2.start()
         except Exception as ex:
-            self.feedback_message("attention", f"Die Word Datei wurde erfolgreich erstellt. Es konnte aber keine PDF erstellt werden. [{ex}]")
+            self.feedback_message("attention", [f"Fehler beim Erstellen der Word Datei [{ex}]"])
             STATUS_MSG.append(str(ex))
-            
-    def create_pdf_bericht(self, wordfile):
-        file = wordfile.replace(".docx", ".pdf")
-        new_file = convert(wordfile, file)
-        try:
-            os.startfile(new_file)
-        except:
-            raise Exception("Konnte die PDF nicht öffnen")
+
     
-    def autrag_load_column_view(self):
+    def autrag_load_column_view(self) -> None:
+        """ Loads the Column View
+        """
+
         self.model = QStandardItemModel()
         self.model.setHorizontalHeaderLabels(['Projekt-/Nachweisnummer(n)', 'Probenahmedatum', 'Analyseauswahl', 'ggf. spezifische Probenbezeichnung', 'Info 2', '#'])
         self.auftrag_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.auftrag_table_view.setModel(self.model)
 
-    def auftrag_delete_auftrag(self, row):
+    def auftrag_delete_auftrag(self, row: int) -> None:
+        """ Deletes a row in the Column View TODO: Get always actual Index
+
+        Args:
+            row (int): Row from the pressed Button in the Column View
+        """
         self.model.removeRow(row)
 
-    def auftrag_add_auftrag(self):
+    def auftrag_add_auftrag(self) -> None:
+        """ Adds a row to the Column View with all its widgets
+        """
         row = self.model.rowCount()
         self.model.appendRow(QStandardItem())
         # Add widgets
@@ -568,7 +777,10 @@ class Ui(QtWidgets.QMainWindow):
         self.auftrag_table_view.setIndexWidget(self.model.index(row, 4), _combo2)
         self.auftrag_table_view.setIndexWidget(self.model.index(row, 5), _delete_btn)
 
-    def create_pnp_out_protokoll(self):
+    def create_pnp_out_protokoll(self) -> None:
+        """ Builds and creates the PNP-Output-Protocol. Therefore gathers all the data from the FE
+        """
+
         anzahl = self.amount_analysis.currentText()
         vorlage_document = self._specific_vorlage(anzahl)
         ### get all data 
@@ -610,7 +822,18 @@ class Ui(QtWidgets.QMainWindow):
         }
         self.create_word(vorlage_document, data, "PNP Output Protokoll")
 
-    def create_word(self, vorlage, data, dialog_file):
+    def create_word(self, vorlage: str, data: dict, dialog_file: str) -> str:
+        """ Creates a Word file based on params
+
+        Args:
+            vorlage (str): Correct Vorlage to use
+            data (dict): Data that is being input into the Vorlage
+            dialog_file (str): Save Folder
+
+        Returns:
+            str: Path of the new created file
+        """
+
         global STATUS_MSG
         try:
             file = QFileDialog.getSaveFileName(self, f'Speicherort für {dialog_file}', STANDARD_SAVE_PATH, filter='*.docx')
@@ -623,7 +846,10 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", STATUS_MSG)
 
 
-    def create_aqs_document(self):
+    def create_aqs_document(self) -> None:
+        """ Builds and creates the AQS Bericht. Therefore gathers all data from FE
+        """
+
         global STATUS_MSG
 
         id = "x" if self.id_check.checkState() == 2 else ""
@@ -790,44 +1016,29 @@ class Ui(QtWidgets.QMainWindow):
                 "pbd_no": pbp_check_no
             }
         self.create_word("", data, "AQS")
-
-    def file_exists_loop(self, path, limit=30):
-        exists = False
-        lim = 0
-        while not exists or lim <= limit :
-            if exists:
-                return True
-            else:
-                os.path.exists(path)
-                time.sleep(1)
             
-    def round_if_psbl(self, value):
+    def round_if_psbl(self, value: float) -> str:
+        """ Checks if a given value is a float. If so, rounds it to 3 digits. Then returns as str
+
+        Args:
+            value (float): Float Probedata value 
+                e.g.:3.123, 0.128493, ...
+
+        Returns:
+            str: Value to be set in
+                e.g.: '3.123', '0.128', ...
+        """
+
         if isinstance(value, float):
-            return round(value, 3)
+            return str(round(value, 3))
         else:
             return str(value)
 
-    def read_excel(self):
-        global BERICHT_FILE
-        self.feedback_message("info", "Lade Probedaten...")
-        try:
-            excel_raw = pd.read_csv(BERICHT_FILE, on_bad_lines='skip')
-        except Exception as ex:
-            try:
-                excel_raw = pd.read_excel(BERICHT_FILE)
-            except Exception as ex:
-                STATUS_MSG.append(f"Konnte nicht gelesen werden: {ex}")
-                self.feedback_message("error", STATUS_MSG)
 
-                return
+    def empty_values(self) -> None:
+        """ Empties all LineEdits in the first two Navigations
+        """
 
-        nan_value = float("NaN")
-        excel_raw.replace("", nan_value, inplace=True)
-        excel_raw.dropna(how='all', axis=0, inplace=True)
-
-        return excel_raw
-
-    def empty_values(self):
         self.name_lineedit.setText("")
         self.person_lineedit.setText("")
         self.location_lineedit.setText("")
@@ -851,17 +1062,24 @@ class Ui(QtWidgets.QMainWindow):
         self.toc_lineedit.setText("")
         self.ec_lineedit.setText("")
 
-    def insert_values(self):
+    def insert_values(self) -> None:
+        """ Inserts all value into CapZa FE based on selected Pobe
+        """
+
         global SELECTED_PROBE
         global SELECTED_NACHWEIS
         global STATUS_MSG
 
-        self.empty_values()
-        self.enable_buttons()
-        try:
 
+
+        self.empty_values()
+        try:
             ### in Dateneingabe
-            self.project_nr_lineedit.setText(str(SELECTED_PROBE["Kennung"]) if SELECTED_PROBE["Kennung"] != None else "-")
+            self.kennung_combo.setCurrentText(str(SELECTED_PROBE["Kennung_letters"]) if SELECTED_PROBE["Kennung_letters"] != None else "-")
+            self.pnr_combo.setCurrentText(str(SELECTED_PROBE["Project_yr"]) if SELECTED_PROBE["Project_yr"] != None else "-")
+
+            self.kennung_lineedit.setText(str(SELECTED_PROBE["Kennung_nr"]) if SELECTED_PROBE["Kennung_nr"] != None else "-")
+            self.project_nr_lineedit.setText(str(SELECTED_PROBE["Project_nr"]) if SELECTED_PROBE["Project_nr"] != None else "-")
             self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
             self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
             self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
@@ -886,7 +1104,6 @@ class Ui(QtWidgets.QMainWindow):
             self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))) if SELECTED_PROBE["TOC %"] != None else "-")
             self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC %"]))) if SELECTED_PROBE["EC %"] != None else "-")
 
-
             date = str(SELECTED_PROBE["Datum"]).split()[0]
             date = date.split("-")
             y = date[0]
@@ -901,29 +1118,34 @@ class Ui(QtWidgets.QMainWindow):
             self.pnp_in_erzeuger_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
             self.pnp_in_abfallart_textedit.setPlainText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])) + ", " + str(list(SELECTED_NACHWEIS["Material"])[0]) )
 
-
             self.feedback_message("success", ["Probe erfolgreich geladen."])
             self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
+            STATUS_MSG = []
         except Exception as ex:
             STATUS_MSG.append(f"Es konnten keine Daten ermittelt werden: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
 
-    def disable_buttons(self):
-        self.migrate_btn.setEnabled(False)
-        self.aqs_btn.setEnabled(False)
-        self.select_probe_btn.setEnabled(False)
-    def enable_buttons(self):
-        self.migrate_btn.setEnabled(True)
-        self.aqs_btn.setEnabled(True)
 
-    def show_second_info(self, msg):
+    def show_second_info(self, msg: str) -> None:
+        """ Shows the second Info
+
+        Args:
+            msg (str): Info message
+        """
+
         self.second_info_lbl.setText(msg)
         self.second_info_lbl.show()
-    def hide_second_info(self):
+
+    def hide_second_info(self) -> None:
+        """ Clears and hides the info message
+        """
         self.second_info_lbl.setText("")
         self.second_info_lbl.hide()
 
-    def read_all_probes(self):
+    def read_all_probes(self) -> None:
+        """ Reads all Probes (from db) and save it globally
+        """
+
         global ALL_DATA_PROBE
         try:
             STATUS_MSG = []
@@ -937,13 +1159,33 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append(f"Es konnten keine Daten ermittelt werden: [{str(ex)}]")
             self.feedback_message("error", STATUS_MSG)
 
-    def format_avv_space_after_every_second(self, avv_raw):
+    def format_avv_space_after_every_second(self, avv_raw: str) -> str:
+        """ Formats AVV Number: After every second charackter adds a space
+
+        Args:
+            avv_raw (str): AVV Number
+                e.g.: '00000000'
+
+        Returns:
+            str: Formatted AVV Number
+                e.g.: '00 00 00 00'
+        """
+
         if len(avv_raw) > 2:
             return ' '.join(avv_raw[i:i + 2] for i in range(0, len(avv_raw), 2))
         else:
             return "/"
 
-    def feedback_message(self, kind, msg):
+    def feedback_message(self, kind: str, msg: list) -> None:
+        """ Shows a feedback Message colored based on the kind
+
+        Args:
+            kind (str): Kind of message
+                e.g.: 'success', 'error', 'info', 'attention'
+            msg (list): Message for the feedback shown to the user
+                e.g.: 'Error, Please try again!'
+        """
+
         if len(msg) > 1:
             msg = "Es bestehen mehrere Fehler. Bitte überprüfe in der Fehlerbeschreibung."
         elif len(msg) == 1:
@@ -986,21 +1228,17 @@ class Ui(QtWidgets.QMainWindow):
 
         self._check_for_errors()
         self.status_msg_btm.show()
-        QTimer.singleShot(5000, lambda: self.status_msg_btm.hide())
+        QTimer.singleShot(3000, lambda: self.status_msg_btm.hide())
 
-    def open_file(self, path):
-        try:
-            if platform.system() == "Darwin":
-                subprocess.call(('open', path))
-            elif platform.system() == "Windows":
-                os.startfile(path)
-            else:
-                subprocess.call(("xdg-open", path))
-        except Exception as ex:
-            STATUS_MSG.append(f"Das Dokument konnte nicht geöffnet werden: [{ex}]")
-            self.feedback_message("attention", STATUS_MSG)
+    def _specific_vorlage(self, anzahl: str) -> str:
+        """ Return the correct Template for given amount
 
-    def _specific_vorlage(self, anzahl):
+        Args:
+            anzahl (str): Amount comes from Dropdown
+                e.g.: '1', '2', ...
+        Returns:
+            str: Correct Vorlagen Path
+        """
         if anzahl == "1":
             return CONFIG_HELPER.get_specific_config_value("pnp_out_1")
         elif anzahl == "2":
@@ -1013,22 +1251,17 @@ class Ui(QtWidgets.QMainWindow):
             return CONFIG_HELPER.get_specific_config_value("pnp_out_5")
         else:
             return "Ungültige Angabe"
-  
-    def start_progress(self):
-        global PROGRESS
-        self.progress = QProgressDialog('Lade alle Proben. Das kann einen Moment dauern...', 'Abbrechen', 0, 20, self)
-        self.progress.setWindowTitle("Lade Proben...")
-        self.progress.setWindowModality(Qt.WindowModal)
-        self.progress.setFixedSize(600, 200)
-        self.progress.show()
-        self.progress.setValue(PROGRESS)
 
-    def end_progress(self):
-        global PROGRESS
-        self.progress.setValue(PROGRESS)
-        self.progress.hide()
 
     def load_laborauswertung(self) -> bool:
+        """ Loads the whole Laborauswertung (from db) into the FE
+
+        Raises:
+            ex: When the Probes cannot be loaded
+
+        Returns:
+            bool: True when data is being loaded; False when there is an error
+        """
         global ALL_DATA_PROBE
 
         try:
@@ -1040,7 +1273,7 @@ class Ui(QtWidgets.QMainWindow):
 
             df = pd.DataFrame(ALL_DATA_PROBE)
             if df.size == 0:
-                return
+                return False
             df.fillna('', inplace=True)
 
             self.la_search_found_lbl.setText(f"{len(df.index)} Treffer gefunden.")
@@ -1060,9 +1293,8 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("error", STATUS_MSG)
             return False
 
-    def edit_laborauswertung(self):
-        """
-            Lädt die ausgewählte Probe in die Laborauswertungtabelle rein.
+    def edit_laborauswertung(self) -> None:
+        """ Loads the selected Laborauswertung row and open the frame to edit
         """
         self.la_changed_item_lst = {}
         try:
@@ -1109,9 +1341,8 @@ class Ui(QtWidgets.QMainWindow):
         self.feedback_message("info", ["Das Editieren befindet sich zur Zeit noch in Entwicklung."])
         self.laborauswertung_edit_table.itemChanged.connect(self.la_handle_item_changed) 
 
-    def add_laborauswertung(self):
-        """
-            Fügt eine neue Zeile in die Laborauswertung hinzu.
+    def add_laborauswertung(self) -> None:
+        """ Adds a new row to the Laborauswewrtung and show the add frame
         """
         try:
             self.laborauswertung_edit_table.itemChanged.disconnect(self.la_handle_item_changed)
@@ -1156,10 +1387,22 @@ class Ui(QtWidgets.QMainWindow):
         self.feedback_message("info", ["Das Laden befindet sich zur Zeit noch in Entwicklung."])
         self.laborauswertung_edit_table.itemChanged.connect(self.la_handle_item_changed)
 
-    def show_element(self, element):
+    def show_element(self, element: QtWidgets) -> None:
+        """ Shows an Element
+
+        Args:
+            element (QtWidgets): Elemtent to be shown
+                e.g.: QFrame, QPushButton, ...
+        """
         element.show()
 
-    def filter_laborauswertung(self, filter_text):
+    def filter_laborauswertung(self, filter_text: str) -> None:
+        """ Handles the filter event for the Laborauswertung
+
+        Args:
+            filter_text (str): Entered Filter text
+        """
+
         anzahl = self.laborauswertung_table.rowCount()
         difference = 0
         for i in range(self.laborauswertung_table.rowCount()):
@@ -1175,7 +1418,12 @@ class Ui(QtWidgets.QMainWindow):
   
         self.la_search_found_lbl.setText(f"{str(anzahl-difference)} Treffer gefunden.")
 
-    def la_handle_item_changed(self, item):
+    def la_handle_item_changed(self, item) -> None:
+        """ Handles the Item changed and makes varoius calculations based to input data
+
+        Args:
+            item (__type__): Changed item in Laborauswertung Table
+        """
 
         ### Datum abfangen:
         ### TEST
@@ -1270,7 +1518,10 @@ class Ui(QtWidgets.QMainWindow):
 
             self.la_changed_item_lst[self.laborauswertung_edit_table.item(item.row(), 0).text()] = item.text()
 
-    def la_add_save(self):
+    def la_add_save(self) -> None:
+        """ Adds the new Laborauswertung entry to the database
+        """
+
         global STATUS_MSG, ALL_DATA_PROBE
         try:
             DATABASE_HELPER.add_laborauswertung(self.la_changed_item_lst)
@@ -1284,7 +1535,15 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append(f"Fehler beim Speichern: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
 
-    def la_edit_save(self, kennung, datum):
+    def la_edit_save(self, kennung: str, datum: str):
+        """ Saves the edited Laborauswertung entry to the db
+
+        Args:
+            kennung (str): Kennung from the DB
+                e.g.: 'ENE 1234'
+            datum (str): Datum from the incom Probe
+                e.g.: '12.12.2012
+        """
         global STATUS_MSG, ALL_DATA_PROBE   
 
         try:
@@ -1299,7 +1558,9 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append(f"Fehler beim Speichern: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
 
-    def la_cancel_edit(self):
+    def la_cancel_edit(self) -> None:
+        """ Cancels the edit Process and hides the edit frame
+        """
         global STATUS_MSG
         self.la_edit_frame_2.hide()
         STATUS_MSG = []
@@ -1320,7 +1581,13 @@ class Probe(QtWidgets.QMainWindow):
 
         self.probe_filter_lineedit.textChanged.connect(self.filter_probe)
 
-    def filter_probe(self, filter_text):
+    def filter_probe(self, filter_text: str) -> None:
+        """ Filter the Probe based on insert text
+            TODO: Not working correctly
+
+        Args:
+            filter_text (str): User input text shall filter text
+        """
         for i in range(self.tableWidget.rowCount()):
             item = self.tableWidget.item(i, 1)
             match = filter_text.lower() not in item.text().lower()
@@ -1328,7 +1595,13 @@ class Probe(QtWidgets.QMainWindow):
             if not match:
                 break
 
-    def init_data(self, dataset):
+    def init_data(self, dataset: list[dict]) -> None:
+        """ Inputs all the Probe data into the TableWidget
+
+        Args:
+            dataset (list[dict]): List of dictionaries with Probevalues
+        """
+
         for row in dataset:
             rowPosition = self.tableWidget.rowCount()
             self.tableWidget.insertRow(rowPosition)
@@ -1336,26 +1609,46 @@ class Probe(QtWidgets.QMainWindow):
             self.tableWidget.setItem(rowPosition , 1, QTableWidgetItem(str(row["Kennung"])))
             self.tableWidget.setItem(rowPosition , 2, QTableWidgetItem(str(row["Materialbezeichnung"])))
 
-    def init_shadow(self, widget):
+    def init_shadow(self, widget: QtWidgets) -> None:
+        """ Adds shadow to the given widget
+
+        Args:
+            widget (QtWidgets): Widget to whom the shadow should be applied
+                e.g.: QFrame, QPushButton, ...
+        """
         effect = QGraphicsDropShadowEffect()
         effect.setOffset(0, 1)
         effect.setBlurRadius(8)
         widget.setGraphicsEffect(effect)  
 
-    def load_probe(self):
-        global SELECTED_PROBE
-        row = self.tableWidget.currentRow()
-        kennung = self.tableWidget.item(row,1).text()
+    def load_probe(self) -> None:
+        """ Gets the selected Probe and closes the Probe window
+        """
+        try:
+            global SELECTED_PROBE
+            row = self.tableWidget.currentRow()
+            kennung = self.tableWidget.item(row,1).text()
 
-        selected_data= DATABASE_HELPER.get_specific_probe(kennung)
-        SELECTED_PROBE = selected_data
+            SELECTED_PROBE= DATABASE_HELPER.get_specific_probe(kennung)
 
-        self.differentiate_probe(SELECTED_PROBE["Kennung"])
-        self.parent().insert_values()
-        self.close_window()
-        return
+            self.differentiate_probe(SELECTED_PROBE["Kennung"])
+            self.parent().insert_values()
+            self.close_window()
+        except Exception as ex:
+            STATUS_MSG.append(ex)
+            self.parent().feedback_message("attention", STATUS_MSG)
 
-    def differentiate_probe(self, wert):
+    def differentiate_probe(self, wert: str) -> None:
+        """ Decidees based on the wert where to look for information
+
+        Args:
+            wert (str): Number from the selected Probe
+                e.g.: 'ENE123', '22-0000', ...
+
+        Raises:
+            Exception: Error when loading information to the probe
+        """ 
+
         global ALL_DATA_NACHWEIS, STATUS_MSG, SELECTED_NACHWEIS
         try:
             if re.match("[0-9]+-[0-9]+", wert):
@@ -1366,40 +1659,83 @@ class Probe(QtWidgets.QMainWindow):
                 self.check_in_uebersicht_nachweis(self.get_full_project_ene_number(wert))
             elif re.match("[a-zA-Z]+\s['I']+", wert):
                 SELECTED_NACHWEIS = 0
-                raise Exception("DK Proben wurden noch nicht implementiert.")
+                raise Exception("DK Proben wurden nicht implementiert.")
             else:
                 SELECTED_NACHWEIS = 0
-                raise Exception("Andere Proben wurden noch nicht implementiert.")
+                raise Exception("Andere Proben wurden nicht implementiert.")
         except Exception as ex:
-            STATUS_MSG.append(f"Daten konnten nicht geladen werden: [{str(ex)}]")
-            self.parent().feedback_message("error", STATUS_MSG)
+            raise ex
 
-    def get_full_project_ene_number(self, nummer) -> str:
+    def get_full_project_ene_number(self, nummer: str) -> str:
+        """ Gets the whole , VNE, ... Projectnr. from the shortform
+
+        Args:
+            nummer (str): Shortform of the ENE Nr.
+                e.g.: ENE1234
+
+        Returns:
+            str: Entire ENE Nr.
+                e.g.: ENE382981234 s
+        """
+        print("GF: ", nummer)
+
         letters, numbers = nummer.split()
         for index, nummer in ALL_DATA_NACHWEIS["Nachweisnr. Werk 1"].items():
             if isinstance(letters, str):
                 if isinstance(numbers, str):
                     if isinstance(nummer, str):
                         if letters and numbers in nummer:
-                            return nummer
+                            return letters, numbers, nummer
         else:
-            return "/"
+            return "/", "/"
             
-    def check_in_uebersicht_nachweis(self, projektnummer):
+    def check_in_uebersicht_nachweis(self, kennung_tpl: tuple) -> None:
+        """ Loads the Nachweis data from Übersicht Nachweise
+
+        Args:
+            projektnummer (str): Nachweis Nr.
+                e.g.: ('ENE', '2054', 'ENE5R3822054)
+        """ 
+
         global SELECTED_NACHWEIS
-        nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['Nachweisnr. Werk 1'] == str(projektnummer)]
+        nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['Nachweisnr. Werk 1'] == kennung_tpl[2]]
+        SELECTED_PROBE['Kennung_letters'] = kennung_tpl[0]
+        SELECTED_PROBE['Kennung_nr'] = kennung_tpl[1]
+        SELECTED_PROBE['Project_yr'] = "-"
+        SELECTED_PROBE['Project_nr'] = "-"
         SELECTED_NACHWEIS = nachweis_data
 
-    def check_in_projekt_nummer(self, projektnummer):
+    def check_in_projekt_nummer(self, projektnummer: str) -> None:
+        """ Loads the Nachweis data from ProjektNr.
+
+        Args:
+            projektnummer (str): Project Nr.
+                e.g.: "22-0000"
+        """ 
+
+        print("PN", projektnummer)
+
         global SELECTED_NACHWEIS
         projekt_data = ALL_DATA_PROJECT_NR[ALL_DATA_PROJECT_NR['Projekt-Nr.'] == str(projektnummer)]
         projekt_data["ORT"] = projekt_data["Ort"]
         projekt_data["PLZ"] = ""
         projekt_data["t"] = projekt_data["Menge [t/a]"]
+
+
+        SELECTED_PROBE['Kennung_letters'] = "-"
+        SELECTED_PROBE['Kennung_nr'] = "-"
+        SELECTED_PROBE['Project_yr'] = projektnummer.split("-")[0]
+        SELECTED_PROBE['Project_nr'] = projektnummer.split("-")[1]
         SELECTED_NACHWEIS = projekt_data
 
-    def close_window(self):
-        self.hide()
+    def close_window(self) -> None:
+        """ Closes the entire Window
+        """
+        self.close()
+
+    def closeEvent(self, event):
+        LOCKFILE_PROBE.unlock()
+        
 
 class Error(QtWidgets.QDialog): 
     def __init__(self, parent=None):
@@ -1410,9 +1746,9 @@ class Error(QtWidgets.QDialog):
         error_long_msg = "Es wurden mehrere Fehler gefunden:  "
         if len(STATUS_MSG) > 1:
             for error in STATUS_MSG:
-                error_long_msg+=f"- {error} "
+                error_long_msg+=f"- {str(error)} "
         elif len(STATUS_MSG) == 1:
-            error_long_msg = STATUS_MSG[0]
+            error_long_msg = str(STATUS_MSG[0])
         else: 
             error_long_msg = "/"
 
@@ -1421,16 +1757,32 @@ class Error(QtWidgets.QDialog):
         self.init_shadow(self.error_msg_frame)
         self.close_error_info_btn.clicked.connect(self.delete_error)
 
-    def init_shadow(self, widget):
+    def init_shadow(self, widget: QtWidgets) -> None:
+        """ Applies shadow to given Widget
+
+        Args:
+            widget (QtWidgets): Any QtWidget
+                e.g.: QFrame, QPushButton,...
+        """
         effect = QGraphicsDropShadowEffect()
         effect.setOffset(0, 1)
         effect.setBlurRadius(8)
         widget.setGraphicsEffect(effect)
 
-    def close_window(self):
-        self.hide()
+    def close_window(self) -> None:
+        """ Closes entire Window
+        """
 
-    def delete_error(self):
+        self.close()
+    
+    def closeEvent(self, event):
+        self.delete_error()
+        LOCKFILE_ERROR.unlock()
+
+    def delete_error(self) -> None:
+        """ Deletes all errors
+        """
+
         global STATUS_MSG
         STATUS_MSG = []
         self.error_lbl.setText("")
@@ -1438,80 +1790,48 @@ class Error(QtWidgets.QDialog):
         self.parent()._check_for_errors()
 
 
-def compute_ui():
-    app = QtWidgets.QApplication(sys.argv)
-    d = {}
-    try:
-        d = CONFIG_HELPER.get_all_config()
-    except Exception as ex:
-        print(ex)
-    if d:
-        NW_PATH = d["nw_path"]
-        PNR_PATH = d["project_nr_path"]
-        STANDARD_SAVE_PATH =d["save_path"]
-        DB_PATH = d["db_path"]
-        
-    try:
-        ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
-    except Exception as ex:
-        STATUS_MSG.append(f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]")
-
-    try:
-        ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
-    except Exception as ex:
-        STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
-
-    win = Ui()
-
-    if STATUS_MSG != []:
-        win.feedback_message("error", STATUS_MSG)
-    
-    win._check_for_errors()
-    
-    splash.finish(win)
-    win.show()
-    sys.exit(app.exec_())
-
-
 if __name__ == "__main__":
 
-    app = QtWidgets.QApplication(sys.argv)
-    # Create and display the splash screen
-    splash_pix = QPixmap("./assets/icon_logo.png")
-    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-    splash.setMask(splash_pix.mask())
-    splash.show()
-    
+    lockfile_main = QtCore.QLockFile(QtCore.QDir.tempPath() + 'capza.lock')
 
-
-    d = {}
-    try:
-        d = CONFIG_HELPER.get_all_config()
-    except Exception as ex:
-        print(ex)
-    if d:
-        NW_PATH = d["nw_path"]
-        PNR_PATH = d["project_nr_path"]
-        STANDARD_SAVE_PATH =d["save_path"]
-        DB_PATH = d["db_path"]
+    if lockfile_main.tryLock(100):
+        app = QtWidgets.QApplication(sys.argv)
+        # Create and display the splash screen
+        splash_pix = QPixmap("./assets/icon_logo.png")
+        splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+        splash.setMask(splash_pix.mask())
+        splash.show()
         
-    try:
-        ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
-    except Exception as ex:
-        STATUS_MSG.append(f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]")
 
-    try:
-        ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
-    except Exception as ex:
-        STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
+        d = {}
+        try:
+            d = CONFIG_HELPER.get_all_config()
+        except Exception as ex:
+            print(ex)
+        if d:
+            NW_PATH = d["nw_path"]
+            PNR_PATH = d["project_nr_path"]
+            STANDARD_SAVE_PATH =d["save_path"]
+            DB_PATH = d["db_path"]
+            
+        try:
+            ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
+        except Exception as ex:
+            STATUS_MSG.append(f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]")
 
-    win = Ui()
+        try:
+            ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
+        except Exception as ex:
+            STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
 
-    if STATUS_MSG != []:
-        win.feedback_message("error", STATUS_MSG)
-    
-    win._check_for_errors()
-    
-    splash.finish(win)
-    win.show()
-    sys.exit(app.exec_())
+        win = Ui()
+
+        if STATUS_MSG != []:
+            win.feedback_message("error", STATUS_MSG)
+        
+        win._check_for_errors()
+        
+        splash.finish(win)
+        win.show()
+        sys.exit(app.exec_())
+    else: print("Running already")

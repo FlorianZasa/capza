@@ -253,8 +253,8 @@ color: #AEDC21;</string>
          </property>
          <property name="iconSize">
           <size>
-           <width>30</width>
-           <height>30</height>
+           <width>20</width>
+           <height>20</height>
           </size>
          </property>
          <property name="autoRepeat">
@@ -393,6 +393,7 @@ color: #AEDC21;</string>
 QPushButton:hover {
 	color: #AEDC21;
 	border-left: 3px solid rgb(7, 113, 78);
+font-size: 18px
 }
 
 QPushButton:checked {
@@ -1188,8 +1189,8 @@ border-radius: 50%;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>975</width>
-                 <height>728</height>
+                 <width>1004</width>
+                 <height>760</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_30">
@@ -1224,120 +1225,440 @@ border-radius: 50%;
                     <number>10</number>
                    </property>
                    <item>
-                    <widget class="QFrame" name="data_1">
-                     <property name="styleSheet">
-                      <string notr="true">QFrame {
+                    <layout class="QVBoxLayout" name="verticalLayout_41">
+                     <item>
+                      <widget class="QFrame" name="data_1">
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
+	background-color: rgb(222, 255, 216);
+	border-radius: 10px
+}
+
+</string>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_2">
+                        <property name="leftMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="horizontalSpacing">
+                         <number>10</number>
+                        </property>
+                        <property name="verticalSpacing">
+                         <number>20</number>
+                        </property>
+                        <item row="1" column="3">
+                         <widget class="QComboBox" name="pnr_combo">
+                          <property name="minimumSize">
+                           <size>
+                            <width>80</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QComboBox {
+	background-color: rgb(255, 255, 255);
+	color: #0C5C51;
+
+	border: 1px solid #C7C7C7;
+	border-radius: 10px;
+}
+
+
+QComboBox:focus {
+	
+	background-color: rgb(255, 253, 219);
+	border: 1px solid black
+}</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>-</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>22</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>21</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>20</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item row="0" column="2" colspan="2">
+                         <widget class="QComboBox" name="kennung_combo">
+                          <property name="minimumSize">
+                           <size>
+                            <width>80</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QComboBox {
+	background-color: rgb(255, 255, 255);
+	color: #0C5C51;
+
+	border: 1px solid #C7C7C7;
+	border-radius: 10px;
+}
+
+
+QComboBox:focus {
+	
+	background-color: rgb(255, 253, 219);
+	border: 1px solid black
+}</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>-</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>ENE</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>VNE</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>NL</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item row="2" column="1" colspan="5">
+                         <widget class="Line" name="line_5">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QRadioButton" name="pnr_rb">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <attribute name="buttonGroup">
+                           <string notr="true">buttonGroup_4</string>
+                          </attribute>
+                         </widget>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QRadioButton" name="kennung_rb">
+                          <property name="text">
+                           <string notr="true"/>
+                          </property>
+                          <property name="checked">
+                           <bool>true</bool>
+                          </property>
+                          <attribute name="buttonGroup">
+                           <string notr="true">buttonGroup_4</string>
+                          </attribute>
+                         </widget>
+                        </item>
+                        <item row="1" column="1" colspan="2">
+                         <widget class="QLabel" name="label_3">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                          </property>
+                          <property name="text">
+                           <string>Projekt Nr.:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="5">
+                         <widget class="QLineEdit" name="kennung_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>100</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+
+	border: 1px solid #C7C7C7;
+	border-radius: 10px;
+}
+
+
+QLineEdit:focus {
+	
+	background-color: rgb(255, 253, 219);
+	border: 1px solid black
+}</string>
+                          </property>
+                          <property name="clearButtonEnabled">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="5">
+                         <widget class="QLineEdit" name="project_nr_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+
+	border: 1px solid #C7C7C7;
+	border-radius: 10px;
+}
+
+
+QLineEdit:focus {
+	
+	background-color: rgb(255, 253, 219);
+	border: 1px solid black
+}</string>
+                          </property>
+                          <property name="inputMask">
+                           <string/>
+                          </property>
+                          <property name="clearButtonEnabled">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLabel" name="label_8">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                          </property>
+                          <property name="text">
+                           <string>Kennung:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="4">
+                         <widget class="QLabel" name="label_72">
+                          <property name="text">
+                           <string>-</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="horizontalFrame">
+                       <layout class="QHBoxLayout" name="horizontalLayout_44">
+                        <property name="spacing">
+                         <number>10</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>10</number>
+                        </property>
+                        <item>
+                         <spacer name="horizontalSpacer_8">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="search_manually_btn">
+                          <property name="minimumSize">
+                           <size>
+                            <width>100</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>100</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="toolTip">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Suche geziehlt nach einer manuell eingetragenen Kennung &lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;oder &lt;/span&gt;Projektnummer&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                          <property name="text">
+                           <string>Suchen</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="Line" name="line_2">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="data_1_2">
+                       <property name="styleSheet">
+                        <string notr="true">QFrame {
 	background: #FCFCFC;
 	border-radius: 10px
 }
 
 </string>
-                     </property>
-                     <layout class="QFormLayout" name="formLayout">
-                      <property name="horizontalSpacing">
-                       <number>10</number>
-                      </property>
-                      <property name="verticalSpacing">
-                       <number>10</number>
-                      </property>
-                      <property name="leftMargin">
-                       <number>10</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>10</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>10</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>10</number>
-                      </property>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_3">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QFormLayout" name="formLayout_2">
+                        <property name="horizontalSpacing">
+                         <number>10</number>
                         </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                        <property name="verticalSpacing">
+                         <number>20</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>10</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>10</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_6">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Projekt Nr.:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
-                       <widget class="QLineEdit" name="project_nr_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
-	background-color: rgb(255, 255, 255);
-	color: rgb(0, 0, 0);
-
-	border: 1px solid #C7C7C7;
-	border-radius: 10px;
-}
-
-
-QLineEdit:focus {
-	
-	background-color: rgb(255, 253, 219);
-	border: 1px solid black
-}</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_6">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
-background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Bezeichnung:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="1">
-                       <widget class="QLineEdit" name="name_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Bezeichnung:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLineEdit" name="name_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(229, 229, 229);
 	color: rgb(0, 0, 0);
 
@@ -1351,44 +1672,47 @@ QLineEdit:focus {
 	background-color: rgb(201, 203, 168);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="label_9">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                          <property name="readOnly">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="label_9">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Erzeuger:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="1">
-                       <widget class="QLineEdit" name="person_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Erzeuger:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLineEdit" name="person_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(229, 229, 229);
 	color: rgb(0, 0, 0);
 
@@ -1402,44 +1726,47 @@ QLineEdit:focus {
 	background-color: rgb(201, 203, 168);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="0">
-                       <widget class="QLabel" name="label_10">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                          <property name="readOnly">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="0">
+                         <widget class="QLabel" name="label_10">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Herkunft/Ort:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="1">
-                       <widget class="QLineEdit" name="location_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Herkunft/Ort:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="1">
+                         <widget class="QLineEdit" name="location_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(229, 229, 229);
 	color: rgb(0, 0, 0);
 
@@ -1453,44 +1780,47 @@ QLineEdit:focus {
 	background-color: rgb(201, 203, 168);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="4" column="0">
-                       <widget class="QLabel" name="label_11">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                          <property name="readOnly">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="0">
+                         <widget class="QLabel" name="label_11">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>AVV:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="4" column="1">
-                       <widget class="QLineEdit" name="avv_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>AVV:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="1">
+                         <widget class="QLineEdit" name="avv_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(229, 229, 229);
 	color: rgb(0, 0, 0);
 
@@ -1504,44 +1834,47 @@ QLineEdit:focus {
 	background-color: rgb(201, 203, 168);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="5" column="0">
-                       <widget class="QLabel" name="label_12">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                          <property name="readOnly">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="4" column="0">
+                         <widget class="QLabel" name="label_12">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Menge [t]:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="5" column="1">
-                       <widget class="QLineEdit" name="amount_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Menge [t]:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="4" column="1">
+                         <widget class="QLineEdit" name="amount_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(229, 229, 229);
 	color: rgb(0, 0, 0);
 
@@ -1555,44 +1888,47 @@ QLineEdit:focus {
 	background-color: rgb(201, 203, 168);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="6" column="0">
-                       <widget class="QLabel" name="label_13">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                          <property name="readOnly">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="0">
+                         <widget class="QLabel" name="label_13">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Prüfumfang:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="6" column="1">
-                       <widget class="QLineEdit" name="probe_amount_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Prüfumfang:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="1">
+                         <widget class="QLineEdit" name="probe_amount_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 
@@ -1606,77 +1942,44 @@ QLineEdit:focus {
 	background-color: rgb(255, 253, 219);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="7" column="0">
-                       <widget class="Line" name="line_5">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="7" column="1">
-                       <widget class="Line" name="line_2">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="8" column="0">
-                       <widget class="QLabel" name="label_14">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="0">
+                         <widget class="QLabel" name="label_14">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Farbe:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="9" column="0">
-                       <widget class="QLabel" name="label_15">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
-background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Konsistenz:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="9" column="1">
-                       <widget class="QLineEdit" name="consistency_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Farbe:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="1">
+                         <widget class="QLineEdit" name="color_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 
@@ -1690,44 +1993,44 @@ QLineEdit:focus {
 	background-color: rgb(255, 253, 219);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="10" column="0">
-                       <widget class="QLabel" name="label_16">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="0">
+                         <widget class="QLabel" name="label_15">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Geruch:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="10" column="1">
-                       <widget class="QLineEdit" name="smell_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Konsistenz:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="1">
+                         <widget class="QLineEdit" name="consistency_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 
@@ -1741,69 +2044,44 @@ QLineEdit:focus {
 	background-color: rgb(255, 253, 219);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="11" column="0">
-                       <widget class="QLabel" name="label_17">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="8" column="0">
+                         <widget class="QLabel" name="label_16">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
 background-color: transparent;</string>
-                        </property>
-                        <property name="text">
-                         <string>Bemerkungen:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="11" column="1">
-                       <widget class="QTextEdit" name="remark_textedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>16777215</width>
-                          <height>100</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QTextEdit {\n	background-color: rgb(255, 255, 255);\n	color: rgb(0, 0, 0);\n\n	border: 1px solid #C7C7C7;\n	border-radius: 10px;\n}\n\n\nQTextEdit:focus {\n	\n	background-color: rgb(255, 253, 219);\n	border: 1px solid black\n}</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="8" column="1">
-                       <widget class="QLineEdit" name="color_lineedit">
-                        <property name="minimumSize">
-                         <size>
-                          <width>200</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QLineEdit {
+                          </property>
+                          <property name="text">
+                           <string>Geruch:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="8" column="1">
+                         <widget class="QLineEdit" name="smell_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 
@@ -1817,27 +2095,58 @@ QLineEdit:focus {
 	background-color: rgb(255, 253, 219);
 	border: 1px solid black
 }</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_24">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Preferred</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="0">
+                         <widget class="QLabel" name="label_17">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">color: rgb(0, 0, 0);
+background-color: transparent;</string>
+                          </property>
+                          <property name="text">
+                           <string>Bemerkungen:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="1">
+                         <widget class="QTextEdit" name="remark_textedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>100</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QTextEdit {background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);border: 1px solid #C7C7C7;border-radius: 10px;}
+QTextEdit:focus {background-color: rgb(255, 253, 219);border: 1px solid black\n}</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                    <item>
                     <widget class="QFrame" name="data_2">
@@ -2832,7 +3141,7 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>958</width>
+                 <width>446</width>
                  <height>780</height>
                 </rect>
                </property>
@@ -3783,7 +4092,7 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>976</width>
+                 <width>710</width>
                  <height>1202</height>
                 </rect>
                </property>
@@ -5091,7 +5400,7 @@ border-radius: 10px;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="">
+                 <widget class="QFrame" name="frame">
                   <layout class="QHBoxLayout" name="horizontalLayout_7">
                    <property name="spacing">
                     <number>10</number>
@@ -6222,8 +6531,8 @@ border-radius: 10px;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>905</width>
-                          <height>338</height>
+                          <width>69</width>
+                          <height>69</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -6518,8 +6827,8 @@ border-radius: 10px</string>
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>957</width>
-                    <height>560</height>
+                    <width>464</width>
+                    <height>559</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_37">
@@ -7208,8 +7517,8 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>993</width>
-                 <height>860</height>
+                 <width>470</width>
+                 <height>367</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -7647,5 +7956,6 @@ border: 2px solid rgb(0, 127, 8);</string>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>
