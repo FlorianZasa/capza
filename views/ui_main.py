@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_CapZa(object):
     def setupUi(self, CapZa):
         CapZa.setObjectName("CapZa")
-        CapZa.resize(1177, 1106)
+        CapZa.resize(1286, 1106)
         CapZa.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -543,7 +543,7 @@ class Ui_CapZa(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 907, 728))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 907, 669))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_30 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_30.setObjectName("verticalLayout_30")
@@ -1444,7 +1444,7 @@ class Ui_CapZa(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 693, 780))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 958, 780))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
@@ -1947,7 +1947,6 @@ class Ui_CapZa(object):
         self.stackedWidget.addWidget(self.analysis)
         self.pnp_entry = QtWidgets.QWidget()
         self.pnp_entry.setStyleSheet("QPushButton {\n"
-"background-color: #AEDC21;\n"
 "border-radius: 10px;\n"
 "text-align:center;\n"
 "}\n"
@@ -1982,7 +1981,7 @@ class Ui_CapZa(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 711, 1184))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -324, 976, 1184))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_27 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_27.setObjectName("verticalLayout_27")
@@ -2695,14 +2694,29 @@ class Ui_CapZa(object):
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_2.setFont(font)
-        self.pushButton_2.setStyleSheet("border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
+        self.pushButton_2.setStyleSheet("QPushButton {\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color: rgb(255, 220, 221);\n"
+"border: 2px solid rgb(255, 116, 118);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background-color: rgb(255, 197, 198);\n"
+"color: black;\n"
+"}")
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout_7.addWidget(self.pushButton_2)
         spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem18)
         self.pushButton = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton.setMinimumSize(QtCore.QSize(200, 30))
+        self.pushButton.setMinimumSize(QtCore.QSize(210, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -2979,7 +2993,7 @@ class Ui_CapZa(object):
         self.horizontalLayout_30.setSpacing(10)
         self.horizontalLayout_30.setObjectName("horizontalLayout_30")
         self.pnp_out_empty = QtWidgets.QPushButton(self.frame10)
-        self.pnp_out_empty.setMinimumSize(QtCore.QSize(200, 30))
+        self.pnp_out_empty.setMinimumSize(QtCore.QSize(210, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -3244,7 +3258,7 @@ class Ui_CapZa(object):
         self.scrollArea_5.setWidgetResizable(True)
         self.scrollArea_5.setObjectName("scrollArea_5")
         self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 640, 338))
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 905, 338))
         self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
         self.verticalLayout_36 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_5)
         self.verticalLayout_36.setContentsMargins(0, 0, 0, 0)
@@ -3376,7 +3390,7 @@ class Ui_CapZa(object):
         self.scrollArea_6.setWidgetResizable(True)
         self.scrollArea_6.setObjectName("scrollArea_6")
         self.scrollAreaWidgetContents_6 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_6.setGeometry(QtCore.QRect(0, 0, 848, 560))
+        self.scrollAreaWidgetContents_6.setGeometry(QtCore.QRect(0, 0, 957, 560))
         self.scrollAreaWidgetContents_6.setObjectName("scrollAreaWidgetContents_6")
         self.verticalLayout_37 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_6)
         self.verticalLayout_37.setObjectName("verticalLayout_37")
@@ -3589,71 +3603,6 @@ class Ui_CapZa(object):
         self.choose_save_bericht_path.setObjectName("choose_save_bericht_path")
         self.horizontalLayout_20.addWidget(self.choose_save_bericht_path)
         self.verticalLayout_37.addWidget(self.frame15)
-        self.label_65 = QtWidgets.QLabel(self.scrollAreaWidgetContents_6)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.label_65.setFont(font)
-        self.label_65.setScaledContents(False)
-        self.label_65.setWordWrap(True)
-        self.label_65.setObjectName("label_65")
-        self.verticalLayout_37.addWidget(self.label_65)
-        self.frame_6 = QtWidgets.QFrame(self.scrollAreaWidgetContents_6)
-        self.frame_6.setObjectName("frame_6")
-        self.horizontalLayout_43 = QtWidgets.QHBoxLayout(self.frame_6)
-        self.horizontalLayout_43.setSpacing(20)
-        self.horizontalLayout_43.setObjectName("horizontalLayout_43")
-        self.label_71 = QtWidgets.QLabel(self.frame_6)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_71.setFont(font)
-        self.label_71.setStyleSheet("color: rgb(0, 0, 0);\n"
-"")
-        self.label_71.setObjectName("label_71")
-        self.horizontalLayout_43.addWidget(self.label_71)
-        self.laborauswertung_path = QtWidgets.QLineEdit(self.frame_6)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.laborauswertung_path.setFont(font)
-        self.laborauswertung_path.setStyleSheet("background-color: rgb(217, 217, 217);\n"
-"\n"
-"border: 1px solid #C7C7C7;\n"
-"border-radius: 10px;")
-        self.laborauswertung_path.setObjectName("laborauswertung_path")
-        self.horizontalLayout_43.addWidget(self.laborauswertung_path)
-        self.choose_laborauswertung_path_btn = QtWidgets.QToolButton(self.frame_6)
-        self.choose_laborauswertung_path_btn.setMinimumSize(QtCore.QSize(50, 30))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.choose_laborauswertung_path_btn.setFont(font)
-        self.choose_laborauswertung_path_btn.setStyleSheet("QPushButton, QToolButton {\n"
-"background-color: #AEDC21;\n"
-"border-radius: 10px;\n"
-"text-align:center;\n"
-"}\n"
-"\n"
-"QPushButton:hover, QToolButton:hover {\n"
-"background-color: rgb(146, 182, 27);\n"
-"border: 2px solid rgb(7, 113, 78);\n"
-"border-radius: 10px;\n"
-"text-align:center;\n"
-"}\n"
-"\n"
-"QPushButton:pressed, QToolButton:pressed {\n"
-"background-color: rgb(56, 167, 0);\n"
-"color: white\n"
-"}\n"
-"")
-        self.choose_laborauswertung_path_btn.setObjectName("choose_laborauswertung_path_btn")
-        self.horizontalLayout_43.addWidget(self.choose_laborauswertung_path_btn)
-        self.verticalLayout_37.addWidget(self.frame_6)
         self.horizontalFrame = QtWidgets.QFrame(self.scrollAreaWidgetContents_6)
         self.horizontalFrame.setObjectName("horizontalFrame")
         self.horizontalLayout_35 = QtWidgets.QHBoxLayout(self.horizontalFrame)
@@ -3710,6 +3659,86 @@ class Ui_CapZa(object):
         self.choose_db_path_btn.setObjectName("choose_db_path_btn")
         self.horizontalLayout_35.addWidget(self.choose_db_path_btn)
         self.verticalLayout_37.addWidget(self.horizontalFrame)
+        spacerItem29 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_37.addItem(spacerItem29)
+        self.groupBox_7 = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_6)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.groupBox_7.setFont(font)
+        self.groupBox_7.setStyleSheet("color: red")
+        self.groupBox_7.setObjectName("groupBox_7")
+        self.verticalLayout_39 = QtWidgets.QVBoxLayout(self.groupBox_7)
+        self.verticalLayout_39.setContentsMargins(-1, 20, -1, -1)
+        self.verticalLayout_39.setObjectName("verticalLayout_39")
+        self.label_65 = QtWidgets.QLabel(self.groupBox_7)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.label_65.setFont(font)
+        self.label_65.setScaledContents(False)
+        self.label_65.setWordWrap(True)
+        self.label_65.setObjectName("label_65")
+        self.verticalLayout_39.addWidget(self.label_65)
+        self.frame_6 = QtWidgets.QFrame(self.groupBox_7)
+        self.frame_6.setStyleSheet("\n"
+"background-color: rgba(255, 0, 4, 10);")
+        self.frame_6.setObjectName("frame_6")
+        self.horizontalLayout_43 = QtWidgets.QHBoxLayout(self.frame_6)
+        self.horizontalLayout_43.setSpacing(20)
+        self.horizontalLayout_43.setObjectName("horizontalLayout_43")
+        self.label_71 = QtWidgets.QLabel(self.frame_6)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_71.setFont(font)
+        self.label_71.setStyleSheet("color: rgb(0, 0, 0); background: none;")
+        self.label_71.setObjectName("label_71")
+        self.horizontalLayout_43.addWidget(self.label_71)
+        self.laborauswertung_path = QtWidgets.QLineEdit(self.frame_6)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.laborauswertung_path.setFont(font)
+        self.laborauswertung_path.setStyleSheet("background-color: rgb(217, 217, 217);\n"
+"\n"
+"border: 1px solid #C7C7C7;\n"
+"border-radius: 10px;")
+        self.laborauswertung_path.setObjectName("laborauswertung_path")
+        self.horizontalLayout_43.addWidget(self.laborauswertung_path)
+        self.choose_laborauswertung_path_btn = QtWidgets.QToolButton(self.frame_6)
+        self.choose_laborauswertung_path_btn.setMinimumSize(QtCore.QSize(50, 30))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.choose_laborauswertung_path_btn.setFont(font)
+        self.choose_laborauswertung_path_btn.setStyleSheet("QPushButton, QToolButton {\n"
+"background-color: #AEDC21;\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:hover, QToolButton:hover {\n"
+"background-color: rgb(146, 182, 27);\n"
+"border: 2px solid rgb(7, 113, 78);\n"
+"border-radius: 10px;\n"
+"text-align:center;\n"
+"}\n"
+"\n"
+"QPushButton:pressed, QToolButton:pressed {\n"
+"background-color: rgb(56, 167, 0);\n"
+"color: white\n"
+"}\n"
+"")
+        self.choose_laborauswertung_path_btn.setObjectName("choose_laborauswertung_path_btn")
+        self.horizontalLayout_43.addWidget(self.choose_laborauswertung_path_btn)
+        self.verticalLayout_39.addWidget(self.frame_6)
+        self.verticalLayout_37.addWidget(self.groupBox_7)
         self.scrollArea_6.setWidget(self.scrollAreaWidgetContents_6)
         self.verticalLayout_26.addWidget(self.scrollArea_6)
         self.frame16 = QtWidgets.QFrame(self.verticalFrame1)
@@ -3734,8 +3763,8 @@ class Ui_CapZa(object):
         self.frame16.setObjectName("frame16")
         self.horizontalLayout_25 = QtWidgets.QHBoxLayout(self.frame16)
         self.horizontalLayout_25.setObjectName("horizontalLayout_25")
-        spacerItem29 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_25.addItem(spacerItem29)
+        spacerItem30 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_25.addItem(spacerItem30)
         self.save_references_btn = QtWidgets.QPushButton(self.frame16)
         self.save_references_btn.setMinimumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
@@ -3783,7 +3812,7 @@ class Ui_CapZa(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollArea_4.setObjectName("scrollArea_4")
         self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 728, 860))
+        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 470, 372))
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
         self.verticalLayout_34 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_4)
         self.verticalLayout_34.setObjectName("verticalLayout_34")
@@ -3899,8 +3928,8 @@ class Ui_CapZa(object):
 "}")
         self.laborauswertung_close_edit_frame_btn.setObjectName("laborauswertung_close_edit_frame_btn")
         self.horizontalLayout_40.addWidget(self.laborauswertung_close_edit_frame_btn)
-        spacerItem30 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_40.addItem(spacerItem30)
+        spacerItem31 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_40.addItem(spacerItem31)
         self.laborauswertung_save_edit_frame_btn = QtWidgets.QPushButton(self.la_edit_frame_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -4008,7 +4037,7 @@ class Ui_CapZa(object):
         CapZa.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(CapZa)
-        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(CapZa)
 
     def retranslateUi(self, CapZa):
@@ -4216,11 +4245,12 @@ class Ui_CapZa(object):
         self.choose_nw_path_btn.setText(_translate("CapZa", "..."))
         self.label_5.setText(_translate("CapZa", "Standardpfad zur Speicherung des Berichts:"))
         self.choose_save_bericht_path.setText(_translate("CapZa", "..."))
-        self.label_65.setText(_translate("CapZa", "Sollte die Laborauswertung Excel auf einem neueren Stand sein, kann sie hier in das Tool importiert werden:"))
-        self.label_71.setText(_translate("CapZa", "Pfad zur Excel Laborauswertung:"))
-        self.choose_laborauswertung_path_btn.setText(_translate("CapZa", "..."))
         self.label_2.setText(_translate("CapZa", "Pfad zur Datenbank:"))
         self.choose_db_path_btn.setText(_translate("CapZa", "..."))
+        self.groupBox_7.setTitle(_translate("CapZa", "Achtung!"))
+        self.label_65.setText(_translate("CapZa", "Diese Einstellung sollte nur im Notfall verwendet werden. Sollte die Laborauswertung Excel auf einem neueren Stand sein als die Datenbank, kann sie hier in das Tool importiert werden -> Automatische Datenbankerstellung. Dadurch können Daten, die hier erstellt oder hinzugefügt wurde verloren gehen. Soll wirklich eine neue Datenbank erstellt werden?"))
+        self.label_71.setText(_translate("CapZa", "Pfad zur Excel Laborauswertung:"))
+        self.choose_laborauswertung_path_btn.setText(_translate("CapZa", "..."))
         self.save_references_btn.setText(_translate("CapZa", "Speichern"))
         self.add_laborauswertung_btn.setText(_translate("CapZa", "+ Zeile hinzufügen"))
         self.la_edit_title_lbl.setText(_translate("CapZa", "Probe bearbeiten:"))

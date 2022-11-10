@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
-from os.path import exists
-import os, sys
+import os
+import datetime
 
 
 
@@ -91,19 +91,40 @@ class DatabaseHelper():
             self.conn.commit()
 
     def excel_to_sql(self, excel_path):
+        now  = datetime.datetime.now()
+        today = f"{now:%Y%m%d}"
+
         try:
-            if exists("./laborauswertung.db"):
-                os.remove("./laborauswertung.db")
+            desktop_folder = os.path.join(os.environ['USERPROFILE'], 'Desktop')
         except:
-            pass
-        with self.conn:
-            dfs = pd.read_excel(excel_path, sheet_name="Tabelle1")
-            dfs.to_sql(name='main', con=self.conn, index=False)
-            self.conn.commit()
-        self.delete_empty_rows()
+            desktop_folder = os.path.join(os.environ['USER'], 'Desktop')
+
+        new_db_path = os.path.join(desktop_folder, f'laborauswertung_{today}.db')
+
+        # Datenbank erstellen
+        try:
+            conn = sqlite3.connect(new_db_path)
+            print("Database Sqlite3.db formed.")
+        except:
+            print("Database Sqlite3.db not formed.")
+            return
+        
+        print("Versuche, DB zu erstellen...")
+
+        dfs = pd.read_excel(excel_path, sheet_name="Tabelle1")
+        dfs.to_sql(name='main', con=conn, index=False, if_exists='replace')
+        conn.commit()
+
+        sql = "DELETE FROM main WHERE Datum IS NULL OR trim(Datum) = '';"
+        cur = conn.cursor()
+        cur.execute(sql)
+        conn.commit()
+        conn.close()
+            
+        print(f"Datenabk erstellt :D {new_db_path}")
 
 
 
 if __name__ == '__main__':
-    d = DatabaseHelper("./laborauswertung.db")
-    d.add_laborauswertung({"a": "1", "b": "2", "c": "3"})
+    d = DatabaseHelper(r"/Users/florianzasada/Desktop/laborauswertung.db")
+    d.excel_to_sql(r"\\Mac\Home\Desktop\Laborauswertung.xlsx")

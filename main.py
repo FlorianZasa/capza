@@ -107,7 +107,8 @@ class Ui(QtWidgets.QMainWindow):
         self.init_shadow(self.pnp_o_frame)
         self.init_shadow(self.order_frame)
         self.init_shadow(self.pnp_in_allg_frame)
-        self.init_shadow(self.clear_cache_btn)        
+        self.init_shadow(self.clear_cache_btn)   
+        self.init_shadow(self.vor_ort_frame)     
 
         
 
@@ -285,15 +286,20 @@ class Ui(QtWidgets.QMainWindow):
         try:
             if self.nw_overview_path.text(): 
                 nw_path = self.nw_overview_path.text()
+                NW_PATH = nw_path
             if self.project_nr_path.text():
                 project_nr_path = self.project_nr_path.text()
+                PNR_PATH = project_nr_path
             if self.save_bericht_path.text():
                 save_path = self.save_bericht_path.text()
+                STANDARD_SAVE_PATH = save_path
             if self.laborauswertung_path.text():
                 la_path = self.laborauswertung_path.text()
                 ALL_DATA_PROBE = DATABASE_HELPER.excel_to_sql(la_path)
+                LA_PATH = la_path
             if self.db_path.text():
                 db_path = self.db_path.text()
+                DB_PATH = db_path
 
             references = {
                 "nw_path": nw_path,
@@ -358,13 +364,13 @@ class Ui(QtWidgets.QMainWindow):
         aoc = 0
         toc = 0
         ec = 0
-        if not SELECTED_PROBE["TOC\n%"] == None:
-            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))
+        if not SELECTED_PROBE["TOC %"] == None:
+            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))
         else:
             toc = ""
 
-        if not SELECTED_PROBE["EC\n%"] == None:
-            ec = self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))
+        if not SELECTED_PROBE["EC %"] == None:
+            ec = self.round_if_psbl(float(SELECTED_PROBE["EC %"]))
         else:
             ec = ""
         
@@ -466,17 +472,17 @@ class Ui(QtWidgets.QMainWindow):
             #
             "wert": str(SELECTED_PROBE["pH-Wert"]) if SELECTED_PROBE["pH-Wert"] != None else "",
             "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"])  if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "",
-            "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "])  if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "",
-            "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "",
+            "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"])  if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "",
+            "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "",
             "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "",
             "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "",
             "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "",
-            "tds": self.round_if_psbl(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]) if SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"] != None else "",
+            "tds": self.round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"] != None else "",
             "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]) if SELECTED_PROBE["Chlorid mg/L"] != None else "",
             "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]) if SELECTED_PROBE["Fluorid mg/L"] != None else "",
             "feuchte": str(SELECTED_PROBE["Wassergehalt %"]) if SELECTED_PROBE["Wassergehalt %"] != None else "",
-            "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS\n%"]) if SELECTED_PROBE["Lipos TS\n%"] != None else "",
-            "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS\n%"]) if SELECTED_PROBE["Lipos FS\n%"] != None else "",
+            "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS %"]) if SELECTED_PROBE["Lipos TS %"] != None else "",
+            "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS %"]) if SELECTED_PROBE["Lipos FS %"] != None else "",
             "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]) if SELECTED_PROBE["GV [%]"] != None else "",
             "toc": toc,
             "ec": ec,
@@ -637,13 +643,13 @@ class Ui(QtWidgets.QMainWindow):
         aoc = 0
         toc = 0
         ec = 0
-        if not SELECTED_PROBE["TOC\n%"] == "":
-            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))
+        if not SELECTED_PROBE["TOC %"] == "":
+            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))
         else:
             toc = ""
 
-        if not SELECTED_PROBE["EC\n%"] == "":
-            ec = self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))
+        if not SELECTED_PROBE["EC %"] == "":
+            ec = self.round_if_psbl(float(SELECTED_PROBE["EC %"]))
         else:
             ec = ""
         
@@ -739,17 +745,17 @@ class Ui(QtWidgets.QMainWindow):
                 #
                 "wert": str(SELECTED_PROBE["pH-Wert"]),
                 "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]),
-                "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
-                "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]),
+                "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
+                "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
                 "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
                 "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
                 "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
-                "tds": self.round_if_psbl(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]),
+                "tds": self.round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]),
                 "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]),
                 "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]),
                 "feuchte": str(SELECTED_PROBE["Wassergehalt %"]),
-                "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS\n%"]),
-                "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS\n%"]),
+                "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS %"]),
+                "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS %"]),
                 "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]),
                 "toc": toc,
                 "ec": ec,
@@ -867,18 +873,18 @@ class Ui(QtWidgets.QMainWindow):
             self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
             self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
             self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
-            self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS\n%"]))) if SELECTED_PROBE["Lipos TS\n%"] != None else "-")
-            self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS\n%"]))) if SELECTED_PROBE["Lipos FS\n%"] != None else "-")
+            self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS %"]))) if SELECTED_PROBE["Lipos TS %"] != None else "-")
+            self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS %"]))) if SELECTED_PROBE["Lipos FS %"] != None else "-")
             self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
-            self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L "] != None else "-")
-            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["\nTDS\nGesamt gelöste Stoffe (mg/L)"] != None else "-")
-            self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"]))) if SELECTED_PROBE[" Bezogen auf das eingewogene Material Molybdän mg/L ………"] != None else "-")
+            self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "-")
+            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"] != None else "-")
+            self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"] != None else "-")
             self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
             self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
             self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
             self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
-            self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC\n%"]))) if SELECTED_PROBE["TOC\n%"] != None else "-")
-            self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC\n%"]))) if SELECTED_PROBE["EC\n%"] != None else "-")
+            self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))) if SELECTED_PROBE["TOC %"] != None else "-")
+            self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC %"]))) if SELECTED_PROBE["EC %"] != None else "-")
 
 
             date = str(SELECTED_PROBE["Datum"]).split()[0]
@@ -1201,14 +1207,14 @@ class Ui(QtWidgets.QMainWindow):
                 if item.row() == 12 or item.row() == 10:
                     if self.laborauswertung_edit_table.item(12, 1) and  self.laborauswertung_edit_table.item(10, 1):
                         lipos_ts = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(10, 1).text()) / 100)
-                        self.la_changed_item_lst[r"Lipos TS\n%"] = str(lipos_ts)
+                        self.la_changed_item_lst[r"Lipos TS %"] = str(lipos_ts)
                         self.laborauswertung_edit_table.setItem(13, 1, QTableWidgetItem(str(lipos_ts)))
 
                 ### Berechnung Lipos FS %:
                 if item.row() == 13 or item.row() == 9:
                     if self.laborauswertung_edit_table.item(13, 1) and  self.laborauswertung_edit_table.item(9, 1):
                         lipos_fs = float(self.laborauswertung_edit_table.item(13, 1).text()) / (float(self.laborauswertung_edit_table.item(9, 1).text()) / 100)
-                        self.la_changed_item_lst[r"Lipos FS\n%"] = str(lipos_fs)
+                        self.la_changed_item_lst[r"Lipos FS %"] = str(lipos_fs)
                         self.laborauswertung_edit_table.setItem(14, 1, QTableWidgetItem(str(lipos_fs)))
 
                 ### Berechnung Lipos aus Frischsubstanz:
@@ -1236,7 +1242,7 @@ class Ui(QtWidgets.QMainWindow):
                 if item.row() == 30 or item.row() == 28 or item.row() == 29:
                     if self.laborauswertung_edit_table.item(30, 1) and self.laborauswertung_edit_table.item(28, 1) and self.laborauswertung_edit_table.item(29, 1):
                         gv = (float(self.laborauswertung_edit_table.item(30, 1).text()) - float(self.laborauswertung_edit_table.item(28, 1).text())) * (1000 / float(self.laborauswertung_edit_table.item(29, 1).text()) * 1000)
-                        self.la_changed_item_lst[r"\nTDS\nGesamt gelöste Stoffe (mg/L)"] = str(gv)
+                        self.la_changed_item_lst[r"TDS Gesamt gelöste Stoffe (mg/L)"] = str(gv)
                         self.laborauswertung_edit_table.setItem(27, 1, QTableWidgetItem(str(gv)))
 
 
@@ -1401,10 +1407,10 @@ class Error(QtWidgets.QDialog):
         uic.loadUi(r'./views/error.ui', self)
         global STATUS_MSG
         self.setWindowTitle(f"CapZa - Zasada - {__version__} - Fehlerbeschreibung")
-        error_long_msg = "Es wurden mehrere Fehler gefunden: \n"
+        error_long_msg = "Es wurden mehrere Fehler gefunden:  "
         if len(STATUS_MSG) > 1:
             for error in STATUS_MSG:
-                error_long_msg+=f"- {error}\n"
+                error_long_msg+=f"- {error} "
         elif len(STATUS_MSG) == 1:
             error_long_msg = STATUS_MSG[0]
         else: 
@@ -1431,7 +1437,9 @@ class Error(QtWidgets.QDialog):
         self.close()
         self.parent()._check_for_errors()
 
-if __name__ == "__main__":
+
+def compute_ui():
+    app = QtWidgets.QApplication(sys.argv)
     d = {}
     try:
         d = CONFIG_HELPER.get_all_config()
@@ -1448,6 +1456,24 @@ if __name__ == "__main__":
     except Exception as ex:
         STATUS_MSG.append(f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]")
 
+    try:
+        ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
+    except Exception as ex:
+        STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
+
+    win = Ui()
+
+    if STATUS_MSG != []:
+        win.feedback_message("error", STATUS_MSG)
+    
+    win._check_for_errors()
+    
+    splash.finish(win)
+    win.show()
+    sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     # Create and display the splash screen
@@ -1455,15 +1481,31 @@ if __name__ == "__main__":
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
     splash.show()
-    app.processEvents()
+    
 
-    win = Ui()
+
+    d = {}
+    try:
+        d = CONFIG_HELPER.get_all_config()
+    except Exception as ex:
+        print(ex)
+    if d:
+        NW_PATH = d["nw_path"]
+        PNR_PATH = d["project_nr_path"]
+        STANDARD_SAVE_PATH =d["save_path"]
+        DB_PATH = d["db_path"]
+        
+    try:
+        ALL_DATA_NACHWEIS = pd.read_excel(NW_PATH)
+    except Exception as ex:
+        STATUS_MSG.append(f"Es wurde keine Nachweisliste gefunden. Bitte prüfe in den Referenzeinstellungen. [{str(ex)}]")
 
     try:
         ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
     except Exception as ex:
         STATUS_MSG.append(f"Es konnten keine Proben geladen werden: [{ex}]")
 
+    win = Ui()
 
     if STATUS_MSG != []:
         win.feedback_message("error", STATUS_MSG)
