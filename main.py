@@ -1070,8 +1070,6 @@ class Ui(QtWidgets.QMainWindow):
         global SELECTED_NACHWEIS
         global STATUS_MSG
 
-
-
         self.empty_values()
         try:
             ### in Dateneingabe

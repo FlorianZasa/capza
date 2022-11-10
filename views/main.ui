@@ -1189,7 +1189,7 @@ border-radius: 50%;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1004</width>
+                 <width>1034</width>
                  <height>760</height>
                 </rect>
                </property>
@@ -1230,7 +1230,7 @@ border-radius: 50%;
                       <widget class="QFrame" name="data_1">
                        <property name="styleSheet">
                         <string notr="true">QFrame {
-	background-color: rgb(222, 255, 216);
+	background-color: rgb(204, 220, 179);
 	border-radius: 10px
 }
 
@@ -1372,8 +1372,16 @@ QComboBox:focus {
                         </item>
                         <item row="1" column="0">
                          <widget class="QRadioButton" name="pnr_rb">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
                           <property name="text">
-                           <string/>
+                           <string>Projekt Nr.:</string>
                           </property>
                           <attribute name="buttonGroup">
                            <string notr="true">buttonGroup_4</string>
@@ -1382,8 +1390,16 @@ QComboBox:focus {
                         </item>
                         <item row="0" column="0">
                          <widget class="QRadioButton" name="kennung_rb">
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
                           <property name="text">
-                           <string notr="true"/>
+                           <string notr="true">Nachweisnr.:</string>
                           </property>
                           <property name="checked">
                            <bool>true</bool>
@@ -1391,25 +1407,6 @@ QComboBox:focus {
                           <attribute name="buttonGroup">
                            <string notr="true">buttonGroup_4</string>
                           </attribute>
-                         </widget>
-                        </item>
-                        <item row="1" column="1" colspan="2">
-                         <widget class="QLabel" name="label_3">
-                          <property name="font">
-                           <font>
-                            <family>Leelawadee UI</family>
-                            <pointsize>11</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(0, 0, 0);
-background-color: transparent;</string>
-                          </property>
-                          <property name="text">
-                           <string>Projekt Nr.:</string>
-                          </property>
                          </widget>
                         </item>
                         <item row="0" column="5">
@@ -1488,25 +1485,6 @@ QLineEdit:focus {
                           </property>
                           <property name="clearButtonEnabled">
                            <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="1">
-                         <widget class="QLabel" name="label_8">
-                          <property name="font">
-                           <font>
-                            <family>Leelawadee UI</family>
-                            <pointsize>11</pointsize>
-                            <weight>75</weight>
-                            <bold>true</bold>
-                           </font>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(0, 0, 0);
-background-color: transparent;</string>
-                          </property>
-                          <property name="text">
-                           <string>Kennung:</string>
                           </property>
                          </widget>
                         </item>
