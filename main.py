@@ -970,19 +970,19 @@ class Ui(QtWidgets.QMainWindow):
                 "datum": str(SELECTED_PROBE["Datum"]),
                 #
                 "wert": str(SELECTED_PROBE["pH-Wert"]),
-                "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]),
+                "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit mS/cm"]),
                 "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
                 "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
                 "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
                 "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
                 "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
-                "tds": self.round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]),
+                "tds": self.round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]),
                 "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]),
                 "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]),
                 "feuchte": str(SELECTED_PROBE["Wassergehalt %"]),
                 "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS %"]),
                 "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS %"]),
-                "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]),
+                "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV %"]),
                 "toc": toc,
                 "ec": ec,
                 "aoc": aoc,
@@ -1090,7 +1090,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der pH-Wert kann nicht interpretiert werden: [{ex}]")
         try:
-            self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
+            self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit mS/cm"]))) if SELECTED_PROBE["Leitfähigkeit mS/cm"] != None else "-")
         except Exception as ex:
             STATUS_MSG.append(f"Der Leitfähigkeitswert [mS/cm] kann nicht interpretiert werden: [{ex}]")
         try:
@@ -1112,7 +1112,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Lipos OS [%] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
+            self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV %"]))) if SELECTED_PROBE["GV %"] != None else "-")
         except Exception as ex:
             STATUS_MSG.append(f"Der Glühverlust-Wert [%] kann nicht interpretiert werden: [{ex}]")
         try:
@@ -1120,7 +1120,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der DOC-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"] != None else "-")
+            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]))) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"] != None else "-")
         except Exception as ex:
             STATUS_MSG.append(f"Der Wert 'TDS Gesamt gelöste Stoffe (mg/L)' kann nicht interpretiert werden: [{ex}]")
         try:
@@ -1483,86 +1483,114 @@ class Ui(QtWidgets.QMainWindow):
             return
         else:
             try:
-                ### Berechnung % TS:
-                if item.row() == 4 or item.row() == 5:
-                    if self.laborauswertung_edit_table.item(4, 1) and self.laborauswertung_edit_table.item(5, 1):
-                        tds = float(self.laborauswertung_edit_table.item(5, 1).text()) / (float(self.laborauswertung_edit_table.item(4, 1).text())/100)
-                        self.la_changed_item_lst["% TS"] = str(tds)
-                        self.laborauswertung_edit_table.setItem(7, 1, QTableWidgetItem(str(tds)))
-                        # Wasserfaktor
-                        wasserfaktor = float(self.laborauswertung_edit_table.item(4, 1).text()) / float(self.laborauswertung_edit_table.item(5, 1).text())
-                        self.la_changed_item_lst["Wasserfaktor"] = str(wasserfaktor)
-                        self.laborauswertung_edit_table.setItem(8, 1, QTableWidgetItem(str(wasserfaktor)))
+                try:
+                    ### Berechnung % TS:
+                    if item.row() == 4 or item.row() == 5:
+                        if self.laborauswertung_edit_table.item(4, 1).text() != "" and self.laborauswertung_edit_table.item(5, 1).text() != "":
+                            tds = float(self.laborauswertung_edit_table.item(5, 1).text()) / (float(self.laborauswertung_edit_table.item(4, 1).text())/100)
+                            self.la_changed_item_lst["% TS"] = str(tds)
+                            self.laborauswertung_edit_table.setItem(7, 1, QTableWidgetItem(str(tds)))
+                            # Wasserfaktor
+                            wasserfaktor = float(self.laborauswertung_edit_table.item(4, 1).text()) / float(self.laborauswertung_edit_table.item(5, 1).text())
+                            self.la_changed_item_lst["Wasserfaktor"] = str(wasserfaktor)
+                            self.laborauswertung_edit_table.setItem(8, 1, QTableWidgetItem(str(wasserfaktor)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des TS und des Wasserfaktors: [{ex}]")
+            
+                try:
+                    ### Berechnung Wasserfaktor_getrocknet:
+                    if item.row() == 6:
+                        if self.laborauswertung_edit_table.item(6, 1).text() != "":
+                            wf_getrocknet = 100 / float(self.laborauswertung_edit_table.item(6, 1).text())
+                            self.la_changed_item_lst["Wasserfaktor getrocknetes Material"] = str(wf_getrocknet)
+                            self.laborauswertung_edit_table.setItem(9, 1, QTableWidgetItem(str(wf_getrocknet)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des Wasserfaktor getrocknetes Material: [{ex}]")
 
-                ### Berechnung Wasserfaktor_getrocknet:
-                if item.row() == 6:
-                    if self.laborauswertung_edit_table.item(6, 1):
-                        wf_getrocknet = 100 / float(self.laborauswertung_edit_table.item(6, 1).text())
-                        self.la_changed_item_lst["Wasserfaktor getrocknetes Material"] = str(wf_getrocknet)
-                        self.laborauswertung_edit_table.setItem(9, 1, QTableWidgetItem(str(wf_getrocknet)))
+                try:
+                    ### Berechnung Lipos TS %:
+                    if item.row() == 12 or item.row() == 10:
+                        if self.laborauswertung_edit_table.item(12, 1).text() != "" and self.laborauswertung_edit_table.item(10, 1).text() != "":
+                            print(self.laborauswertung_edit_table.item(12, 1).text() +" -"+ self.laborauswertung_edit_table.item(10, 1).text())
+                            lipos_ts = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(10, 1).text()) / 100)
+                            self.la_changed_item_lst[r"Lipos TS %"] = str(lipos_ts)
+                            self.laborauswertung_edit_table.setItem(13, 1, QTableWidgetItem(str(lipos_ts)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des Lipos TS: [{ex}]")
 
-                ### Berechnung Lipos TS %:
-                if item.row() == 12 or item.row() == 10:
-                    if self.laborauswertung_edit_table.item(12, 1) and  self.laborauswertung_edit_table.item(10, 1):
-                        lipos_ts = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(10, 1).text()) / 100)
-                        self.la_changed_item_lst[r"Lipos TS %"] = str(lipos_ts)
-                        self.laborauswertung_edit_table.setItem(13, 1, QTableWidgetItem(str(lipos_ts)))
+                try:
+                    ### Berechnung Lipos FS %:
+                    if item.row() == 13 or item.row() == 9:
+                        if self.laborauswertung_edit_table.item(13, 1).text() != "" and self.laborauswertung_edit_table.item(9, 1).text() != "":
+                            lipos_fs = float(self.laborauswertung_edit_table.item(13, 1).text()) / (float(self.laborauswertung_edit_table.item(9, 1).text()) / 100)
+                            self.la_changed_item_lst[r"Lipos FS %"] = str(lipos_fs)
+                            self.laborauswertung_edit_table.setItem(14, 1, QTableWidgetItem(str(lipos_fs)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des Lipos FS: [{ex}]")
+                try:
+                    ### Berechnung Lipos aus Frischsubstanz:
+                    if item.row() == 12 or item.row() == 11:
+                        if self.laborauswertung_edit_table.item(12, 1).text() != "" and  self.laborauswertung_edit_table.item(11, 1).text() != "":
+                            lipos_frisch = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(11, 1).text()) / 100)
+                            self.la_changed_item_lst[r"% Lipos ermittelts aus Frischsubstanz"] = str(lipos_frisch)
+                            self.laborauswertung_edit_table.setItem(15, 1, QTableWidgetItem(str(lipos_frisch)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des Lipos ermittelts aus Frischsubstanz: [{ex}]")
 
-                ### Berechnung Lipos FS %:
-                if item.row() == 13 or item.row() == 9:
-                    if self.laborauswertung_edit_table.item(13, 1) and  self.laborauswertung_edit_table.item(9, 1):
-                        lipos_fs = float(self.laborauswertung_edit_table.item(13, 1).text()) / (float(self.laborauswertung_edit_table.item(9, 1).text()) / 100)
-                        self.la_changed_item_lst[r"Lipos FS %"] = str(lipos_fs)
-                        self.laborauswertung_edit_table.setItem(14, 1, QTableWidgetItem(str(lipos_fs)))
+                try:
+                    ### Berechnung Lipos aus TS:
+                    if item.row() == 15 or item.row() == 8:
+                        if self.laborauswertung_edit_table.item(15, 1).text() != "" and  self.laborauswertung_edit_table.item(8, 1).text() != "":
+                            lipos_fs_ts = float(self.laborauswertung_edit_table.item(15, 1).text()) * float(self.laborauswertung_edit_table.item(8, 1).text())
+                            self.la_changed_item_lst[r"% Lipos aus FS Umrechnung auf TS"] = str(lipos_fs_ts)
+                            self.laborauswertung_edit_table.setItem(16, 1, QTableWidgetItem(str(lipos_fs_ts)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des Lipos aus FS, Umrechnung auf TS: [{ex}]")
 
-                ### Berechnung Lipos aus Frischsubstanz:
-                if item.row() == 12 or item.row() == 11:
-                    if self.laborauswertung_edit_table.item(12, 1) and  self.laborauswertung_edit_table.item(11, 1):
-                        lipos_frisch = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(11, 1).text()) / 100)
-                        self.la_changed_item_lst[r"% Lipos ermittelts aus Frischsubstanz"] = str(lipos_frisch)
-                        self.laborauswertung_edit_table.setItem(15, 1, QTableWidgetItem(str(lipos_frisch)))
-                    
-                ### Berechnung Lipos aus TS:
-                if item.row() == 15 or item.row() == 8:
-                    if self.laborauswertung_edit_table.item(15, 1) and  self.laborauswertung_edit_table.item(8, 1):
-                        lipos_fs_ts = float(self.laborauswertung_edit_table.item(15, 1).text()) * float(self.laborauswertung_edit_table.item(8, 1).text())
-                        self.la_changed_item_lst[r"% Lipos aus FS, Umrechnung auf TS"] = str(lipos_fs_ts)
-                        self.laborauswertung_edit_table.setItem(16, 1, QTableWidgetItem(str(lipos_fs_ts)))
+                try:
+                    ### Berechnung GV %:
+                    if item.row() == 19 or item.row() == 17 or item.row() == 18:
+                        if self.laborauswertung_edit_table.item(19, 1).text() != "" and self.laborauswertung_edit_table.item(17, 1).text() != "" and self.laborauswertung_edit_table.item(18, 1).text() != "":
+                            gv = (100 - float(self.laborauswertung_edit_table.item(19, 1).text()) - float(self.laborauswertung_edit_table.item(17, 1).text())) / (float(self.laborauswertung_edit_table.item(18, 1).text()) * 100)
+                            self.la_changed_item_lst[r"GV [%]"] = str(gv)
+                            self.laborauswertung_edit_table.setItem(20, 1, QTableWidgetItem(str(gv)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des GVs: [{ex}]")
 
-                ### Berechnung GV %:
-                if item.row() == 19 or item.row() == 17 or item.row() == 18:
-                    if self.laborauswertung_edit_table.item(19, 1) and self.laborauswertung_edit_table.item(17, 1) and self.laborauswertung_edit_table.item(18, 1):
-                        gv = (100 - float(self.laborauswertung_edit_table.item(19, 1).text()) - float(self.laborauswertung_edit_table.item(17, 1).text())) / (float(self.laborauswertung_edit_table.item(18, 1).text()) * 100)
-                        self.la_changed_item_lst[r"GV [%]"] = str(gv)
-                        self.laborauswertung_edit_table.setItem(20, 1, QTableWidgetItem(str(gv)))
-
-                ### Berechnung TDS:
-                if item.row() == 30 or item.row() == 28 or item.row() == 29:
-                    if self.laborauswertung_edit_table.item(30, 1) and self.laborauswertung_edit_table.item(28, 1) and self.laborauswertung_edit_table.item(29, 1):
-                        gv = (float(self.laborauswertung_edit_table.item(30, 1).text()) - float(self.laborauswertung_edit_table.item(28, 1).text())) * (1000 / float(self.laborauswertung_edit_table.item(29, 1).text()) * 1000)
-                        self.la_changed_item_lst[r"TDS Gesamt gelöste Stoffe (mg/L)"] = str(gv)
-                        self.laborauswertung_edit_table.setItem(27, 1, QTableWidgetItem(str(gv)))
-
-
-                ### Berechnung Einwaage TS
-                if item.row() == 32 or item.row() == 7:
-                    if self.laborauswertung_edit_table.item(32, 1) and  self.laborauswertung_edit_table.item(7, 1):
-                        einwaage_ts = float(self.laborauswertung_edit_table.item(32, 1).text()) * (float(self.laborauswertung_edit_table.item(7, 1).text()) / 100)
-                        self.la_changed_item_lst[r"Einwaage TS"] = str(einwaage_ts)
-                        self.laborauswertung_edit_table.setItem(33, 1, QTableWidgetItem(str(einwaage_ts)))
-
-
-                ### Berechnug Faktor
-                if item.row() == 33 or item.row() == 32:
-                    if self.laborauswertung_edit_table.item(33, 1) and  self.laborauswertung_edit_table.item(32, 1):
-                        faktor = float(self.laborauswertung_edit_table.item(33, 1).text()) / float(self.laborauswertung_edit_table.item(32, 1).text())
-                        self.la_changed_item_lst[r"Faktor"] = str(faktor)
-                        self.laborauswertung_edit_table.setItem(34, 1, QTableWidgetItem(str(faktor)))
                 
+                try:
+                    ### Berechnung TDS:
+                    if item.row() == 30 or item.row() == 28 or item.row() == 29:
+                        if self.laborauswertung_edit_table.item(30, 1).text() != "" and self.laborauswertung_edit_table.item(28, 1).text() != "" and self.laborauswertung_edit_table.item(29, 1).text() != "":
+                            gv = (float(self.laborauswertung_edit_table.item(30, 1).text()) - float(self.laborauswertung_edit_table.item(28, 1).text())) * (1000 / float(self.laborauswertung_edit_table.item(29, 1).text()) * 1000)
+                            self.la_changed_item_lst[r"TDS Gesamt gelöste Stoffe (mg/L)"] = str(gv)
+                            self.laborauswertung_edit_table.setItem(27, 1, QTableWidgetItem(str(gv)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des DS Gesamt gelöste Stoffe: [{ex}]")
+
+                try:
+                    ### Berechnung Einwaage TS
+                    if item.row() == 32 or item.row() == 7:
+                        if self.laborauswertung_edit_table.item(32, 1).text() != "" and  self.laborauswertung_edit_table.item(7, 1).text() != "":
+                            einwaage_ts = float(self.laborauswertung_edit_table.item(32, 1).text()) * (float(self.laborauswertung_edit_table.item(7, 1).text()) / 100)
+                            self.la_changed_item_lst[r"Einwaage TS"] = str(einwaage_ts)
+                            self.laborauswertung_edit_table.setItem(33, 1, QTableWidgetItem(str(einwaage_ts)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung der Einwaage TS: [{ex}]")
+
+                try:
+                    ### Berechnug Faktor
+                    if item.row() == 33 or item.row() == 32:
+                        if self.laborauswertung_edit_table.item(33, 1).text() != "" and  self.laborauswertung_edit_table.item(32, 1).text() != "":
+                            faktor = float(self.laborauswertung_edit_table.item(33, 1).text()) / float(self.laborauswertung_edit_table.item(32, 1).text())
+                            self.la_changed_item_lst[r"Faktor"] = str(faktor)
+                            self.laborauswertung_edit_table.setItem(34, 1, QTableWidgetItem(str(faktor)))
+                except Exception as ex:
+                    raise Exception(f"Fehler bei Berechung des Faktors: [{ex}]")
 
             
             except Exception as ex:
-                STATUS_MSG.append(f"Eine Berechnung konnte nicht durchgeführt werden: [{ex}]")
+                STATUS_MSG.append(ex)
                 self.feedback_message("error", STATUS_MSG)
 
 
@@ -1573,19 +1601,32 @@ class Ui(QtWidgets.QMainWindow):
         """
 
         global STATUS_MSG, ALL_DATA_PROBE
-        ### TODO: Get value from data_item
+
+        STATUS_MSG = []
         self.la_changed_item_lst["Datum"] = self.la_date_edit.date().toString('d.M.yyyy')
         try:
+            i = 0
+            self.laborauswertung_table.insertRow(0)
+            
+            self.laborauswertung_table.setItem(0, 0, QTableWidgetItem(self.la_date_edit.date().toString('d.M.yyyy')))
+            for title, _ in ALL_DATA_PROBE[0].items():
+                self.laborauswertung_table.setItem(0, i, QTableWidgetItem(self.la_changed_item_lst[title] if title in self.la_changed_item_lst.keys() else ""))
+                i += 1
+            self.la_setColortoRow(self.laborauswertung_table, 0)
             DATABASE_HELPER.add_laborauswertung(self.la_changed_item_lst)
             STATUS_MSG = []
             self.feedback_message("success", ["Erfolgreich gespeichert"])
-            # TODO: Aktualisiere die Tabelle, und ALL DATA PROBE
+
             ALL_DATA_PROBE = DATABASE_HELPER.get_all_probes()
             
             self.la_cancel_edit()
         except Exception as ex:
             STATUS_MSG.append(f"Fehler beim Speichern: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
+    
+    def la_setColortoRow(self, table, rowIndex, color=QtGui.QColor(255, 254, 180, 127)):
+        for j in range(table.columnCount()):
+            table.item(rowIndex, j).setBackground(color)
 
     def la_edit_save(self, kennung: str, datum: str):
         """ Saves the edited Laborauswertung entry to the db

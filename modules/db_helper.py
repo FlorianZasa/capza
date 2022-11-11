@@ -74,15 +74,18 @@ class DatabaseHelper():
             cur.execute(query)
             self.conn.commit()
 
-    def edit_laborauswertung(self, data: dict, kennung:str, datum:str):
+    def edit_laborauswertung(self, data: dict, kennung: str, datum: str):
         kvs = []
         sql_str = ""
+
+        print(sql_str)
 
         for key, value in data.items():
             substr = f"[{key}] = '{value}'"
             kvs.append(substr)
 
         sql_str = ', '.join(kvs)
+        print(sql_str, kennung, datum)
 
         with self.conn:
             cur = self.conn.cursor()

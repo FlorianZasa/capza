@@ -60,6 +60,7 @@ class Ui_Dialog(object):
         self.error_lbl.setFont(font)
         self.error_lbl.setStyleSheet("")
         self.error_lbl.setWordWrap(True)
+        self.error_lbl.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.error_lbl.setObjectName("error_lbl")
         self.verticalLayout_3.addWidget(self.error_lbl, 0, QtCore.Qt.AlignTop)
         self.verticalLayout.addWidget(self.error_msg_frame)
