@@ -571,12 +571,12 @@ class Ui(QtWidgets.QMainWindow):
         toc = 0
         ec = 0
         if not SELECTED_PROBE["TOC %"] == None:
-            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))
+            toc = self.round_if_psbl(float(self.toc_lineedit.text()))
         else:
             toc = ""
 
         if not SELECTED_PROBE["EC %"] == None:
-            ec = self.round_if_psbl(float(SELECTED_PROBE["EC %"]))
+            ec = self.round_if_psbl(float(self.ec_lineedit.text()))
         else:
             ec = ""
         
@@ -676,20 +676,21 @@ class Ui(QtWidgets.QMainWindow):
             "heute": str(self.today_date_string),
             "datum": date,
             #
-            "wert": str(SELECTED_PROBE["pH-Wert"]) if SELECTED_PROBE["pH-Wert"] != None else "",
-            "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit (mS/cm)"])  if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "",
-            "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"])  if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "",
-            "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "",
-            "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "",
-            "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "",
-            "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "",
-            "tds": self.round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"] != None else "",
-            "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]) if SELECTED_PROBE["Chlorid mg/L"] != None else "",
-            "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]) if SELECTED_PROBE["Fluorid mg/L"] != None else "",
-            "feuchte": str(SELECTED_PROBE["Wassergehalt %"]) if SELECTED_PROBE["Wassergehalt %"] != None else "",
-            "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS %"]) if SELECTED_PROBE["Lipos TS %"] != None else "",
-            "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS %"]) if SELECTED_PROBE["Lipos FS %"] != None else "",
-            "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV [%]"]) if SELECTED_PROBE["GV [%]"] != None else "",
+            "wert": self.ph_lineedit.text(),
+            "leitfaehigkeit ": self.leitfaehigkeit_lineedit.text(),
+            "doc": self.round_if_psbl(float(self.doc_lineedit.text())) if self.doc_lineedit.text() != "-" else "",
+            "molybdaen": self.round_if_psbl(float(self.mo_lineedit.text())) if self.mo_lineedit.text() != "-" else "",
+
+            "selen": self.round_if_psbl(float(self.se_lineedit.text())) if self.se_lineedit.text() != "-" else "",
+            "antimon": self.round_if_psbl(float(self.sb_lineedit.text())) if self.sb_lineedit.text() != "-" else "",
+            "chrom": self.round_if_psbl(float(self.chrome_vi_lineedit.text())) if self.chrome_vi_lineedit.text() != "-" else "",
+            "tds": self.round_if_psbl(float(self.tds_lineedit.text())) if self.tds_lineedit.text() != "-" else "",
+            "chlorid": self.chlorid_lineedit.text() if self.chlorid_lineedit.text() != "-" else "",
+            "fluorid": self.fluorid_lineedit.text() if self.fluorid_lineedit.text() != "-" else "",
+            "feuchte": self.feuchte_lineedit.text() if self.feuchte_lineedit.text() != "-" else "",
+            "lipos_ts": self.round_if_psbl(float(self.lipos_ts_lineedit.text())) if self.lipos_ts_lineedit.text() != "-" else "",
+            "lipos_os": self.round_if_psbl(float(self.lipos_os_lineedit.text())) if self.lipos_os_lineedit.text() != "-" else "",
+            "gluehverlust": self.round_if_psbl(float(self.gluehverlus_lineedit.text())) if self.gluehverlus_lineedit.text() != "-" else "",
             "toc": toc,
             "ec": ec,
             "aoc": aoc,
@@ -733,7 +734,6 @@ class Ui(QtWidgets.QMainWindow):
             self.feedback_message("attention", [f"Fehler beim Erstellen der Word Datei [{ex}]"])
             STATUS_MSG.append(str(ex))
 
-    
     def autrag_load_column_view(self) -> None:
         """ Loads the Column View
         """
@@ -1071,57 +1071,109 @@ class Ui(QtWidgets.QMainWindow):
         global STATUS_MSG
 
         self.empty_values()
+        STATUS_MSG = []
+        ### in Dateneingabe
+        self.kennung_combo.setCurrentText(str(SELECTED_PROBE["Kennung_letters"]) if SELECTED_PROBE["Kennung_letters"] != None else "-")
+        self.pnr_combo.setCurrentText(str(SELECTED_PROBE["Project_yr"]) if SELECTED_PROBE["Project_yr"] != None else "-")
+
+        self.kennung_lineedit.setText(str(SELECTED_PROBE["Kennung_nr"]) if SELECTED_PROBE["Kennung_nr"] != None else "-")
+        self.project_nr_lineedit.setText(str(SELECTED_PROBE["Project_nr"]) if SELECTED_PROBE["Project_nr"] != None else "-")
+        self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
+        self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
+        self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
+        self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
+        self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
+
+        ### in Analysewerte
         try:
-            ### in Dateneingabe
-            self.kennung_combo.setCurrentText(str(SELECTED_PROBE["Kennung_letters"]) if SELECTED_PROBE["Kennung_letters"] != None else "-")
-            self.pnr_combo.setCurrentText(str(SELECTED_PROBE["Project_yr"]) if SELECTED_PROBE["Project_yr"] != None else "-")
-
-            self.kennung_lineedit.setText(str(SELECTED_PROBE["Kennung_nr"]) if SELECTED_PROBE["Kennung_nr"] != None else "-")
-            self.project_nr_lineedit.setText(str(SELECTED_PROBE["Project_nr"]) if SELECTED_PROBE["Project_nr"] != None else "-")
-            self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
-            self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
-            self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
-            self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
-            self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
-
-            ### in Analysewerte
             self.ph_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["pH-Wert"]))) if SELECTED_PROBE["pH-Wert"] != None else "-")
-            self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
-            self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
-            self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
-            self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS %"]))) if SELECTED_PROBE["Lipos TS %"] != None else "-")
-            self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS %"]))) if SELECTED_PROBE["Lipos FS %"] != None else "-")
-            self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
-            self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "-")
-            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"] != None else "-")
-            self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"] != None else "-")
-            self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
-            self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
-            self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
-            self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
-            self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))) if SELECTED_PROBE["TOC %"] != None else "-")
-            self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC %"]))) if SELECTED_PROBE["EC %"] != None else "-")
-
-            date = str(SELECTED_PROBE["Datum"]).split()[0]
-            date = date.split("-")
-            y = date[0]
-            m = date[1]
-            d = date[2]
-            self.probe_date.setDate(QDate(int(y), int(m), int(d)))
-            self.check_start_date.setDate(QDate(int(y),int(m),int(d)))
-
-            self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung"]))
-
-            ### in PNP Input
-            self.pnp_in_erzeuger_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
-            self.pnp_in_abfallart_textedit.setPlainText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])) + ", " + str(list(SELECTED_NACHWEIS["Material"])[0]) )
-
-            self.feedback_message("success", ["Probe erfolgreich geladen."])
-            self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
-            STATUS_MSG = []
         except Exception as ex:
-            STATUS_MSG.append(f"Es konnten keine Daten ermittelt werden: [{ex}]")
-            self.feedback_message("error", STATUS_MSG)
+            STATUS_MSG.append(f"Der pH-Wert kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit (mS/cm)"]))) if SELECTED_PROBE["Leitfähigkeit (mS/cm)"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Leitfähigkeitswert [mS/cm] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Wassergehalt [%] kann nicht interpretiert werden: [{ex}]")
+        
+        
+        try:
+            self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Chromwert kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS %"]))) if SELECTED_PROBE["Lipos TS %"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Lipos TS [%] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS %"]))) if SELECTED_PROBE["Lipos FS %"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Lipos OS [%] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV [%]"]))) if SELECTED_PROBE["GV [%]"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Glühverlust-Wert [%] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der DOC-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"]))) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe (mg/L)"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Wert 'TDS Gesamt gelöste Stoffe (mg/L)' kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Molybdän-Wert kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Se-Wert kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Sb-Wert kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Fluorid-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der Chlorid-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))) if SELECTED_PROBE["TOC %"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der TOC-Wert [%] kann nicht interpretiert werden: [{ex}]")
+        try:
+            self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC %"]))) if SELECTED_PROBE["EC %"] != None else "-")
+        except Exception as ex:
+            STATUS_MSG.append(f"Der EC-Wert [%] kann nicht interpretiert werden: [{ex}]")
+        
+
+        date = str(SELECTED_PROBE["Datum"]).split()[0]
+        date = date.split("-")
+        y = date[0]
+        m = date[1]
+        d = date[2]
+        self.probe_date.setDate(QDate(int(y), int(m), int(d)))
+        self.check_start_date.setDate(QDate(int(y),int(m),int(d)))
+
+        self.nachweisnr_lineedit.setText(str(SELECTED_PROBE["Kennung"]))
+
+        ### in PNP Input
+        self.pnp_in_erzeuger_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
+        self.pnp_in_abfallart_textedit.setPlainText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])) + ", " + str(list(SELECTED_NACHWEIS["Material"])[0]) )
+
+
+        if len(STATUS_MSG) > 0:
+            self.feedback_message("attention", ["Ein oder mehr Werte konnten nicht interpretiert werden."])
+        else:
+            self.feedback_message("success", ["Probe erfolgreich geladen."])
+        self.show_second_info("Gehe zu 'Analysewerte', um die Dokumente zu erstellen. >")
+            
 
 
     def show_second_info(self, msg: str) -> None:
@@ -1370,12 +1422,12 @@ class Ui(QtWidgets.QMainWindow):
                 self.laborauswertung_edit_table.setItem(rowPosition, 0, titleItem)
 
                 # Datumselect
-                date_edit = QDateEdit(self.laborauswertung_edit_table)
-                date_edit.setFont(QFont('Leelawadee UI', 11))
-                date_edit.setDate(self.get_today_qdate())
-                date_edit.dateChanged.connect(self.la_handle_item_changed)
+                self.la_date_edit = QDateEdit(self.laborauswertung_edit_table)
+                self.la_date_edit.setFont(QFont('Leelawadee UI', 11))
+                self.la_date_edit.setDate(self.get_today_qdate())
+                self.la_date_edit.dateChanged.connect(self.la_handle_item_changed)
                 # self.laborauswertung_edit_table.setItem(0, 1, QTableWidgetItem(date_edit))
-                self.laborauswertung_edit_table.setCellWidget(0, 1, date_edit)
+                self.laborauswertung_edit_table.setCellWidget(0, 1, self.la_date_edit)
 
         # Das Datum muss von Anfang an gesetzt werden
         #self.la_changed_item_lst[self.laborauswertung_edit_table.item(0, 0).text()] = self.laborauswertung_edit_table.item(0, 1).text()
@@ -1439,7 +1491,7 @@ class Ui(QtWidgets.QMainWindow):
                         self.laborauswertung_edit_table.setItem(7, 1, QTableWidgetItem(str(tds)))
                         # Wasserfaktor
                         wasserfaktor = float(self.laborauswertung_edit_table.item(4, 1).text()) / float(self.laborauswertung_edit_table.item(5, 1).text())
-                        self.la_changed_item_lst["Wasser- faktor"] = str(wasserfaktor)
+                        self.la_changed_item_lst["Wasserfaktor"] = str(wasserfaktor)
                         self.laborauswertung_edit_table.setItem(8, 1, QTableWidgetItem(str(wasserfaktor)))
 
                 ### Berechnung Wasserfaktor_getrocknet:
@@ -1467,7 +1519,7 @@ class Ui(QtWidgets.QMainWindow):
                 if item.row() == 12 or item.row() == 11:
                     if self.laborauswertung_edit_table.item(12, 1) and  self.laborauswertung_edit_table.item(11, 1):
                         lipos_frisch = float(self.laborauswertung_edit_table.item(12, 1).text()) / (float(self.laborauswertung_edit_table.item(11, 1).text()) / 100)
-                        self.la_changed_item_lst[r"% Lipos  ermittelts aus Frischsubstanz"] = str(lipos_frisch)
+                        self.la_changed_item_lst[r"% Lipos ermittelts aus Frischsubstanz"] = str(lipos_frisch)
                         self.laborauswertung_edit_table.setItem(15, 1, QTableWidgetItem(str(lipos_frisch)))
                     
                 ### Berechnung Lipos aus TS:
@@ -1521,6 +1573,8 @@ class Ui(QtWidgets.QMainWindow):
         """
 
         global STATUS_MSG, ALL_DATA_PROBE
+        ### TODO: Get value from data_item
+        self.la_changed_item_lst["Datum"] = self.la_date_edit.date().toString('d.M.yyyy')
         try:
             DATABASE_HELPER.add_laborauswertung(self.la_changed_item_lst)
             STATUS_MSG = []

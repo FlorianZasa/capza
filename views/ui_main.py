@@ -127,7 +127,7 @@ class Ui_CapZa(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("\\\\mac\\Home\\Desktop\\myBots\\capza-app\\capza\\views\\../assets/error_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.error_info_btn.setIcon(icon)
-        self.error_info_btn.setIconSize(QtCore.QSize(30, 30))
+        self.error_info_btn.setIconSize(QtCore.QSize(20, 20))
         self.error_info_btn.setAutoRepeat(False)
         self.error_info_btn.setAutoExclusive(False)
         self.error_info_btn.setAutoDefault(False)
@@ -180,6 +180,7 @@ class Ui_CapZa(object):
 "QPushButton:hover {\n"
 "    color: #AEDC21;\n"
 "    border-left: 3px solid rgb(7, 113, 78);\n"
+"font-size: 18px\n"
 "}\n"
 "\n"
 "QPushButton:checked {\n"
@@ -543,7 +544,7 @@ class Ui_CapZa(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 975, 728))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 1034, 760))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_30 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_30.setObjectName("verticalLayout_30")
@@ -558,29 +559,132 @@ class Ui_CapZa(object):
         self.horizontalLayout_6.setContentsMargins(20, 10, 10, 10)
         self.horizontalLayout_6.setSpacing(10)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.verticalLayout_41 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_41.setObjectName("verticalLayout_41")
         self.data_1 = QtWidgets.QFrame(self.groupBox_2)
         self.data_1.setStyleSheet("QFrame {\n"
-"    background: #FCFCFC;\n"
+"    background-color: rgb(204, 220, 179);\n"
 "    border-radius: 10px\n"
 "}\n"
 "\n"
 "")
         self.data_1.setObjectName("data_1")
-        self.formLayout = QtWidgets.QFormLayout(self.data_1)
-        self.formLayout.setContentsMargins(10, 10, 10, 10)
-        self.formLayout.setSpacing(10)
-        self.formLayout.setObjectName("formLayout")
-        self.label_3 = QtWidgets.QLabel(self.data_1)
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.data_1)
+        self.gridLayout_2.setContentsMargins(10, 10, 10, 10)
+        self.gridLayout_2.setHorizontalSpacing(10)
+        self.gridLayout_2.setVerticalSpacing(20)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.pnr_combo = QtWidgets.QComboBox(self.data_1)
+        self.pnr_combo.setMinimumSize(QtCore.QSize(80, 0))
         font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
+        font.setFamily("Leelawadee")
         font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("color: rgb(0, 0, 0);\n"
-"background-color: transparent;")
-        self.label_3.setObjectName("label_3")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_3)
+        self.pnr_combo.setFont(font)
+        self.pnr_combo.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: #0C5C51;\n"
+"\n"
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
+        self.pnr_combo.setObjectName("pnr_combo")
+        self.pnr_combo.addItem("")
+        self.pnr_combo.addItem("")
+        self.pnr_combo.addItem("")
+        self.pnr_combo.addItem("")
+        self.gridLayout_2.addWidget(self.pnr_combo, 1, 3, 1, 1)
+        self.kennung_combo = QtWidgets.QComboBox(self.data_1)
+        self.kennung_combo.setMinimumSize(QtCore.QSize(80, 0))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.kennung_combo.setFont(font)
+        self.kennung_combo.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: #0C5C51;\n"
+"\n"
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
+        self.kennung_combo.setObjectName("kennung_combo")
+        self.kennung_combo.addItem("")
+        self.kennung_combo.addItem("")
+        self.kennung_combo.addItem("")
+        self.kennung_combo.addItem("")
+        self.gridLayout_2.addWidget(self.kennung_combo, 0, 2, 1, 2)
+        self.line_5 = QtWidgets.QFrame(self.data_1)
+        self.line_5.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_5.setObjectName("line_5")
+        self.gridLayout_2.addWidget(self.line_5, 2, 1, 1, 5)
+        self.pnr_rb = QtWidgets.QRadioButton(self.data_1)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pnr_rb.setFont(font)
+        self.pnr_rb.setStyleSheet("background: None;")
+        self.pnr_rb.setObjectName("pnr_rb")
+        self.buttonGroup_4 = QtWidgets.QButtonGroup(CapZa)
+        self.buttonGroup_4.setObjectName("buttonGroup_4")
+        self.buttonGroup_4.addButton(self.pnr_rb)
+        self.gridLayout_2.addWidget(self.pnr_rb, 1, 0, 1, 1)
+        self.kennung_rb = QtWidgets.QRadioButton(self.data_1)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.kennung_rb.setFont(font)
+        self.kennung_rb.setStyleSheet("background: None;")
+        self.kennung_rb.setText("Nachweisnr.:")
+        self.kennung_rb.setChecked(True)
+        self.kennung_rb.setObjectName("kennung_rb")
+        self.buttonGroup_4.addButton(self.kennung_rb)
+        self.gridLayout_2.addWidget(self.kennung_rb, 0, 0, 1, 1)
+        self.kennung_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.kennung_lineedit.setMinimumSize(QtCore.QSize(100, 0))
+        self.kennung_lineedit.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.kennung_lineedit.setFont(font)
+        self.kennung_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
+"\n"
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
+        self.kennung_lineedit.setClearButtonEnabled(True)
+        self.kennung_lineedit.setObjectName("kennung_lineedit")
+        self.gridLayout_2.addWidget(self.kennung_lineedit, 0, 5, 1, 1)
         self.project_nr_lineedit = QtWidgets.QLineEdit(self.data_1)
         self.project_nr_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
@@ -601,9 +705,53 @@ class Ui_CapZa(object):
 "    background-color: rgb(255, 253, 219);\n"
 "    border: 1px solid black\n"
 "}")
+        self.project_nr_lineedit.setInputMask("")
+        self.project_nr_lineedit.setClearButtonEnabled(True)
         self.project_nr_lineedit.setObjectName("project_nr_lineedit")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.project_nr_lineedit)
-        self.label_6 = QtWidgets.QLabel(self.data_1)
+        self.gridLayout_2.addWidget(self.project_nr_lineedit, 1, 5, 1, 1)
+        self.label_72 = QtWidgets.QLabel(self.data_1)
+        self.label_72.setObjectName("label_72")
+        self.gridLayout_2.addWidget(self.label_72, 1, 4, 1, 1)
+        self.verticalLayout_41.addWidget(self.data_1)
+        self.horizontalFrame = QtWidgets.QFrame(self.groupBox_2)
+        self.horizontalFrame.setObjectName("horizontalFrame")
+        self.horizontalLayout_44 = QtWidgets.QHBoxLayout(self.horizontalFrame)
+        self.horizontalLayout_44.setContentsMargins(10, 10, 10, 10)
+        self.horizontalLayout_44.setSpacing(10)
+        self.horizontalLayout_44.setObjectName("horizontalLayout_44")
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_44.addItem(spacerItem6)
+        self.search_manually_btn = QtWidgets.QPushButton(self.horizontalFrame)
+        self.search_manually_btn.setMinimumSize(QtCore.QSize(100, 30))
+        self.search_manually_btn.setMaximumSize(QtCore.QSize(100, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee")
+        font.setPointSize(11)
+        self.search_manually_btn.setFont(font)
+        self.search_manually_btn.setObjectName("search_manually_btn")
+        self.horizontalLayout_44.addWidget(self.search_manually_btn)
+        self.verticalLayout_41.addWidget(self.horizontalFrame)
+        self.line_2 = QtWidgets.QFrame(self.groupBox_2)
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.verticalLayout_41.addWidget(self.line_2)
+        self.data_1_2 = QtWidgets.QFrame(self.groupBox_2)
+        self.data_1_2.setStyleSheet("QFrame {\n"
+"    background: #FCFCFC;\n"
+"    border-radius: 10px\n"
+"}\n"
+"\n"
+"")
+        self.data_1_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.data_1_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.data_1_2.setObjectName("data_1_2")
+        self.formLayout_2 = QtWidgets.QFormLayout(self.data_1_2)
+        self.formLayout_2.setContentsMargins(10, 10, 10, 10)
+        self.formLayout_2.setHorizontalSpacing(10)
+        self.formLayout_2.setVerticalSpacing(20)
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.label_6 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -613,8 +761,8 @@ class Ui_CapZa(object):
         self.label_6.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_6.setObjectName("label_6")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.name_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_6)
+        self.name_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.name_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -634,9 +782,10 @@ class Ui_CapZa(object):
 "    background-color: rgb(201, 203, 168);\n"
 "    border: 1px solid black\n"
 "}")
+        self.name_lineedit.setReadOnly(True)
         self.name_lineedit.setObjectName("name_lineedit")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.name_lineedit)
-        self.label_9 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.name_lineedit)
+        self.label_9 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -646,8 +795,8 @@ class Ui_CapZa(object):
         self.label_9.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_9.setObjectName("label_9")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_9)
-        self.person_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_9)
+        self.person_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.person_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -667,9 +816,10 @@ class Ui_CapZa(object):
 "    background-color: rgb(201, 203, 168);\n"
 "    border: 1px solid black\n"
 "}")
+        self.person_lineedit.setReadOnly(True)
         self.person_lineedit.setObjectName("person_lineedit")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.person_lineedit)
-        self.label_10 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.person_lineedit)
+        self.label_10 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -679,8 +829,8 @@ class Ui_CapZa(object):
         self.label_10.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_10.setObjectName("label_10")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_10)
-        self.location_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_10)
+        self.location_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.location_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -700,9 +850,10 @@ class Ui_CapZa(object):
 "    background-color: rgb(201, 203, 168);\n"
 "    border: 1px solid black\n"
 "}")
+        self.location_lineedit.setReadOnly(True)
         self.location_lineedit.setObjectName("location_lineedit")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.location_lineedit)
-        self.label_11 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.location_lineedit)
+        self.label_11 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -712,8 +863,8 @@ class Ui_CapZa(object):
         self.label_11.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_11.setObjectName("label_11")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_11)
-        self.avv_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_11)
+        self.avv_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.avv_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -733,9 +884,10 @@ class Ui_CapZa(object):
 "    background-color: rgb(201, 203, 168);\n"
 "    border: 1px solid black\n"
 "}")
+        self.avv_lineedit.setReadOnly(True)
         self.avv_lineedit.setObjectName("avv_lineedit")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.avv_lineedit)
-        self.label_12 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.avv_lineedit)
+        self.label_12 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -745,8 +897,8 @@ class Ui_CapZa(object):
         self.label_12.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_12.setObjectName("label_12")
-        self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_12)
-        self.amount_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_12)
+        self.amount_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.amount_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -766,9 +918,10 @@ class Ui_CapZa(object):
 "    background-color: rgb(201, 203, 168);\n"
 "    border: 1px solid black\n"
 "}")
+        self.amount_lineedit.setReadOnly(True)
         self.amount_lineedit.setObjectName("amount_lineedit")
-        self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.amount_lineedit)
-        self.label_13 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.amount_lineedit)
+        self.label_13 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -778,8 +931,8 @@ class Ui_CapZa(object):
         self.label_13.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_13.setObjectName("label_13")
-        self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_13)
-        self.probe_amount_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_13)
+        self.probe_amount_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.probe_amount_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -800,18 +953,8 @@ class Ui_CapZa(object):
 "    border: 1px solid black\n"
 "}")
         self.probe_amount_lineedit.setObjectName("probe_amount_lineedit")
-        self.formLayout.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.probe_amount_lineedit)
-        self.line_5 = QtWidgets.QFrame(self.data_1)
-        self.line_5.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_5.setObjectName("line_5")
-        self.formLayout.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.line_5)
-        self.line_2 = QtWidgets.QFrame(self.data_1)
-        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_2.setObjectName("line_2")
-        self.formLayout.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.line_2)
-        self.label_14 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.probe_amount_lineedit)
+        self.label_14 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
@@ -821,95 +964,8 @@ class Ui_CapZa(object):
         self.label_14.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
         self.label_14.setObjectName("label_14")
-        self.formLayout.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_14)
-        self.label_15 = QtWidgets.QLabel(self.data_1)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_15.setFont(font)
-        self.label_15.setStyleSheet("color: rgb(0, 0, 0);\n"
-"background-color: transparent;")
-        self.label_15.setObjectName("label_15")
-        self.formLayout.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.label_15)
-        self.consistency_lineedit = QtWidgets.QLineEdit(self.data_1)
-        self.consistency_lineedit.setMinimumSize(QtCore.QSize(200, 0))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.consistency_lineedit.setFont(font)
-        self.consistency_lineedit.setStyleSheet("QLineEdit {\n"
-"    background-color: rgb(255, 255, 255);\n"
-"    color: rgb(0, 0, 0);\n"
-"\n"
-"    border: 1px solid #C7C7C7;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"\n"
-"QLineEdit:focus {\n"
-"    \n"
-"    background-color: rgb(255, 253, 219);\n"
-"    border: 1px solid black\n"
-"}")
-        self.consistency_lineedit.setObjectName("consistency_lineedit")
-        self.formLayout.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.consistency_lineedit)
-        self.label_16 = QtWidgets.QLabel(self.data_1)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_16.setFont(font)
-        self.label_16.setStyleSheet("color: rgb(0, 0, 0);\n"
-"background-color: transparent;")
-        self.label_16.setObjectName("label_16")
-        self.formLayout.setWidget(11, QtWidgets.QFormLayout.LabelRole, self.label_16)
-        self.smell_lineedit = QtWidgets.QLineEdit(self.data_1)
-        self.smell_lineedit.setMinimumSize(QtCore.QSize(200, 0))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.smell_lineedit.setFont(font)
-        self.smell_lineedit.setStyleSheet("QLineEdit {\n"
-"    background-color: rgb(255, 255, 255);\n"
-"    color: rgb(0, 0, 0);\n"
-"\n"
-"    border: 1px solid #C7C7C7;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"\n"
-"QLineEdit:focus {\n"
-"    \n"
-"    background-color: rgb(255, 253, 219);\n"
-"    border: 1px solid black\n"
-"}")
-        self.smell_lineedit.setObjectName("smell_lineedit")
-        self.formLayout.setWidget(11, QtWidgets.QFormLayout.FieldRole, self.smell_lineedit)
-        self.label_17 = QtWidgets.QLabel(self.data_1)
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_17.setFont(font)
-        self.label_17.setStyleSheet("color: rgb(0, 0, 0);\n"
-"background-color: transparent;")
-        self.label_17.setObjectName("label_17")
-        self.formLayout.setWidget(12, QtWidgets.QFormLayout.LabelRole, self.label_17)
-        self.remark_textedit = QtWidgets.QTextEdit(self.data_1)
-        self.remark_textedit.setMinimumSize(QtCore.QSize(200, 0))
-        self.remark_textedit.setMaximumSize(QtCore.QSize(16777215, 100))
-        font = QtGui.QFont()
-        font.setFamily("Leelawadee UI")
-        font.setPointSize(11)
-        self.remark_textedit.setFont(font)
-        self.remark_textedit.setStyleSheet("QTextEdit {\\n    background-color: rgb(255, 255, 255);\\n    color: rgb(0, 0, 0);\\n\\n    border: 1px solid #C7C7C7;\\n    border-radius: 10px;\\n}\\n\\n\\nQTextEdit:focus {\\n    \\n    background-color: rgb(255, 253, 219);\\n    border: 1px solid black\\n}")
-        self.remark_textedit.setObjectName("remark_textedit")
-        self.formLayout.setWidget(12, QtWidgets.QFormLayout.FieldRole, self.remark_textedit)
-        self.color_lineedit = QtWidgets.QLineEdit(self.data_1)
+        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_14)
+        self.color_lineedit = QtWidgets.QLineEdit(self.data_1_2)
         self.color_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -930,25 +986,25 @@ class Ui_CapZa(object):
 "    border: 1px solid black\n"
 "}")
         self.color_lineedit.setObjectName("color_lineedit")
-        self.formLayout.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.color_lineedit)
-        self.label_8 = QtWidgets.QLabel(self.data_1)
+        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.color_lineedit)
+        self.label_15 = QtWidgets.QLabel(self.data_1_2)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
-        self.label_8.setFont(font)
-        self.label_8.setStyleSheet("color: rgb(0, 0, 0);\n"
+        self.label_15.setFont(font)
+        self.label_15.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: transparent;")
-        self.label_8.setObjectName("label_8")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_8)
-        self.kennung_lineedit = QtWidgets.QLineEdit(self.data_1)
-        self.kennung_lineedit.setMinimumSize(QtCore.QSize(200, 0))
+        self.label_15.setObjectName("label_15")
+        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_15)
+        self.consistency_lineedit = QtWidgets.QLineEdit(self.data_1_2)
+        self.consistency_lineedit.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(11)
-        self.kennung_lineedit.setFont(font)
-        self.kennung_lineedit.setStyleSheet("QLineEdit {\n"
+        self.consistency_lineedit.setFont(font)
+        self.consistency_lineedit.setStyleSheet("QLineEdit {\n"
 "    background-color: rgb(255, 255, 255);\n"
 "    color: rgb(0, 0, 0);\n"
 "\n"
@@ -962,11 +1018,65 @@ class Ui_CapZa(object):
 "    background-color: rgb(255, 253, 219);\n"
 "    border: 1px solid black\n"
 "}")
-        self.kennung_lineedit.setObjectName("kennung_lineedit")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.kennung_lineedit)
-        self.horizontalLayout_6.addWidget(self.data_1)
-        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem6)
+        self.consistency_lineedit.setObjectName("consistency_lineedit")
+        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.consistency_lineedit)
+        self.label_16 = QtWidgets.QLabel(self.data_1_2)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_16.setFont(font)
+        self.label_16.setStyleSheet("color: rgb(0, 0, 0);\n"
+"background-color: transparent;")
+        self.label_16.setObjectName("label_16")
+        self.formLayout_2.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.label_16)
+        self.smell_lineedit = QtWidgets.QLineEdit(self.data_1_2)
+        self.smell_lineedit.setMinimumSize(QtCore.QSize(200, 0))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.smell_lineedit.setFont(font)
+        self.smell_lineedit.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(0, 0, 0);\n"
+"\n"
+"    border: 1px solid #C7C7C7;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit:focus {\n"
+"    \n"
+"    background-color: rgb(255, 253, 219);\n"
+"    border: 1px solid black\n"
+"}")
+        self.smell_lineedit.setObjectName("smell_lineedit")
+        self.formLayout_2.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.smell_lineedit)
+        self.label_17 = QtWidgets.QLabel(self.data_1_2)
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_17.setFont(font)
+        self.label_17.setStyleSheet("color: rgb(0, 0, 0);\n"
+"background-color: transparent;")
+        self.label_17.setObjectName("label_17")
+        self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_17)
+        self.remark_textedit = QtWidgets.QTextEdit(self.data_1_2)
+        self.remark_textedit.setMinimumSize(QtCore.QSize(200, 0))
+        self.remark_textedit.setMaximumSize(QtCore.QSize(16777215, 100))
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI")
+        font.setPointSize(11)
+        self.remark_textedit.setFont(font)
+        self.remark_textedit.setStyleSheet("QTextEdit {background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);border: 1px solid #C7C7C7;border-radius: 10px;}\n"
+"QTextEdit:focus {background-color: rgb(255, 253, 219);border: 1px solid black\\n}")
+        self.remark_textedit.setObjectName("remark_textedit")
+        self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.remark_textedit)
+        self.verticalLayout_41.addWidget(self.data_1_2)
+        self.horizontalLayout_6.addLayout(self.verticalLayout_41)
         self.data_2 = QtWidgets.QFrame(self.groupBox_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -1478,7 +1588,7 @@ class Ui_CapZa(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 446, 780))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 958, 780))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
@@ -1884,6 +1994,7 @@ class Ui_CapZa(object):
 "\n"
 "border: 1px solid #C7C7C7;\n"
 "border-radius: 10px;")
+        self.nh3_lineedit.setReadOnly(True)
         self.nh3_lineedit.setObjectName("nh3_lineedit")
         self.formLayout_5.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.nh3_lineedit)
         self.label_41 = QtWidgets.QLabel(self.analysis_f2)
@@ -1906,6 +2017,7 @@ class Ui_CapZa(object):
 "\n"
 "border: 1px solid #C7C7C7;\n"
 "border-radius: 10px;")
+        self.h2_lineedit.setReadOnly(True)
         self.h2_lineedit.setObjectName("h2_lineedit")
         self.formLayout_5.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.h2_lineedit)
         self.label_84 = QtWidgets.QLabel(self.analysis_f2)
@@ -1928,6 +2040,7 @@ class Ui_CapZa(object):
 "\n"
 "border: 1px solid #C7C7C7;\n"
 "border-radius: 10px;")
+        self.analysis_brandtest_lineedit.setReadOnly(True)
         self.analysis_brandtest_lineedit.setObjectName("analysis_brandtest_lineedit")
         self.formLayout_5.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.analysis_brandtest_lineedit)
         self.horizontalLayout_11.addWidget(self.analysis_f2)
@@ -3295,7 +3408,7 @@ class Ui_CapZa(object):
         self.scrollArea_5.setWidgetResizable(True)
         self.scrollArea_5.setObjectName("scrollArea_5")
         self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 69, 69))
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 83, 69))
         self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
         self.verticalLayout_36 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_5)
         self.verticalLayout_36.setContentsMargins(0, 0, 0, 0)
@@ -3640,12 +3753,12 @@ class Ui_CapZa(object):
         self.choose_save_bericht_path.setObjectName("choose_save_bericht_path")
         self.horizontalLayout_20.addWidget(self.choose_save_bericht_path)
         self.verticalLayout_37.addWidget(self.frame16)
-        self.horizontalFrame = QtWidgets.QFrame(self.scrollAreaWidgetContents_6)
-        self.horizontalFrame.setObjectName("horizontalFrame")
-        self.horizontalLayout_35 = QtWidgets.QHBoxLayout(self.horizontalFrame)
+        self.horizontalFrame1 = QtWidgets.QFrame(self.scrollAreaWidgetContents_6)
+        self.horizontalFrame1.setObjectName("horizontalFrame1")
+        self.horizontalLayout_35 = QtWidgets.QHBoxLayout(self.horizontalFrame1)
         self.horizontalLayout_35.setContentsMargins(9, 9, 9, 9)
         self.horizontalLayout_35.setObjectName("horizontalLayout_35")
-        self.label_2 = QtWidgets.QLabel(self.horizontalFrame)
+        self.label_2 = QtWidgets.QLabel(self.horizontalFrame1)
         font = QtGui.QFont()
         font.setFamily("Leelawadee")
         font.setPointSize(11)
@@ -3656,7 +3769,7 @@ class Ui_CapZa(object):
 "")
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_35.addWidget(self.label_2)
-        self.db_path = QtWidgets.QLineEdit(self.horizontalFrame)
+        self.db_path = QtWidgets.QLineEdit(self.horizontalFrame1)
         font = QtGui.QFont()
         font.setFamily("Leelawadee")
         font.setPointSize(11)
@@ -3667,7 +3780,7 @@ class Ui_CapZa(object):
 "border-radius: 10px;")
         self.db_path.setObjectName("db_path")
         self.horizontalLayout_35.addWidget(self.db_path)
-        self.choose_db_path_btn = QtWidgets.QToolButton(self.horizontalFrame)
+        self.choose_db_path_btn = QtWidgets.QToolButton(self.horizontalFrame1)
         self.choose_db_path_btn.setMinimumSize(QtCore.QSize(50, 30))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
@@ -3695,7 +3808,7 @@ class Ui_CapZa(object):
 "")
         self.choose_db_path_btn.setObjectName("choose_db_path_btn")
         self.horizontalLayout_35.addWidget(self.choose_db_path_btn)
-        self.verticalLayout_37.addWidget(self.horizontalFrame)
+        self.verticalLayout_37.addWidget(self.horizontalFrame1)
         spacerItem29 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.verticalLayout_37.addItem(spacerItem29)
         self.groupBox_7 = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_6)
@@ -4114,18 +4227,28 @@ class Ui_CapZa(object):
         self.select_probe_btn.setToolTip(_translate("CapZa", "<html><head/><body><p>Wähle die exakte Probe aus</p></body></html>"))
         self.select_probe_btn.setText(_translate("CapZa", "Probe auswählen"))
         self.groupBox_2.setTitle(_translate("CapZa", "Daten erfassen"))
-        self.label_3.setText(_translate("CapZa", "Projekt Nr.:"))
+        self.pnr_combo.setItemText(0, _translate("CapZa", "-"))
+        self.pnr_combo.setItemText(1, _translate("CapZa", "22"))
+        self.pnr_combo.setItemText(2, _translate("CapZa", "21"))
+        self.pnr_combo.setItemText(3, _translate("CapZa", "20"))
+        self.kennung_combo.setItemText(0, _translate("CapZa", "-"))
+        self.kennung_combo.setItemText(1, _translate("CapZa", "ENE"))
+        self.kennung_combo.setItemText(2, _translate("CapZa", "VNE"))
+        self.kennung_combo.setItemText(3, _translate("CapZa", "NL"))
+        self.pnr_rb.setText(_translate("CapZa", "Projekt Nr.:"))
+        self.label_72.setText(_translate("CapZa", "-"))
+        self.search_manually_btn.setToolTip(_translate("CapZa", "<html><head/><body><p>Suche geziehlt nach einer manuell eingetragenen Kennung <span style=\" font-weight:600; text-decoration: underline;\">oder </span>Projektnummer</p></body></html>"))
+        self.search_manually_btn.setText(_translate("CapZa", "Suchen"))
         self.label_6.setText(_translate("CapZa", "Bezeichnung:"))
         self.label_9.setText(_translate("CapZa", "Erzeuger:"))
         self.label_10.setText(_translate("CapZa", "Herkunft/Ort:"))
         self.label_11.setText(_translate("CapZa", "AVV:"))
-        self.label_12.setText(_translate("CapZa", "Menge [t]:"))
+        self.label_12.setText(_translate("CapZa", "Menge [t/a]:"))
         self.label_13.setText(_translate("CapZa", "Prüfumfang:"))
         self.label_14.setText(_translate("CapZa", "Farbe:"))
         self.label_15.setText(_translate("CapZa", "Konsistenz:"))
         self.label_16.setText(_translate("CapZa", "Geruch:"))
         self.label_17.setText(_translate("CapZa", "Bemerkungen:"))
-        self.label_8.setText(_translate("CapZa", "Kennung:"))
         self.label_18.setStyleSheet(_translate("CapZa", "background-color: none;color: black"))
         self.label_18.setText(_translate("CapZa", "Prüfauftrag:"))
         self.id_check_2.setText(_translate("CapZa", "ID"))
@@ -4171,23 +4294,23 @@ class Ui_CapZa(object):
         self.fremdanalysis_check.setText(_translate("CapZa", "Fremdanalyse"))
         self.horizontalGroupBox_6.setTitle(_translate("CapZa", "Analysewerte, welche aus der Laborliste übernommen werden"))
         self.label_26.setText(_translate("CapZa", "pH:"))
-        self.label_27.setText(_translate("CapZa", "Leitfähigkeit:"))
-        self.label_28.setText(_translate("CapZa", "Feuchte:"))
-        self.label_29.setText(_translate("CapZa", "Chrom VI:"))
-        self.label_30.setText(_translate("CapZa", "Lipos TS:"))
-        self.label_31.setText(_translate("CapZa", "Lipso OS:"))
-        self.label_32.setText(_translate("CapZa", "Glühverlust:"))
-        self.label_33.setText(_translate("CapZa", "DOC:"))
-        self.label_34.setText(_translate("CapZa", "TDS:"))
-        self.label_35.setText(_translate("CapZa", "Mo:"))
-        self.label_36.setText(_translate("CapZa", "Se:"))
-        self.label_37.setText(_translate("CapZa", "Sb:"))
-        self.label_38.setText(_translate("CapZa", "Fluorid:"))
-        self.label_39.setText(_translate("CapZa", "Chlorid:"))
-        self.label_42.setText(_translate("CapZa", "TOC:"))
-        self.label_43.setText(_translate("CapZa", "EC:"))
-        self.label_40.setText(_translate("CapZa", "NH3:"))
-        self.label_41.setText(_translate("CapZa", "H2:"))
+        self.label_27.setText(_translate("CapZa", "Leitfähigkeit [mS/cm]:"))
+        self.label_28.setText(_translate("CapZa", "Feuchte [%]:"))
+        self.label_29.setText(_translate("CapZa", "Chrom VI [mg/L TS]:"))
+        self.label_30.setText(_translate("CapZa", "Lipos TS [%]:"))
+        self.label_31.setText(_translate("CapZa", "Lipso OS [%]:"))
+        self.label_32.setText(_translate("CapZa", "Glühverlust [%]:"))
+        self.label_33.setText(_translate("CapZa", "DOC [mg/L TS]:"))
+        self.label_34.setText(_translate("CapZa", "TDS [mg/L TS]:"))
+        self.label_35.setText(_translate("CapZa", "Mo [mg/L TS]:"))
+        self.label_36.setText(_translate("CapZa", "Se [mg/L TS]:"))
+        self.label_37.setText(_translate("CapZa", "Sb [mg/L TS]:"))
+        self.label_38.setText(_translate("CapZa", "Fluorid [mg/L]:"))
+        self.label_39.setText(_translate("CapZa", "Chlorid [mg/L]:"))
+        self.label_42.setText(_translate("CapZa", "TOC [%]:"))
+        self.label_43.setText(_translate("CapZa", "EC [%]:"))
+        self.label_40.setText(_translate("CapZa", "NH3 [ppm]:"))
+        self.label_41.setText(_translate("CapZa", "H2 [ppm]:"))
         self.label_84.setText(_translate("CapZa", "Brandtest:"))
         self.migrate_btn.setToolTip(_translate("CapZa", "<html><head/><body><p>Migriere die eingesetzten Daten zu einem gültigenWord Dokument</p></body></html>"))
         self.migrate_btn.setText(_translate("CapZa", "Bericht erstellen"))

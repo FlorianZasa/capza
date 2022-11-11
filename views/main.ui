@@ -399,10 +399,10 @@ font-size: 18px
 QPushButton:checked {
 	background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(68, 248, 18, 255), stop:1 rgba(255, 255, 255, 0));
 	color: rgb(12, 92, 81);
-border-radius: 5px;
-border-left: 5px solid rgb(7, 113, 78);
-font-size: 22px;
-text-align: center;
+border-radius:1px;
+	border-left: 10px solid rgb(7, 113, 78);
+	font-size: 22px;
+	text-align: center;
 }
 
 QPushButton:pressed {
@@ -1189,8 +1189,8 @@ border-radius: 50%;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1034</width>
-                 <height>760</height>
+                 <width>975</width>
+                 <height>728</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_30">
@@ -1236,7 +1236,7 @@ border-radius: 50%;
 
 </string>
                        </property>
-                       <layout class="QGridLayout" name="gridLayout_2">
+                       <layout class="QGridLayout" name="gridLayout_5">
                         <property name="leftMargin">
                          <number>10</number>
                         </property>
@@ -1249,17 +1249,14 @@ border-radius: 50%;
                         <property name="bottomMargin">
                          <number>10</number>
                         </property>
-                        <property name="horizontalSpacing">
+                        <property name="spacing">
                          <number>10</number>
                         </property>
-                        <property name="verticalSpacing">
-                         <number>20</number>
-                        </property>
-                        <item row="1" column="3">
-                         <widget class="QComboBox" name="pnr_combo">
+                        <item row="0" column="0">
+                         <widget class="QRadioButton" name="kennung_rb">
                           <property name="minimumSize">
                            <size>
-                            <width>80</width>
+                            <width>0</width>
                             <height>0</height>
                            </size>
                           </property>
@@ -1272,49 +1269,78 @@ border-radius: 50%;
                            </font>
                           </property>
                           <property name="styleSheet">
-                           <string notr="true">QComboBox {
+                           <string notr="true">background: None;</string>
+                          </property>
+                          <property name="text">
+                           <string notr="true">Nachweisnr.:</string>
+                          </property>
+                          <property name="checked">
+                           <bool>true</bool>
+                          </property>
+                          <attribute name="buttonGroup">
+                           <string notr="true">buttonGroup_4</string>
+                          </attribute>
+                         </widget>
+                        </item>
+                        <item row="0" column="2">
+                         <widget class="QLineEdit" name="kennung_lineedit">
+                          <property name="minimumSize">
+                           <size>
+                            <width>100</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee UI</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
 	background-color: rgb(255, 255, 255);
-	color: #0C5C51;
+	color: rgb(0, 0, 0);
 
 	border: 1px solid #C7C7C7;
 	border-radius: 10px;
 }
 
 
-QComboBox:focus {
+QLineEdit:focus {
 	
 	background-color: rgb(255, 253, 219);
 	border: 1px solid black
 }</string>
                           </property>
-                          <item>
-                           <property name="text">
-                            <string>-</string>
-                           </property>
-                          </item>
-                          <item>
-                           <property name="text">
-                            <string>22</string>
-                           </property>
-                          </item>
-                          <item>
-                           <property name="text">
-                            <string>21</string>
-                           </property>
-                          </item>
-                          <item>
-                           <property name="text">
-                            <string>20</string>
-                           </property>
-                          </item>
+                          <property name="clearButtonEnabled">
+                           <bool>true</bool>
+                          </property>
                          </widget>
                         </item>
-                        <item row="0" column="2" colspan="2">
+                        <item row="0" column="1">
                          <widget class="QComboBox" name="kennung_combo">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
                           <property name="minimumSize">
                            <size>
                             <width>80</width>
                             <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>80</width>
+                            <height>16777215</height>
                            </size>
                           </property>
                           <property name="font">
@@ -1363,15 +1389,14 @@ QComboBox:focus {
                           </item>
                          </widget>
                         </item>
-                        <item row="2" column="1" colspan="5">
-                         <widget class="Line" name="line_5">
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                        </item>
                         <item row="1" column="0">
                          <widget class="QRadioButton" name="pnr_rb">
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
                           <property name="font">
                            <font>
                             <family>Leelawadee</family>
@@ -1379,6 +1404,9 @@ QComboBox:focus {
                             <weight>75</weight>
                             <bold>true</bold>
                            </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background: None;</string>
                           </property>
                           <property name="text">
                            <string>Projekt Nr.:</string>
@@ -1388,8 +1416,20 @@ QComboBox:focus {
                           </attribute>
                          </widget>
                         </item>
-                        <item row="0" column="0">
-                         <widget class="QRadioButton" name="kennung_rb">
+                        <item row="1" column="1">
+                         <widget class="QComboBox" name="pnr_combo">
+                          <property name="minimumSize">
+                           <size>
+                            <width>80</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>80</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
                           <property name="font">
                            <font>
                             <family>Leelawadee</family>
@@ -1398,63 +1438,49 @@ QComboBox:focus {
                             <bold>true</bold>
                            </font>
                           </property>
-                          <property name="text">
-                           <string notr="true">Nachweisnr.:</string>
-                          </property>
-                          <property name="checked">
-                           <bool>true</bool>
-                          </property>
-                          <attribute name="buttonGroup">
-                           <string notr="true">buttonGroup_4</string>
-                          </attribute>
-                         </widget>
-                        </item>
-                        <item row="0" column="5">
-                         <widget class="QLineEdit" name="kennung_lineedit">
-                          <property name="minimumSize">
-                           <size>
-                            <width>100</width>
-                            <height>0</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>16777215</width>
-                            <height>16777215</height>
-                           </size>
-                          </property>
-                          <property name="font">
-                           <font>
-                            <family>Leelawadee UI</family>
-                            <pointsize>11</pointsize>
-                           </font>
-                          </property>
                           <property name="styleSheet">
-                           <string notr="true">QLineEdit {
+                           <string notr="true">QComboBox {
 	background-color: rgb(255, 255, 255);
-	color: rgb(0, 0, 0);
+	color: #0C5C51;
 
 	border: 1px solid #C7C7C7;
 	border-radius: 10px;
 }
 
 
-QLineEdit:focus {
+QComboBox:focus {
 	
 	background-color: rgb(255, 253, 219);
 	border: 1px solid black
-}</string>
+}}</string>
                           </property>
-                          <property name="clearButtonEnabled">
-                           <bool>true</bool>
-                          </property>
+                          <item>
+                           <property name="text">
+                            <string>-</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>22</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>21</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>20</string>
+                           </property>
+                          </item>
                          </widget>
                         </item>
-                        <item row="1" column="5">
+                        <item row="1" column="2">
                          <widget class="QLineEdit" name="project_nr_lineedit">
                           <property name="minimumSize">
                            <size>
-                            <width>200</width>
+                            <width>100</width>
                             <height>0</height>
                            </size>
                           </property>
@@ -1485,13 +1511,6 @@ QLineEdit:focus {
                           </property>
                           <property name="clearButtonEnabled">
                            <bool>true</bool>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="4">
-                         <widget class="QLabel" name="label_72">
-                          <property name="text">
-                           <string>-</string>
                           </property>
                          </widget>
                         </item>
@@ -1833,7 +1852,7 @@ QLineEdit:focus {
 background-color: transparent;</string>
                           </property>
                           <property name="text">
-                           <string>Menge [t]:</string>
+                           <string>Menge [t/a]:</string>
                           </property>
                          </widget>
                         </item>
@@ -3119,7 +3138,7 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>446</width>
+                 <width>958</width>
                  <height>780</height>
                 </rect>
                </property>
@@ -3211,7 +3230,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Leitfähigkeit:</string>
+                         <string>Leitfähigkeit [mS/cm]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3229,7 +3248,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Feuchte:</string>
+                         <string>Feuchte [%]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3247,7 +3266,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Chrom VI:</string>
+                         <string>Chrom VI [mg/L TS]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3265,7 +3284,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Lipos TS:</string>
+                         <string>Lipos TS [%]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3283,7 +3302,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Lipso OS:</string>
+                         <string>Lipso OS [%]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3301,7 +3320,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Glühverlust:</string>
+                         <string>Glühverlust [%]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3319,7 +3338,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>DOC:</string>
+                         <string>DOC [mg/L TS]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3337,7 +3356,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>TDS:</string>
+                         <string>TDS [mg/L TS]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3536,7 +3555,7 @@ border-radius: 10px</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Mo:</string>
+                         <string>Mo [mg/L TS]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3571,7 +3590,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Se:</string>
+                         <string>Se [mg/L TS]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3606,7 +3625,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Sb:</string>
+                         <string>Sb [mg/L TS]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3641,7 +3660,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Fluorid:</string>
+                         <string>Fluorid [mg/L]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3676,7 +3695,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>Chlorid:</string>
+                         <string>Chlorid [mg/L]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3711,7 +3730,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>TOC:</string>
+                         <string>TOC [%]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3746,7 +3765,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>EC:</string>
+                         <string>EC [%]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3781,7 +3800,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>NH3:</string>
+                         <string>NH3 [ppm]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3800,6 +3819,9 @@ color: rgb(0, 0, 0);
 border: 1px solid #C7C7C7;
 border-radius: 10px;</string>
                         </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
+                        </property>
                        </widget>
                       </item>
                       <item row="8" column="0">
@@ -3816,7 +3838,7 @@ border-radius: 10px;</string>
                          <string notr="true">background-color: transparent</string>
                         </property>
                         <property name="text">
-                         <string>H2:</string>
+                         <string>H2 [ppm]:</string>
                         </property>
                        </widget>
                       </item>
@@ -3834,6 +3856,9 @@ color: rgb(0, 0, 0);
 
 border: 1px solid #C7C7C7;
 border-radius: 10px;</string>
+                        </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -3869,6 +3894,9 @@ color: rgb(0, 0, 0);
 
 border: 1px solid #C7C7C7;
 border-radius: 10px;</string>
+                        </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -4070,7 +4098,7 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>710</width>
+                 <width>976</width>
                  <height>1202</height>
                 </rect>
                </property>
@@ -6509,8 +6537,8 @@ border-radius: 10px;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>69</width>
-                          <height>69</height>
+                          <width>905</width>
+                          <height>338</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -6687,58 +6715,6 @@ color: white
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_25">
             <item>
-             <widget class="QLabel" name="info_label_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>70</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>70</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Leelawadee UI</family>
-                <pointsize>11</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgba(255, 155, 14, 50);border-radius:10px</string>
-              </property>
-              <property name="text">
-               <string>Diese Seite befindet sich in Bearbeitung.</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Preferred</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>10</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
              <widget class="QFrame" name="verticalFrame">
               <property name="styleSheet">
                <string notr="true">background: #FCFCFC;
@@ -6746,7 +6722,7 @@ border-radius: 10px</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_26">
                <property name="spacing">
-                <number>50</number>
+                <number>20</number>
                </property>
                <property name="leftMargin">
                 <number>10</number>
@@ -6805,11 +6781,17 @@ border-radius: 10px</string>
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>464</width>
-                    <height>559</height>
+                    <width>957</width>
+                    <height>712</height>
                    </rect>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(255, 255, 255);</string>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_37">
+                   <property name="topMargin">
+                    <number>10</number>
+                   </property>
                    <item>
                     <widget class="QPushButton" name="clear_cache_btn">
                      <property name="sizePolicy">
@@ -6861,18 +6843,42 @@ color: black;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QFrame" name="frame">
-                     <layout class="QHBoxLayout" name="horizontalLayout_24">
-                      <property name="spacing">
-                       <number>20</number>
+                    <widget class="QFrame" name="frame_5">
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_3">
+                      <property name="leftMargin">
+                       <number>10</number>
                       </property>
-                      <item>
+                      <property name="topMargin">
+                       <number>10</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>10</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>10</number>
+                      </property>
+                      <property name="spacing">
+                       <number>10</number>
+                      </property>
+                      <item row="0" column="0">
                        <widget class="QLabel" name="label_85">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>300</width>
+                          <height>0</height>
+                         </size>
                         </property>
                         <property name="font">
                          <font>
@@ -6889,10 +6895,13 @@ color: black;
                         <property name="text">
                          <string>Pfad zu Excel Projektnummern:</string>
                         </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
                        </widget>
                       </item>
-                      <item>
-                       <widget class="QLineEdit" name="project_nr_path">
+                      <item row="2" column="1">
+                       <widget class="QLineEdit" name="save_bericht_path">
                         <property name="font">
                          <font>
                           <family>Leelawadee UI</family>
@@ -6907,7 +6916,76 @@ border-radius: 10px;</string>
                         </property>
                        </widget>
                       </item>
-                      <item>
+                      <item row="3" column="0">
+                       <widget class="QLabel" name="label_2">
+                        <property name="minimumSize">
+                         <size>
+                          <width>300</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee</family>
+                          <pointsize>11</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">color: rgb(0, 0, 0);
+</string>
+                        </property>
+                        <property name="text">
+                         <string>Pfad zur Datenbank:</string>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="2">
+                       <widget class="QToolButton" name="choose_db_path_btn">
+                        <property name="minimumSize">
+                         <size>
+                          <width>50</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QPushButton, QToolButton {
+background-color: #AEDC21;
+border-radius: 10px;
+text-align:center;
+}
+
+QPushButton:hover, QToolButton:hover {
+background-color: rgb(146, 182, 27);
+border: 2px solid rgb(7, 113, 78);
+border-radius: 10px;
+text-align:center;
+}
+
+QPushButton:pressed, QToolButton:pressed {
+background-color: rgb(56, 167, 0);
+color: white
+}
+</string>
+                        </property>
+                        <property name="text">
+                         <string>...</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="2">
                        <widget class="QToolButton" name="choose_project_nr_btn">
                         <property name="minimumSize">
                          <size>
@@ -6948,22 +7026,51 @@ color: white
                         </property>
                        </widget>
                       </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QFrame" name="frame">
-                     <layout class="QHBoxLayout" name="horizontalLayout_4">
-                      <property name="spacing">
-                       <number>20</number>
-                      </property>
-                      <item>
+                      <item row="3" column="1">
+                       <widget class="QLineEdit" name="db_path">
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee</family>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(217, 217, 217);
+
+border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="project_nr_path">
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(217, 217, 217);
+
+border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
                        <widget class="QLabel" name="label_77">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>300</width>
+                          <height>0</height>
+                         </size>
                         </property>
                         <property name="font">
                          <font>
@@ -6980,76 +7087,19 @@ color: white
                         <property name="text">
                          <string>Pfad zur Excel Nachweisübersicht:</string>
                         </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="nw_overview_path">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(217, 217, 217);
-
-border: 1px solid #C7C7C7;
-border-radius: 10px;</string>
+                        <property name="wordWrap">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
-                      <item>
-                       <widget class="QToolButton" name="choose_nw_path_btn">
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_5">
                         <property name="minimumSize">
                          <size>
-                          <width>50</width>
-                          <height>30</height>
+                          <width>300</width>
+                          <height>0</height>
                          </size>
                         </property>
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QPushButton, QToolButton {
-background-color: #AEDC21;
-border-radius: 10px;
-text-align:center;
-}
-
-QPushButton:hover, QToolButton:hover {
-background-color: rgb(146, 182, 27);
-border: 2px solid rgb(7, 113, 78);
-border-radius: 10px;
-text-align:center;
-}
-
-QPushButton:pressed, QToolButton:pressed {
-background-color: rgb(56, 167, 0);
-color: white
-}
-</string>
-                        </property>
-                        <property name="text">
-                         <string>...</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QFrame" name="frame">
-                     <layout class="QHBoxLayout" name="horizontalLayout_20">
-                      <property name="spacing">
-                       <number>20</number>
-                      </property>
-                      <item>
-                       <widget class="QLabel" name="label_5">
                         <property name="font">
                          <font>
                           <family>Leelawadee UI</family>
@@ -7065,10 +7115,13 @@ color: white
                         <property name="text">
                          <string>Standardpfad zur Speicherung des Berichts:</string>
                         </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
                        </widget>
                       </item>
-                      <item>
-                       <widget class="QLineEdit" name="save_bericht_path">
+                      <item row="1" column="1">
+                       <widget class="QLineEdit" name="nw_overview_path">
                         <property name="font">
                          <font>
                           <family>Leelawadee UI</family>
@@ -7083,7 +7136,7 @@ border-radius: 10px;</string>
                         </property>
                        </widget>
                       </item>
-                      <item>
+                      <item row="2" column="2">
                        <widget class="QToolButton" name="choose_save_bericht_path">
                         <property name="minimumSize">
                          <size>
@@ -7124,61 +7177,8 @@ color: white
                         </property>
                        </widget>
                       </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QFrame" name="horizontalFrame">
-                     <layout class="QHBoxLayout" name="horizontalLayout_35">
-                      <property name="leftMargin">
-                       <number>9</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>9</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>9</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>9</number>
-                      </property>
-                      <item>
-                       <widget class="QLabel" name="label_2">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee</family>
-                          <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
-</string>
-                        </property>
-                        <property name="text">
-                         <string>Pfad zur Datenbank:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="db_path">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(217, 217, 217);
-
-border: 1px solid #C7C7C7;
-border-radius: 10px;</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QToolButton" name="choose_db_path_btn">
+                      <item row="1" column="2">
+                       <widget class="QToolButton" name="choose_nw_path_btn">
                         <property name="minimumSize">
                          <size>
                           <width>50</width>
@@ -7253,8 +7253,20 @@ color: white
                       <string>Achtung!</string>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_39">
-                      <property name="topMargin">
+                      <property name="spacing">
                        <number>20</number>
+                      </property>
+                      <property name="leftMargin">
+                       <number>10</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>30</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>10</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>10</number>
                       </property>
                       <item>
                        <widget class="QLabel" name="label_65">
@@ -7274,22 +7286,65 @@ color: white
                          <bool>true</bool>
                         </property>
                         <property name="margin">
-                         <number>10</number>
+                         <number>0</number>
+                        </property>
+                        <property name="indent">
+                         <number>0</number>
+                        </property>
+                        <property name="openExternalLinks">
+                         <bool>false</bool>
+                        </property>
+                        <property name="textInteractionFlags">
+                         <set>Qt::NoTextInteraction</set>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QFrame" name="frame_6">
+                       <widget class="QFrame" name="gridFrame">
                         <property name="styleSheet">
                          <string notr="true">
 background-color: rgba(255, 0, 4, 10);</string>
                         </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_43">
-                         <property name="spacing">
-                          <number>20</number>
+                        <layout class="QGridLayout" name="gridLayout_4">
+                         <property name="leftMargin">
+                          <number>10</number>
                          </property>
-                         <item>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="spacing">
+                          <number>10</number>
+                         </property>
+                         <item row="0" column="1">
+                          <widget class="QLineEdit" name="laborauswertung_path">
+                           <property name="font">
+                            <font>
+                             <family>Leelawadee UI</family>
+                             <pointsize>11</pointsize>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">background-color: rgb(217, 217, 217);
+
+border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="0">
                           <widget class="QLabel" name="label_71">
+                           <property name="minimumSize">
+                            <size>
+                             <width>300</width>
+                             <height>0</height>
+                            </size>
+                           </property>
                            <property name="font">
                             <font>
                              <family>Leelawadee UI</family>
@@ -7306,23 +7361,7 @@ background-color: rgba(255, 0, 4, 10);</string>
                            </property>
                           </widget>
                          </item>
-                         <item>
-                          <widget class="QLineEdit" name="laborauswertung_path">
-                           <property name="font">
-                            <font>
-                             <family>Leelawadee UI</family>
-                             <pointsize>11</pointsize>
-                            </font>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">background-color: rgb(217, 217, 217);
-
-border: 1px solid #C7C7C7;
-border-radius: 10px;</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
+                         <item row="0" column="2">
                           <widget class="QToolButton" name="choose_laborauswertung_path_btn">
                            <property name="minimumSize">
                             <size>
@@ -7495,8 +7534,8 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>470</width>
-                 <height>367</height>
+                 <width>993</width>
+                 <height>860</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -7895,6 +7934,9 @@ text-align:center;</string>
           <property name="margin">
            <number>0</number>
           </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse</set>
+          </property>
          </widget>
         </item>
         <item>
@@ -7931,9 +7973,9 @@ border: 2px solid rgb(0, 127, 8);</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>
