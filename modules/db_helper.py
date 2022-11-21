@@ -2,6 +2,7 @@ import pandas as pd
 import sqlite3
 import os
 import datetime
+import os
 
 
 
@@ -9,7 +10,10 @@ class DatabaseHelper():
     def __init__(self, db_file):
         self.database = db_file
         # create a database connection
+        # if os.path.exists(db_file):
         self.conn = self.create_connection(self.database)
+        # else:
+        #     raise Exception("Es wurde keine Laborauswertung gefunden")
 
 
     def delete_empty_rows(self):
@@ -45,10 +49,14 @@ class DatabaseHelper():
         except Exception as ex:
             raise Exception(f"Datenbank nicht gefunden: [{ex}]")
 
-    def get_specific_probe(self, id):
+    def get_specific_probe(self, id, material=None, date=None):
+        
         try:
             # self.conn.row_factory = sqlite3.Row
-            sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
+            if material and date:
+                sql = f"SELECT * FROM main WHERE Kennung = '{id}' AND Materialbezeichnung = '{material}' AND Datum = '{date}';"
+            else:
+                sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
             cur = self.conn.cursor()
             cur.execute(sql)
             result = dict(cur.fetchone())
@@ -78,18 +86,17 @@ class DatabaseHelper():
         kvs = []
         sql_str = ""
 
-        print(sql_str)
-
         for key, value in data.items():
+            if key == "Datum":
+                continue
             substr = f"[{key}] = '{value}'"
             kvs.append(substr)
 
         sql_str = ', '.join(kvs)
-        print(sql_str, kennung, datum)
 
         with self.conn:
             cur = self.conn.cursor()
-            query= f'UPDATE main SET {sql_str} WHERE "Kennung" = "{[kennung]}" AND "Datum" = "{[datum]}";'
+            query= f'UPDATE main SET {sql_str} WHERE "Kennung" = "{kennung}" AND "Datum" = "{datum}";'
             cur.execute(query)
             self.conn.commit()
 
@@ -119,8 +126,11 @@ class DatabaseHelper():
         conn.commit()
 
         sql = "DELETE FROM main WHERE Datum IS NULL OR trim(Datum) = '';"
+        sql_alter = "ALTER TABLE main ADD strukt_bemerkung VARCHAR(500) NULL;"
         cur = conn.cursor()
         cur.execute(sql)
+        conn.commit()
+        cur.execute(sql_alter)
         conn.commit()
         conn.close()
             

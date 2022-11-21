@@ -1,0 +1,45 @@
+<RCC>
+  <qresource prefix="logos">
+    <file>l_logo.png</file>
+    <file>ahv_Verwaltungs_Vertriebs_GmbH_mit Zusatz_groß.jpg</file>
+    <file>icon_logo.ico</file>
+    <file>icon_logo.png</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>icons8-info-96.png</file>
+    <file>icons8-math-96.png</file>
+    <file>icons8-import-96.png</file>
+    <file>icons8-math-folder-96 (1).png</file>
+    <file>icons8-math-folder-96.png</file>
+    <file>analysis.png</file>
+    <file>db.png</file>
+    <file>db_normal.png</file>
+    <file>db_selected.png</file>
+    <file>error_icon.png</file>
+    <file>icons8-add-new-96.png</file>
+    <file>icons8-bag-interior-96 (1).png</file>
+    <file>icons8-bag-interior-96.png</file>
+    <file>icons8-checked-checkbox-96.png</file>
+    <file>icons8-close-96.png</file>
+    <file>icons8-close-window-96.png</file>
+    <file>icons8-combo-chart-96 (1).png</file>
+    <file>icons8-combo-chart-96.png</file>
+    <file>icons8-login-96 (1).png</file>
+    <file>icons8-login-96.png</file>
+    <file>icons8-logout-rounded-96 (1).png</file>
+    <file>icons8-logout-rounded-96.png</file>
+    <file>icons8-microsoft-excel-96 (1).png</file>
+    <file>icons8-microsoft-excel-96.png</file>
+    <file>icons8-morale-96 (1).png</file>
+    <file>icons8-morale-96.png</file>
+    <file>icons8-multicast-96.png</file>
+    <file>icons8-purchase-order-96 (1).png</file>
+    <file>icons8-purchase-order-96.png</file>
+    <file>icons8-remove-96.png</file>
+    <file>icons8-search-96.png</file>
+    <file>icons8-select-name-96.png</file>
+    <file>icons8-settings-96 (1).png</file>
+    <file>icons8-settings-96.png</file>
+    <file>icons8-waste-96.png</file>
+  </qresource>
+</RCC>

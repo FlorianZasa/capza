@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(795, 511)
+        Dialog.resize(1231, 519)
         Dialog.setStyleSheet("background-color: #F7F7F7")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
