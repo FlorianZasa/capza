@@ -1137,7 +1137,7 @@ padding:0;
            <string notr="true">color: #0C5C51;</string>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>4</number>
           </property>
           <widget class="QWidget" name="data">
            <property name="styleSheet">
@@ -1324,7 +1324,7 @@ padding:0;
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1187</width>
+                 <width>1194</width>
                  <height>895</height>
                 </rect>
                </property>
@@ -3504,7 +3504,7 @@ background-color: #16de29;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1187</width>
+                 <width>1194</width>
                  <height>1050</height>
                 </rect>
                </property>
@@ -3773,7 +3773,7 @@ border-radius: 10px;</string>
                        </widget>
                       </item>
                       <item row="6" column="1">
-                       <widget class="QLineEdit" name="gluehverlus_lineedit">
+                       <widget class="QLineEdit" name="gluehverlust_lineedit">
                         <property name="font">
                          <font>
                           <family>Leelawadee UI</family>
@@ -5233,14 +5233,26 @@ color: black
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_42">
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="grenz_toggle_help_btn">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Leelawadee</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Hilfe</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_6">
+               <widget class="QFrame" name="grenz_help_frame">
                 <property name="styleSheet">
                  <string notr="true">QTextEdit {
 font-size: 11px;
@@ -5688,7 +5700,7 @@ color: white
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-259</y>
+                 <y>0</y>
                  <width>1212</width>
                  <height>1225</height>
                 </rect>
@@ -8180,8 +8192,8 @@ border-radius: 10px;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>1134</width>
-                          <height>444</height>
+                          <width>83</width>
+                          <height>69</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -8444,7 +8456,7 @@ border-radius: 10px</string>
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>1186</width>
+                    <width>1193</width>
                     <height>818</height>
                    </rect>
                   </property>
@@ -9208,7 +9220,7 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1222</width>
+                 <width>1229</width>
                  <height>966</height>
                 </rect>
                </property>
@@ -9520,9 +9532,9 @@ border: 2px solid rgb(0, 127, 8);</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_4"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>

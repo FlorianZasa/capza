@@ -18,7 +18,7 @@ dirname = os.path.dirname(__file__)
 # import helper modules
 from modules.word_helper import Word_Helper
 from modules.config_helper import ConfigHelper
-from modules.db_helper import DatabaseHelper
+from modules.db_helper.__init__ import DatabaseHelper
 
 today_date_raw = datetime.datetime.now()
 TODAY_FORMAT_STRING = today_date_raw.strftime(r"%d.%m.%Y")
@@ -62,12 +62,11 @@ class Ui(QtWidgets.QMainWindow):
         self.la_changed_item_lst = {}
         self._ene = list()
         self._pnr = list()
-
         self.showMaximized()
         self.init_main()
 
-    def init_main(self):
-        ###STANDARDEINSTELLUNGEN:
+    def init_main(self) -> None:
+        # STANDARDEINSTELLUNGEN:
         self.word_helper = Word_Helper()
         self.setWindowTitle(f"CapZa - Zasada - { __version__ } ")
         self.setWindowIcon(QIcon(r'./assets/icon_logo.png'))
@@ -90,34 +89,32 @@ class Ui(QtWidgets.QMainWindow):
         self.nav_settings_btn.clicked.connect(lambda : self.display(6))
         self.nav_laborauswertung_btn.clicked.connect(lambda : self.display(7))
 
-        self.init_shadow(self.data_1)
-        self.init_shadow(self.data_1_2)  
-        self.init_shadow(self.data_2)
-        self.init_shadow(self.data_3)
-        self.init_shadow(self.select_probe_btn)
-        self.init_shadow(self.migrate_btn)
-        self.init_shadow(self.aqs_btn)
-        self.init_shadow(self.pnp_out_empty)
-        self.init_shadow(self.pnp_out_protokoll_btn)
-        self.init_shadow(self.auftrag_empty)
-        self.init_shadow(self.auftrag_letsgo)
-        self.init_shadow(self.analysis_f1)
-        self.init_shadow(self.analysis_f2)
-        self.init_shadow(self.pnp_o_frame)
-        self.init_shadow(self.order_frame)
-        self.init_shadow(self.pnp_in_allg_frame)
-        self.init_shadow(self.clear_cache_btn)   
-        self.init_shadow(self.vor_ort_frame)     
+        init_shadow(self.data_1)
+        init_shadow(self.data_1_2)  
+        init_shadow(self.data_2)
+        init_shadow(self.data_3)
+        init_shadow(self.select_probe_btn)
+        init_shadow(self.migrate_btn)
+        init_shadow(self.aqs_btn)
+        init_shadow(self.pnp_out_empty)
+        init_shadow(self.pnp_out_protokoll_btn)
+        init_shadow(self.auftrag_empty)
+        init_shadow(self.auftrag_letsgo)
+        init_shadow(self.analysis_f1)
+        init_shadow(self.analysis_f2)
+        init_shadow(self.pnp_o_frame)
+        init_shadow(self.order_frame)
+        init_shadow(self.pnp_in_allg_frame)
+        init_shadow(self.clear_cache_btn)   
+        init_shadow(self.vor_ort_frame)     
 
         ### DATENEINGABE:
-        self.end_dateedit.setDate(self.get_today_qdate())
+        self.end_dateedit.setDate(self._get_todays_date_qdate())
         self.load_project_nr()
         self.select_probe_btn.clicked.connect(self.read_all_probes)
-
         self.brandtest_combo.currentTextChanged.connect(lambda: self.analysis_brandtest_lineedit.setText(self.brandtest_combo.currentText()))
-        self.nh3_lineedit_2.textChanged.connect(self.check_nh3_value_value)
+        self.nh3_lineedit_2.textChanged.connect(self.check_nh3_value)
         self.h2_lineedit_2.textChanged.connect(lambda: self.h2_lineedit.setText(self.h2_lineedit_2.text()))
-
         self.kennung_rb.clicked.connect(lambda: self.empty_manual_search(self.pnr_combo, self.project_nr_lineedit))
         self.pnr_rb.clicked.connect(lambda: self.empty_manual_search(self.kennung_combo, self.kennung_lineedit))
 
@@ -154,7 +151,14 @@ class Ui(QtWidgets.QMainWindow):
         ### LABORAUSWERTUNG:
         self.la_table_view.doubleClicked.connect(self.edit_laborauswertung)
         self.add_laborauswertung_btn.clicked.connect(self.add_laborauswertung)
-        self.init_shadow(self.la_table_view)
+        self.la_table_view.horizontalHeader().setStyleSheet("QHeaderView {font-size: 12pt; font-weight:bold} QTableView {border: 1px solid black;}")
+        self.la_table_view.resizeColumnsToContents()
+        init_shadow(self.la_table_view)
+
+        ### GRENZWERTEINSTELLUNGEN:
+        self.grenz_help_frame.hide()
+        self.grenz_help_frame_shown = False
+        self.grenz_toggle_help_btn.clicked.connect(self.grenz_toggle_help_frame)
 
         ### REFERENZEINSTELLUNGEN:
         self.nw_overview_path.setText(NW_PATH)
@@ -170,7 +174,7 @@ class Ui(QtWidgets.QMainWindow):
         self.choose_db_path_btn.clicked.connect(self.choose_db)
         self.choose_save_bericht_path.clicked.connect(lambda: self.select_folder(self.save_bericht_path, "Wähle den Standardpfad zum Speichern aus."))
 
-        self.clear_cache_btn.clicked.connect(self.clear_cache)
+        self.clear_cache_btn.clicked.connect(self._clear_cache)
         self.save_references_btn.clicked.connect(self.save_references)
         
         self.check_la_enable()
@@ -180,20 +184,17 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append("Es sind keine Nachweise hinterlegt. Prüfe in den Referenzeinstellungen.")
             self.feedback_message("error", STATUS_MSG)
 
-    def check_nh3_value_value(self):
+    def check_nh3_value(self) -> None:
         self.nh3_lineedit.setText(self.nh3_lineedit_2.text())
         if float(self.nh3_lineedit.text()) <= 20:
-            self.self.set_ampel_color(self.nh3_ampel_lbl, "green")
+            self.set_ampel_color(self.nh3_ampel_lbl, "green")
         elif float(self.nh3_lineedit.text()) > 20:
-            self.self.set_ampel_color(self.nh3_ampel_lbl, "red")
-
+            self.set_ampel_color(self.nh3_ampel_lbl, "red")
 
     def hide_admin_msg(self) -> None:
-        """ Hides the Admin Message Frame in the Navigation Bar
-        """
         self.admin_msg_frame.hide()
 
-    def clear_cache(self) -> None:
+    def _clear_cache(self) -> None:
         """ Resets all standard variables to its default
         """
         global SELECTED_PROBE,SELECTED_NACHWEIS,ALL_DATA_PROBE,ALL_DATA_NACHWEIS,ALL_DATA_PROJECT_NR,NW_PATH,PNR_PATH,STATUS_MSG,BERICHT_FILE,ALIVE, PROGRESS
@@ -204,8 +205,7 @@ class Ui(QtWidgets.QMainWindow):
         STATUS_MSG = []
         BERICHT_FILE = ""
 
-
-    def get_today_qdate(self) -> QDate:
+    def _get_todays_date_qdate(self) -> QDate:
         """ Get QDate object from current date string
 
         Returns:
@@ -240,7 +240,9 @@ class Ui(QtWidgets.QMainWindow):
 
         QTimer.singleShot(3000, lambda: self._set_default_style(widget, widget_art))
 
-    def trigger_pnp_in(self):
+    def trigger_pnp_in(self) -> bool:
+        """ Opens a dialog after setting the pnp in-
+        """
         dlg = QtWidgets.QMessageBox(self)
         dlg.setWindowTitle("PNP Input mit oder ohne Weiterberechnungsformular")
         if self.weiterberechnung_checkBox.checkState() == 2:
@@ -253,19 +255,21 @@ class Ui(QtWidgets.QMainWindow):
 
         if button == QtWidgets.QMessageBox.Yes:
             print("Yes!")
+            return True
         else:
             self.create_weiterberechnung_form()
             print("No!")
-        self.create_pnp_in()
+            return False    
 
     def create_pnp_in(self):
+        if self.trigger_pnp_in():
+            # Create file
+            print("Crreate file")
         pass
 
     def create_weiterberechnung_form(self):
         pass
         
-
-
     def search_manual(self) -> None:
         global SELECTED_PROBE, SELECTED_NACHWEIS
         kennung_letters = self.kennung_combo.currentText()
@@ -354,6 +358,15 @@ class Ui(QtWidgets.QMainWindow):
         STATUS_MSG.append("Diese Funktion steht noch nicht zu verfügung.")
         self.feedback_message("attention", STATUS_MSG)
 
+    ### Grenzwerteinstellungen
+    def grenz_toggle_help_frame(self):
+        if self.grenz_help_frame_shown == True:
+            self.grenz_help_frame.hide()
+            self.grenz_help_frame_shown = False
+        else:
+            self.grenz_help_frame.show()
+            self.grenz_help_frame_shown = True
+
     def choose_nw_path(self) -> None:
         """ Choose NW_PATH from Referenzeinstellungen
         """
@@ -374,7 +387,6 @@ class Ui(QtWidgets.QMainWindow):
 
         global DB_PATH
         DB_PATH = self.select_file(self.db_path, "", "Wähle die Datenbank aus...", "Databse Files (*.db)")
-
 
     def choose_project_nr(self) -> None:
         """ Choose PNR_PATH from Referenzeinstellungen
@@ -410,7 +422,6 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append(f"Projektnummern konnten nicht geladen werden: [{ex}]")
             self.feedback_message("error", STATUS_MSG)
 
-
     def showError(self) -> None:
         """ Shows the error frame
         """
@@ -429,18 +440,6 @@ class Ui(QtWidgets.QMainWindow):
             self.error_info_btn.show()
         else:
             self.error_info_btn.hide()
-
-    def init_shadow(self, widget) -> None:
-        """Sets shadow to the given widget
-
-        Args:
-            widget (QWidget): QFrame, QButton, ....
-        """
-
-        effect = QGraphicsDropShadowEffect()
-        effect.setOffset(0, 1)
-        effect.setBlurRadius(8)
-        widget.setGraphicsEffect(effect)
 
     def disable_settings_lines(self) -> None:
         """ Disables Line edits from Settings 
@@ -603,17 +602,19 @@ class Ui(QtWidgets.QMainWindow):
         toc = 0
         ec = 0
         if not SELECTED_PROBE["TOC %"] == None:
-            toc = self.round_if_psbl(float(self.toc_lineedit.text()))
+            toc = round_if_psbl(float(self.toc_lineedit.text()))
         else:
             toc = ""
 
         if not SELECTED_PROBE["EC %"] == None:
-            ec = self.round_if_psbl(float(self.ec_lineedit.text()))
+            ec = round_if_psbl(float(self.ec_lineedit.text()))
         else:
             ec = ""
         
-        if isinstance(toc, float) and isinstance(ec, float):
-            aoc = self.round_if_psbl(toc-ec)
+        if toc != "" and ec != "":
+            toc_float = float(toc) 
+            ec_float = float(ec)
+            aoc = round_if_psbl(toc_float-ec_float)
         else:
             aoc = ""
 
@@ -708,21 +709,21 @@ class Ui(QtWidgets.QMainWindow):
             "heute": str(TODAY_FORMAT_STRING),
             "datum": date,
             #
-            "wert": self.ph_lineedit.text(),
-            "leitfaehigkeit ": self.leitfaehigkeit_lineedit.text(),
-            "doc": self.round_if_psbl(float(self.doc_lineedit.text())) if self.doc_lineedit.text() != "-" else "",
-            "molybdaen": self.round_if_psbl(float(self.mo_lineedit.text())) if self.mo_lineedit.text() != "-" else "",
+            "wert":  round_if_psbl(float(self.ph_lineedit.text())) if self.ph_lineedit.text() != "-" else "",
+            "leitfaehigkeit":  round_if_psbl(float(self.leitfaehigkeit_lineedit.text())) if self.leitfaehigkeit_lineedit.text() != "-" else "",
+            "doc": round_if_psbl(float(self.doc_lineedit.text())) if self.doc_lineedit.text() != "-" else "",
+            "molybdaen": round_if_psbl(float(self.mo_lineedit.text())) if self.mo_lineedit.text() != "-" else "",
 
-            "selen": self.round_if_psbl(float(self.se_lineedit.text())) if self.se_lineedit.text() != "-" else "",
-            "antimon": self.round_if_psbl(float(self.sb_lineedit.text())) if self.sb_lineedit.text() != "-" else "",
-            "chrom": self.round_if_psbl(float(self.chrome_vi_lineedit.text())) if self.chrome_vi_lineedit.text() != "-" else "",
-            "tds": self.round_if_psbl(float(self.tds_lineedit.text())) if self.tds_lineedit.text() != "-" else "",
+            "selen": round_if_psbl(float(self.se_lineedit.text())) if self.se_lineedit.text() != "-" else "",
+            "antimon": round_if_psbl(float(self.sb_lineedit.text())) if self.sb_lineedit.text() != "-" else "",
+            "chrom": round_if_psbl(float(self.chrome_vi_lineedit.text())) if self.chrome_vi_lineedit.text() != "-" else "",
+            "tds": round_if_psbl(float(self.tds_lineedit.text())) if self.tds_lineedit.text() != "-" else "",
             "chlorid": self.chlorid_lineedit.text() if self.chlorid_lineedit.text() != "-" else "",
             "fluorid": self.fluorid_lineedit.text() if self.fluorid_lineedit.text() != "-" else "",
             "feuchte": self.feuchte_lineedit.text() if self.feuchte_lineedit.text() != "-" else "",
-            "lipos_ts": self.round_if_psbl(float(self.lipos_ts_lineedit.text())) if self.lipos_ts_lineedit.text() != "-" else "",
-            "lipos_os": self.round_if_psbl(float(self.lipos_os_lineedit.text())) if self.lipos_os_lineedit.text() != "-" else "",
-            "gluehverlust": self.round_if_psbl(float(self.gluehverlus_lineedit.text())) if self.gluehverlus_lineedit.text() != "-" else "",
+            "lipos_ts": round_if_psbl(float(self.lipos_ts_lineedit.text())) if self.lipos_ts_lineedit.text() != "-" else "",
+            "lipos_os": round_if_psbl(float(self.lipos_os_lineedit.text())) if self.lipos_os_lineedit.text() != "-" else "",
+            "gluehverlust": round_if_psbl(float(self.gluehverlust_lineedit.text())) if self.gluehverlust_lineedit.text() != "-" else "",
             "toc": toc,
             "ec": ec,
             "aoc": aoc,
@@ -756,15 +757,18 @@ class Ui(QtWidgets.QMainWindow):
             "pbd_no": pbp_check_no
         }
 
-        word_file = self.create_word(CONFIG_HELPER.get_specific_config_value("bericht_vorlage"), data, "Bericht")        
-        try:
-            thread1 = Thread(target=self.word_helper.open_word, args=(word_file,))
-            thread2 = Thread(target=self.feedback_message, args=("info", ["Word wird geöffnet..."]))
-            thread1.start() 
-            thread2.start()
-        except Exception as ex:
-            self.feedback_message("attention", [f"Fehler beim Erstellen der Word Datei [{ex}]"])
-            STATUS_MSG.append(str(ex))
+        print(data["tds"])
+
+        word_file = self.create_word(CONFIG_HELPER.get_specific_config_value("bericht_vorlage"), data, "Bericht")    
+        if word_file != "/":    
+            try:
+                thread1 = Thread(target=self.word_helper.open_word, args=(word_file,))
+                thread2 = Thread(target=self.feedback_message, args=("info", ["Word wird geöffnet..."]))
+                thread1.start() 
+                thread2.start()
+            except Exception as ex:
+                self.feedback_message("attention", [f"Fehler beim Erstellen der Word Datei [{ex}]"])
+                STATUS_MSG.append(str(ex))
 
     def autrag_load_column_view(self) -> None:
         """ Loads the Column View
@@ -882,6 +886,8 @@ class Ui(QtWidgets.QMainWindow):
                 self.word_helper.write_to_word_file(data, vorlage, name=file[0])
                 self.feedback_message("success", ["Das Protokoll wurde erfolgreich erstellt."])
                 return file[0]
+            else: 
+                return "/"
         except Exception as ex:
             STATUS_MSG= [f"{dialog_file} konnte nicht erstellt werden: " + str(ex)]
             self.feedback_message("error", STATUS_MSG)
@@ -910,17 +916,17 @@ class Ui(QtWidgets.QMainWindow):
         toc = 0
         ec = 0
         if not SELECTED_PROBE["TOC %"] == "":
-            toc = self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))
+            toc = round_if_psbl(float(SELECTED_PROBE["TOC %"]))
         else:
             toc = ""
 
         if not SELECTED_PROBE["EC %"] == "":
-            ec = self.round_if_psbl(float(SELECTED_PROBE["EC %"]))
+            ec = round_if_psbl(float(SELECTED_PROBE["EC %"]))
         else:
             ec = ""
         
         if isinstance(toc, float) and isinstance(ec, float):
-            aoc = self.round_if_psbl(toc-ec)
+            aoc = round_if_psbl(toc-ec)
         else:
             aoc = ""
 
@@ -1010,19 +1016,19 @@ class Ui(QtWidgets.QMainWindow):
                 "datum": str(SELECTED_PROBE["Datum"]),
                 #
                 "wert": str(SELECTED_PROBE["pH-Wert"]),
-                "leitfaehigkeit ": str(SELECTED_PROBE["Leitfähigkeit mS/cm"]),
-                "doc": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
-                "molybdaen": self.round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
-                "selen": self.round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
-                "antimon": self.round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
-                "chrom": self.round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
-                "tds": self.round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]),
+                "leitfaehigkeit": str(SELECTED_PROBE["Leitfähigkeit mS/cm"]),
+                "doc": round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
+                "molybdaen": round_if_psbl(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]),
+                "selen": round_if_psbl(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]),
+                "antimon": round_if_psbl(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]),
+                "chrom": round_if_psbl(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]),
+                "tds": round_if_psbl(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]),
                 "chlorid": str(SELECTED_PROBE["Chlorid mg/L"]),
                 "fluorid": str(SELECTED_PROBE["Fluorid mg/L"]),
                 "feuchte": str(SELECTED_PROBE["Wassergehalt %"]),
-                "lipos_ts": self.round_if_psbl(SELECTED_PROBE["Lipos TS %"]),
-                "lipos_os": self.round_if_psbl(SELECTED_PROBE["Lipos FS %"]),
-                "gluehverlust": self.round_if_psbl(SELECTED_PROBE["GV %"]),
+                "lipos_ts": round_if_psbl(SELECTED_PROBE["Lipos TS %"]),
+                "lipos_os": round_if_psbl(SELECTED_PROBE["Lipos FS %"]),
+                "gluehverlust": round_if_psbl(SELECTED_PROBE["GV %"]),
                 "toc": toc,
                 "ec": ec,
                 "aoc": aoc,
@@ -1056,23 +1062,6 @@ class Ui(QtWidgets.QMainWindow):
                 "pbd_no": pbp_check_no
             }
         self.create_word("", data, "AQS")
-            
-    def round_if_psbl(self, value: float) -> str:
-        """ Checks if a given value is a float. If so, rounds it to 3 digits. Then returns as str
-
-        Args:
-            value (float): Float Probedata value 
-                e.g.:3.123, 0.128493, ...
-
-        Returns:
-            str: Value to be set in
-                e.g.: '3.123', '0.128', ...
-        """
-
-        if isinstance(value, float):
-            return str(round(value, 3))
-        else:
-            return str(value)
 
     def empty_values(self) -> None:
         """ Empties all LineEdits in the first two Navigations
@@ -1090,7 +1079,7 @@ class Ui(QtWidgets.QMainWindow):
         self.chrome_vi_lineedit.setText("")
         self.lipos_ts_lineedit.setText("-")
         self.lipos_os_lineedit.setText("")
-        self.gluehverlus_lineedit.setText("")
+        self.gluehverlust_lineedit.setText("")
         self.doc_lineedit.setText("")
         self.tds_lineedit.setText("")
         self.mo_lineedit.setText("")
@@ -1134,20 +1123,21 @@ class Ui(QtWidgets.QMainWindow):
         self.empty_values()
         STATUS_MSG = []
         ### in Dateneingabe
-        self.kennung_combo.setCurrentText(str(SELECTED_PROBE["Kennung_letters"]) if SELECTED_PROBE["Kennung_letters"] != None else "-")
-        self.pnr_combo.setCurrentText(str(SELECTED_PROBE["Project_yr"]) if SELECTED_PROBE["Project_yr"] != None else "-")
-
-        self.kennung_lineedit.setText(str(SELECTED_PROBE["Kennung_nr"]) if SELECTED_PROBE["Kennung_nr"] != None else "-")
-        self.project_nr_lineedit.setText(str(SELECTED_PROBE["Project_nr"]) if SELECTED_PROBE["Project_nr"] != None else "-")
-        self.name_lineedit.setText(str(list(SELECTED_NACHWEIS["Material"])[0])) # if SELECTED_NACHWEIS["Material"] != None else "-"
-        self.person_lineedit.setText(str(list(SELECTED_NACHWEIS["Erzeuger"])[0]))
-        self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
-        self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
-        self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
-
+        try:
+            self.kennung_combo.setCurrentText(format_specific_insert_value("Kennung_letters", SELECTED_PROBE))
+            self.pnr_combo.setCurrentText(format_specific_insert_value("Project_yr", SELECTED_PROBE))
+            self.kennung_lineedit.setText(format_specific_insert_value("Kennung_nr", SELECTED_PROBE))
+            self.project_nr_lineedit.setText(format_specific_insert_value("Project_nr", SELECTED_PROBE))
+            self.name_lineedit.setText(format_specific_insert_value("Material", SELECTED_NACHWEIS))
+            self.person_lineedit.setText(format_specific_insert_value("Erzeuger", SELECTED_NACHWEIS))
+            self.location_lineedit.setText(str(list(SELECTED_NACHWEIS["PLZ"])[0]) + " " + str(list(SELECTED_NACHWEIS["ORT"])[0]))
+            self.avv_lineedit.setText(self.format_avv_space_after_every_second(str(list(SELECTED_NACHWEIS["AVV"])[0])))
+            self.amount_lineedit.setText("{:,}".format(list(SELECTED_NACHWEIS["t"])[0]).replace(",", "."))
+        except Exception as ex:
+            print("FEHLER = " + str(ex))
         ### in Analysewerte
         try:
-            self.ph_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["pH-Wert"]))) if SELECTED_PROBE["pH-Wert"] != None else "-")
+            self.ph_lineedit.setText(str(round_if_psbl(format_specific_insert_value("pH-Wert", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["pH-Wert"]) <= 8:
                     self.set_ampel_color(self.ph_ampel_lbl, "yellow")
@@ -1155,7 +1145,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der pH-Wert kann nicht interpretiert werden: [{ex}]")
         try:
-            self.leitfaehigkeit_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Leitfähigkeit mS/cm"]))) if SELECTED_PROBE["Leitfähigkeit mS/cm"] != None else "-")
+            self.leitfaehigkeit_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Leitfähigkeit mS/cm", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Leitfähigkeit mS/cm"]) >= 12:
                     self.set_ampel_color(self.lf_ampel_lbl, "yellow")
@@ -1164,13 +1154,12 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Leitfähigkeitswert [mS/cm] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.feuchte_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Wassergehalt %"]))) if SELECTED_PROBE["Wassergehalt %"] != None else "-")
+            self.feuchte_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Wassergehalt %", SELECTED_PROBE))))
         except Exception as ex:
             STATUS_MSG.append(f"Der Wassergehalt [%] kann nicht interpretiert werden: [{ex}]")
         
-        
         try:
-            self.chrome_vi_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-")
+            self.chrome_vi_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Cr 205.560 (Aqueous-Axial-iFR)", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Cr 205.560 (Aqueous-Axial-iFR)"]) <= 7:
                     self.set_ampel_color(self.chrom_ampel_lbl, "green")
@@ -1180,7 +1169,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Chromwert kann nicht interpretiert werden: [{ex}]")
         try:
-            self.lipos_ts_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos TS %"]))) if SELECTED_PROBE["Lipos TS %"] != None else "-")
+            self.lipos_ts_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Lipos TS %", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Lipos TS %"]) <= 4:
                     self.set_ampel_color(self.ts_ampel_lbl, "green")
@@ -1190,11 +1179,11 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Lipos TS [%] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.lipos_os_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Lipos FS %"]))) if SELECTED_PROBE["Lipos FS %"] != None else "-")
+            self.lipos_os_lineedit.setText(format_specific_insert_value("Lipos FS %", SELECTED_PROBE))
         except Exception as ex:
             STATUS_MSG.append(f"Der Lipos OS [%] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.gluehverlus_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["GV %"]))) if SELECTED_PROBE["GV %"] != None else "-")
+            self.gluehverlust_lineedit.setText(str(round_if_psbl(format_specific_insert_value("GV %", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["GV %"]) <= 10:
                     self.set_ampel_color(self.GV_ampel_lbl, "green")
@@ -1204,7 +1193,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Glühverlust-Wert [%] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.doc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"] != None else "-")
+            self.doc_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Bezogen auf das eingewogene Material DOC mg/L", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]) <= 100:
                     self.set_ampel_color(self.doc_ampel_lbl, "green")
@@ -1216,19 +1205,19 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der DOC-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.tds_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]))) if SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"] != None else "-")
+            self.tds_lineedit.setText(str(round_if_psbl(format_specific_insert_value("TDS Gesamt gelöste Stoffe mg/L", SELECTED_PROBE))))
             try:
-                if float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]) <= 10000:
+                if float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]) <= 10000:
                     self.set_ampel_color(self.tds_ampel_lbl, "green")
-                elif 10000 < float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]) < 20000:
+                elif 10000 < float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]) < 20000:
                     self.set_ampel_color(self.tds_ampel_lbl, "purple")
-                elif float(SELECTED_PROBE["Bezogen auf das eingewogene Material DOC mg/L"]) > 20000:
+                elif float(SELECTED_PROBE["TDS Gesamt gelöste Stoffe mg/L"]) > 20000:
                     self.set_ampel_color(self.tds_ampel_lbl, "red")
             except: pass
         except Exception as ex:
             STATUS_MSG.append(f"Der Wert 'TDS Gesamt gelöste Stoffe (mg/L)' kann nicht interpretiert werden: [{ex}]")
-        try:
-            self.mo_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"]))) if SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"] != None else "-")
+        try:            
+            self.mo_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Bezogen auf das eingewogene Material Molybdän mg/L", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Bezogen auf das eingewogene Material Molybdän mg/L"]) <= 3:
                     self.set_ampel_color(self.mo_ampel_lbl, "green")
@@ -1238,7 +1227,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Molybdän-Wert kann nicht interpretiert werden: [{ex}]")
         try:
-            self.se_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"] != None else "-")
+            self.se_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Se 196.090 (Aqueous-Axial-iFR)", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Se 196.090 (Aqueous-Axial-iFR)"]) <= 0.7:
                     self.set_ampel_color(self.se_ampel_lbl, "green")
@@ -1248,7 +1237,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Se-Wert kann nicht interpretiert werden: [{ex}]")
         try:
-            self.sb_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]))) if SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"] != None else "-")
+            self.sb_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Sb 206.833 (Aqueous-Axial-iFR)", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Sb 206.833 (Aqueous-Axial-iFR)"]) <= 0.5:
                     self.set_ampel_color(self.sb_ampel_lbl, "green")
@@ -1258,7 +1247,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Sb-Wert kann nicht interpretiert werden: [{ex}]")
         try:
-            self.fluorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Fluorid mg/L"]))) if SELECTED_PROBE["Fluorid mg/L"] != None else "-")
+            self.fluorid_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Fluorid mg/L", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Fluorid mg/L"]) <= 50:
                     self.set_ampel_color(self.fluorid_ampel_lbl, "green")
@@ -1268,7 +1257,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Fluorid-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.chlorid_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["Chlorid mg/L"]))) if SELECTED_PROBE["Chlorid mg/L"] != None else "-")
+            self.chlorid_lineedit.setText(str(round_if_psbl(format_specific_insert_value("Chlorid mg/L", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["Chlorid mg/L"]) <= 2500:
                     self.set_ampel_color(self.chlorid_ampel_lbl, "green")
@@ -1280,7 +1269,7 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der Chlorid-Wert [mg/L] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.toc_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["TOC %"]))) if SELECTED_PROBE["TOC %"] != None else "-")
+            self.toc_lineedit.setText(str(round_if_psbl(format_specific_insert_value("TOC %", SELECTED_PROBE))))
             try:
                 if float(SELECTED_PROBE["TOC %"]) <= 6:
                     self.set_ampel_color(self.toc_ampel_lbl, "green")
@@ -1290,12 +1279,14 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             STATUS_MSG.append(f"Der TOC-Wert [%] kann nicht interpretiert werden: [{ex}]")
         try:
-            self.ec_lineedit.setText(str(self.round_if_psbl(float(SELECTED_PROBE["EC %"]))) if SELECTED_PROBE["EC %"] != None else "-")
+            self.ec_lineedit.setText(str(round_if_psbl(format_specific_insert_value("EC %", SELECTED_PROBE))))
         except Exception as ex:
             STATUS_MSG.append(f"Der EC-Wert [%] kann nicht interpretiert werden: [{ex}]")
         try:
             if SELECTED_PROBE["Pb"] != "<LOD":
                 self.pb_lineedit.setText(str(float(SELECTED_PROBE["Pb"]) * 10000)) if SELECTED_PROBE["Pb"] != None else "-"
+            else:
+                self.pb_lineedit.setText("-")
         except Exception as ex:
             STATUS_MSG.append(f"Der Pb kann nicht interpretiert werden: [{ex}]")
         
@@ -1482,16 +1473,16 @@ class Ui(QtWidgets.QMainWindow):
             date_item = QtGui.QStandardItem(str(text["Datum"]) if text["Datum"] != None else "")
             kennung_item = QtGui.QStandardItem(str(text["Kennung"]) if text["Kennung"] != None else "")
             material_item = QtGui.QStandardItem(str(text["Materialbezeichnung"]) if text["Materialbezeichnung"] != None else "")
-            ts_item = QtGui.QStandardItem(str(self.round_if_psbl(text["% TS"])) if text["% TS"] != None else "")
-            wasser_item = QtGui.QStandardItem(str(self.round_if_psbl(text["Wasserfaktor"])) if text["Wasserfaktor"] != None else "")
-            dry_wasser_item = QtGui.QStandardItem(str(self.round_if_psbl(text["Wasserfaktor getrocknetes Material"])) if text["Wasserfaktor getrocknetes Material"] != None else "")
-            liposts_item = QtGui.QStandardItem(str(self.round_if_psbl(text["Lipos TS %"])) if text["Lipos TS %"] != None else "")
-            liposfs_item = QtGui.QStandardItem(str(self.round_if_psbl(text["Lipos FS %"])) if text["Lipos FS %"] != None else "")
-            liposfrisch_item = QtGui.QStandardItem(str(self.round_if_psbl(text[r"% Lipos ermittelts aus Frischsubstanz"])) if text["% Lipos ermittelts aus Frischsubstanz"] != None else "")
-            gv_item = QtGui.QStandardItem(str(self.round_if_psbl(text["GV %"])) if text["GV %"] != None else "")
-            tds_gesamt_item = QtGui.QStandardItem(str(self.round_if_psbl(text["TDS Gesamt gelöste Stoffe mg/L"])) if text["TDS Gesamt gelöste Stoffe mg/L"] != None else "")
-            einwaage_ts_item = QtGui.QStandardItem(str(self.round_if_psbl(text["Einwaage TS"])) if text["Einwaage TS"] != None else "")
-            faktor_item = QtGui.QStandardItem(str(self.round_if_psbl(text["Faktor"])) if text["Faktor"] != None else "")
+            ts_item = QtGui.QStandardItem(str(round_if_psbl(text["% TS"])) if text["% TS"] != None else "")
+            wasser_item = QtGui.QStandardItem(str(round_if_psbl(text["Wasserfaktor"])) if text["Wasserfaktor"] != None else "")
+            dry_wasser_item = QtGui.QStandardItem(str(round_if_psbl(text["Wasserfaktor getrocknetes Material"])) if text["Wasserfaktor getrocknetes Material"] != None else "")
+            liposts_item = QtGui.QStandardItem(str(round_if_psbl(text["Lipos TS %"])) if text["Lipos TS %"] != None else "")
+            liposfs_item = QtGui.QStandardItem(str(round_if_psbl(text["Lipos FS %"])) if text["Lipos FS %"] != None else "")
+            liposfrisch_item = QtGui.QStandardItem(str(round_if_psbl(text[r"% Lipos ermittelts aus Frischsubstanz"])) if text["% Lipos ermittelts aus Frischsubstanz"] != None else "")
+            gv_item = QtGui.QStandardItem(str(round_if_psbl(text["GV %"])) if text["GV %"] != None else "")
+            tds_gesamt_item = QtGui.QStandardItem(str(round_if_psbl(text["TDS Gesamt gelöste Stoffe mg/L"])) if text["TDS Gesamt gelöste Stoffe mg/L"] != None else "")
+            einwaage_ts_item = QtGui.QStandardItem(str(round_if_psbl(text["Einwaage TS"])) if text["Einwaage TS"] != None else "")
+            faktor_item = QtGui.QStandardItem(str(round_if_psbl(text["Faktor"])) if text["Faktor"] != None else "")
             
             self.model.setItem(row, 0, date_item)
             self.model.setItem(row, 1, kennung_item)
@@ -1649,8 +1640,8 @@ class Probe(QtWidgets.QMainWindow):
 
         self.load_probe_btn.clicked.connect(self.load_probe)
         self.cancel_btn.clicked.connect(self.close_window)
-        self.init_shadow(self.load_probe_btn)
-        self.init_shadow(self.cancel_btn)
+        init_shadow(self.load_probe_btn)
+        init_shadow(self.cancel_btn)
 
     def init_data(self, dataset: list[dict]) -> None:
         """ Inputs all the Probe data into the TableWidget
@@ -1679,19 +1670,7 @@ class Probe(QtWidgets.QMainWindow):
 
     def apply_filter(self, text):
         self.filter_proxy_model.setFilterRegExp(text)
-        self.results_lbl.setText(f"{self.filter_proxy_model.rowCount()} Ergebnisse gefunden")
-
-    def init_shadow(self, widget: QtWidgets) -> None:
-        """ Adds shadow to the given widget
-
-        Args:
-            widget (QtWidgets): Widget to whom the shadow should be applied
-                e.g.: QFrame, QPushButton, ...
-        """
-        effect = QGraphicsDropShadowEffect()
-        effect.setOffset(0, 1)
-        effect.setBlurRadius(8)
-        widget.setGraphicsEffect(effect)  
+        self.results_lbl.setText(f"{self.filter_proxy_model.rowCount()} Ergebnisse gefunden") 
 
     def load_probe(self) -> None:
         """ Gets the selected Probe and closes the Probe window
@@ -1830,21 +1809,9 @@ class Error(QtWidgets.QDialog):
             error_long_msg = "/"
 
         self.error_lbl.setText(error_long_msg)
-        self.init_shadow(self.close_error_info_btn)
-        self.init_shadow(self.error_msg_frame)
+        init_shadow(self.close_error_info_btn)
+        init_shadow(self.error_msg_frame)
         self.close_error_info_btn.clicked.connect(self.delete_error)
-
-    def init_shadow(self, widget: QtWidgets) -> None:
-        """ Applies shadow to given Widget
-
-        Args:
-            widget (QtWidgets): Any QtWidget
-                e.g.: QFrame, QPushButton,...
-        """
-        effect = QGraphicsDropShadowEffect()
-        effect.setOffset(0, 1)
-        effect.setBlurRadius(8)
-        widget.setGraphicsEffect(effect)
 
     def close_window(self) -> None:
         """ Closes entire Window
@@ -1872,9 +1839,9 @@ class Laborauswertung(QtWidgets.QDialog):
         uic.loadUi(r'./views/laborauswertung.ui', self)
         self.setWindowTitle(f"CapZa - Zasada - {__version__} - Laborauswertung")
 
-        self.init_shadow(self.form_frame_1)
-        self.init_shadow(self.form_frame_2)
-        self.init_shadow(self.form_frame_3)
+        init_shadow(self.form_frame_1)
+        init_shadow(self.form_frame_2)
+        init_shadow(self.form_frame_3)
 
         self.save_la_btn.setEnabled(False)
 
@@ -1906,19 +1873,6 @@ class Laborauswertung(QtWidgets.QDialog):
             self.shown = True
             self.show_calculation_frame_btn.setText("-")
 
-    def init_shadow(self, widget: QtWidgets) -> None:
-
-        """ Applies shadow to given Widget
-
-        Args:
-            widget (QtWidgets): Any QtWidget
-                e.g.: QFrame, QPushButton,...
-        """
-        effect = QGraphicsDropShadowEffect()
-        effect.setOffset(0, 1)
-        effect.setBlurRadius(8)
-        widget.setGraphicsEffect(effect)
-
     def la_calculate(self) -> None:
         """ Makes all calculations
 
@@ -1929,8 +1883,8 @@ class Laborauswertung(QtWidgets.QDialog):
             try:
                 ### Berechnung % TS:
                 if self.la_auswaage_fs_input.text() and self.la_einwaage_fs_input.text():
-                    tds = float(self.la_auswaage_fs_input.text()) / (float(self.la_einwaage_fs_input.text())/100)
-                    self.la_result_ts.setText(str(tds))
+                    ts = float(self.la_auswaage_fs_input.text()) / (float(self.la_einwaage_fs_input.text())/100)
+                    self.la_result_ts.setText(str(ts))
                     # Wasserfaktor
                     wasserfaktor = float(self.la_einwaage_fs_input.text()) / float(self.la_auswaage_fs_input.text())
                     self.la_result_wasserfaktor.setText(str(wasserfaktor))
@@ -1964,8 +1918,8 @@ class Laborauswertung(QtWidgets.QDialog):
             try:
                 ### Berechnung TDS:
                 if self.la_tds_auswaage_input.text() and self.la_tds_tara_input.text() and self.la_tds_einwaage_input.text():
-                    gv = (float(self.la_tds_auswaage_input.text()) - float(self.la_tds_tara_input.text())) * (1000 / float(self.la_tds_einwaage_input.text()) * 1000)
-                    self.la_result_tds_gesamt.setText(str(gv))
+                    tds = (float(self.la_tds_auswaage_input.text()) - float(self.la_tds_tara_input.text())) * (1000 / float(self.la_tds_einwaage_input.text()) * 1000)
+                    self.la_result_tds_gesamt.setText(str(tds))
             except Exception as ex:
                 raise Exception(f"Fehler bei Berechung des DS Gesamt gelöste Stoffe: [{ex}]")
 
@@ -2003,45 +1957,46 @@ class Laborauswertung(QtWidgets.QDialog):
         y,m,d = all_db_data["Datum"].split()[0].split("-")
         self.la_date_edit.setDate(QDate(int(y),int(m),int(d)))
         try:
-            self.la_material_input.setText(str(all_db_data["Materialbezeichnung"])) if all_db_data["Materialbezeichnung"] != None else "-"
+            self.la_material_input.setText(format_specific_insert_value("Materialbezeichnung", all_db_data))
 
-            self.la_kennung_input.setText(str(all_db_data["Kennung"])) if all_db_data["Kennung"] != None else "-"
+            self.la_kennung_input.setText(format_specific_insert_value("Kennung", all_db_data))
             #---------------------------------------------#
-            self.la_feuchte_input.setText(str(all_db_data["Wassergehalt %"])) if all_db_data["Wassergehalt %"] != None else "-"
-            self.la_fluorid_input.setText(str(all_db_data["Fluorid mg/L"])) if all_db_data["Fluorid mg/L"] != None else "-"
-            self.la_ph_input.setText(str(all_db_data["pH-Wert"])) if all_db_data["pH-Wert"] != None else "-"
-            self.la_lf_input.setText(str(all_db_data["Leitfähigkeit mS/cm"])) if all_db_data["Leitfähigkeit mS/cm"] != None else "-"
-            self.la_cl_input.setText(str(all_db_data["Chlorid mg/L"])) if all_db_data["Chlorid mg/L"] != None else "-"
-            self.la_cr_input.setText(str(all_db_data["Cr 205.560 (Aqueous-Axial-iFR)"])) if all_db_data["Cr 205.560 (Aqueous-Axial-iFR)"] != None else "-"
-            self.la_doc_input.setText(str(all_db_data["Bezogen auf das eingewogene Material DOC mg/L"])) if all_db_data["Bezogen auf das eingewogene Material DOC mg/L"] != None else "-"
-            self.la_mo_input.setText(str(all_db_data["Mo 202.030 (Aqueous-Axial-iFR)"])) if all_db_data["Mo 202.030 (Aqueous-Axial-iFR)"] != None else "-"
-            self.la_toc_input.setText(str(all_db_data["TOC %"])) if all_db_data["TOC %"] != None else "-"
-            self.la_ec_input.setText(str(all_db_data["EC %"])) if all_db_data["EC %"] != None else "-"
+            self.la_feuchte_input.setText(format_specific_insert_value("Wassergehalt %", all_db_data))
+            self.la_fluorid_input.setText(format_specific_insert_value("Fluorid mg/L", all_db_data))
+            
+            self.la_ph_input.setText(format_specific_insert_value("pH-Wert", all_db_data))
+            self.la_lf_input.setText(format_specific_insert_value("Leitfähigkeit mS/cm", all_db_data))
+            self.la_cl_input.setText(format_specific_insert_value("Chlorid mg/L", all_db_data))
+            self.la_cr_input.setText(format_specific_insert_value("Cr 205.560 (Aqueous-Axial-iFR)", all_db_data))
+            self.la_doc_input.setText(format_specific_insert_value("Bezogen auf das eingewogene Material DOC mg/L", all_db_data))
+            self.la_mo_input.setText(format_specific_insert_value("Mo 202.030 (Aqueous-Axial-iFR)", all_db_data))
+            self.la_toc_input.setText(format_specific_insert_value("TOC %", all_db_data))
+            self.la_ec_input.setText(format_specific_insert_value("EC %", all_db_data))
             #----------------------------------------------#
             # Berechnungs Daten
-            self.la_ts_der_probe_input.setText(str(all_db_data[" TS der Probe"])) if all_db_data[" TS der Probe"] != None else "-"
-            self.la_einwaage_sox_input.setText(str(all_db_data["Einwaage Soxlett"])) if all_db_data["Einwaage Soxlett"] != None else "-"
-            self.la_lipos_tara_input.setText(str(all_db_data["lipos_tara"])) if all_db_data["lipos_tara"] != None else "-" # TODO: Neuer Wert muss in die Datenbank!
-            self.la_lipos_auswaage_input.setText(str(all_db_data["lipos_auswaage"])) if all_db_data["lipos_auswaage"] != None else "-" # TODO: Neuer Wert muss in die Datenbank! 
-            self.la_gv_tara_input.setText(str(all_db_data["GV Tara g"])) if all_db_data["GV Tara g"] != None else "-"
-            self.la_gv_einwaage_input.setText(str(all_db_data["GV Einwaage g"])) if all_db_data["GV Einwaage g"] != None else "-"
-            self.la_gv_auwaage_input.setText(str(all_db_data["GV Auswaage g"])) if all_db_data["GV Auswaage g"] != None else "-"
-            self.la_tds_tara_input.setText(str(all_db_data["TDS Tara g"])) if all_db_data["TDS Tara g"] != None else "-"
-            self.la_tds_einwaage_input.setText(str(all_db_data["TDS Einwaage g"])) if all_db_data["TDS Einwaage g"] != None else "-"
-            self.la_tds_auswaage_input.setText(str(all_db_data["TDS Auswaage g"])) if all_db_data["TDS Auswaage g"] != None else "-"
-            self.la_einwaage_fs_input.setText(str(all_db_data["Einwaage FS g"])) if all_db_data["Einwaage FS g"] != None else "-"
-            self.la_auswaage_fs_input.setText(str(all_db_data["Auswaage FS g"])) if all_db_data["Auswaage FS g"] != None else "-"
-            self.la_eluat_einwaage_os_input.setText(str(all_db_data["Eluat Einwaage OS"])) if all_db_data["Eluat Einwaage OS"] != None else "-"
+            self.la_ts_der_probe_input.setText(format_specific_insert_value(" TS der Probe", all_db_data))
+            self.la_einwaage_sox_input.setText(format_specific_insert_value("Einwaage Soxlett", all_db_data))
+            self.la_lipos_tara_input.setText(format_specific_insert_value("lipos_tara", all_db_data))
+            self.la_lipos_auswaage_input.setText(format_specific_insert_value("lipos_auswaage", all_db_data))
+            self.la_gv_tara_input.setText(format_specific_insert_value("GV Tara g", all_db_data))
+            self.la_gv_einwaage_input.setText(format_specific_insert_value("GV Einwaage g", all_db_data))
+            self.la_gv_auwaage_input.setText(format_specific_insert_value("GV Auswaage g", all_db_data))
+            self.la_tds_tara_input.setText(format_specific_insert_value("TDS Tara g", all_db_data))
+            self.la_tds_einwaage_input.setText(format_specific_insert_value("TDS Einwaage g", all_db_data))
+            self.la_tds_auswaage_input.setText(format_specific_insert_value("TDS Auswaage g", all_db_data))
+            self.la_einwaage_fs_input.setText(format_specific_insert_value("Einwaage FS g", all_db_data))
+            self.la_auswaage_fs_input.setText(format_specific_insert_value("Auswaage FS g", all_db_data))
+            self.la_eluat_einwaage_os_input.setText(format_specific_insert_value("Eluat Einwaage OS", all_db_data))
             #-------------------------------------------------#
             # Ergebnis Daten
-            self.la_result_ts.setText(str(all_db_data["% TS"])) if all_db_data["% TS"] != None else "-"
-            self.la_result_wasserfaktor.setText(str(all_db_data["Wasserfaktor"])) if all_db_data["Wasserfaktor"] != None else "-"
-            self.la_result_wf_getrocknet.setText(str(all_db_data["Wasserfaktor getrocknetes Material"])) if all_db_data["Wasserfaktor getrocknetes Material"] != None else "-"
-            self.la_result_lipos_ts.setText(str(all_db_data["Lipos TS %"])) if all_db_data["Lipos TS %"] != None else "-"
-            self.la_result_gv.setText(str(all_db_data[r"GV %"])) if all_db_data[r"GV %"] != None else "-"
-            self.la_result_tds_gesamt.setText(str(all_db_data[r"TDS Gesamt gelöste Stoffe mg/L"])) if all_db_data[r"TDS Gesamt gelöste Stoffe mg/L"] != None else "-"
-            self.la_result_einwaage_ts.setText(str(all_db_data[r"Einwaage TS"])) if all_db_data[r"Einwaage TS"] != None else "-"
-            self.la_result_faktor.setText(str(all_db_data[r"Faktor"])) if all_db_data[r"Faktor"] != None else "-"
+            self.la_result_ts.setText(format_specific_insert_value("% TS", all_db_data))
+            self.la_result_wasserfaktor.setText(format_specific_insert_value("Wasserfaktor", all_db_data))
+            self.la_result_wf_getrocknet.setText(format_specific_insert_value("Wasserfaktor getrocknetes Material", all_db_data))
+            self.la_result_lipos_ts.setText(format_specific_insert_value("Lipos TS %", all_db_data))
+            self.la_result_gv.setText(format_specific_insert_value("GV %", all_db_data))
+            self.la_result_tds_gesamt.setText(format_specific_insert_value("TDS Gesamt gelöste Stoffe mg/L", all_db_data))
+            self.la_result_einwaage_ts.setText(format_specific_insert_value("Einwaage TS", all_db_data))
+            self.la_result_faktor.setText(format_specific_insert_value("Faktor", all_db_data))
             #-----------------------------------------------#
             # Bemerkungen
             bemerkung_lst = all_db_data[r"strukt_bemerkung"].split(";")
@@ -2173,6 +2128,43 @@ class Laborauswertung(QtWidgets.QDialog):
         file = QFileDialog.getOpenFileName(self, "RFA-Scan", "C://", "CSV Files (*.csv)")
         return file
 
+def format_specific_insert_value(col_name: str, all_data: dict) -> str:
+    if type(all_data) == pd.DataFrame:
+        all_data = all_data.to_dict(orient='records')[0]
+    return str(all_data[col_name]) if all_data[col_name] != None else "-"
+
+def round_if_psbl(value) -> str:
+        """ Checks if a given value is a float. If so, rounds it to 3 digits. Then returns as str
+
+        Args:
+            value (float): Float Probedata value 
+                e.g.:3.123, 0.128493, ...
+
+        Returns:
+            str: Value to be set in
+                e.g.: '3.123', '0.128', ...
+        """
+
+        if isinstance(value, float):
+            return str(round(value, 3))
+        elif value == "<LoD":
+            return "-"
+        else:
+            return str(value)
+
+def init_shadow(widget) -> None:
+        """Sets shadow to the given widget
+
+        Args:
+            widget (QWidget): QFrame, QButton, ....
+        """
+
+        effect = QGraphicsDropShadowEffect()
+        effect.setOffset(0, 1)
+        effect.setBlurRadius(8)
+        widget.setGraphicsEffect(effect)
+
+
 
 if __name__ == "__main__":
     STATUS_MSG = []
@@ -2196,8 +2188,6 @@ if __name__ == "__main__":
             PNR_PATH = d["project_nr_path"]
             STANDARD_SAVE_PATH =d["save_path"]
             DB_PATH = d["db_path"]
-        
-        
 
         try:
             DATABASE_HELPER = DatabaseHelper(DB_PATH)
