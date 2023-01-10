@@ -82,7 +82,7 @@ background-color: #0C5C51;</string>
           <number>10</number>
          </property>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="popup_title_lbl">
            <property name="font">
             <font>
              <family>Leelawadee UI</family>
@@ -95,7 +95,7 @@ background-color: #0C5C51;</string>
             <string notr="true">color: #AEDC21; background-color: transparent;</string>
            </property>
            <property name="text">
-            <string>Wähle eine Probe aus:</string>
+            <string>XXX:</string>
            </property>
           </widget>
          </item>
@@ -338,7 +338,7 @@ margin-right: 60px;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="load_probe_btn">
+       <widget class="QPushButton" name="load_data_btn">
         <property name="minimumSize">
          <size>
           <width>0</width>

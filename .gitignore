@@ -1,4 +1,8 @@
 ./vorlagen
 ./*.db
 ./*.json
-/dist
+dist/
+build/
+tests/
+./*.exe
+./*.spec

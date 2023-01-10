@@ -50,20 +50,22 @@ class DatabaseHelper():
         except Exception as ex:
             raise Exception(f"Datenbank nicht gefunden: [{ex}]")
 
-    def get_specific_probe(self, id, material=None, date=None):
+    def get_specific_probe(self, id, material:str=None, date:str=None):
         
-        try:
-            # self.conn.row_factory = sqlite3.Row
-            if material and date:
-                sql = f"SELECT * FROM main WHERE Kennung = '{id}' AND Materialbezeichnung = '{material}' AND Datum = '{date}';"
-            else:
-                sql = f"SELECT * FROM main WHERE Kennung = '{id}';"
-            cur = self.conn.cursor()
-            cur.execute(sql)
-            result = dict(cur.fetchone())
-            return result
-        except Exception as ex:
-            raise Exception(f"Probe nicht gefunden: [{ex}]")
+
+        # self.conn.row_factory = sqlite3.Row
+        if material and date:
+            sql = f"SELECT * FROM main WHERE material_kenn = '{id}' AND material_bez = '{material}' AND datum = '{date}';"
+        else:
+            sql = f"SELECT * FROM main WHERE material_kenn = '{id}';"
+
+        cur = self.conn.cursor()
+        cur.execute(sql)
+        result = cur.fetchone()
+        if result:
+            return dict(result)         
+        else:
+            raise Exception(f"Diese Probe konnte in der Datenbank nicht gefunden werden.") 
 
     def add_laborauswertung(self, data: dict):
         values = []
@@ -127,18 +129,39 @@ class DatabaseHelper():
         conn.commit()
 
         sql = "DELETE FROM main WHERE Datum IS NULL OR trim(Datum) = '';"
-        sql_alter = "ALTER TABLE main ADD strukt_bemerkung VARCHAR(500) NULL;"
+        sql_add_bemerkung = """ALTER TABLE main ADD COLUMN strukt_bemerkung VARCHAR(500) NULL;"""
+        sql_add_lipos_tara = """ALTER TABLE main ADD COLUMN lipos_tara VARCHAR(255) NULL;"""
+        sql_add_lipos_auswaage = """ALTER TABLE main ADD COLUMN lipos_auswaage VARCHAR(255) NULL;"""
         cur = conn.cursor()
         cur.execute(sql)
         conn.commit()
-        cur.execute(sql_alter)
+        cur.execute(sql_add_bemerkung)
+        conn.commit()
+        cur.execute(sql_add_lipos_tara)
+        conn.commit()
+        cur.execute(sql_add_lipos_auswaage)
         conn.commit()
         conn.close()
             
         print(f"Datenabk erstellt :D {new_db_path}")
 
-
+    def get_all_heading_names(self) -> dict:
+        try:
+            cursor = self.conn.execute("select * from main")
+            db_headers = [description[0] for description in cursor.description]
+            local_headers = ['datum', 'material_bez', 'material_kenn', 'wassergehalt', 'einwaage_fs', 'auswaage_fs', 'ts_der_probe', 'result_ts', 'result_wasserfakt', 'result_wasserfakt_getr', 'einwaage_sox_getr', 'einwaage_sox_frisch', 'auswaage_sox_vor_nach', 'result_lipos_ts', 'result_lipos_fs', 'result_lipos_aus_frisch', 'result_lipos_fs_ts', 'gv_tara', 'gv_einwaage', 'gv_auswaage', 'result_gv', 'fluorid', 'bemerkung', 'ph_wert', 'leitfaehigkeit', 'chlorid', 'cr_vi', 'result_tds_ges', 'tds_tara', 'tds_einwaage', 'tds_auswaage', 'result_salzfracht', 'eluat_einwaage_os', 'result_einwaage_ts', 'result_faktor', 'doc', 'molybdaen', 'toc', 'ec', 'rfa_probenbezeichnung', 'Pb', 'Pb Error', 'Ni', 'Ni Error', 'Sb', 'Sb Error', 'Sn', 'Sn Error', 'Cd', 'Cd Error', 'Cr', 'Cr Error', 'Cu', 'Cu Error', 'Fe', 'Fe Error', 'Ag', 'Ag Error', 'Al', 'Al Error', 'As', 'As Error', 'Au', 'Au Error', 'Ba', 'Ba Error', 'Bal', 'Bal Error', 'Bi', 'Bi Error', 'Ca', 'Ca Error', 'Cl', 'Cl Error', 'Co', 'Co Error', 'K', 'K Error', 'Mg', 'Mg Error', 'Mn', 'Mn Error', 'Mo', 'Mo Error', 'Nb', 'Nb Error', 'P', 'P Error', 'Pd', 'Pd Error', 'Rb', 'Rb Error', 'S', 'S Error', 'Se', 'Se Error', 'Si', 'Si Error', 'Sr', 'Sr Error', 'Ti', 'Ti Error', 'Tl', 'Tl Error', 'V', 'V Error', 'W', 'W Error', 'Zn', 'Zn Error', 'Zr', 'Zr Error', 'Br', 'Br Error', 'Feuchte Stetten zwichen 17-25% ab 2018', 'ICP ab 17.02.2022/nAs 189.042 ', 'Hg 194.227 (Aqueous-Axial-iFR)', 'Se 196.090 (Aqueous-Axial-iFR)', 'Mo 202.030 (Aqueous-Axial-iFR)', 'Cr 205.560 (Aqueous-Axial-iFR)', 'Sb 206.833 (Aqueous-Axial-iFR)', 'Zn 213.856 (Aqueous-Axial-iFR)', 'Pb 220.353 (Aqueous-Axial-iFR)', 'Cd 228.802 (Aqueous-Axial-iFR)', 'Ni 231.604 (Aqueous-Axial-iFR)', 'Ba 233.527 (Aqueous-Axial-iFR)', 'Fe 259.940 (Aqueous-Axial-iFR)', 'Ca 318.128 (Aqueous-Axial-iFR)', 'Cu 324.754 (Aqueous-Axial-iFR)', 'Al 394.401 (Aqueous-Axial-iFR)', 'Ar 404.442 (Aqueous-Axial-iFR)', 'strukt_bemerkung']
+            
+            res = {}
+            for key in local_headers:
+                for value in db_headers:
+                    res[key] = value
+                    db_headers.remove(value)
+                    break
+            return res
+        
+        except AttributeError as ex:
+            raise Exception(f"Fehler: Eventuell ist die Datenbank nicht vorhanden oder sie ist leer: [{ex}]")
 
 if __name__ == '__main__':
-    d = DatabaseHelper(r"/Users/florianzasada/Desktop/laborauswertung.db")
-    d.excel_to_sql(r"\\Mac\Home\Desktop\Laborauswertung.xlsx")
+    d = DatabaseHelper(r"//Mac/Home/Desktop/laborauswertung_20221125.db")
+    print(d.get_specific_probe("22-0018"))

@@ -2,13 +2,16 @@ import configparser
 from packaging import version
 import os
 
+import logging
+
 
 INI_FILE = ""
-CPAZA_CONFIG = os.path.join(os.getenv("APPDATA"), "CapZa", "capza_config.ini")
+CPAZA_CONFIG = os.path.join(os.getenv("APPDATA"), "CapZa","capza_config.ini")
 
 
 class ConfigHelper():
     def __init__(self) -> None:
+        logging.info(f"Confighelper - init - {CPAZA_CONFIG}")
         self.path = CPAZA_CONFIG
         self.config = self.read_config()
         
@@ -46,5 +49,6 @@ class ConfigHelper():
 
 
 if __name__ == "__main__":
-    cf = ConfigHelper("./config.ini")
-    pnp2 = cf.update_specific_value("la_path", "")
+    cf = ConfigHelper()
+    pnp2 = cf.get_all_config()
+    print(pnp2)

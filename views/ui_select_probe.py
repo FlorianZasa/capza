@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '\\mac\Home\Desktop\myBots\capza-app\capza\views\select_probe.ui'
+# Form implementation generated from reading ui file '\\Mac\Home\Desktop\myBots\capza-app\capza\views\select_probe.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -35,20 +35,25 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(20, 10, 20, 10)
         self.horizontalLayout.setSpacing(20)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label = QtWidgets.QLabel(self.horizontalFrame)
+        self.popup_title_lbl = QtWidgets.QLabel(self.horizontalFrame)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI")
         font.setPointSize(13)
         font.setBold(True)
         font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setStyleSheet("color: #AEDC21; background-color: transparent;")
-        self.label.setObjectName("label")
-        self.horizontalLayout.addWidget(self.label)
+        self.popup_title_lbl.setFont(font)
+        self.popup_title_lbl.setStyleSheet("color: #AEDC21; background-color: transparent;")
+        self.popup_title_lbl.setObjectName("popup_title_lbl")
+        self.horizontalLayout.addWidget(self.popup_title_lbl)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.label_2 = QtWidgets.QLabel(self.horizontalFrame)
-        self.label_2.setMaximumSize(QtCore.QSize(40, 50))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy)
+        self.label_2.setMaximumSize(QtCore.QSize(40, 80))
         self.label_2.setText("")
         self.label_2.setPixmap(QtGui.QPixmap(":/logos/icon_logo.png"))
         self.label_2.setScaledContents(True)
@@ -135,8 +140,8 @@ class Ui_MainWindow(object):
 "border: 1px solid red;\n"
 "border-radius: 10px;\n"
 "text-align:center;\n"
-"margin-left: 50px;\n"
-"margin-right: 50px;")
+"margin-left: 60px;\n"
+"margin-right: 60px;")
         self.cancel_btn.setObjectName("cancel_btn")
         self.verticalLayout.addWidget(self.cancel_btn)
         self.load_probe_btn = QtWidgets.QPushButton(self.centralwidget)
@@ -150,8 +155,8 @@ class Ui_MainWindow(object):
         self.load_probe_btn.setStyleSheet("background-color: #AEDC21;\n"
 "border-radius: 10px;\n"
 "text-align:center;\n"
-"margin-left: 50px;\n"
-"margin-right: 50px;")
+"margin-left: 60px;\n"
+"margin-right: 60px;")
         self.load_probe_btn.setObjectName("load_probe_btn")
         self.verticalLayout.addWidget(self.load_probe_btn)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
@@ -163,7 +168,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Laborauswertung:"))
+        self.popup_title_lbl.setText(_translate("MainWindow", "XXX:"))
         self.label_3.setText(_translate("MainWindow", "Suche nach Kennung:"))
         self.probe_filter_lineedit.setPlaceholderText(_translate("MainWindow", "ENE XXXX"))
         self.results_lbl.setText(_translate("MainWindow", "XXXX Ergebnisse gefunden"))

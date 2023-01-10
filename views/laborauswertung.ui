@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1187</width>
+    <width>1108</width>
     <height>1205</height>
    </rect>
   </property>
@@ -113,7 +113,7 @@ color: #AEDC21;</string>
         </property>
         <property name="maximumSize">
          <size>
-          <width>60</width>
+          <width>100</width>
           <height>60</height>
          </size>
         </property>
@@ -124,13 +124,13 @@ color: #AEDC21;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="../assets/icons.qrc">:/logos/icon_logo.png</pixmap>
+         <pixmap resource="../assets/icons.qrc">:/logos/capza_icon.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
         </property>
         <property name="margin">
-         <number>10</number>
+         <number>0</number>
         </property>
        </widget>
       </item>
@@ -181,9 +181,9 @@ QPushButton, QToolButton {background: #AEDC21;border-radius: 10px;text-align:cen
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-642</y>
-           <width>1139</width>
-           <height>2157</height>
+           <y>-132</y>
+           <width>1060</width>
+           <height>2519</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -672,7 +672,7 @@ QPushButton, QToolButton {background: #AEDC21;border-radius: 10px;text-align:cen
                      </font>
                     </property>
                     <property name="text">
-                     <string>Cr [mg/L]:</string>
+                     <string>Chrom [mg/L]:</string>
                     </property>
                     <property name="scaledContents">
                      <bool>false</bool>
@@ -752,7 +752,7 @@ QPushButton, QToolButton {background: #AEDC21;border-radius: 10px;text-align:cen
                      </font>
                     </property>
                     <property name="text">
-                     <string>Mo [mg/L]:</string>
+                     <string>Molybdän [mg/L]:</string>
                     </property>
                     <property name="scaledContents">
                      <bool>false</bool>
@@ -1014,8 +1014,8 @@ margin-right: 40px
                        <property name="spacing">
                         <number>10</number>
                        </property>
-                       <item row="1" column="1">
-                        <widget class="QLineEdit" name="la_einwaage_sox_input">
+                       <item row="6" column="1">
+                        <widget class="QLineEdit" name="la_gv_einwaage_input">
                          <property name="font">
                           <font>
                            <pointsize>11</pointsize>
@@ -1026,93 +1026,7 @@ margin-right: 40px
                          </property>
                         </widget>
                        </item>
-                       <item row="11" column="1">
-                        <widget class="QLineEdit" name="la_auswaage_fs_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="2" column="1">
-                        <widget class="QLineEdit" name="la_lipos_tara_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="12" column="2">
-                        <widget class="QPushButton" name="pushButton_25">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="0">
-                        <widget class="QLabel" name="label_35">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string> TS der Probe [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="9" column="0">
+                       <item row="10" column="0">
                         <widget class="QLabel" name="label_24">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1142,8 +1056,20 @@ margin-right: 40px
                          </property>
                         </widget>
                        </item>
-                       <item row="10" column="0">
-                        <widget class="QLabel" name="label_33">
+                       <item row="1" column="1">
+                        <widget class="QLineEdit" name="la_lipos_tara_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="6" column="0">
+                        <widget class="QLabel" name="label_40">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -1159,7 +1085,7 @@ margin-right: 40px
                           </font>
                          </property>
                          <property name="text">
-                          <string>Einwaage FS [g]:</string>
+                          <string>GV Einwaage [g]:</string>
                          </property>
                          <property name="scaledContents">
                           <bool>false</bool>
@@ -1172,40 +1098,8 @@ margin-right: 40px
                          </property>
                         </widget>
                        </item>
-                       <item row="2" column="2">
-                        <widget class="QPushButton" name="pushButton_15">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="5" column="1">
-                        <widget class="QLineEdit" name="la_gv_einwaage_input">
+                       <item row="2" column="1">
+                        <widget class="QLineEdit" name="la_einwaage_sox_input">
                          <property name="font">
                           <font>
                            <pointsize>11</pointsize>
@@ -1216,7 +1110,55 @@ margin-right: 40px
                          </property>
                         </widget>
                        </item>
-                       <item row="8" column="0">
+                       <item row="10" column="1">
+                        <widget class="QLineEdit" name="la_tds_auswaage_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="3" column="1">
+                        <widget class="QLineEdit" name="la_lipos_auswaage_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="5" column="1">
+                        <widget class="QLineEdit" name="la_gv_tara_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="7" column="1">
+                        <widget class="QLineEdit" name="la_gv_auwaage_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="9" column="0">
                         <widget class="QLabel" name="label_23">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1246,63 +1188,7 @@ margin-right: 40px
                          </property>
                         </widget>
                        </item>
-                       <item row="3" column="1">
-                        <widget class="QLineEdit" name="la_lipos_auswaage_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="7" column="1">
-                        <widget class="QLineEdit" name="la_tds_tara_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="6" column="2">
-                        <widget class="QPushButton" name="pushButton_19">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="2" column="0">
+                       <item row="1" column="0">
                         <widget class="QLabel" name="label_18">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1320,6 +1206,150 @@ margin-right: 40px
                          </property>
                          <property name="text">
                           <string>Lipos Tara [g]:</string>
+                         </property>
+                         <property name="scaledContents">
+                          <bool>false</bool>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                         </property>
+                         <property name="wordWrap">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="9" column="1">
+                        <widget class="QLineEdit" name="la_tds_einwaage_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="8" column="0">
+                        <widget class="QLabel" name="label_22">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <family>Leelawadee</family>
+                           <pointsize>11</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>TDS Tara [g]:</string>
+                         </property>
+                         <property name="scaledContents">
+                          <bool>false</bool>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                         </property>
+                         <property name="wordWrap">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="5" column="0">
+                        <widget class="QLabel" name="label_20">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <family>Leelawadee</family>
+                           <pointsize>11</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>GV Tara [g]:</string>
+                         </property>
+                         <property name="scaledContents">
+                          <bool>false</bool>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                         </property>
+                         <property name="wordWrap">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="8" column="1">
+                        <widget class="QLineEdit" name="la_tds_tara_input">
+                         <property name="font">
+                          <font>
+                           <pointsize>11</pointsize>
+                          </font>
+                         </property>
+                         <property name="clearButtonEnabled">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_16">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <family>Leelawadee</family>
+                           <pointsize>11</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Einwaage Soxlett [g]:</string>
+                         </property>
+                         <property name="scaledContents">
+                          <bool>false</bool>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                         </property>
+                         <property name="wordWrap">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="7" column="0">
+                        <widget class="QLabel" name="label_21">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <family>Leelawadee</family>
+                           <pointsize>11</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>GV Auswaage [g]:</string>
                          </property>
                          <property name="scaledContents">
                           <bool>false</bool>
@@ -1359,620 +1389,6 @@ margin-right: 40px
                          </property>
                          <property name="wordWrap">
                           <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="11" column="2">
-                        <widget class="QPushButton" name="pushButton_24">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="8" column="1">
-                        <widget class="QLineEdit" name="la_tds_einwaage_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="6" column="1">
-                        <widget class="QLineEdit" name="la_gv_auwaage_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="6" column="0">
-                        <widget class="QLabel" name="label_21">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>GV Auswaage [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="7" column="0">
-                        <widget class="QLabel" name="label_22">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>TDS Tara [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="10" column="2">
-                        <widget class="QPushButton" name="pushButton_23">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="12" column="0">
-                        <widget class="QLabel" name="label_41">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>Eluat Einwaage OS:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="8" column="2">
-                        <widget class="QPushButton" name="pushButton_21">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="7" column="2">
-                        <widget class="QPushButton" name="pushButton_20">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="9" column="2">
-                        <widget class="QPushButton" name="pushButton_22">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="9" column="1">
-                        <widget class="QLineEdit" name="la_tds_auswaage_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="1" column="2">
-                        <widget class="QPushButton" name="pushButton_12">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="10" column="1">
-                        <widget class="QLineEdit" name="la_einwaage_fs_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="4" column="0">
-                        <widget class="QLabel" name="label_20">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>GV Tara [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="4" column="1">
-                        <widget class="QLineEdit" name="la_gv_tara_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="1" column="0">
-                        <widget class="QLabel" name="label_16">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>Einwaage Soxlett [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="11" column="0">
-                        <widget class="QLabel" name="label_34">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>Auswaage FS [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="3" column="2">
-                        <widget class="QPushButton" name="pushButton_16">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="2">
-                        <widget class="QPushButton" name="pushButton_11">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="1">
-                        <widget class="QLineEdit" name="la_ts_der_probe_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="5" column="0">
-                        <widget class="QLabel" name="label_40">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Leelawadee</family>
-                           <pointsize>11</pointsize>
-                           <weight>50</weight>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>GV Einwaage [g]:</string>
-                         </property>
-                         <property name="scaledContents">
-                          <bool>false</bool>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                         <property name="wordWrap">
-                          <bool>false</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="5" column="2">
-                        <widget class="QPushButton" name="pushButton_18">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="4" column="2">
-                        <widget class="QPushButton" name="pushButton_17">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">background-color: rgb(195, 195, 195)</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../assets/icons.qrc">
-                           <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="12" column="1">
-                        <widget class="QLineEdit" name="la_eluat_einwaage_os_input">
-                         <property name="font">
-                          <font>
-                           <pointsize>11</pointsize>
-                          </font>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
                          </property>
                         </widget>
                        </item>
@@ -2027,58 +1443,7 @@ margin-right: 40px
                     <property name="spacing">
                      <number>10</number>
                     </property>
-                    <item row="6" column="2">
-                     <widget class="QPushButton" name="pushButton_34">
-                      <property name="minimumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(195, 195, 195)</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="1">
-                     <widget class="QLineEdit" name="la_result_tds_gesamt">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(236, 236, 236);</string>
-                      </property>
-                      <property name="maxLength">
-                       <number>10</number>
-                      </property>
-                      <property name="readOnly">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="0">
+                    <item row="3" column="0">
                      <widget class="QLabel" name="label_27">
                       <property name="font">
                        <font>
@@ -2094,6 +1459,50 @@ margin-right: 40px
                       </property>
                       <property name="wordWrap">
                        <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="label_31">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Leelawadee</family>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Trockenmasse [%]:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLineEdit" name="la_result_gv">
+                      <property name="font">
+                       <font>
+                        <family>Leelawadee</family>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(236, 236, 236);</string>
+                      </property>
+                      <property name="maxLength">
+                       <number>10</number>
+                      </property>
+                      <property name="readOnly">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -2129,22 +1538,35 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="1">
-                     <widget class="QLineEdit" name="la_result_wf_getrocknet">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
+                    <item row="2" column="2">
+                     <widget class="QPushButton" name="pushButton_28">
+                      <property name="minimumSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">background-color: rgb(236, 236, 236);</string>
+                       <string notr="true">background-color: rgb(195, 195, 195)</string>
                       </property>
-                      <property name="maxLength">
-                       <number>10</number>
+                      <property name="text">
+                       <string/>
                       </property>
-                      <property name="readOnly">
-                       <bool>true</bool>
+                      <property name="icon">
+                       <iconset resource="../assets/icons.qrc">
+                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -2180,84 +1602,8 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
-                    <item row="4" column="2">
-                     <widget class="QPushButton" name="pushButton_32">
-                      <property name="minimumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(195, 195, 195)</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="label_32">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Wasserfaktor:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_31">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>TS [%]:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="1" column="1">
-                     <widget class="QLineEdit" name="la_result_wasserfaktor">
+                     <widget class="QLineEdit" name="la_result_lipos_ts">
                       <property name="font">
                        <font>
                         <family>Leelawadee</family>
@@ -2275,8 +1621,8 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
-                    <item row="7" column="0">
-                     <widget class="QLabel" name="label_29">
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_25">
                       <property name="font">
                        <font>
                         <family>Leelawadee</family>
@@ -2284,7 +1630,7 @@ margin-right: 40px
                        </font>
                       </property>
                       <property name="text">
-                       <string>Faktor:</string>
+                       <string>Lipophile Stoffe [%]:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2326,166 +1672,7 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
-                    <item row="7" column="2">
-                     <widget class="QPushButton" name="pushButton_35">
-                      <property name="minimumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(195, 195, 195)</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="0">
-                     <widget class="QLabel" name="label_25">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Lipos TS [%]:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="0">
-                     <widget class="QLabel" name="label_28">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Einwaage TS:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="1">
-                     <widget class="QLineEdit" name="la_result_einwaage_ts">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(236, 236, 236);</string>
-                      </property>
-                      <property name="maxLength">
-                       <number>10</number>
-                      </property>
-                      <property name="readOnly">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="2">
-                     <widget class="QPushButton" name="pushButton_33">
-                      <property name="minimumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(195, 195, 195)</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="1">
-                     <widget class="QLineEdit" name="la_result_lipos_ts">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(236, 236, 236);</string>
-                      </property>
-                      <property name="maxLength">
-                       <number>10</number>
-                      </property>
-                      <property name="readOnly">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="2" column="0">
-                     <widget class="QLabel" name="label_30">
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Wasserfaktor getrocknet:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="4" column="0">
                      <widget class="QLabel" name="label_26">
                       <property name="font">
                        <font>
@@ -2494,7 +1681,7 @@ margin-right: 40px
                        </font>
                       </property>
                       <property name="text">
-                       <string>GV [%]:</string>
+                       <string>Glühverlust [%]:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2504,40 +1691,8 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="2">
-                     <widget class="QPushButton" name="pushButton_28">
-                      <property name="minimumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(195, 195, 195)</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="1">
-                     <widget class="QLineEdit" name="la_result_faktor">
+                    <item row="3" column="1">
+                     <widget class="QLineEdit" name="la_result_tds_gesamt">
                       <property name="font">
                        <font>
                         <family>Leelawadee</family>
@@ -2574,8 +1729,27 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="label_28">
+                      <property name="font">
+                       <font>
+                        <family>Leelawadee</family>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>AOC [mg/L]:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="4" column="1">
-                     <widget class="QLineEdit" name="la_result_gv">
+                     <widget class="QLineEdit" name="la_result_aoc">
                       <property name="font">
                        <font>
                         <family>Leelawadee</family>
@@ -2593,6 +1767,38 @@ margin-right: 40px
                       </property>
                      </widget>
                     </item>
+                    <item row="4" column="2">
+                     <widget class="QPushButton" name="pushButton_30">
+                      <property name="minimumSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(195, 195, 195)</string>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../assets/icons.qrc">
+                        <normaloff>:/icons/icons8-info-96.png</normaloff>:/icons/icons8-info-96.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </widget>
                  </item>
@@ -2602,199 +1808,270 @@ margin-right: 40px
                 <widget class="QFrame" name="scan_frame">
                  <layout class="QVBoxLayout" name="verticalLayout_3">
                   <item>
-                   <widget class="QLabel" name="label_2">
-                    <property name="font">
-                     <font>
-                      <family>Leelawadee</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
+                   <widget class="QSplitter" name="splitter">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
                     </property>
-                    <property name="text">
-                     <string>Werte aus dem RFA Scan:</string>
-                    </property>
-                    <property name="margin">
-                     <number>10</number>
-                    </property>
+                    <widget class="QWidget" name="verticalLayoutWidget">
+                     <layout class="QVBoxLayout" name="verticalLayout_5">
+                      <item>
+                       <widget class="QLabel" name="label_2">
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee</family>
+                          <pointsize>12</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Werte aus dem RFA Scan:</string>
+                        </property>
+                        <property name="margin">
+                         <number>10</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QTableView" name="rfa_table_widget">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>300</height>
+                         </size>
+                        </property>
+                        <property name="editTriggers">
+                         <set>QAbstractItemView::NoEditTriggers</set>
+                        </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::SingleSelection</enum>
+                        </property>
+                        <property name="selectionBehavior">
+                         <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                        <property name="cornerButtonEnabled">
+                         <bool>false</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QTableView" name="rfa_result_table_view"/>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_2">
+                        <item>
+                         <spacer name="horizontalSpacer">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="import_rfa_scan_btn">
+                          <property name="minimumSize">
+                           <size>
+                            <width>300</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: white; border: 1px solid gray;</string>
+                          </property>
+                          <property name="text">
+                           <string>Importiere RFA Scan</string>
+                          </property>
+                          <property name="icon">
+                           <iconset resource="../assets/icons.qrc">
+                            <normaloff>:/icons/icons8-import-96.png</normaloff>:/icons/icons8-import-96.png</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>20</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="verticalLayoutWidget_2">
+                     <layout class="QVBoxLayout" name="verticalLayout_6">
+                      <item>
+                       <widget class="QLabel" name="label_48">
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee</family>
+                          <pointsize>12</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Werte aus dem ICP Scan:</string>
+                        </property>
+                        <property name="margin">
+                         <number>10</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QTableView" name="icp_table">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>300</height>
+                         </size>
+                        </property>
+                        <property name="editTriggers">
+                         <set>QAbstractItemView::NoEditTriggers</set>
+                        </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::SingleSelection</enum>
+                        </property>
+                        <property name="selectionBehavior">
+                         <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QTableView" name="icp_result_table_view"/>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_3">
+                        <item>
+                         <spacer name="horizontalSpacer_2">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="import_icp_scan_btn">
+                          <property name="minimumSize">
+                           <size>
+                            <width>300</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Leelawadee</family>
+                            <pointsize>11</pointsize>
+                            <weight>75</weight>
+                            <bold>true</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">background-color: white; border: 1px solid gray;</string>
+                          </property>
+                          <property name="text">
+                           <string>Importiere ICP Scan</string>
+                          </property>
+                          <property name="icon">
+                           <iconset resource="../assets/icons.qrc">
+                            <normaloff>:/icons/icons8-import-96.png</normaloff>:/icons/icons8-import-96.png</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>20</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
                    </widget>
-                  </item>
-                  <item>
-                   <widget class="QTableWidget" name="tableWidget"/>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_2">
-                    <item>
-                     <spacer name="horizontalSpacer">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="import_rfa_scan_btn">
-                      <property name="minimumSize">
-                       <size>
-                        <width>300</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: white; border: 1px solid gray;</string>
-                      </property>
-                      <property name="text">
-                       <string>Importiere RFA Scan</string>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-import-96.png</normaloff>:/icons/icons8-import-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_48">
-                    <property name="font">
-                     <font>
-                      <family>Leelawadee</family>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Werte aus dem ICP Scan:</string>
-                    </property>
-                    <property name="margin">
-                     <number>10</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QTableWidget" name="tableWidget_2"/>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_3">
-                    <item>
-                     <spacer name="horizontalSpacer_2">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="import_icp_scan_btn">
-                      <property name="minimumSize">
-                       <size>
-                        <width>300</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Leelawadee</family>
-                        <pointsize>11</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: white; border: 1px solid gray;</string>
-                      </property>
-                      <property name="text">
-                       <string>Importiere ICP Scan</string>
-                      </property>
-                      <property name="icon">
-                       <iconset resource="../assets/icons.qrc">
-                        <normaloff>:/icons/icons8-import-96.png</normaloff>:/icons/icons8-import-96.png</iconset>
-                      </property>
-                      <property name="iconSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
                   </item>
                  </layout>
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="label_50">
+                <widget class="QGroupBox" name="groupBox">
                  <property name="font">
                   <font>
                    <family>Leelawadee</family>
                    <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
                   </font>
                  </property>
-                 <property name="text">
-                  <string>Bemerkungen:</string>
+                 <property name="title">
+                  <string>Bemerkungen</string>
                  </property>
-                 <property name="margin">
-                  <number>10</number>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QListWidget" name="listWidget"/>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="bemerkung_input">
-                 <property name="font">
-                  <font>
-                   <family>Leelawadee</family>
-                   <pointsize>11</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <property name="placeholderText">
-                  <string>Gib eine Bemerkung ein...</string>
-                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_7">
+                  <item>
+                   <widget class="QListWidget" name="listWidget"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_50">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Bemerkungen:</string>
+                    </property>
+                    <property name="margin">
+                     <number>10</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="bemerkung_input">
+                    <property name="font">
+                     <font>
+                      <family>Leelawadee</family>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Gib eine Bemerkung ein...</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
                <item>
