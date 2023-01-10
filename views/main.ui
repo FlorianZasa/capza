@@ -1068,7 +1068,7 @@ padding:0;
            <string notr="true">color: #0C5C51;</string>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>5</number>
           </property>
           <widget class="QWidget" name="data">
            <property name="styleSheet">
@@ -1324,7 +1324,7 @@ border: 1px solid #AEDC21</string>
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-115</y>
                  <width>1190</width>
                  <height>895</height>
                 </rect>
@@ -3506,7 +3506,7 @@ background-color: #16de29;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>592</width>
+                 <width>1190</width>
                  <height>1050</height>
                 </rect>
                </property>
@@ -5232,8 +5232,8 @@ color: white
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>710</width>
+                 <y>-313</y>
+                 <width>1208</width>
                  <height>1225</height>
                 </rect>
                </property>
@@ -5532,7 +5532,7 @@ border-radius: 10px;</string>
                          </font>
                         </property>
                         <property name="text">
-                         <string>Menge / Tonnage:</string>
+                         <string>Menge / Tonnage [t/a]:</string>
                         </property>
                        </widget>
                       </item>
@@ -6532,57 +6532,6 @@ border-radius: 10px;</string>
                     <number>10</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="pushButton_2">
-                     <property name="minimumSize">
-                      <size>
-                       <width>200</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>Leelawadee UI</family>
-                       <pointsize>11</pointsize>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">QPushButton {
-border: 1px solid #C7C7C7;
-border-radius: 10px;
-color: black;
-}
-
-
-QPushButton:hover {
-background-color: rgb(255, 220, 221);
-border: 2px solid rgb(255, 116, 118);
-border-radius: 10px;
-text-align:center;
-}
-
-QPushButton:pressed {
-background-color: rgb(255, 197, 198);
-color: black;
-}</string>
-                     </property>
-                     <property name="text">
-                      <string>Leeren</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="../assets/icons.qrc">
-                       <normaloff>:/icons/icons8-remove-96.png</normaloff>:/icons/icons8-remove-96.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>20</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <spacer name="horizontalSpacer_19">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
@@ -7140,56 +7089,6 @@ border-radius: 10px;</string>
                       <number>10</number>
                      </property>
                      <item>
-                      <widget class="QPushButton" name="pnp_out_empty">
-                       <property name="minimumSize">
-                        <size>
-                         <width>210</width>
-                         <height>30</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Leelawadee UI</family>
-                         <pointsize>11</pointsize>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QPushButton {
-border: 1px solid #C7C7C7;
-border-radius: 10px;
-}
-
-
-QPushButton:hover {
-background-color: rgb(255, 220, 221);
-border: 2px solid rgb(255, 116, 118);
-border-radius: 10px;
-text-align:center;
-}
-
-QPushButton:pressed {
-background-color: rgb(255, 197, 198);
-color: black;
-}</string>
-                       </property>
-                       <property name="text">
-                        <string>Leeren</string>
-                       </property>
-                       <property name="icon">
-                        <iconset resource="../assets/icons.qrc">
-                         <normaloff>:/icons/icons8-remove-96.png</normaloff>:/icons/icons8-remove-96.png</iconset>
-                       </property>
-                       <property name="iconSize">
-                        <size>
-                         <width>20</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
                       <spacer name="horizontalSpacer_4">
                        <property name="orientation">
                         <enum>Qt::Horizontal</enum>
@@ -7719,8 +7618,8 @@ border-radius: 10px;</string>
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>83</width>
-                          <height>69</height>
+                          <width>1137</width>
+                          <height>390</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -7895,6 +7794,12 @@ color: black;
            </layout>
           </widget>
           <widget class="QWidget" name="settings_frame">
+           <property name="font">
+            <font>
+             <family>Leelawadee</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">QPushButton, QToolButton {
 background-color: #AEDC21;
@@ -7913,6 +7818,10 @@ QPushButton:pressed, QToolButton:pressed {
 background-color: rgb(56, 167, 0);
 color: white
 }
+
+QLabe {
+color: black
+}
 </string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -7920,7 +7829,8 @@ color: white
              <widget class="QFrame" name="verticalFrame">
               <property name="styleSheet">
                <string notr="true">background: #FCFCFC;
-border-radius: 10px</string>
+border-radius: 10px;
+color: black;</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_26">
                <property name="spacing">
@@ -7983,8 +7893,8 @@ border-radius: 10px</string>
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>438</width>
-                    <height>477</height>
+                    <width>1189</width>
+                    <height>764</height>
                    </rect>
                   </property>
                   <property name="styleSheet">
@@ -7994,6 +7904,102 @@ border-radius: 10px</string>
                    <property name="topMargin">
                     <number>10</number>
                    </property>
+                   <item>
+                    <widget class="QFrame" name="ramses_conn_frame">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_9">
+                      <property name="bottomMargin">
+                       <number>20</number>
+                      </property>
+                      <item>
+                       <widget class="QLabel" name="label_3">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee</family>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Ramses Verbindung:</string>
+                        </property>
+                        <property name="scaledContents">
+                         <bool>false</bool>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>false</bool>
+                        </property>
+                        <property name="margin">
+                         <number>20</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="ramses_con_ampel">
+                        <property name="maximumSize">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(255, 0, 4);
+border-radius: 10px;
+
+</string>
+                        </property>
+                        <property name="text">
+                         <string>         </string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="ramses_con_text">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee</family>
+                          <pointsize>11</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>TextLabel</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_9">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
                    <item>
                     <widget class="QPushButton" name="clear_cache_btn">
                      <property name="sizePolicy">
@@ -8078,6 +8084,22 @@ color: black;
                       <property name="spacing">
                        <number>10</number>
                       </property>
+                      <item row="3" column="1">
+                       <widget class="QLineEdit" name="save_bericht_path">
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(217, 217, 217);
+
+border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
+                        </property>
+                       </widget>
+                      </item>
                       <item row="2" column="0">
                        <widget class="QLabel" name="label_2">
                         <property name="minimumSize">
@@ -8106,55 +8128,7 @@ color: black;
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="1">
-                       <widget class="QLineEdit" name="save_bericht_path">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(217, 217, 217);
-
-border: 1px solid #C7C7C7;
-border-radius: 10px;</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="1">
-                       <widget class="QLineEdit" name="db_path">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(217, 217, 217);
-
-border: 1px solid #C7C7C7;
-border-radius: 10px;</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
-                       <widget class="QLineEdit" name="project_nr_path">
-                        <property name="font">
-                         <font>
-                          <family>Leelawadee UI</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(217, 217, 217);
-
-border: 1px solid #C7C7C7;
-border-radius: 10px;</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
+                      <item row="3" column="2">
                        <widget class="QToolButton" name="choose_save_bericht_path">
                         <property name="minimumSize">
                          <size>
@@ -8195,35 +8169,23 @@ color: white
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_5">
-                        <property name="minimumSize">
-                         <size>
-                          <width>300</width>
-                          <height>0</height>
-                         </size>
-                        </property>
+                      <item row="2" column="1">
+                       <widget class="QLineEdit" name="db_path">
                         <property name="font">
                          <font>
-                          <family>Leelawadee UI</family>
+                          <family>Leelawadee</family>
                           <pointsize>11</pointsize>
-                          <weight>75</weight>
-                          <bold>true</bold>
                          </font>
                         </property>
                         <property name="styleSheet">
-                         <string notr="true">color: rgb(0, 0, 0);
-</string>
-                        </property>
-                        <property name="text">
-                         <string>Standardpfad zur Speicherung des Berichts:</string>
-                        </property>
-                        <property name="wordWrap">
-                         <bool>true</bool>
+                         <string notr="true">background-color: rgb(217, 217, 217);
+
+border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="0">
+                      <item row="1" column="0">
                        <widget class="QLabel" name="label_85">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -8251,6 +8213,34 @@ color: white
                         </property>
                         <property name="text">
                          <string>Pfad zu Excel Projektnummern:</string>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="0">
+                       <widget class="QLabel" name="label_5">
+                        <property name="minimumSize">
+                         <size>
+                          <width>300</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">color: rgb(0, 0, 0);
+</string>
+                        </property>
+                        <property name="text">
+                         <string>Pfad zur Speicherung des Berichts:</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -8298,7 +8288,23 @@ color: white
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="2">
+                      <item row="1" column="1">
+                       <widget class="QLineEdit" name="project_nr_path">
+                        <property name="font">
+                         <font>
+                          <family>Leelawadee UI</family>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(217, 217, 217);
+
+border: 1px solid #C7C7C7;
+border-radius: 10px;</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
                        <widget class="QToolButton" name="choose_project_nr_btn">
                         <property name="minimumSize">
                          <size>
@@ -8656,8 +8662,8 @@ color: white
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>218</width>
-                 <height>191</height>
+                 <width>1225</width>
+                 <height>912</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -8929,9 +8935,9 @@ border: 2px solid rgb(0, 127, 8);</string>
  </resources>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_4"/>
   <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>

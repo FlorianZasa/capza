@@ -9,12 +9,11 @@ from modules.read_rfa import get_rfa_data
 from modules.update_helper import UpdateHelper
 
 
-from datenklassen import projectnr
-import logging
+from datenklassen import erzeuger, laborauswertung, nachweis, projekt
+
 
 import datetime
-from multiprocessing import Process, freeze_support
-from docx2pdf import convert
+import logging
 import pandas as pd
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtGui import QIcon, QPixmap, QFont, QStandardItemModel, QStandardItem, QIntValidator
@@ -31,6 +30,8 @@ import resources
 
 from threading import Thread
 import os
+
+
 dirname = os.path.dirname(__file__)
 
 # import helper modules
@@ -57,6 +58,7 @@ SELECTED_NACHWEIS = None
 ALL_DATA_PROBE = None
 ALL_DATA_NACHWEIS = None
 ALL_DATA_PROJECT_NR = None
+RAMSES_HELPER = None
 
 PNR_PATH = ""
 LA_PATH = ""
@@ -69,9 +71,9 @@ BERICHT_FILE = ""
 ALIVE, PROGRESS = True, 0
 
 
+
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
-        global ALL_DATA_NACHWEIS
         super(Ui, self).__init__(parent)
         uic.loadUi(r'./views/main.ui', self)
 
@@ -113,7 +115,6 @@ class Ui(QtWidgets.QMainWindow):
         except Exception as ex:
             print("Update konnte nicht geprüft werden:", ex)
 
-
     def init_main(self) -> None:
         # STANDARDEINSTELLUNGEN:
         self.word_helper = Word_Helper()
@@ -148,7 +149,6 @@ class Ui(QtWidgets.QMainWindow):
         init_shadow(self.select_probe_btn)
         init_shadow(self.migrate_btn)
         init_shadow(self.aqs_btn)
-        init_shadow(self.pnp_out_empty)
         init_shadow(self.pnp_out_protokoll_btn)
         init_shadow(self.auftrag_empty)
         init_shadow(self.auftrag_letsgo)
@@ -181,6 +181,19 @@ class Ui(QtWidgets.QMainWindow):
         self.project_nr_lineedit.setMaxLength(4)
         self.project_nr_lineedit.setValidator(QtGui.QRegExpValidator(rx))
         self.search_manually_btn.clicked.connect(self.search_manual)
+
+
+        self.color_lineedit.textChanged.connect(
+            lambda: self.set_color_text(self.color_lineedit.text())
+        )
+        
+        self.smell_lineedit.textChanged.connect(
+            lambda: self.set_geruch_text(self.smell_lineedit.text())
+        )
+
+        self.consistency_lineedit.textChanged.connect(
+            lambda: self.set_konsistenz_text(self.consistency_lineedit.text())
+        )
 
         try:
             self.kennung_combo.addItems(self.extract_all_ene_values())
@@ -230,6 +243,29 @@ class Ui(QtWidgets.QMainWindow):
         self.clear_cache_btn.clicked.connect(self._clear_cache)
         self.save_references_btn.clicked.connect(self.save_references)
 
+        if RAMSES_HELPER.is_ramses_connection():
+            self.ramses_con_text.setText("Verbunden")
+            self.ramses_con_ampel.setStyleSheet(
+            """QLabel {
+                background-color: #0ae306;
+            }""")
+            self.ramses_con_text.setStyleSheet(
+            """QLabel {
+                color: #0ae306;
+            }""")
+        else:
+            self.ramses_con_text.setText("Nicht verbunden")
+            self.ramses_con_ampel.setStyleSheet(
+            """QLabel {
+                background-color: red;
+            }"""
+            )
+            self.ramses_con_text.setStyleSheet(
+            """QLabel {
+                color: red;
+            }"""
+            )
+
         self.check_la_enable()
         self.check_la_db_path.toggled.connect(self.check_la_enable)
 
@@ -237,6 +273,15 @@ class Ui(QtWidgets.QMainWindow):
             STATUS_MSG.append(
                 "Es ist keine Projektliste hinterlegt. Prüfe in den Referenzeinstellungen.")
             self.feedback_message("error", STATUS_MSG)
+
+    def set_color_text(self, text) -> None:
+        self.pnp_in_color_le.setText(text)
+
+    def set_geruch_text(self, text) -> None:
+        self.pnp_in_smell_le.setText(text)
+
+    def set_konsistenz_text(self, text) -> None:
+        self.pnp_in_consistency_le.setText(text)
 
     def check_nh3_value(self) -> None:
         self.nh3_lineedit.setText(self.nh3_lineedit_2.text())
@@ -399,7 +444,6 @@ class Ui(QtWidgets.QMainWindow):
         global PNR_PATH
         PNR_PATH = self.select_file(self.project_nr_path, "", "Wähle die Projektnummernliste aus...", "Excel Files (*.xlsx *.xls)")
 
-
     def load_project_nr(self) -> None:
         """ Loads data from Projekt.xlsx to CapZa
         """
@@ -539,7 +583,7 @@ class Ui(QtWidgets.QMainWindow):
                 pass
         except Exception as ex:
             STATUS_MSG.append(
-                f"Es  konnten keine Daten gefunden werden. Importiere ggf. eine Laborauswertungsexcel: [{ex}]")
+                f"Es konnten keine Daten gefunden werden. Prüfe, ob der Pfad zur Datenbank in den Referenzeinstellungen korrekt ist oder wende Dich an den Support.")
             self.feedback_message("error", STATUS_MSG)
 
     def open_pop_up_nachweis(self, dataset: pd.DataFrame) -> None:
@@ -561,7 +605,7 @@ class Ui(QtWidgets.QMainWindow):
                 pass
         except Exception as ex:
             STATUS_MSG.append(
-                f"Es  konnten keine Daten gefunden werden. Importiere ggf. eine Laborauswertungsexcel: [{ex}]")
+                f"Es konnten keine Daten gefunden werden. Prüfe in der Referenzeinstellung, ob eine Verbindung zu Ramses besteht oder wende Dich an den Support.")
             self.feedback_message("error", STATUS_MSG)
 
     def display(self, i: int) -> None:
@@ -1076,6 +1120,12 @@ class Ui(QtWidgets.QMainWindow):
         self.avv_lineedit.setText("")
         self.amount_lineedit.setText("")
 
+        # Farbe u.m.
+        self.probe_amount_lineedit.setText("")
+        self.color_lineedit.setText("")
+        self.consistency_lineedit.setText("")
+        self.smell_lineedit.setText("")
+        self.remark_textedit.setPlainText("")
 
     def empty_values(self) -> None:
         """ Empties all LineEdits in the first two Navigations
@@ -1354,33 +1404,6 @@ class Ui(QtWidgets.QMainWindow):
         self.pnp_output_probenahmedatum.setDate(QDate(int(y), int(m), int(d)))
         self.pnp_input_date_edit.setDate(QDate(int(y), int(m), int(d)))
 
-        self.nachweisnr_lineedit.setText(
-            str(SELECTED_PROBE[db_header_dict["material_kenn"]]))
-
-        # in PNP Input
-        if origin == "nachweis":
-            selected_btbdata = RAMSES_HELPER.btb_depends_on_kennung(RAMSES_CONN, SELECTED_NACHWEIS["en_nachweisnummer"].values[0])
-            
-            lagerung = None
-            if selected_btbdata.shape[0] and any(selected_btbdata):
-                lagerung = selected_btbdata.iloc[0]['anlieferungsformtest']
-                print(lagerung)
-                if lagerung == "lose":
-                    self.haufwerk_check.setChecked(True)
-                if lagerung == "Silo":
-                    self.silo_check.setChecked(True)
-                if lagerung == "Big Bag":
-                    self.bigbags_check.setChecked(True)      
-            else:
-                # get selected project nr
-                pnr = projectnr.ProjectNrData()
-                selected_btbdata = pnr.get_data()
-
-        self.pnp_in_erzeuger_lineedit.setText(
-            str(list(SELECTED_NACHWEIS["en_name"])[0]))
-        self.pnp_in_abfallart_textedit.setPlainText(self.format_avv_space_after_every_second(str(list(
-            SELECTED_NACHWEIS["en_asn_info_feld"])[0])) + ", " + str(list(SELECTED_NACHWEIS["ve_abfallbez_betr_intern"])[0]))
-
 
         if len(STATUS_MSG) > 0:
             self.feedback_message(
@@ -1397,6 +1420,7 @@ class Ui(QtWidgets.QMainWindow):
         global STATUS_MSG
 
         self.empty_all_nachweis_le()
+        self.empty_values()
         STATUS_MSG = []
         # in Dateneingabe
         try:
@@ -1420,7 +1444,29 @@ class Ui(QtWidgets.QMainWindow):
                 SELECTED_NACHWEIS['menge'].values[0].replace(",", ".") if SELECTED_NACHWEIS['menge'].values[0] != "nan" else "-"
                 )
 
-            # TODO: Setzte Nachweisnummer in PNP Input
+            # Setze PNP Input Daten
+            self.nachweisnr_lineedit.setText(f"{format_specific_insert_value('nachweis_letters', SELECTED_NACHWEIS)} {format_specific_insert_value('nachweis_nr', SELECTED_NACHWEIS)}")
+
+            self.pnp_in_erzeuger_lineedit.setText(
+                str(list(SELECTED_NACHWEIS["en_name"])[0]))
+            self.pnp_in_abfallart_textedit.setPlainText(self.format_avv_space_after_every_second(str(list(
+                SELECTED_NACHWEIS["en_asn_info_feld"])[0])) + ", " + str(list(SELECTED_NACHWEIS["ve_abfallbez_betr_intern"])[0]))
+
+            self.pnp_in_menge_le.setText(SELECTED_NACHWEIS['menge'].values[0].replace(",", ".") if SELECTED_NACHWEIS['menge'].values[0] != "nan" else "-")
+
+
+            selected_btbdata = RAMSES_HELPER.btb_depends_on_kennung(SELECTED_NACHWEIS["en_nachweisnummer"].values[0])
+            if selected_btbdata:
+                lagerung = None
+                # Wenn die Daten aus der Datenbank Btb vohanden sind
+                if selected_btbdata.shape[0] and any(selected_btbdata):
+                    lagerung = selected_btbdata.iloc[0]['anlieferungsformtest']
+                    if lagerung == "lose":
+                        self.haufwerk_check.setChecked(True)
+                    if lagerung == "Silo":
+                        self.silo_check.setChecked(True)
+                    if lagerung == "Big Bag":
+                        self.bigbags_check.setChecked(True)  
 
 
             if so:
@@ -1859,7 +1905,7 @@ class PopUp(QtWidgets.QMainWindow):
         """ Gets the selected Probe and closes the Probe window
         """
 
-        global SELECTED_PROBE, SELECTED_NACHWEIS
+        global SELECTED_NACHWEIS
         try:
             index = (self.tableView.selectionModel().currentIndex())
             kennung = index.sibling(index.row(), 0).data()
@@ -1872,7 +1918,7 @@ class PopUp(QtWidgets.QMainWindow):
             self.parent().insert_nachweis_values(True)
             self.close_window()
         except Exception as ex:
-            STATUS_MSG.append("Fehler beim Laden des Nachweises: " +str(ex))
+            STATUS_MSG.append(f"Fehler beim Laden des Nachweises: {str(ex)}")
             self.parent().feedback_message("error", STATUS_MSG)
 
     def load_probe_data(self) -> None:
@@ -1891,8 +1937,8 @@ class PopUp(QtWidgets.QMainWindow):
 
             if kind == "ene":
                 full_bezeichnung, kennung, numbers = get_full_project_ene_number(SELECTED_PROBE["material_kenn"])
-                nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['en_nachweisnummer'] == full_bezeichnung]
-                SELECTED_NACHWEIS = nachweis_data
+                # nachweis_data = ALL_DATA_NACHWEIS[ALL_DATA_NACHWEIS['en_nachweisnummer'] == full_bezeichnung]
+                # SELECTED_NACHWEIS = nachweis_data
                 self.check_in_nachweis((full_bezeichnung, kennung, numbers))
                 self.parent().insert_values(SELECTED_PROBE["material_kenn"])
             elif kind == "project":
@@ -1928,7 +1974,6 @@ class PopUp(QtWidgets.QMainWindow):
         else:
             SELECTED_NACHWEIS = 0
             raise Exception("Andere Proben wurden nicht implementiert.")
-
 
     def check_in_nachweis(self, kennung_tpl: tuple, from_nachweis: bool = False) -> None:
         """ Loads the Nachweis data from Übersicht Nachweise
@@ -2600,7 +2645,7 @@ def mark_error_line(widget: QtWidgets, widget_art: str) -> None:
         border: 2px solid red;
     """)
 
-    QTimer.singleShot(3000, lambda: _set_default_style(widget, widget_art))
+    QTimer.singleShot(3000, lambda: self._set_default_style(widget, widget_art))
 
 
 def _set_default_style(widget: QtWidgets, widget_art: str) -> None:
@@ -2706,8 +2751,9 @@ if __name__ == "__main__":
                 f"Die Datenbank konnte nicht gefunden werden. Bitte überprüfe in der Referenzeinstellung: [{ex}]")
         try:
             RAMSES_HELPER = RamsesHelper()
-            RAMSES_CONN = RAMSES_HELPER.connect()
-            ALL_DATA_NACHWEIS = RAMSES_HELPER.nachweis_data(RAMSES_CONN)
+            RAMSES_HELPER.connect_local()
+            # RAMSES_HELPER.connect()
+            ALL_DATA_NACHWEIS = RAMSES_HELPER.nachweis_data()
             if ALL_DATA_NACHWEIS is None:
                 raise Exception
         except Exception as ex:

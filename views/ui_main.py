@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '\\Mac\Home\Desktop\myBots\capza-app\capza\views\main.ui'
+# Form implementation generated from reading ui file '\\mac\Home\Desktop\myBots\capza-app\capza\views\main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -87,7 +87,7 @@ class Ui_CapZa(object):
         self.error_info_btn.setAutoFillBackground(False)
         self.error_info_btn.setStyleSheet("QPushButton {border: none;  color: rgb(242, 78, 30); background: none}")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("\\\\Mac\\Home\\Desktop\\myBots\\capza-app\\capza\\views\\../assets/error_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("\\\\mac\\Home\\Desktop\\myBots\\capza-app\\capza\\views\\../assets/error_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.error_info_btn.setIcon(icon)
         self.error_info_btn.setIconSize(QtCore.QSize(20, 20))
         self.error_info_btn.setAutoRepeat(False)
@@ -1777,7 +1777,7 @@ class Ui_CapZa(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 592, 1050))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 1190, 1050))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
@@ -2659,7 +2659,7 @@ class Ui_CapZa(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 710, 1225))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1208, 1225))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_27 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_27.setObjectName("verticalLayout_27")
@@ -4577,7 +4577,7 @@ class Ui_CapZa(object):
         CapZa.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(CapZa)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(CapZa)
 
     def retranslateUi(self, CapZa):
@@ -4695,7 +4695,7 @@ class Ui_CapZa(object):
         self.label_50.setText(_translate("CapZa", "Anwesende Person:"))
         self.label_51.setText(_translate("CapZa", "Erzeuger:"))
         self.pnp_in_erzeuger_lineedit.setText(_translate("CapZa", "selbst ausgefüllt"))
-        self.label_52.setText(_translate("CapZa", "Menge / Tonnage:"))
+        self.label_52.setText(_translate("CapZa", "Menge / Tonnage [t/a]:"))
         self.haufwerk_check.setText(_translate("CapZa", "Haufwerk"))
         self.bigbags_check.setText(_translate("CapZa", "Big Bags"))
         self.silo_check.setText(_translate("CapZa", "Silo"))
