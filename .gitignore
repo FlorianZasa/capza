@@ -1,4 +1,4 @@
-./vorlagen
+vorlagen/
 ./*.db
 ./*.json
 dist/
